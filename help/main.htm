@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>QtEmu Help</title>
+<style type="text/css">
+body
+{
+    background-color: white;
+    margin-left: 10px;
+}
+</style>
+</head>
+<body>
+<h1>QtEmu Help</h1><br />
+<small><i>Last updated: 2006-12-17</i></small><br />
+<h3>Index</h3>
+<ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#stepforstep">Create a new virtual machine - step by step</a></li>
+    <li><a href="#toolbar">Toolbar</a></li>
+    <li><a href="#options">Options</a></li>
+    <li><a href="#other">Other</a></li>
+</ul>
+<h3><a name="overview">Overview</a></h3>
+<i>QtEmu</i> is a graphical user interface for <a href="http://qemu.org">QEMU</a>. It has the ability to run virtual operating systems on native systems. This way you can easily test a new operating system or try a Live CD on your system without any troubles and dangers.<br />
+<center><img src="mainwindow.png" alt="Mainwindow" /></center>
+
+<h3><a name="stepforstep">Create a new virtual machine - step by step</a></h3>
+Click on the "New virtual machine" button, either in <a href="#toolbar">Toolbar</a> or Main tab. A wizard opens.<br />
+<center><img src="wizard_1.png" alt="Wizard" /></center>
+Select in the combobox the operation system you want to install. If it is not listed there, select "Other".<br />
+<center><img src="wizard_1_1.png" alt="Wizard" /></center>
+There is already a name for the virtual machine proposed. If you have selected "Other", your should now enter the correct name.<br />
+<center><img src="wizard_2.png" alt="Wizard" /></center>
+When you change the name, the path adjusts automatically itself.<br />
+<center><img src="wizard_2_1.png" alt="Wizard" /></center>
+Now you can specify how much space should be allocated for the virtual disk image. Do not specify a bigger size than there is space available on the selected real hard disk. Click "Finish". The wizard closes and the new created machine opens.<br />
+<center><img src="wizard_3.png" alt="Wizard" /></center>
+Now you are able to configure the new virtual machine.<br />
+<center><img src="mainwindow_new_machine_1.png" alt="Mainwindow" /></center>
+Your operating system must be installed most probably from CD ROM. To do so, open the "CD ROM"-section.<br />
+<center><img src="mainwindow_new_machine_2.png" alt="Mainwindow" /></center>
+Your are able to choose between a physical CD drive and a CD image.<br />
+<center><img src="mainwindow_new_machine_3.png" alt="Mainwindow" /></center>
+After you have choosen a CD ROM, activate "Boot from CD ROM".<br />
+<center><img src="mainwindow_new_machine_4.png" alt="Mainwindow" /></center>
+Now you can start with the installation. Or if you would like to start a Live-CD, you are able to do so.<br />
+<center><img src="mainwindow_new_machine_5.png" alt="Mainwindow" /></center>
+A new window appears after a click on "Start". That is your virtual machine. You can work inside it like you could on a real computer. To switch keyboard and mouse between virtual and real system, press ALT+CTRL.<br />
+<center><img src="mainwindow_new_machine_6.png" alt="Mainwindow" /></center>
+When you will quit the virtual system, do it like you would do it on a real system. If the operating system does not provide a function to quit, do so with the "Stop" button. But keep in mind: The stop button does the same as if you would unplug your power cable on a real computer.<br />
+<center><img src="mainwindow_new_machine_7.png" alt="Mainwindow" /></center>
+If you are sure you will kill the system, confirm it with "Yes".<br />
+<center><img src="mainwindow_new_machine_8.png" alt="Mainwindow" /></center>
+
+<h3><a name="toolbar">Toolbar</h3></a>
+<center><img src="toolbar.png" alt="Toolbar" /></center>
+<ul>
+    <li><strong>New Machine:</strong> Click here to create a new virtual machine.</li>
+    <li><strong>Open:</strong> Click here to open an existing <i>QtEmu</i> machine (.qte).</li>
+    <li><strong>Power buttons (Start, Stop, Restart):</strong> These buttons do the same as the buttons inside the machine configuration. The are provided for convenience.</li>
+</ul>
+
+<h3><a name="other">Options</h3></a>
+<ul>
+    <center><img src="config.png" alt="Config Window" /></center>
+    <li><strong>"MyMachines"-Path:</strong> You can change the default "MyMachines"-path, which is in the folder "MyMachies" in your private user / home folder. All new virtual machines will be saved by default into the "MyMachines" folder.</li>
+    <li><strong>Tabbar position:</strong> Here you can change the position of the tabbar (default: left).</li>
+    <li><strong>Language:</strong> The language is by default your system language if available. <i>Feel free to translate QtEmu into your language. Just contact the author.</i></li>
+</ul>
+
+<h3><a name="options">Other</h3></a>
+<ul>
+    <li><strong>Snapshot Mode:</strong> If you would like to test something in your virtual machine without have these changes on your next restart of your virtual system, activate "Snapshot Mode".</li>
+    <li><strong>Notes:</strong> You are able to write down some note about the current virtual machine. Possible notes are for example applications which are installed.</li>
+</ul>
+</body>
+</html>

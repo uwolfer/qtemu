@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>QtEmu Hilfe</title>
+<style type="text/css">
+body
+{
+    background-color: white;
+    margin-left: 10px;
+}
+</style>
+</head>
+<body>
+<h1>QtEmu Hilfe</h1><br />
+<small><i>Letzte Aktualisierung: 2006-12-20</i></small><br />
+<h3>Index</h3>
+<ul>
+    <li><a href="#overview">&Uuml;bersicht</a></li>
+    <li><a href="#stepforstep">Eine neue virtuelle Maschine erstellen - Schritt f&uuml;r Schritt</a></li>
+    <li><a href="#toolbar">Toolbar</a></li>
+    <li><a href="#options">Optionen</a></li>
+    <li><a href="#other">Anderes</a></li>
+</ul>
+<h3><a name="overview">&Uuml;bersicht</a></h3>
+<i>QtEmu</i> ist eine grafische Benutzeroberfl&auml;che f&uuml;r <a href="http://qemu.org">QEMU</a>. Es kann  virtuelle Betriebsysteme innerhalb eines realen Betriebsystems starten. Somit kann man einfach Betriebsysteme oder Live CDs ohne Probleme und Gefahren testen.<br />
+<center><img src="mainwindow.png" alt="Mainwindow" /></center>
+
+<h3><a name="stepforstep">Eine neue virtuelle Maschine erstellen - Schritt f&uuml;r Schritt</a></h3>
+Klicken Sie auf "Neue Maschine erstellen" in der <a href="#toolbar">Toolbar</a> oder auf dem Startfenster. Ein Assist wird ge&ouml;ffnet.<br />
+<center><img src="wizard_1.png" alt="Wizard" /></center>
+W&auml;hlen Sie das Betriebsystem, welches Sie installieren wollen, aus der Liste aus. Wenn es nicht aufgelistet ist, w&auml;hlen Sie "Anderes".<br />
+<center><img src="wizard_1_1.png" alt="Wizard" /></center>
+Es wird ein Name f&uuml;r die neue virtuelle Maschine vorgeschlagen. Falls Sie "Anderes" ausgew&auml;hlt haben, sollten Sie nun den Namen des Systems eingeben.<br />
+<center><img src="wizard_2.png" alt="Wizard" /></center>
+Wenn der Name ge&auml;ndert wird, passt sich der Pfad automatisch an.<br />
+<center><img src="wizard_2_1.png" alt="Wizard" /></center>
+Nun m&uuml;ssen Sie festlegen, wieviel Platz f&uuml;r das virtuelle System gebraucht werden soll. Geben Sie nicht eine gr&ouml;ssere Zahl an, als Platz auf der gew&auml;hlten Festplatte verf&uuml;gbar ist. Klicken Sie "Fertigstellen" an. Der Assistent wird geschlossen und die neue virtuelle Maschine ge&ouml;ffnet.<br />
+<center><img src="wizard_3.png" alt="Wizard" /></center>
+Nun k&ouml;nnen Sie das virtuelle System konfigurieren.<br />
+<center><img src="mainwindow_new_machine_1.png" alt="Mainwindow" /></center>
+Ihr Betriebsystem muss w&auml;hrscheindlich von CD installiert werden. Um dies einzurichen, &ouml;ffnen Sie bitte den CD ROM-Bereich.<br />
+<center><img src="mainwindow_new_machine_2.png" alt="Mainwindow" /></center>
+Sie k&ouml;nnen zwischen einer "realen" CD oder einem CD Abbild w&auml;hlen.<br />
+<center><img src="mainwindow_new_machine_3.png" alt="Mainwindow" /></center>
+Nachdem Sie eine CD-ROM ausgew&auml;hlt haben, aktivieren Sie "Von CD ROM booten".<br />
+<center><img src="mainwindow_new_machine_4.png" alt="Mainwindow" /></center>
+Nun k&ouml;nnen Sie mit der Installtion beginnen. Falls Sie eine Live CD starten wollen, k&ouml;nnen Sie dies ebenfalls tun.<br />
+<center><img src="mainwindow_new_machine_5.png" alt="Mainwindow" /></center>
+Es erscheint ein neues Fenster nach einem Klick auf "Start". Dieses Fenster ist Ihr virtuelles System. Man kann in ihm arbeiten wie an einem realen Computer. Um die Maus und Tastatur zwischen dem vituellen und realen System zu wechseln, muss man ALT+CTRL dr&uuml;cken.<br />
+<center><img src="mainwindow_new_machine_6.png" alt="Mainwindow" /></center>
+Wenn Sie das virtuelle System beenden wollen, sollten Sie dies so tun, wie Sie es bei einem realen Computer tun w&uuml;rden. Falls das Betriebsystem keine Funktion zum Beenden hat, m&uuml;ssen Sie dies mit dem "Stop" Button tun. Aber Sie m&uuml;ssen sich bewusst sein: Der "Stop" Button hat f&uuml;r das System den gleichen Effekt, wie wenn Sie das Stromkabel bei Ihrem realen Computer ziehen w&uuml;rden.<br />
+<center><img src="mainwindow_new_machine_7.png" alt="Mainwindow" /></center>
+Wenn Sie sicher sind, dass Sie das System gewaltvoll beenden wollen, best&auml;tigen Sie mit "Yes".<br />
+<center><img src="mainwindow_new_machine_8.png" alt="Mainwindow" /></center>
+
+<h3><a name="toolbar">Toolbar</h3></a>
+<center><img src="toolbar.png" alt="Toolbar" /></center>
+<ul>
+    <li><strong>Neue Maschine:</strong> Klicken Sie hier, um eine neue virtuelle Maschine zu erstellen.</li>
+    <li><strong>&Ouml;ffnen:</strong> Klicken Sie hier, um eine existierende <i>QtEmu</i> Maschine (.qte) zu &ouml;ffnen.</li>
+    <li><strong>Energie Buttons (Start, Stop, Neustart):</strong> Diese Buttons machen dasselbe wie die Buttons auf der Maschinen-Konfigurationsseite. Sie sind nur einfachheitshalber vorhanden.</li>
+</ul>
+
+<h3><a name="other">Optionen</h3></a>
+<ul>
+    <center><img src="config.png" alt="Konfig Fenster" /></center>
+    <li><strong>"MyMachines"-Pfad:</strong> Hier k&ouml;nnen Sie den "MyMachines"-Pfad &auml;ndern, welcher standardm&auml;ssing in Ihrem Home Verzeichis (Dokumente und Einstellungen unter Windows) ist. Alle neuen virtuellen Maschinen werden standardm&auml;ssig in den "MyMachines" Ordner gespeichert.</li>
+    <li><strong>Registrierkarten Position:</strong> Hier k&ouml;nnen Sie die Position der Registrierkarten festlegen (Standard: links).</li>
+    <li><strong>Sprache:</strong> Die Sprache ist standardm&auml;ssig die Systemsprache, falls diese verf&uuml;gbar ist.</li>
+</ul>
+
+<h3><a name="options">Anderes</h3></a>
+<ul>
+    <li><strong>Snapshot Modus:</strong> Wenn Sie etwas in Ihrem virtuellen System testen wollen, ohne dass diese &Auml;nderung nach dem n&auml;chsten Neustart des Systems vorhanden sind, k&ouml;nnen Sie "Snapshot Modus" aktivieren.</li>
+    <li><strong>Notizen:</strong> Sie k&ouml;nnen sich Notizen &uuml;ber das aktuelle System im daf&uuml;r vorgesehenen Feld machen. M&ouml;gliche Notizen sind zum Beispiel, welche Anwendungen installiert sind.</li>
+</ul>
+</body>
+</html>

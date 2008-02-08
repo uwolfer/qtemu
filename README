@@ -1,0 +1,39 @@
+QtEmu
+=====
+
+QtEmu is a graphical user interface for QEMU written in Qt4.
+It has the ability to run virtual operating systems on native
+systems. This way you can easily test a new operating system
+or try a Live CD on your system without any troubles and dangers.
+
+Installation
+------------
+Download a source archive from the QtEmu project website
+(http://qtemu.org/). Most probably you have already
+done so ;).
+
+Qt 4.2 is at least required.
+
+Compilation with qmake from Qt4 (recommended):
+* unpack the source tarball
+* run 'qmake' in the qtemu folder
+* type 'make'
+* start ./qtemu and have fun!
+
+Compilation with cmake:
+(Use this methode on Linux to install the project systemwide.)
+* run 'make -DCMAKE_INSTALL_PREFIX=/opt/qtemu .' in order to
+  install all files into /opt/qtemu.
+* type 'make install' as root
+* start it now with qtemu
+
+Copyright / License
+-------------------
+QtEmu is released under GPL. Copyright © 2006-2007 Urs Wolfer. All
+rights reserved. The icons have been taken from the KDE Crystal
+theme which is LGPL licensed.
+
+Author
+------
+QtEmu is written by Urs Wolfer <uwolfer fwo ch>. It has been
+started as a project work for school.
