@@ -1,6 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
+**                         Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -24,6 +25,7 @@
 #include "machinetab.h"
 
 #include "machineprocess.h"
+
 #include "config.h"
 
 #include <QMessageBox>
@@ -40,6 +42,8 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QSettings>
+#include <QFileInfo>
+#include <QMenu>
 
 MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent)
     : QWidget(parent)
@@ -52,7 +56,14 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     QString iconTheme = settings.value("iconTheme", "oxygen").toString();
 
     machineProcess = new MachineProcess(this);
+    
     connect(machineProcess, SIGNAL(finished(int)), this, SLOT(finished()));
+    connect(machineProcess, SIGNAL(started()), this, SLOT(started()));
+    connect(machineProcess, SIGNAL(suspending(QString)), this, SLOT(suspending()));
+    connect(machineProcess, SIGNAL(suspended(QString)), this, SLOT(suspended()));
+    connect(machineProcess, SIGNAL(resuming(QString)), this, SLOT(resuming()));
+    connect(machineProcess, SIGNAL(resumed(QString)), this, SLOT(resumed()));
+    connect(machineProcess, SIGNAL(error(QString)), this, SLOT(error(QString)));
 
     machineNameEdit = new QLineEdit(this);
 
@@ -76,6 +87,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineNameEdit->setStyleSheet(QString(flatStyle).replace("TYPE", "QLineEdit")
                                    +"QLineEdit { font: bold 16px; }");
 #endif
+    connect(machineNameEdit, SIGNAL(textChanged(QString)), machineProcess, SLOT(name(QString)));
+
     QPushButton *closeButton = new QPushButton(QIcon(":/images/" + iconTheme + "/close.png"), QString(), this);
     closeButton->setFlat(true);
     closeButton->setToolTip(tr("Close this machine"));
@@ -100,6 +113,34 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     powerButtonsLayout->addWidget(startButton);
     powerButtonsLayout->addWidget(stopButton);
 
+
+    suspendButton = new QPushButton(QIcon(":/images/" + iconTheme + "/nav-down.png"), tr("&Suspend"), this);
+    suspendButton->setWhatsThis(tr("Suspend this virtual machine"));
+    suspendButton->setIconSize(QSize(22, 22));
+    connect(suspendButton, SIGNAL(clicked(bool)), machineProcess, SLOT(suspend()));
+    suspendButton->setHidden(true);
+    suspendButton->setEnabled(false);
+
+    resumeButton = new QPushButton(QIcon(":/images/" + iconTheme + "/nav-up.png"), tr("&Resume"), this);
+    resumeButton->setWhatsThis(tr("Resume this virtual machine"));
+    resumeButton->setIconSize(QSize(22, 22));
+    connect(resumeButton, SIGNAL(clicked(bool)), machineProcess, SLOT(resume()));
+    resumeButton->setEnabled(false);
+
+    pauseButton = new QPushButton(QIcon(":/images/" + iconTheme + "/pause.png"), tr("&Pause"), this);
+    pauseButton->setWhatsThis(tr("Pause/Unpause this virtual machine"));
+    pauseButton->setCheckable(true);
+    pauseButton->setIconSize(QSize(22, 22));
+    pauseButton->setEnabled(false);
+    connect(pauseButton, SIGNAL(clicked(bool)), machineProcess, SLOT(togglePause()));
+
+    QHBoxLayout *controlButtonsLayout = new QHBoxLayout;
+    controlButtonsLayout->addWidget(suspendButton);
+    controlButtonsLayout->addWidget(resumeButton);
+    controlButtonsLayout->addWidget(pauseButton);
+
+
+
     snapshotCheckBox = new QCheckBox(tr("Snapshot mode"), this);
     connect(snapshotCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(snapshot(int)));
 
@@ -110,7 +151,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #if QT_VERSION >= 0x040200
     notesTextEdit->setStyleSheet(QString(flatStyle).replace("TYPE", "QTextEdit"));
 #endif
-    QLabel *deveicesLabel = new QLabel(tr("<strong>Devices</strong>"), this);
+    QLabel *devicesLabel = new QLabel(tr("<strong>Devices</strong>"), this);
 
     QVBoxLayout *devicesLayout = new QVBoxLayout;
 
@@ -130,8 +171,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     memoryFrame->setLayout(memoryFrameLayout);
 
     QLabel *memoryDescriptionLabel = new QLabel(tr("Set the size of memory for this virtual machine."
-                                                    " If you set a too high amount, there may occur"
-                                                    " memory swapping.<br /><br />"
+                                                    " If you set too high an amount, memory "
+                                                    "swapping may occur.<br /><br />"
                                                     "Memory for this virtual machine:"), this);
     memoryDescriptionLabel->setWordWrap(true);
     memoryFrameLayout->addWidget(memoryDescriptionLabel);
@@ -185,15 +226,21 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     hddPathLineEdit = new QLineEdit(this);
     connect(hddPathLineEdit, SIGNAL(textChanged(QString)), machineProcess, SLOT(path(QString)));
+    connect(hddPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(testHDDImage(QString)));
 
     QPushButton *hddSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/open.png"), QString(), this);
     connect(hddSelectButton, SIGNAL(clicked()), this, SLOT(setNewHddPath()));
+
+    hddUpgradeButton = new QPushButton(QIcon(":/images/" + iconTheme + "/wizard.png"), QString(tr("Upgrade HDD Format to Native")), this);
+    connect(hddUpgradeButton, SIGNAL(clicked()), this, SLOT(upgradeImage()));
 
     QHBoxLayout *hddLayout = new QHBoxLayout;
     hddLayout->addWidget(hddPathLineEdit);
     hddLayout->addWidget(hddSelectButton);
 
     hddFrameLayout->addLayout(hddLayout);
+    hddFrameLayout->addWidget(hddUpgradeButton);
+    hddUpgradeButton->setHidden(true);
     //hdd section end
 
     //cdrom section start
@@ -339,9 +386,16 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     soundFrameLayout->addWidget(soundDescriptionLabel);
 
     soundCheckBox = new QCheckBox(tr("&Enable sound"), this);
+    soundSystemCheckBox = new QCheckBox(tr("&Use ALSA"), this);
+
     connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
     soundFrameLayout->addWidget(soundCheckBox);
-    //network section end
+    
+    connect(soundSystemCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(soundSystem(int)));
+    
+    soundFrameLayout->addWidget(soundCheckBox);
+    soundFrameLayout->addWidget(soundSystemCheckBox);
+    //sound section end
 
 
     //other section start
@@ -383,9 +437,13 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     QLabel *cpuLabel = new QLabel(tr("Virtual CPU(s)"), this);
 
+    virtualizationCheckBox = new QCheckBox(tr("Enable &virtualization"), this);
+    connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(virtualization(int)));
+
     QHBoxLayout *cpuLayout = new QHBoxLayout;
     cpuLayout->addWidget(cpuSpinBox);
     cpuLayout->addWidget(cpuLabel);
+    cpuLayout->addWidget(virtualizationCheckBox);
     cpuLayout->addStretch();
     otherFrameLayout->addLayout(cpuLayout);
 
@@ -411,21 +469,28 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
             additionalOptionsEdit, SLOT(setEnabled(bool)));
     //other section end
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addLayout(closeButtonLayout);
-    mainLayout->addLayout(powerButtonsLayout);
-    mainLayout->addWidget(snapshotCheckBox);
-    mainLayout->addWidget(notesLabel);
-    mainLayout->addWidget(notesTextEdit);
-    mainLayout->addWidget(deveicesLabel);
-    mainLayout->addLayout(devicesLayout);
-    mainLayout->addStretch();
+    QVBoxLayout *buttonsLayout = new QVBoxLayout();
+    buttonsLayout->addLayout(closeButtonLayout);
+    buttonsLayout->addLayout(powerButtonsLayout);
+    buttonsLayout->addLayout(controlButtonsLayout);
+    buttonsLayout->addWidget(snapshotCheckBox);
+    buttonsLayout->addWidget(notesLabel);
+    buttonsLayout->addWidget(notesTextEdit);
+    buttonsLayout->addWidget(devicesLabel);
+    buttonsLayout->addLayout(devicesLayout);
+    buttonsLayout->addStretch();
+
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mainLayout->addLayout(buttonsLayout);
+
     setLayout(mainLayout);
+
 
     read();
 
     //read first the name, otherwise the name of the main tab changes
     connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(nameChanged(QString)));
+
 
     //save it after each change
     connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
@@ -442,10 +507,94 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(soundCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(mouseCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(timeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
+    connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(cpuSpinBox, SIGNAL(valueChanged(int)), this, SLOT(write()));
     connect(additionalOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
     connect(additionalOptionsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
 }
+
+void MachineTab::testHDDImage(const QString &path)
+{
+    QFileInfo *currentImage = new QFileInfo(path);
+    
+    if(currentImage->suffix()!="qcow")
+    {
+        hddUpgradeButton->setHidden(false);
+        suspendButton->setEnabled(false);
+        resumeButton->setEnabled(false);
+    }
+    else
+    {
+        hddUpgradeButton->setHidden(true);
+        suspendButton->setEnabled(true);
+
+        //test for a valid suspend/resume image
+        QProcess *testImage = new QProcess();
+        QStringList arguments;
+        arguments <<"info" << path;
+        testImage->start("qemu-img", arguments);
+        testImage->waitForFinished();
+        QString output = testImage->readAll();
+        if(output.contains("Default"))
+            resumeButton->setEnabled(true);
+        else
+            resumeButton->setEnabled(false);
+    }
+}
+
+void MachineTab::upgradeImage()
+{
+    if (QMessageBox::question(this, tr("Upgrade Confirmation"),
+                              tr("This will upgrade your Hard Disk image to the qcow format.<br />This enables more advanced features such as suspend/resume on all operating systems and image compression on Windows.<br />Your old image will remain intact, so if you want to revert afterwards you may do so."),
+                              QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
+      == QMessageBox::Yes)
+    {
+        QFileInfo *currentImage = new QFileInfo(hddPathLineEdit->text());
+        QString finalName = currentImage->path() + "/"+ currentImage->completeBaseName() + ".qcow";
+        QStringList arguments;
+        QProcess *upgradeProcess = new QProcess(this);
+        connect(upgradeProcess, SIGNAL(started()), this, SLOT(upgradeImageStarted()));
+        connect(upgradeProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(upgradeImageFinished(int)));
+        
+        arguments << "convert" << currentImage->filePath() << "-O" << "qcow2" << finalName;
+        QString program = "qemu-img";
+        upgradeProcess->start(program, arguments);
+    }
+}
+void MachineTab::upgradeImageStarted()
+{
+    startButton->setEnabled(false);
+    resumeButton->setEnabled(false);
+    
+    hddUpgradeButton->setEnabled(false);
+    hddPathLineEdit->setEnabled(false);
+    hddUpgradeButton->setText(tr("Upgrading..."));
+}
+
+void MachineTab::upgradeImageFinished(const int &exitCode)
+{
+    QFileInfo *oldImage = new QFileInfo(hddPathLineEdit->text());
+    QFileInfo *newImage = new QFileInfo(oldImage->path() + "/"+ oldImage->completeBaseName() + ".qcow");
+    hddPathLineEdit->setEnabled(true);
+    if(newImage->exists()&&exitCode==0)
+    {
+        hddPathLineEdit->setText(newImage->filePath());
+        QMessageBox::information(window(), tr("Upgrade Complete"),
+                                   tr("Upgrade complete. Your old hard disk image is preserved.<br />After you have determined the upgrade went smoothly and your machine will still start, you may wish to delete the old image."));
+    }
+    else
+    {
+    QMessageBox::warning(window(), tr("Upgrade Failed"),
+                                   tr("Upgrading your hard disk image failed! Do you have enough disk space?<br />You may want to try upgrading manually using the program qemu-img."));
+    }
+    startButton->setEnabled(true);
+    hddUpgradeButton->hide();
+    hddUpgradeButton->setText(tr("Upgrade HDD Format to Native"));
+
+
+}
+
+
 
 void MachineTab::setNewHddPath()
 {
@@ -578,6 +727,7 @@ bool MachineTab::read()
     additionalOptionsEdit->setText(QString());
     mouseCheckBox->setChecked(true);
     timeCheckBox->setChecked(true);
+    virtualizationCheckBox->setChecked(true);
     cpuSpinBox->setValue(1);
 
     machineNameEdit->setText(child.firstChildElement("name").text());
@@ -594,6 +744,7 @@ bool MachineTab::read()
     networkCustomOptionsEdit->setText(child.firstChildElement("networkCustomOptions").text());
     mouseCheckBox->setChecked(child.firstChildElement("mouse").text() == "true");
     timeCheckBox->setChecked(child.firstChildElement("time").text() == "true");
+    virtualizationCheckBox->setChecked(child.firstChildElement("virtualization").text() == "true");
     cpuSpinBox->setValue(child.firstChildElement("cpu").text().toInt());
     additionalOptionsEdit->setText(child.firstChildElement("additionalOptions").text());
     additionalOptionsCheckBox->setChecked(child.firstChildElement("useAdditionalOptions").text() == "true");
@@ -638,9 +789,11 @@ bool MachineTab::write()
     changeValue("networkCustomOptions", networkCustomOptionsEdit->text());
     changeValue("mouse", mouseCheckBox->isChecked() ? "true" : "false");
     changeValue("time", timeCheckBox->isChecked() ? "true" : "false");
+    changeValue("virtualization", virtualizationCheckBox->isChecked() ? "true" : "false");
     changeValue("cpu", QString::number(cpuSpinBox->value()));
     changeValue("additionalOptions", additionalOptionsEdit->text());
     changeValue("useAdditionalOptions", additionalOptionsCheckBox->isChecked() ? "true" : "false");
+
 
     QFile file(xmlFileName);
     if (!file.open(QFile::WriteOnly | QFile::Text))
@@ -681,25 +834,81 @@ void MachineTab::start()
 {
     startButton->setEnabled(false);
     stopButton->setEnabled(true);
+    pauseButton->setEnabled(true);
+    resumeButton->setHidden(true);
+    hddUpgradeButton->setEnabled(false);
+    suspendButton->setHidden(false);
     machineProcess->start();
+}
+
+void MachineTab::suspending()
+{
+    startButton->setEnabled(false);
+    stopButton->setEnabled(false);
+    suspendButton->setEnabled(false);
+    pauseButton->setEnabled(false);
+    suspendButton->setText(tr("Suspending..."));
+}
+
+void MachineTab::suspended()
+    {
+    machineProcess->forceStop();
+    resumeButton->setHidden(false);
+    resumeButton->setEnabled(true);
+    suspendButton->setHidden(true);
+    suspendButton->setText(tr("&Suspend"));
+    }
+
+void MachineTab::resuming()
+{
+    startButton->setEnabled(false);
+    stopButton->setEnabled(false);
+}
+
+void MachineTab::resumed()
+{
+    stopButton->setEnabled(true);
+    suspendButton->setHidden(false);
+    resumeButton->setHidden(true);
+    //this is kinda sucky, i think it's a qemu bug.
+    QMessageBox::information(this, tr("Resume"),
+                             tr("Your machine is being resumed. USB devices will not function properly on Windows. You must reload<br />the USB driver to use your usb devices including the seamless mouse.<br />In addition the advanced VGA adapter will not refresh initially on any OS."));
+    
 }
 
 void MachineTab::stop()
 {
-    if (QMessageBox::warning(this, tr("Confirm stop"),
-                             tr("You are going to kill the current machine. Are you sure?<br>"
-                                "It would be better if you shut the virtual machine manually "
-                                "down. This way damage on the disk image may occur."),
-                             QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel,
-                             QMessageBox::Cancel) == QMessageBox::Yes)
-    {
-        finished();
-        machineProcess->terminate();
-    }
+    QMessageBox msgBox;
+    msgBox.setText(tr("This will tell the current machine to power down. Are you sure?<br />"
+                             "If the virtual machine Operating System is ACPI or APM aware, it will power down gracefully.<br />"
+                             "If the machine is unresponsive, you can choose a forced shutdown. Doing this may cause damage to the disk image."));
+    msgBox.setStandardButtons(QMessageBox::Cancel);
+    QPushButton *shutdownButton = msgBox.addButton(tr("Shutdown"), QMessageBox::ActionRole);
+    QPushButton *forceShutdownButton = msgBox.addButton(tr("Force Shutdown"), QMessageBox::DestructiveRole);
+    msgBox.setDefaultButton(QMessageBox::Cancel);
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.exec();
+    if (msgBox.clickedButton()==shutdownButton)
+        machineProcess->stop();
+    else if (msgBox.clickedButton()==forceShutdownButton)
+        machineProcess->forceStop();
 }
 
 void MachineTab::finished()
 {
     stopButton->setEnabled(false);
     startButton->setEnabled(true);
+    pauseButton->setEnabled(false);
+    resumeButton->setHidden(false);
+    suspendButton->setHidden(true);
+    hddUpgradeButton->setEnabled(true);
+}
+
+void MachineTab::started()
+{
+}
+
+void MachineTab::error(const QString & errorMsg)
+{
+    QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occured in qemu relating to something you were doing. The error is:<br />") + errorMsg,QMessageBox::Ok);
 }

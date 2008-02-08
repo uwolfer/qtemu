@@ -33,6 +33,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QGroupBox>
+#include <QCheckBox>
 #include <QFileDialog>
 #include <QCoreApplication>
 
@@ -146,6 +147,8 @@ ConfigWindow::ConfigWindow(const QString &myMachinesPathParent, int tabPosition,
     commandLineEdit = new QLineEdit;
     commandLabel->setBuddy(commandLineEdit);
 
+    commandRunsKvmCheckBox = new QCheckBox(tr("QEMU start command runs KVM"));
+
     QLabel *afterExitExeLabel = new QLabel(tr("Execute after exit:"));
     afterExitExeTextEdit = new QTextEdit;
     afterExitExeLabel->setBuddy(afterExitExeTextEdit);
@@ -155,8 +158,10 @@ ConfigWindow::ConfigWindow(const QString &myMachinesPathParent, int tabPosition,
     qemuLayout->addWidget(beforeStartExeTextEdit, 1, 1);
     qemuLayout->addWidget(commandLabel, 2, 0);
     qemuLayout->addWidget(commandLineEdit, 2, 1);
-    qemuLayout->addWidget(afterExitExeLabel, 3, 0, Qt::AlignTop);
-    qemuLayout->addWidget(afterExitExeTextEdit, 3, 1);
+    qemuLayout->addWidget(commandRunsKvmCheckBox, 3, 1);
+    qemuLayout->addWidget(afterExitExeLabel, 4, 0, Qt::AlignTop);
+    qemuLayout->addWidget(afterExitExeTextEdit, 4, 1);
+
     qemuLayout->setRowStretch(4, 1);
     qemuGroupBox->setLayout(qemuLayout);
 
@@ -231,6 +236,8 @@ void ConfigWindow::loadSettings()
     afterExitExeTextEdit->setPlainText(settings.value("afterExit").toString());
 
     comboIconTheme->setCurrentIndex(comboIconTheme->findText(settings.value("iconTheme", "oxygen").toString(), Qt::MatchContains));
+    
+    commandRunsKvmCheckBox->setCheckState((Qt::CheckState)settings.value("runsKVM").toInt());
 }
 
 void ConfigWindow::writeSettings()
@@ -240,6 +247,7 @@ void ConfigWindow::writeSettings()
     settings.setValue("command", commandLineEdit->text());
     settings.setValue("afterExit", afterExitExeTextEdit->toPlainText());
     settings.setValue("iconTheme", comboIconTheme->currentText().toLower());
+    settings.setValue("runsKVM", commandRunsKvmCheckBox->checkState());
 
     accept();
 }

@@ -1,6 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
+**                         Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -42,10 +43,20 @@ MachineProcess::MachineProcess(QObject *parent)
                 memoryInt(-1),
                 cpuInt(-1)
 {
+    paused=false;
+    doResume=false;
+    getVersion();
+    connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
+    connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
+    connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
+    connect(this, SIGNAL(stdin(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
 }
+
 
 void MachineProcess::start()
 {
+    QSettings settings("QtEmu", "QtEmu");
+    QStringList env = QProcess::systemEnvironment();
     QStringList arguments;
 
     // Append the additional parameters first so wrapper programs like vde
@@ -69,7 +80,10 @@ void MachineProcess::start()
         arguments << "-net" << "none";
 
     if (soundEnabled)
+    {
         arguments << "-soundhw" << "es1370";
+        env << "QEMU_AUDIO_DRV=" + useSoundSystem;
+    }
 
     if (!cdRomPathString.isEmpty())
     {
@@ -97,6 +111,25 @@ void MachineProcess::start()
     if (timeEnabled)
         arguments << "-localtime";
 
+    if (!virtualizationEnabled&&settings.value("runsKVM").toBool())
+        arguments << "-no-kvm";
+    else if (!virtualizationEnabled&&!settings.value("runsKVM").toBool())
+        arguments << "-no-kqemu";
+    else if (virtualizationEnabled&&!settings.value("runsKVM").toBool())
+        arguments << "-kernel-kqemu";
+
+    if (doResume)
+        arguments << "-loadvm" << snapshotNameString;
+
+    //allow access to the monitor via stdio
+    //FIXME: does this not work in windows?
+#ifndef Q_OS_WIN32
+    arguments << "-monitor" << "stdio";
+#endif
+
+    if((versionMinor + versionBugfix*.1)>=9.1||kvmVersion>=60)
+        arguments << "-name" << machineNameString;
+
     // Add the VM image name...
     arguments << pathString;
 
@@ -108,8 +141,6 @@ void MachineProcess::start()
 #endif
 
     connect(this, SIGNAL(finished(int)), SLOT(afterExitExecute()));
-
-    QSettings settings("QtEmu", "QtEmu");
 
     QString command = settings.value("beforeStart").toString();
     if (!command.isEmpty())
@@ -128,6 +159,7 @@ void MachineProcess::start()
         }
     }
 
+    setEnvironment(env);
 #ifndef Q_OS_WIN32
     QProcess::start(settings.value("command", "qemu").toString(), arguments);
 #elif defined(Q_OS_WIN32)
@@ -139,6 +171,8 @@ void MachineProcess::start()
     QProcess::start(qemuCommand, arguments);
 #endif
 }
+
+
 
 void MachineProcess::afterExitExecute()
 {
@@ -160,6 +194,8 @@ void MachineProcess::afterExitExecute()
             }
         }
     }
+
+    doResume=false;
 }
 
 void MachineProcess::path(const QString &newPath)
@@ -211,6 +247,11 @@ void MachineProcess::time(int value)
     timeEnabled = (value == Qt::Checked);
 }
 
+void MachineProcess::virtualization(int value)
+{
+    virtualizationEnabled = (value == Qt::Checked);
+}
+
 void MachineProcess::mouse(int value)
 {
     mouseEnabled = (value == Qt::Checked);
@@ -240,3 +281,152 @@ void MachineProcess::additionalOptions(const QString& options)
 {
     additionalOptionsString = options;
 }
+
+void MachineProcess::name(const QString & name)
+{
+    machineNameString = name;
+}
+
+void MachineProcess::resume() {resume("Default");}
+void MachineProcess::resume(const QString & snapshotName)
+{
+    snapshotNameString = snapshotName;
+    if(state()==QProcess::Running)
+    {
+        write("loadvm " + snapshotName.toAscii() + "\n");
+        emit resuming(snapshotName);
+    }
+    else
+    {
+        doResume=true;
+        start();
+        emit resuming(snapshotName);
+        write("\n");
+    }
+    connect(this, SIGNAL(stdout(const QString&)),this,SLOT(resumeFinished(const QString&)));
+
+}
+
+void MachineProcess::resumeFinished(const QString& returnedText)
+{
+    if(returnedText == "(qemu)")
+    {
+        emit resumed(snapshotNameString);
+        disconnect(this, SIGNAL(stdout(const QString&)),this,SLOT(resumeFinished(const QString&)));
+    }
+    //might need to reconnect the usb tablet here...
+}
+
+void MachineProcess::suspend() {suspend("Default");}
+void MachineProcess::suspend(const QString & snapshotName)
+{
+    snapshotNameString = snapshotName;
+    emit suspending(snapshotName);
+    //usb is not properly resumed, so we need to disable it first in order to keep things working afterwords.
+    //this also means that we need to dynamically get usb devices to unload and save them with the qtemu config
+    //file for proper usb support with suspend. as it is we just unload the tablet, which is all we know about.
+    if(mouseEnabled) 
+    {
+        write("usb_del 0.1\n");
+        sleep(2);//wait for the guest OS to notice
+    }
+    write("stop\n");
+    write("savevm " + snapshotName.toAscii() + "\n");
+    connect(this, SIGNAL(stdout(const QString&)),this,SLOT(suspendFinished(const QString&)));
+
+}
+
+void MachineProcess::suspendFinished(const QString& returnedText)
+{
+    if(returnedText == "(qemu)")
+    {
+        write("cont\n");
+        emit suspended(snapshotNameString);
+        disconnect(this, SIGNAL(stdout(const QString&)),this,SLOT(suspendFinished(const QString&)));
+    }
+}
+
+void MachineProcess::togglePause()
+{
+     paused ? write("cont\n") : write("stop\n");
+     paused = !paused;
+}
+
+void MachineProcess::stop()
+{
+    write("system_powerdown\n");
+}
+
+void MachineProcess::forceStop()
+{
+    write("quit\n");
+}
+
+void MachineProcess::readProcess()
+{
+    QString rawOutput = readAllStandardOutput();
+    QStringList splitOutput = rawOutput.split("[K");
+    if (splitOutput.last()==splitOutput.first())
+    {
+        emit stdout(rawOutput.simplified());
+    }
+    else 
+    {
+        if(!splitOutput.last().isEmpty())
+        {
+            QString cleanOutput = splitOutput.last().remove(QRegExp("\[[KD]."));
+            emit stdout(cleanOutput.simplified());
+        }
+    }
+}
+
+void MachineProcess::readProcessErrors()
+{
+    emit error(readAllStandardError());
+}
+
+qint64 MachineProcess::write ( const QByteArray & byteArray )
+{
+    emit stdin(((QString)byteArray).simplified());
+    return QProcess::write(byteArray);
+}
+
+//a developer help thing...
+void MachineProcess::writeDebugInfo(const QString & debugText)
+{
+    qDebug(debugText.toAscii());
+}
+
+void MachineProcess::getVersion()
+{
+    QSettings settings("QtEmu", "QtEmu");
+    QString versionString;
+    QString qemuCommand = settings.value("command", QCoreApplication::applicationDirPath() + "/qemu/qemu.exe").toString();
+    QProcess *findVersion = new QProcess();
+    findVersion->start(qemuCommand);
+    findVersion->waitForFinished();
+    QString infoString = findVersion->readLine();
+    QStringList infoStringList = infoString.split(" ");
+    
+    versionString = infoStringList.at(4);
+    QStringList versionStringList = versionString.split(".");
+    versionMajor = versionStringList.at(0).toInt();
+    versionMinor = versionStringList.at(1).toInt();
+    versionBugfix = versionStringList.at(2).toInt();
+    if(settings.value("runsKVM")!="0")
+    {
+        versionString = infoStringList.at(5);
+        versionString.remove(QRegExp("[(),]"));
+        kvmVersion = versionString.remove(QRegExp("kvm-")).toInt();
+    }
+    //qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + "." + QString::number(versionMinor) + "." + QString::number(versionBugfix)).toAscii());
+}
+
+void MachineProcess::soundSystem(int value)
+{
+    (value == Qt::Checked) ? useSoundSystem="alsa" : useSoundSystem="oss";
+}
+
+
+
+

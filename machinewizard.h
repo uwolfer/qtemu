@@ -123,7 +123,9 @@ private:
     QDoubleSpinBox *sizeSpinBox;
     QProcess *imageCreateProcess;
     QDir *dir;
-
+    QLabel *formatLabel;
+    QComboBox *formatComboBox;
+    QLabel *formatInfoLabel;
 private slots:
     void privateSlot();
 };

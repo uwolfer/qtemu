@@ -196,6 +196,18 @@ ImagePage::ImagePage(MachineWizard *wizard)
     sizeGbLabel->setBuddy(sizeSpinBox);
     connect(sizeSpinBox, SIGNAL(valueChanged(double)), this, SIGNAL(completeStateChanged()));
 
+    formatLabel = new QLabel(tr("Disk image format:"));
+    formatComboBox = new QComboBox;
+    formatComboBox->addItem(tr("Native image (qcow)"));
+    formatComboBox->addItem(tr("Raw image (img)"));
+    formatComboBox->addItem(tr("VMWare image (vmdk)"));
+    formatInfoLabel = new QLabel(tr("The native image format enables<br>"
+                                     "suspend/resume features, all other formats<br>"
+                                     "lack suspend/resume. Use \"Native image (qcow)\"<br>"
+                                     "unless you know what you are doing."));
+    formatLabel->setBuddy(formatComboBox);
+    connect(formatComboBox, SIGNAL(activated(int)), this, SIGNAL(completeStateChanged()));
+
     QVBoxLayout *layout = new QVBoxLayout;
 
     QHBoxLayout *sizeLayout = new QHBoxLayout;
@@ -203,7 +215,14 @@ ImagePage::ImagePage(MachineWizard *wizard)
     sizeLayout->addWidget(sizeSpinBox);
     sizeLayout->addWidget(sizeGbLabel);
 
+    QHBoxLayout *formatLayout = new QHBoxLayout;
+    formatLayout->addWidget(formatLabel);
+    formatLayout->addWidget(formatComboBox);
+
     layout->addLayout(sizeLayout);
+    layout->addLayout(formatLayout);
+    layout->addStretch();
+    layout->addWidget(formatInfoLabel);
     layout->addStretch();
     setLayout(layout);
 
@@ -255,7 +274,13 @@ void ImagePage::privateSlot()
 
     domElement = domDocument.createElement("hdd");
     machine.appendChild(domElement);
+    if(formatComboBox->currentIndex()==0)
+        domText = domDocument.createTextNode(osPath+'/'+osName.replace(' ', '_')+".qcow");
+    else if(formatComboBox->currentIndex()==1)
     domText = domDocument.createTextNode(osPath+'/'+osName.replace(' ', '_')+".img");
+    else
+        domText = domDocument.createTextNode(osPath+'/'+osName.replace(' ', '_')+".vmdk");
+    
     domElement.appendChild(domText);
 
     domElement = domDocument.createElement("memory");
@@ -291,9 +316,24 @@ void ImagePage::privateSlot()
     imageCreateProcess = new QProcess(this);
     imageCreateProcess->setWorkingDirectory(osPath);
     QStringList arguments;
+
+    if(formatComboBox->currentIndex()==0)
+    {
+    arguments << "create" << "-f" << "qcow2"
+              << osName.replace(' ', '_')+".qcow";
+    }
+    else if(formatComboBox->currentIndex()==1)
+    {
     arguments << "create" << "-f" << "raw"
-              << osName.replace(' ', '_')+".img"
-              << QString::number(sizeSpinBox->value()*1000)+'M';
+              << osName.replace(' ', '_')+".img";
+    }
+    else
+    {
+    arguments << "create" << "-f" << "vmdk"
+              << osName.replace(' ', '_')+".vmdk";
+    }
+
+    arguments << QString::number(sizeSpinBox->value()*1000)+'M';
 #ifndef Q_OS_WIN32
     imageCreateProcess->start("qemu-img", arguments);
 #elif defined(Q_OS_WIN32)

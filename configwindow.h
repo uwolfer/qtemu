@@ -29,6 +29,7 @@
 class QLineEdit;
 class QComboBox;
 class QTextEdit;
+class QCheckBox;
 
 class ConfigWindow : public QDialog
 {
@@ -40,6 +41,7 @@ public:
     QLineEdit *myMachinePathLineEdit;
     QComboBox *comboTabPosition;
     QComboBox *languagePosition;
+    QCheckBox *commandRunsKvmCheckBox;
 
 private:
     QString myMachinesPath;
@@ -47,6 +49,7 @@ private:
     QTextEdit *afterExitExeTextEdit;
     QLineEdit *commandLineEdit;
     QComboBox *comboIconTheme;
+
 
 private slots:
     void setNewPath();

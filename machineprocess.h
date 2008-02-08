@@ -1,6 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
+**                         Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -32,9 +33,17 @@ class MachineProcess : public QProcess
 
 public:
     MachineProcess(QObject *parent = 0);
-
+    qint64 write ( const QByteArray & byteArray );
 public slots:
     void start();
+    void resume(const QString& snapshotName);
+    void resume();
+    void suspend(const QString& snapshotName);
+    void suspend();
+    void stop();
+    void forceStop();
+    void togglePause();
+    void name(const QString &name);
     void path(const QString &newPath);
     void cdRomPath(const QString &newPath);
     void floppyDiskPath(const QString &newPath);
@@ -43,20 +52,35 @@ public slots:
     void snapshot(int value);
     void network(int value);
     void sound(int value);
+    void soundSystem(int value);
     void memory(int value);
     void mouse(int value);
     void time(int value);
+    void virtualization(int value);
     void cpu(int value);
     void useAdditionalOptions(int value);
     void networkCustomOptions(const QString& options);
     void additionalOptions(const QString& options);
 
+signals:
+    void suspending(const QString & snapshotName);
+    void suspended(const QString & snapshotName);
+    void resuming(const QString & snapshotName);
+    void resumed(const QString & snapshotName);
+    void error(const QString & errorText);
+    void stdout(const QString & stdoutText);
+    void stdin(const QString & stdoutText);
+
 private:
+    void getVersion();
     QString pathString;
+    QString machineNameString;
     QString cdRomPathString;
     QString floppyDiskPathString;
     QString networkCustomOptionsString;
     QString additionalOptionsString;
+    QString snapshotNameString;
+    long versionMajor, versionMinor, versionBugfix, kvmVersion;
     bool bootFromCdEnabled;
     bool bootFromFloppyEnabled;
     bool snapshotEnabled;
@@ -64,12 +88,21 @@ private:
     bool soundEnabled;
     bool mouseEnabled;
     bool timeEnabled;
+    bool virtualizationEnabled;
     bool additionalOptionsEnabled;
+    bool paused;
+    bool doResume;
+    QByteArray useSoundSystem;
     int memoryInt;
     int cpuInt;
 
 private slots:
     void afterExitExecute();
+    void readProcess();
+    void readProcessErrors();
+    void writeDebugInfo(const QString& debugText);
+    void resumeFinished(const QString& returnedText);
+    void suspendFinished(const QString& returnedText);
 };
 
 #endif

@@ -1,3 +1,21 @@
+Version 1.8.0
+=============
+Features:
+* Suspend support
+* Resume support :)
+* Enable virtualization with a checkbox (kqemu)
+* Add support for kvm virtualization with that same checkbox
+* Add machine name to the window title if your qemu is 0.9.1 or better, or if you use kvm 60
+* Add checkbox to enable ALSA support
+* pause/unpause support (if you need to get all your processor power back for a few minutes
+    but don't want to turn off your virtual machine, pause is great!)
+* Add support for qcow image format and image conversion (needed for suspend/resume)
+* Add powerdown stop button option (powers down the machine gracefully)
+Fixes:
+* Fixed english translations of some strings
+* Only enable options that work with your qemu version
+All these new features and fixes thanks to Ben Klopfenstein <benklop at gmail dot com>.
+
 Version 1.0.5
 =============
 Features:

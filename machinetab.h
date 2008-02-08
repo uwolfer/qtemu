@@ -1,6 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
+**                         Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -36,17 +37,21 @@ class QTabWidget;
 class QTextEdit;
 class QFrame;
 class QPushButton;
+class QMenu;
 class MachineProcess;
 
 class MachineTab : public QWidget
 {
     Q_OBJECT
-
 public:
     MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent);
     QString machineName();
     QPushButton *startButton;
     QPushButton *stopButton;
+    QPushButton *suspendButton;
+    QPushButton *resumeButton;
+    QPushButton *pauseButton;
+
 
 private:
     MachineProcess *machineProcess;
@@ -54,14 +59,17 @@ private:
     QCheckBox *snapshotCheckBox;
     QCheckBox *networkCheckBox;
     QCheckBox *soundCheckBox;
+    QCheckBox *soundSystemCheckBox;
     QCheckBox *cdBootCheckBox;
     QCheckBox *floppyBootCheckBox;
     QCheckBox *mouseCheckBox;
     QCheckBox *timeCheckBox;
+    QCheckBox *virtualizationCheckBox;
     QCheckBox *additionalOptionsCheckBox;
     QSpinBox *cpuSpinBox;
     QLineEdit *machineNameEdit;
     QLineEdit *hddPathLineEdit;
+    QPushButton *hddUpgradeButton;
     QLineEdit *cdromLineEdit;
     QLineEdit *floppyLineEdit;
     QLineEdit *networkCustomOptionsEdit;
@@ -90,8 +98,18 @@ private:
 private slots:
     void start();
     void stop();
+    void suspending();
+    void suspended();
+    void resuming();
+    void resumed();
     void finished();
+    void started();
+    void error(const QString& errorMsg);
     void setNewHddPath();
+    void testHDDImage(const QString &path);
+    void upgradeImage();
+    void upgradeImageStarted();
+    void upgradeImageFinished(const int &exitCode);
     void setNewCdRomPath();
     void setNewCdImagePath();
     void setNewFloppyDiskPath();
