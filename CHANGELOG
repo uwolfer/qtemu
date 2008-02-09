@@ -14,7 +14,8 @@ Features:
 Fixes:
 * Fixed english translations of some strings
 * Only enable options that work with your qemu version
-All these new features and fixes thanks to Ben Klopfenstein <benklop at gmail dot com>.
+All these new features and fixes listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
+* Code optimization (Mosty detected by KDE Krazy check).
 
 Version 1.0.5
 =============

@@ -50,7 +50,6 @@ private:
     QLineEdit *commandLineEdit;
     QComboBox *comboIconTheme;
 
-
 private slots:
     void setNewPath();
     void languageChange(int index);

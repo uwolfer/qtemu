@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
-**                         Ben Klopfenstein <benklop @ gmail.com>
+** Copyright (C) 2008 Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -113,7 +113,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     powerButtonsLayout->addWidget(startButton);
     powerButtonsLayout->addWidget(stopButton);
 
-
     suspendButton = new QPushButton(QIcon(":/images/" + iconTheme + "/nav-down.png"), tr("&Suspend"), this);
     suspendButton->setWhatsThis(tr("Suspend this virtual machine"));
     suspendButton->setIconSize(QSize(22, 22));
@@ -138,8 +137,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     controlButtonsLayout->addWidget(suspendButton);
     controlButtonsLayout->addWidget(resumeButton);
     controlButtonsLayout->addWidget(pauseButton);
-
-
 
     snapshotCheckBox = new QCheckBox(tr("Snapshot mode"), this);
     connect(snapshotCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(snapshot(int)));
@@ -485,12 +482,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     setLayout(mainLayout);
 
-
     read();
 
     //read first the name, otherwise the name of the main tab changes
     connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(nameChanged(QString)));
-
 
     //save it after each change
     connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
@@ -550,7 +545,7 @@ void MachineTab::upgradeImage()
       == QMessageBox::Yes)
     {
         QFileInfo *currentImage = new QFileInfo(hddPathLineEdit->text());
-        QString finalName = currentImage->path() + "/"+ currentImage->completeBaseName() + ".qcow";
+        QString finalName = currentImage->path() + '/' + currentImage->completeBaseName() + ".qcow";
         QStringList arguments;
         QProcess *upgradeProcess = new QProcess(this);
         connect(upgradeProcess, SIGNAL(started()), this, SLOT(upgradeImageStarted()));
@@ -574,7 +569,7 @@ void MachineTab::upgradeImageStarted()
 void MachineTab::upgradeImageFinished(const int &exitCode)
 {
     QFileInfo *oldImage = new QFileInfo(hddPathLineEdit->text());
-    QFileInfo *newImage = new QFileInfo(oldImage->path() + "/"+ oldImage->completeBaseName() + ".qcow");
+    QFileInfo *newImage = new QFileInfo(oldImage->path() + '/' + oldImage->completeBaseName() + ".qcow");
     hddPathLineEdit->setEnabled(true);
     if(newImage->exists()&&exitCode==0)
     {
@@ -590,11 +585,7 @@ void MachineTab::upgradeImageFinished(const int &exitCode)
     startButton->setEnabled(true);
     hddUpgradeButton->hide();
     hddUpgradeButton->setText(tr("Upgrade HDD Format to Native"));
-
-
 }
-
-
 
 void MachineTab::setNewHddPath()
 {
@@ -794,7 +785,6 @@ bool MachineTab::write()
     changeValue("additionalOptions", additionalOptionsEdit->text());
     changeValue("useAdditionalOptions", additionalOptionsCheckBox->isChecked() ? "true" : "false");
 
-
     QFile file(xmlFileName);
     if (!file.open(QFile::WriteOnly | QFile::Text))
     {
@@ -873,7 +863,6 @@ void MachineTab::resumed()
     //this is kinda sucky, i think it's a qemu bug.
     QMessageBox::information(this, tr("Resume"),
                              tr("Your machine is being resumed. USB devices will not function properly on Windows. You must reload<br />the USB driver to use your usb devices including the seamless mouse.<br />In addition the advanced VGA adapter will not refresh initially on any OS."));
-    
 }
 
 void MachineTab::stop()
@@ -910,5 +899,5 @@ void MachineTab::started()
 
 void MachineTab::error(const QString & errorMsg)
 {
-    QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occured in qemu relating to something you were doing. The error is:<br />") + errorMsg,QMessageBox::Ok);
+    QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occurred in qemu relating to something you were doing. The error is:<br />") + errorMsg,QMessageBox::Ok);
 }

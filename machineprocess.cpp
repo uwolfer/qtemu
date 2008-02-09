@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
-**                         Ben Klopfenstein <benklop @ gmail.com>
+** Copyright (C) 2008 Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -172,8 +172,6 @@ void MachineProcess::start()
 #endif
 }
 
-
-
 void MachineProcess::afterExitExecute()
 {
     QSettings settings("QtEmu", "QtEmu");
@@ -293,7 +291,7 @@ void MachineProcess::resume(const QString & snapshotName)
     snapshotNameString = snapshotName;
     if(state()==QProcess::Running)
     {
-        write("loadvm " + snapshotName.toAscii() + "\n");
+        write("loadvm " + snapshotName.toAscii() + '\n');
         emit resuming(snapshotName);
     }
     else
@@ -331,9 +329,8 @@ void MachineProcess::suspend(const QString & snapshotName)
         sleep(2);//wait for the guest OS to notice
     }
     write("stop\n");
-    write("savevm " + snapshotName.toAscii() + "\n");
+    write("savevm " + snapshotName.toAscii() + '\n');
     connect(this, SIGNAL(stdout(const QString&)),this,SLOT(suspendFinished(const QString&)));
-
 }
 
 void MachineProcess::suspendFinished(const QString& returnedText)
@@ -426,7 +423,3 @@ void MachineProcess::soundSystem(int value)
 {
     (value == Qt::Checked) ? useSoundSystem="alsa" : useSoundSystem="oss";
 }
-
-
-
-

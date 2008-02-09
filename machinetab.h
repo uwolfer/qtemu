@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
-**                         Ben Klopfenstein <benklop @ gmail.com>
+** Copyright (C) 2008 Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -43,6 +43,7 @@ class MachineProcess;
 class MachineTab : public QWidget
 {
     Q_OBJECT
+
 public:
     MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent);
     QString machineName();
@@ -51,7 +52,6 @@ public:
     QPushButton *suspendButton;
     QPushButton *resumeButton;
     QPushButton *pauseButton;
-
 
 private:
     MachineProcess *machineProcess;

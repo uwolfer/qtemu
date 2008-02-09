@@ -38,6 +38,7 @@ class QDir;
 class MachineWizard : public Wizard
 {
     Q_OBJECT
+
 public:
     explicit MachineWizard(const QString &myMachinesPath, QWidget *parent = 0);
 
@@ -61,6 +62,7 @@ private:
 class MachineWizardPage : public WizardPage
 {
     Q_OBJECT
+
 public:
     MachineWizardPage(MachineWizard *wizard)
         : WizardPage(wizard), wizard(wizard) {}
@@ -72,6 +74,7 @@ protected:
 class ChooseSystemPage : public MachineWizardPage
 {
     Q_OBJECT
+
 public:
     ChooseSystemPage(MachineWizard *wizard);
 
@@ -87,6 +90,7 @@ private:
 class LocationPage : public MachineWizardPage
 {
     Q_OBJECT
+
 public:
     LocationPage(MachineWizard *wizard);
 
@@ -109,6 +113,7 @@ private slots:
 class ImagePage : public MachineWizardPage
 {
     Q_OBJECT
+
 public:
     ImagePage(MachineWizard *wizard);
 
@@ -126,6 +131,7 @@ private:
     QLabel *formatLabel;
     QComboBox *formatComboBox;
     QLabel *formatInfoLabel;
+
 private slots:
     void privateSlot();
 };

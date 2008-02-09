@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2006-2008 Urs Wolfer <uwolfer @ fwo.ch>
-**                         Ben Klopfenstein <benklop @ gmail.com>
+** Copyright (C) 2008 Ben Klopfenstein <benklop @ gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -33,7 +33,8 @@ class MachineProcess : public QProcess
 
 public:
     MachineProcess(QObject *parent = 0);
-    qint64 write ( const QByteArray & byteArray );
+    qint64 write(const QByteArray & byteArray);
+
 public slots:
     void start();
     void resume(const QString& snapshotName);

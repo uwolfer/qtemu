@@ -137,7 +137,7 @@ void MainWindow::restart()
 void MainWindow::about()
 {
      QMessageBox::about(this, tr("About QtEmu"),
-            tr("<center><h2>QtEmu</h2>Version %1</center><br>"
+            tr("<h2>QtEmu</h2>Version %1<br>"
                "<b><i>QtEmu</i></b> is a graphical user interface for "
                "<a href=http://qemu.org>QEMU</a>.<br><br>Copyright &copy; "
                "2006-2008 Urs Wolfer <a href=mailto:uwolfer%2fwo.ch>uwolfer%2fwo.ch</a>. "
