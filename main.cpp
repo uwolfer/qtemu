@@ -40,12 +40,14 @@ int main(int argc, char *argv[])
     QString locale = settings.value("language", QString(QLocale::system().name())).toString();
     QTranslator translator;
     QString path;
-    path = QCoreApplication::applicationDirPath()+"/translations/qtemu_" + locale + ".qm";
+    //check for case when qtemu executable is in same dir (linux / win)
+    path = QCoreApplication::applicationDirPath() + "/translations/qtemu_" + locale + ".qm";
     if (QFile::exists(path))
         translator.load(path);
     else
     {
-        path = QCoreApplication::applicationDirPath()+"/../translations/qtemu_" + locale + ".qm";
+        //check for case when qtemu executable is in bin/ (installed on linux)
+        path = QCoreApplication::applicationDirPath() + "/../share/qtemu/translations/qtemu_" + locale + ".qm";
         if (QFile::exists(path))
             translator.load(path);
     }

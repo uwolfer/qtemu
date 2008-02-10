@@ -114,7 +114,7 @@ ADD_CUSTOM_TARGET(translations ALL
                    DEPENDS ${QM_FILES})
 
 INSTALL (FILES ${QM_FILES}
-         DESTINATION translations)
+         DESTINATION share/qtemu/translations)
 # translation end
 
 SET(QT_USE_QTXML)
@@ -146,13 +146,18 @@ TARGET_LINK_LIBRARIES(qtemu
 )
 
 FILE(GLOB helpfiles "${CMAKE_CURRENT_SOURCE_DIR}/help/*.png")
-INSTALL(FILES ${helpfiles} DESTINATION help)
+INSTALL(FILES ${helpfiles} DESTINATION share/qtemu/help)
 
-INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/help/main.htm DESTINATION help)
+INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/help/main.htm DESTINATION share/qtemu/help)
 
 FILE(GLOB helpfiles_de "${CMAKE_CURRENT_SOURCE_DIR}/help/de/*.png")
-INSTALL(FILES ${helpfiles_de} DESTINATION help/de)
+INSTALL(FILES ${helpfiles_de} DESTINATION share/qtemu/help/de)
 
-INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/help/de/main.htm DESTINATION help/de)
+INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/help/de/main.htm DESTINATION share/qtemu/help/de)
 
 INSTALL(TARGETS qtemu DESTINATION bin)
+
+IF(UNIX)
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/qtemu.desktop DESTINATION share/applications)
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/images/crystal/qtemu.png DESTINATION share/icons/hicolor/32x32/apps)
+ENDIF(UNIX)

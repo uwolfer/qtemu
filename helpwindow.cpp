@@ -68,35 +68,25 @@ QUrl HelpWindow::getHelpFile()
     QSettings settings("QtEmu", "QtEmu");
     QString locale = settings.value("language", QString(QLocale::system().name())).toString();
     if (locale != "en")
-    { //check first if there is a language specific help available
-        //check for case when qtemu executable is in same dir (windows)
-        QUrl testUrl("help/" + locale + "/main.htm");
-        if (QFile::exists(testUrl.toString()))
-            return testUrl;
-    
-        //check for case when qtemu executable is in same dir (linux)
-        testUrl = QUrl(QCoreApplication::applicationDirPath()+"/help/" + locale + "/main.htm");
+    {
+        //check for case when qtemu executable is in same dir (linux / win)
+        QUrl testUrl = QUrl(QCoreApplication::applicationDirPath() + "/help/" + locale + "/main.htm");
         if (QFile::exists(testUrl.toString()))
             return testUrl;
     
         //check for case when qtemu executable is in bin/ (installed on linux)
-        testUrl = QUrl(QCoreApplication::applicationDirPath()+"/../help/" + locale + "/main.htm");
+        testUrl = QUrl(QCoreApplication::applicationDirPath() + "/../share/qtemu/help/" + locale + "/main.htm");
         if (QFile::exists(testUrl.toString()))
             return testUrl;
     }
 
-    //check for case when qtemu executable is in same dir (windows)
-    QUrl testUrl("help/main.htm");
-    if (QFile::exists(testUrl.toString()))
-        return testUrl;
-
-    //check for case when qtemu executable is in same dir (linux)
-    testUrl = QUrl(QCoreApplication::applicationDirPath()+"/help/main.htm");
+    //check for case when qtemu executable is in same dir (linux / win)
+    QUrl testUrl = QUrl(QCoreApplication::applicationDirPath() + "/help/main.htm");
     if (QFile::exists(testUrl.toString()))
         return testUrl;
 
     //check for case when qtemu executable is in bin/ (installed on linux)
-    testUrl = QUrl(QCoreApplication::applicationDirPath()+"/../help/main.htm");
+    testUrl = QUrl(QCoreApplication::applicationDirPath() + "/../share/qtemu/help/main.htm");
     if (QFile::exists(testUrl.toString()))
         return testUrl;
 

@@ -11,10 +11,13 @@ Features:
     but don't want to turn off your virtual machine, pause is great!)
 * Add support for qcow image format and image conversion (needed for suspend/resume)
 * Add powerdown stop button option (powers down the machine gracefully)
+All these new features listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
+* Install desktop file on Linux (e.g. to start QtEmu from startmenus)
+* Respect FHS for installation on Linux
 Fixes:
 * Fixed english translations of some strings
 * Only enable options that work with your qemu version
-All these new features and fixes listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
+All these fixes listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
 * Code optimization (Mosty detected by KDE Krazy check).
 
 Version 1.0.5

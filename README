@@ -22,14 +22,14 @@ Compilation with qmake from Qt4 (recommended):
 
 Compilation with cmake:
 (Use this methode on Linux to install the project systemwide.)
-* run 'make -DCMAKE_INSTALL_PREFIX=/opt/qtemu .' in order to
-  install all files into /opt/qtemu.
+* run 'cmake -DCMAKE_INSTALL_PREFIX=/usr .' in order to
+  install all files into /usr.
 * type 'make install' as root
 * start it now with qtemu
 
 Copyright / License
 -------------------
-QtEmu is released under GPL. Copyright © 2006-2007 Urs Wolfer. All
+QtEmu is released under GPL. Copyright © 2006-2008 Urs Wolfer. All
 rights reserved. The icons have been taken from the KDE Crystal
 theme which is LGPL licensed.
 

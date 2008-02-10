@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=QtEmu
+GenericName=Virtual machine manager
+Exec=qtemu
+Icon=qtemu
+Type=Application
+Terminal=false
+Comment=Frontend to QEMU virtual machine monitor
+Categories=Qt;System;Emulator
