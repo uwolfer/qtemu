@@ -45,6 +45,7 @@ MachineProcess::MachineProcess(QObject *parent)
 {
     paused=false;
     doResume=false;
+    soundSystem(0);
     getVersion();
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));

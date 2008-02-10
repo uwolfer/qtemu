@@ -380,9 +380,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     QLabel *soundDescriptionLabel = new QLabel(tr("Choose whether sound support should "
                                                   "be available for this virtual machine."), this);
     soundDescriptionLabel->setWordWrap(true);
-    soundFrameLayout->addWidget(soundDescriptionLabel);
 
     soundCheckBox = new QCheckBox(tr("&Enable sound"), this);
+    QLabel *soundSystemDescriptionLabel = new QLabel(tr("Choose whether to use ALSA or OSS for sound emulation."), this);
+    soundSystemDescriptionLabel->setWordWrap(true);
     soundSystemCheckBox = new QCheckBox(tr("&Use ALSA"), this);
 
     connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
@@ -390,7 +391,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     
     connect(soundSystemCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(soundSystem(int)));
     
+    soundFrameLayout->addWidget(soundDescriptionLabel);
     soundFrameLayout->addWidget(soundCheckBox);
+    soundFrameLayout->addWidget(soundSystemDescriptionLabel);
     soundFrameLayout->addWidget(soundSystemCheckBox);
     //sound section end
 
@@ -500,6 +503,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(networkCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(networkCustomOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
     connect(soundCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
+    connect(soundSystemCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(mouseCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(timeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
@@ -713,6 +717,7 @@ bool MachineTab::read()
     floppyBootCheckBox->setChecked(false);
     networkCheckBox->setChecked(true);
     soundCheckBox->setChecked(true);
+    soundCheckBox->setChecked(false);
     networkCustomOptionsEdit->setText(QString());
     additionalOptionsCheckBox->setChecked(true);
     additionalOptionsEdit->setText(QString());
@@ -732,6 +737,7 @@ bool MachineTab::read()
     floppyBootCheckBox->setChecked(child.firstChildElement("bootFromFloppy").text() == "true");
     networkCheckBox->setChecked(child.firstChildElement("network").text() == "true");
     soundCheckBox->setChecked(child.firstChildElement("sound").text() == "true");
+    soundSystemCheckBox->setChecked(child.firstChildElement("soundSystem").text() == "alsa");
     networkCustomOptionsEdit->setText(child.firstChildElement("networkCustomOptions").text());
     mouseCheckBox->setChecked(child.firstChildElement("mouse").text() == "true");
     timeCheckBox->setChecked(child.firstChildElement("time").text() == "true");
@@ -777,6 +783,7 @@ bool MachineTab::write()
     changeValue("bootFromFloppy", floppyBootCheckBox->isChecked() ? "true" : "false");
     changeValue("network", networkCheckBox->isChecked() ? "true" : "false");
     changeValue("sound", soundCheckBox->isChecked() ? "true" : "false");
+    changeValue("soundSystem", soundSystemCheckBox->isChecked() ? "alsa" : "oss");
     changeValue("networkCustomOptions", networkCustomOptionsEdit->text());
     changeValue("mouse", mouseCheckBox->isChecked() ? "true" : "false");
     changeValue("time", timeCheckBox->isChecked() ? "true" : "false");
