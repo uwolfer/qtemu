@@ -197,6 +197,28 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     memoryLayout->addWidget(memoryMbLabel);
 
     memoryFrameLayout->addLayout(memoryLayout);
+
+    QLabel *cpuDescriptionLabel = new QLabel(tr("<hr>Choose the number of &virtual CPUs:"), this);
+    cpuDescriptionLabel->setWordWrap(true);
+    memoryFrameLayout->addWidget(cpuDescriptionLabel);
+
+    cpuSpinBox = new QSpinBox(this);
+    cpuSpinBox->setRange(1, 4);
+    cpuSpinBox->setValue(2);
+    cpuDescriptionLabel->setBuddy(cpuSpinBox);
+    connect(cpuSpinBox, SIGNAL(valueChanged(int)), machineProcess, SLOT(cpu(int)));
+
+    QLabel *cpuLabel = new QLabel(tr("Virtual CPU(s)"), this);
+
+    virtualizationCheckBox = new QCheckBox(tr("Enable &virtualization"), this);
+    connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(virtualization(int)));
+
+    QHBoxLayout *cpuLayout = new QHBoxLayout;
+    cpuLayout->addWidget(cpuSpinBox);
+    cpuLayout->addWidget(cpuLabel);
+    cpuLayout->addWidget(virtualizationCheckBox);
+    cpuLayout->addStretch();
+    memoryFrameLayout->addLayout(cpuLayout);
     //memory section end
 
     //hdd section start
@@ -425,28 +447,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(mouseCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(mouse(int)));
     otherFrameLayout->addWidget(mouseCheckBox);
 
-    QLabel *cpuDescriptionLabel = new QLabel(tr("<hr>Choose the number of &virtual CPUs."), this);
-    cpuDescriptionLabel->setWordWrap(true);
-    otherFrameLayout->addWidget(cpuDescriptionLabel);
-
-    cpuSpinBox = new QSpinBox(this);
-    cpuSpinBox->setRange(1, 4);
-    cpuSpinBox->setValue(2);
-    cpuDescriptionLabel->setBuddy(cpuSpinBox);
-    connect(cpuSpinBox, SIGNAL(valueChanged(int)), machineProcess, SLOT(cpu(int)));
-
-    QLabel *cpuLabel = new QLabel(tr("Virtual CPU(s)"), this);
-
-    virtualizationCheckBox = new QCheckBox(tr("Enable &virtualization"), this);
-    connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(virtualization(int)));
-
-    QHBoxLayout *cpuLayout = new QHBoxLayout;
-    cpuLayout->addWidget(cpuSpinBox);
-    cpuLayout->addWidget(cpuLabel);
-    cpuLayout->addWidget(virtualizationCheckBox);
-    cpuLayout->addStretch();
-    otherFrameLayout->addLayout(cpuLayout);
-
     QLabel *timeDescriptionLabel = new QLabel(tr("<hr>Choose if the virtual machine should use "
                                                  "the host machine clock."), this);
     timeDescriptionLabel->setWordWrap(true);
@@ -512,6 +512,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(additionalOptionsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
 }
 
+//the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::testHDDImage(const QString &path)
 {
     QFileInfo *currentImage = new QFileInfo(path);
@@ -541,6 +542,7 @@ void MachineTab::testHDDImage(const QString &path)
     }
 }
 
+//the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::upgradeImage()
 {
     if (QMessageBox::question(this, tr("Upgrade Confirmation"),
@@ -560,6 +562,8 @@ void MachineTab::upgradeImage()
         upgradeProcess->start(program, arguments);
     }
 }
+
+//the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::upgradeImageStarted()
 {
     startButton->setEnabled(false);
