@@ -424,3 +424,13 @@ void MachineProcess::soundSystem(int value)
 {
     (value == Qt::Checked) ? useSoundSystem="alsa" : useSoundSystem="oss";
 }
+
+void MachineProcess::changeCdrom()
+{
+    write("change cdrom " + cdRomPathString.toAscii());
+}
+
+void MachineProcess::changeFloppy()
+{
+    write("change floppy " + floppyDiskPathString.toAscii());
+}

@@ -11,6 +11,7 @@ Features:
     but don't want to turn off your virtual machine, pause is great!)
 * Add support for qcow image format and image conversion (needed for suspend/resume)
 * Add powerdown stop button option (powers down the machine gracefully)
+* Add CDROM and Floppy image change support. just press the button and the virtual disc will change!
 All these new features listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
 * Install desktop file on Linux (e.g. to start QtEmu from startmenus)
 * Respect FHS for installation on Linux

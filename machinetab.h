@@ -83,8 +83,10 @@ private:
     QPushButton *hddButton;
     QFrame *hddFrame;
     QPushButton *cdromButton;
+    QPushButton *cdromReloadButton;
     QFrame *cdromFrame;
     QPushButton *floppyButton;
+    QPushButton *floppyReloadButton;
     QFrame *floppyFrame;
     QPushButton *networkButton;
     QFrame *networkFrame;

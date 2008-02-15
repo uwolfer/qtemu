@@ -301,6 +301,11 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     cdBootCheckBox = new QCheckBox(tr("&Boot from CD ROM"), this);
     connect(cdBootCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(cdBoot(int)));
+    cdromReloadButton = new QPushButton(tr("Reload the virtual CD &ROM"));
+    
+    connect(cdromReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeCdrom()));
+    
+    cdromFrameLayout->addWidget(cdromReloadButton);
     cdromFrameLayout->addWidget(cdBootCheckBox);
     //cdrom section end
 
@@ -343,6 +348,12 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     floppyBootCheckBox = new QCheckBox(tr("&Boot from floppy disk"), this);
     connect(floppyBootCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(floppyBoot(int)));
+    
+    floppyReloadButton = new QPushButton(tr("Reload the virtual Floppy Disk"));
+    
+    connect(floppyReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeFloppy()));
+    
+    floppyFrameLayout->addWidget(floppyReloadButton);
     floppyFrameLayout->addWidget(floppyBootCheckBox);
     //floppy section end
 

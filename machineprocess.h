@@ -62,7 +62,8 @@ public slots:
     void useAdditionalOptions(int value);
     void networkCustomOptions(const QString& options);
     void additionalOptions(const QString& options);
-
+    void changeCdrom();
+    void changeFloppy();
 signals:
     void suspending(const QString & snapshotName);
     void suspended(const QString & snapshotName);
