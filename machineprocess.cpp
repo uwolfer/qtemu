@@ -224,6 +224,11 @@ void MachineProcess::floppyBoot(int value)
 
 void MachineProcess::snapshot(int value)
 {
+    if(state() == QProcess::Running && snapshotEnabled == true)
+    {
+        write("commit\n");
+    }
+
 #ifdef DEVELOPER
     snapshotEnabled = true;
 #else
@@ -392,7 +397,9 @@ qint64 MachineProcess::write ( const QByteArray & byteArray )
 //a developer help thing...
 void MachineProcess::writeDebugInfo(const QString & debugText)
 {
+#ifdef DEVELOPER
     qDebug(debugText.toAscii());
+#endif
 }
 
 void MachineProcess::getVersion()
