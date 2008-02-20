@@ -394,7 +394,6 @@ qint64 MachineProcess::write ( const QByteArray & byteArray )
     return QProcess::write(byteArray);
 }
 
-//a developer help thing...
 void MachineProcess::writeDebugInfo(const QString & debugText)
 {
 #ifdef DEVELOPER
