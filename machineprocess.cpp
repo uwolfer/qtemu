@@ -424,7 +424,9 @@ void MachineProcess::getVersion()
         versionString.remove(QRegExp("[(),]"));
         kvmVersion = versionString.remove(QRegExp("kvm-")).toInt();
     }
-    //qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + "." + QString::number(versionMinor) + "." + QString::number(versionBugfix)).toAscii());
+    #ifdef DEVELOPER
+    qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + "." + QString::number(versionMinor) + "." + QString::number(versionBugfix)).toAscii());
+    #endif
 }
 
 void MachineProcess::soundSystem(int value)
