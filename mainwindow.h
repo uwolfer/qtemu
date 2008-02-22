@@ -49,6 +49,7 @@ private slots:
     void open();
     void configure();
     void start();
+    void pause();
     void stop();
     void restart();
     void about();
@@ -78,7 +79,7 @@ private:
     QAction *startAct;
     QAction *stopAct;
     QAction *restartAct;
-//    QAction *pauseAct;
+    QAction *pauseAct;
     QAction *helpAct;
     QAction *aboutAct;
     QWidget *mainTabWidget;

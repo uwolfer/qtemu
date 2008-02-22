@@ -6,6 +6,8 @@
     <file>images/crystal/start.png</file>
     <file>images/crystal/stop.png</file>
     <file>images/crystal/restart.png</file>
+    <file>images/crystal/resume.png</file>
+    <file>images/crystal/suspend.png</file>
     <file>images/crystal/pause.png</file>
     <file>images/crystal/close.png</file>
     <file>images/crystal/memory.png</file>
@@ -23,6 +25,9 @@
     <file>images/oxygen/start.png</file>
     <file>images/oxygen/stop.png</file>
     <file>images/oxygen/restart.png</file>
+    <file>images/oxygen/resume.png</file>
+    <file>images/oxygen/suspend.png</file>
+    <file>images/oxygen/pause.png</file>
     <file>images/oxygen/close.png</file>
     <file>images/oxygen/memory.png</file>
     <file>images/oxygen/hdd.png</file>

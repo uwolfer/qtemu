@@ -121,6 +121,13 @@ void MainWindow::start()
     startButton->click();
 }
 
+void MainWindow::pause()
+{
+    MachineTab *tab = qobject_cast<MachineTab *>(tabWidget->currentWidget());
+    QPushButton *pauseButton = qobject_cast<QPushButton *>(tab->pauseButton);
+    pauseButton->click();
+}
+
 void MainWindow::stop()
 {
     MachineTab *tab = qobject_cast<MachineTab *>(tabWidget->currentWidget());
@@ -197,11 +204,11 @@ void MainWindow::createActions()
     restartAct->setEnabled(false);
     connect(restartAct, SIGNAL(triggered()), this, SLOT(restart()));
 
-//     pauseAct = new QAction(QIcon(":/images/" + iconTheme + "/pause.png"), tr("&Pause"), this);
-//     pauseAct->setShortcut(tr("Ctrl+Q"));
-//     pauseAct->setStatusTip(tr("Pause this machine"));
-//     pauseAct->setEnabled(false);
-//     connect(pauseAct, SIGNAL(triggered()), this, SLOT(pause()));
+    pauseAct = new QAction(QIcon(":/images/" + iconTheme + "/pause.png"), tr("&Pause"), this);
+    pauseAct->setShortcut(tr("Ctrl+P"));
+    pauseAct->setStatusTip(tr("Pause this machine"));
+    pauseAct->setEnabled(false);
+    connect(pauseAct, SIGNAL(triggered()), this, SLOT(pause()));
 
     helpAct = new QAction(tr("QtEmu &Help "), this);
     helpAct->setShortcut(tr("F1"));
@@ -227,9 +234,9 @@ void MainWindow::createMenus()
 
     powerMenu = menuBar()->addMenu(tr("&Power"));
     powerMenu->addAction(startAct);
+    powerMenu->addAction(pauseAct);
     powerMenu->addAction(stopAct);
     powerMenu->addAction(restartAct);
-//    powerMenu->addAction(pauseAct);
 
     menuBar()->addSeparator();
 
@@ -247,9 +254,9 @@ void MainWindow::createToolBars()
 
     powerToolBar = addToolBar(tr("Power"));
     powerToolBar->addAction(startAct);
+    powerToolBar->addAction(pauseAct);
     powerToolBar->addAction(stopAct);
     powerToolBar->addAction(restartAct);
-//    powerToolBar->addAction(pauseAct);
 }
 
 void MainWindow::createStatusBar()
@@ -386,11 +393,13 @@ void MainWindow::changeMachineState(int value)
         if (!startButton->isEnabled())
         {
             stopAct->setEnabled(true);
+            pauseAct->setEnabled(true);
             startAct->setEnabled(false);
             restartAct->setEnabled(true);
         }
         else
         {
+            stopAct->setEnabled(false);
             stopAct->setEnabled(false);
             startAct->setEnabled(true);
             restartAct->setEnabled(false);
@@ -399,6 +408,7 @@ void MainWindow::changeMachineState(int value)
     else //main tab is active
     {
         stopAct->setEnabled(false);
+        pauseAct->setEnabled(false);
         startAct->setEnabled(false);
         restartAct->setEnabled(false);
     }

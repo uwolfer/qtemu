@@ -113,14 +113,14 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     powerButtonsLayout->addWidget(startButton);
     powerButtonsLayout->addWidget(stopButton);
 
-    suspendButton = new QPushButton(QIcon(":/images/" + iconTheme + "/nav-down.png"), tr("&Suspend"), this);
+    suspendButton = new QPushButton(QIcon(":/images/" + iconTheme + "/suspend.png"), tr("&Suspend"), this);
     suspendButton->setWhatsThis(tr("Suspend this virtual machine"));
     suspendButton->setIconSize(QSize(22, 22));
     connect(suspendButton, SIGNAL(clicked(bool)), machineProcess, SLOT(suspend()));
     suspendButton->setHidden(true);
     suspendButton->setEnabled(false);
 
-    resumeButton = new QPushButton(QIcon(":/images/" + iconTheme + "/nav-up.png"), tr("&Resume"), this);
+    resumeButton = new QPushButton(QIcon(":/images/" + iconTheme + "/resume.png"), tr("&Resume"), this);
     resumeButton->setWhatsThis(tr("Resume this virtual machine"));
     resumeButton->setIconSize(QSize(22, 22));
     connect(resumeButton, SIGNAL(clicked(bool)), machineProcess, SLOT(resume()));
