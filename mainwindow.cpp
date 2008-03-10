@@ -271,7 +271,7 @@ void MainWindow::createMainTab()
     mainTabLabel = new QLabel(mainTabWidget);
     mainTabLabel->setText(tr("<h1>QtEmu</h1>"
                              "QtEmu is a graphical user interface for QEMU. It has the ability "
-                             "to run perating systems virtually in a window on native systems."));
+                             "to run operating systems virtually in a window on native systems."));
     mainTabLabel->setWordWrap(true);
 
     newButton = new QPushButton(mainTabWidget);
