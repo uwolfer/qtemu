@@ -27,6 +27,7 @@
 
 #include <QWidget>
 #include <QDomDocument>
+#include <QRadioButton>
 
 class QPushButton;
 class QLineEdit;
@@ -91,7 +92,8 @@ private:
     QFrame *floppyFrame;
     QPushButton *networkButton;
     QFrame *networkFrame;
-    QCheckBox *bridgedModeNetwork;
+    QRadioButton *userModeNetwork;
+    QRadioButton *bridgedModeNetwork;
     QCheckBox *localBridgeModeNetwork;
     QPushButton *soundButton;
     QFrame *soundFrame;

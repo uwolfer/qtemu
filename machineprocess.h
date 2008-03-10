@@ -53,7 +53,7 @@ public slots:
     void floppyBoot(int value);
     void snapshot(int value);
     void network(int value);
-    void bridgedModeNetwork(int value);
+    void toggleNetworkMode(bool userMode);
     void localBridgeModeNetwork(int value);
     void sharedVlanNetwork(int value);
     void sound(int value);

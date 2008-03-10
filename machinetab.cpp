@@ -39,6 +39,7 @@
 #include <QSpinBox>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QRadioButton>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QSettings>
@@ -408,24 +409,37 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     networkDescriptionLabel->setWordWrap(true);
     networkFrameLayout->addWidget(networkDescriptionLabel);
 
-    QCheckBox *bridgedModeNetwork = new QCheckBox(tr("Bridged networking"));
+    
+    QRadioButton *userModeNetwork = new QRadioButton(tr("User mode networking"));
+    userModeNetwork->setToolTip(tr("In this mode the virtual machine accesses the network\n"
+                                   "using Slirp; this is similar to access with a  web\n"
+                                   "browser. this mode does not require administrator access,\n"
+                                   "and works with wireless cards."));
+    connect(userModeNetwork, SIGNAL(toggled(bool)), machineProcess, SLOT(toggleNetworkMode(bool)));
+    
+    QRadioButton *bridgedModeNetwork = new QRadioButton(tr("Bridged networking"));
     bridgedModeNetwork->setToolTip(tr("In this mode the virtual machine will have direct\n"
                                       "access to the host's network; This is needed to allow\n"
-                                      "ICMP (ping) to work. This mode does not work with most\n"
-                                      "wireless cards."));
-    connect(bridgedModeNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(bridgedModeNetwork(int)));
+                                      "ICMP (ping) to work, and allows other machines to 'see'\n"
+                                      "your virtual machine on the network. This mode does not\n"
+                                      "work with most wireless cards."));
+    //connect(bridgedModeNetwork, SIGNAL(toggled(bool)), machineProcess, SLOT(toggleNetworkMode()));
+    
     QCheckBox *localBridgeModeNetwork = new QCheckBox(tr("Local bridged networking"));
     localBridgeModeNetwork->setToolTip(tr("This mode allows more advanced bridging techniques,\n"
                                           "including using the host computer as a router or\n"
                                           "restricting access to the host machine only."));
     connect(localBridgeModeNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(localBridgeModeNetwork(int)));
-    QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared Vlan Networking"));
+    
+    QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared VLan Networking"));
     sharedVlanNetwork->setToolTip(tr("This mode adds a network that is shared exclusively\n"
                                      "between virtual machines. IP based guests will default\n"
                                      "to APIPA addresses unless you run a DHCP server on\n"
-                                     "one of your virtual machines."));
+                                     "one of your virtual machines. This does not use bridging."));
     connect(sharedVlanNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(sharedVlanNetwork(int)));
     
+    
+    networkFrameLayout->addWidget(userModeNetwork);
     networkFrameLayout->addWidget(bridgedModeNetwork);
     networkFrameLayout->addWidget(localBridgeModeNetwork);
     networkFrameLayout->addWidget(sharedVlanNetwork);

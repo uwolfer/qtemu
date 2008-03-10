@@ -445,10 +445,9 @@ void MachineProcess::changeFloppy()
 
 void MachineProcess::smbFolderPath(const QString & newPath)
 {
-
 }
 
-void MachineProcess::bridgedModeNetwork(int value)
+void MachineProcess::toggleNetworkMode(bool userMode)
 {
 }
 
