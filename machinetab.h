@@ -122,6 +122,7 @@ private slots:
     void changeValue(const QString &name, const QString &value);
     void nameChanged(const QString &name);
     void closeMachine();
+    void snapshot(const int state);
 };
 
 #endif

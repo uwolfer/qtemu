@@ -140,6 +140,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     snapshotCheckBox = new QCheckBox(tr("Snapshot mode"), this);
     connect(snapshotCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(snapshot(int)));
+    connect(snapshotCheckBox, SIGNAL(stateChanged(int)), this, SLOT(snapshot(int)));
 
     QLabel *notesLabel = new QLabel(tr("<strong>Notes</strong>"), this);
 
@@ -913,13 +914,26 @@ void MachineTab::finished()
     resumeButton->setHidden(false);
     suspendButton->setHidden(true);
     hddUpgradeButton->setEnabled(true);
+    snapshotCheckBox->setText(tr("Snapshot mode"));
 }
 
 void MachineTab::started()
 {
+    if(snapshotCheckBox->isChecked())
+    {
+       snapshotCheckBox->setText(snapshotCheckBox->text() + tr("(uncheck to commit changes)"));
+    }
 }
 
 void MachineTab::error(const QString & errorMsg)
 {
     QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occurred in qemu relating to something you were doing. The error is:<br />") + errorMsg,QMessageBox::Ok);
+}
+
+void MachineTab::snapshot(const int state)
+{
+    if(state == Qt::Unchecked)
+    {
+        snapshotCheckBox->setText(tr("Snapshot mode"));
+    }
 }
