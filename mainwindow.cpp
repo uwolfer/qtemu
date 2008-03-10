@@ -271,7 +271,7 @@ void MainWindow::createMainTab()
     mainTabLabel = new QLabel(mainTabWidget);
     mainTabLabel->setText(tr("<h1>QtEmu</h1>"
                              "QtEmu is a graphical user interface for QEMU. It has the ability "
-                             "to run virtual operating systems on native systems."));
+                             "to run perating systems virtually in a window on native systems."));
     mainTabLabel->setWordWrap(true);
 
     newButton = new QPushButton(mainTabWidget);
@@ -281,7 +281,7 @@ void MainWindow::createMainTab()
     //newButton->setAutoRaise(true);
     newButton->setIcon(QIcon(":/images/" + iconTheme + "/new.png"));
     newButton->setText(tr("Create a new virtual machine. A wizard will help you \n"
-                          "installing a new operating system"));
+                          "prepare for a new operating system"));
     connect(newButton, SIGNAL(clicked()), this, SLOT(createNew()));
 
     openButton = new QPushButton(mainTabWidget);
