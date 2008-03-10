@@ -73,6 +73,7 @@ private:
     QLineEdit *cdromLineEdit;
     QLineEdit *floppyLineEdit;
     QLineEdit *networkCustomOptionsEdit;
+    QLineEdit *smbFolderEdit;
     QLineEdit *additionalOptionsEdit;
     QSlider *memorySlider;
     QString xmlFileName;
@@ -90,6 +91,8 @@ private:
     QFrame *floppyFrame;
     QPushButton *networkButton;
     QFrame *networkFrame;
+    QCheckBox *bridgedModeNetwork;
+    QCheckBox *localBridgeModeNetwork;
     QPushButton *soundButton;
     QFrame *soundFrame;
     QPushButton *otherButton;
@@ -116,6 +119,7 @@ private slots:
     void setNewCdImagePath();
     void setNewFloppyDiskPath();
     void setNewFloppyDiskImagePath();
+    void setNewSmbFolderPath();
     void closeAllSections();
     bool read();
     bool write();
@@ -123,6 +127,7 @@ private slots:
     void nameChanged(const QString &name);
     void closeMachine();
     void snapshot(const int state);
+    void network(const int value);
 };
 
 #endif

@@ -442,3 +442,20 @@ void MachineProcess::changeFloppy()
 {
     write("change floppy " + floppyDiskPathString.toAscii());
 }
+
+void MachineProcess::smbFolderPath(const QString & newPath)
+{
+
+}
+
+void MachineProcess::bridgedModeNetwork(int value)
+{
+}
+
+void MachineProcess::localBridgeModeNetwork(int value)
+{
+}
+
+void MachineProcess::sharedVlanNetwork(int value)
+{
+}

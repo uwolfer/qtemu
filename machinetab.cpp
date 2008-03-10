@@ -374,21 +374,70 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     networkFrame->setLayout(networkFrameLayout);
 
     QLabel *networkDescriptionLabel = new QLabel(tr("Choose whether the network (and internet) connection should "
-                                                    "be available for this virtual machine."), this);
+                                                    "be available for this virtual machine. Different network "
+                                                    "modes are available, and multiple modes can be used at once."), this);
     networkDescriptionLabel->setWordWrap(true);
     networkFrameLayout->addWidget(networkDescriptionLabel);
 
     networkCheckBox = new QCheckBox(tr("&Enable network"), this);
+    networkCheckBox->setToolTip(tr("By default, the Qtemu uses User Mode Networking.\n"
+                                    "This default should be fine for most people.\n"));
     connect(networkCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(network(int)));
+    connect(networkCheckBox, SIGNAL(stateChanged(int)), this, SLOT(network(int)));
     networkFrameLayout->addWidget(networkCheckBox);
+    
+    networkDescriptionLabel = new QLabel(tr("Choose a folder to use as a virtual network drive:"), this);
+    
+    networkDescriptionLabel->setWordWrap(true);
+    networkFrameLayout->addWidget(networkDescriptionLabel);
+    smbFolderEdit = new QLineEdit(this);
+    networkDescriptionLabel->setBuddy(smbFolderEdit);
+    connect(smbFolderEdit, SIGNAL(textChanged(const QString&)), machineProcess, SLOT(smbFolderPath(const QString&)));
 
-    networkDescriptionLabel = new QLabel(tr("C&ustom network options (leave blank for the default):"), this);
+    QPushButton *smbSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/network.png"), QString(), this);
+    smbSelectButton->setToolTip(tr("Select a Folder to share"));
+    connect(smbSelectButton, SIGNAL(clicked()), this, SLOT(setNewSmbFolderPath()));
+
+    QHBoxLayout *smbLayout = new QHBoxLayout;
+    smbLayout->addWidget(smbFolderEdit);
+    smbLayout->addWidget(smbSelectButton);
+    networkFrameLayout->addLayout(smbLayout);
+    networkDescriptionLabel->setBuddy(smbFolderEdit);
+    
+    networkDescriptionLabel = new QLabel(tr("Advanced Network Modes:"), this);
     networkDescriptionLabel->setWordWrap(true);
     networkFrameLayout->addWidget(networkDescriptionLabel);
 
+    QCheckBox *bridgedModeNetwork = new QCheckBox(tr("Bridged networking"));
+    bridgedModeNetwork->setToolTip(tr("In this mode the virtual machine will have direct\n"
+                                      "access to the host's network; This is needed to allow\n"
+                                      "ICMP (ping) to work. This mode does not work with most\n"
+                                      "wireless cards."));
+    connect(bridgedModeNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(bridgedModeNetwork(int)));
+    QCheckBox *localBridgeModeNetwork = new QCheckBox(tr("Local bridged networking"));
+    localBridgeModeNetwork->setToolTip(tr("This mode allows more advanced bridging techniques,\n"
+                                          "including using the host computer as a router or\n"
+                                          "restricting access to the host machine only."));
+    connect(localBridgeModeNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(localBridgeModeNetwork(int)));
+    QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared Vlan Networking"));
+    sharedVlanNetwork->setToolTip(tr("This mode adds a network that is shared exclusively\n"
+                                     "between virtual machines. IP based guests will default\n"
+                                     "to APIPA addresses unless you run a DHCP server on\n"
+                                     "one of your virtual machines."));
+    connect(sharedVlanNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(sharedVlanNetwork(int)));
+    
+    networkFrameLayout->addWidget(bridgedModeNetwork);
+    networkFrameLayout->addWidget(localBridgeModeNetwork);
+    networkFrameLayout->addWidget(sharedVlanNetwork);
+    
+    //FIXME: these 3 lines need to go away
+    networkDescriptionLabel = new QLabel(tr("Custom Networking Options:"), this);
+    networkDescriptionLabel->setWordWrap(true);
+    networkFrameLayout->addWidget(networkDescriptionLabel);
     networkCustomOptionsEdit = new QLineEdit(this);
-    networkDescriptionLabel->setBuddy(networkCustomOptionsEdit);
+    //networkCustomOptionsEdit->setHidden(true);
     networkFrameLayout->addWidget(networkCustomOptionsEdit);
+    
 
     connect(networkCustomOptionsEdit, SIGNAL(textChanged(const QString&)),
             machineProcess, SLOT(networkCustomOptions(const QString&)));
@@ -936,4 +985,22 @@ void MachineTab::snapshot(const int state)
     {
         snapshotCheckBox->setText(tr("Snapshot mode"));
     }
+}
+
+void MachineTab::setNewSmbFolderPath()
+{
+//#ifdef Q_OS_WIN32
+//    QMessageBox::warning(window(), tr("QtEmu"),
+//                                   tr("This function is not available under Windows due to the missing function "
+//                                      "of QEMU under Windows. It will probably be fixed in a later version."));
+//    return;
+//#endif
+    QString newSmbPath = QFileDialog::getExistingDirectory(this, tr("Select a folder to use as a Virtual Network Drive"),
+                                                          myMachinesPath);
+    if (!newSmbPath.isEmpty())
+        smbFolderEdit->setText(newSmbPath);
+}
+
+void MachineTab::network(const int value)
+{
 }

@@ -48,10 +48,14 @@ public slots:
     void path(const QString &newPath);
     void cdRomPath(const QString &newPath);
     void floppyDiskPath(const QString &newPath);
+    void smbFolderPath(const QString &newPath);
     void cdBoot(int value);
     void floppyBoot(int value);
     void snapshot(int value);
     void network(int value);
+    void bridgedModeNetwork(int value);
+    void localBridgeModeNetwork(int value);
+    void sharedVlanNetwork(int value);
     void sound(int value);
     void soundSystem(int value);
     void memory(int value);
