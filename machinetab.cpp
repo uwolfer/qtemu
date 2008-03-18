@@ -104,6 +104,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     startButton->setIconSize(QSize(22, 22));
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(start()));
 
+
+    //FIXME: I think that this button should work like the "back" button in a web browser; it should have a default action (graceful
+    // shutdown), as well as a forced shutdown option that pops up in a menu if you hold it down. this will get rid of the shutdown dialog.
     stopButton = new QPushButton(QIcon(":/images/" + iconTheme + "/stop.png"), tr("&Stop"), this);
     stopButton->setWhatsThis(tr("Stop this virtual machine"));
     stopButton->setIconSize(QSize(22, 22));

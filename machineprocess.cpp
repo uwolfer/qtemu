@@ -71,11 +71,15 @@ void MachineProcess::start()
         arguments << "-snapshot";
 
     if (networkEnabled)
-    {
+    {   //TODO:implement new network stuff
+    
+    
         if (!networkCustomOptionsString.isEmpty())
           arguments << networkCustomOptionsString.split(" ", QString::SkipEmptyParts);
         else
           arguments << "-net" << "nic" << "-net" << "user";
+          
+          //net network system here might do well if implemented in a loop structure like drives below, would make multiple nics much more extensable.
     }
     else
         arguments << "-net" << "none";
