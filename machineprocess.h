@@ -76,6 +76,7 @@ signals:
     void error(const QString & errorText);
     void stdout(const QString & stdoutText);
     void stdin(const QString & stdoutText);
+    void rawConsole(const QByteArray & consoleOutput);
 
 private:
     void getVersion();

@@ -444,7 +444,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     networkFrameLayout->addWidget(localBridgeModeNetwork);
     networkFrameLayout->addWidget(sharedVlanNetwork);
     
-    //FIXME: these 3 lines need to go away
+    //FIXME: some of these lines need to go away
     networkDescriptionLabel = new QLabel(tr("Custom Networking Options:"), this);
     networkDescriptionLabel->setWordWrap(true);
     networkFrameLayout->addWidget(networkDescriptionLabel);
@@ -587,7 +587,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(additionalOptionsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
 }
 
-//the functionality in here really should be abstracted into another class, like MachineImage
+//TODO: the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::testHDDImage(const QString &path)
 {
     QFileInfo *currentImage = new QFileInfo(path);
@@ -617,7 +617,7 @@ void MachineTab::testHDDImage(const QString &path)
     }
 }
 
-//the functionality in here really should be abstracted into another class, like MachineImage
+//TODO: the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::upgradeImage()
 {
     if (QMessageBox::question(this, tr("Upgrade Confirmation"),
@@ -638,7 +638,7 @@ void MachineTab::upgradeImage()
     }
 }
 
-//the functionality in here really should be abstracted into another class, like MachineImage
+//TODO: the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::upgradeImageStarted()
 {
     startButton->setEnabled(false);
@@ -681,14 +681,22 @@ void MachineTab::setNewHddPath()
 
 void MachineTab::setNewCdRomPath()
 {
+  //TODO: a dialog that displays current removable drives and allows one to be selected
+  //instead of a file picker.
+  // /sys/block/<kernel device>/device/uevent contains "DRIVER=ide-cdrom" or "DRIVER=sr" if it is optical, drive is at /dev/<kernel device>.
+  // the box should show the model name of the device, or perhaps just "Internal Optical Drive"
+  //if there is only one drive in the PC. 
+  //the device name is available in /proc/ide/<kernel device>/model for ide (hdx) drives
+  //and at /sys/block/<kernel device>/device/model for scsi (sdx) drives.
+  
 #ifdef Q_OS_WIN32
     QMessageBox::warning(window(), tr("QtEmu"),
                                    tr("This function is not available under Windows due to the missing function "
                                       "of QEMU under Windows. It will probably be fixed in a later version."));
     return;
 #endif
-    QString newCdPath = QFileDialog::getExistingDirectory(this, tr("Select a CD ROM Drive"),
-                                                          myMachinesPath);
+    QString newCdPath = QFileDialog::getOpenFileName(this, tr("Select a CD ROM Drive"),
+                                                          cdromLineEdit->text(), "");
     if (!newCdPath.isEmpty())
         cdromLineEdit->setText(newCdPath);
 }

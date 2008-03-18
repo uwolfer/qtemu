@@ -82,17 +82,33 @@ void MachineProcess::start()
 
     if (soundEnabled)
     {
+    //FIXME: this does not work yet with alsa... no idea why. specifying oss, which is the default anyway works ok.
         arguments << "-soundhw" << "es1370";
         env << "QEMU_AUDIO_DRV=" + useSoundSystem;
     }
 
+    //TODO: modify to use new -drive syntax in a loop(man qemu for info)
+    /*using the drive syntax, multiple drives can be added to a VM. drives can be specified as
+     disconnected, allowing media to be inserted after bootup. the initialization can take the form
+     of a loop, and the device settings can be put in an array of drive objects. this also would
+     allow both IDE and SCSI drives to be specified, making more than 4 disks possible.
+    in order to take advantage of this, the interface will need a custom drive widget that can be
+     inserted multiple times easily.
+     to save these complex settings, a new XML file in the machine directory could be used.
+   */
+   //FIXME: commas need to be escaped in image paths: one comma must be written as two
     if (!cdRomPathString.isEmpty())
     {
-        arguments << "-cdrom" << cdRomPathString;
+        arguments << "-drive" << "file=" + cdRomPathString + ",if=ide,bus=1,unit=0,media=cdrom";
         if (bootFromCdEnabled)
             arguments << "-boot" << "d";
     }
-
+    else//allows the cdrom to exist if not specified
+    {
+        arguments << "-drive if=ide,bus=1,index=1,media=cdrom";
+    }
+    
+    //TODO: modify to use new -drive syntax (man qemu for info)
     if (!floppyDiskPathString.isEmpty())
     {
         arguments << "-fda" << floppyDiskPathString;
@@ -123,14 +139,17 @@ void MachineProcess::start()
         arguments << "-loadvm" << snapshotNameString;
 
     //allow access to the monitor via stdio
-    //FIXME: does this not work in windows?
+    //FIXME: does this work in windows? if so, then most of the new features will work in
+    // windows too. if not, the pipe:filename option might work, if we can make a named pipe...
+    // http://en.wikipedia.org/wiki/Named_pipe
 #ifndef Q_OS_WIN32
     arguments << "-monitor" << "stdio";
 #endif
 
     if((versionMinor + versionBugfix*.1)>=9.1||kvmVersion>=60)
-        arguments << "-name" << machineNameString;
+        arguments << "-name" << "\"" + machineNameString + "\"";
 
+    //TODO: use new -drive syntax (man qemu for info)
     // Add the VM image name...
     arguments << pathString;
 
@@ -367,11 +386,13 @@ void MachineProcess::forceStop()
 
 void MachineProcess::readProcess()
 {
-    QString rawOutput = readAllStandardOutput();
-    QStringList splitOutput = rawOutput.split("[K");
+    QByteArray rawOutput = readAllStandardOutput();
+    emit rawConsole(rawOutput); //for connection to a fully interactive console... eventually
+    QString convOutput = rawOutput;
+    QStringList splitOutput = convOutput.split("[K");
     if (splitOutput.last()==splitOutput.first())
     {
-        emit stdout(rawOutput.simplified());
+        emit stdout(convOutput.simplified());
     }
     else 
     {
@@ -433,16 +454,22 @@ void MachineProcess::soundSystem(int value)
     (value == Qt::Checked) ? useSoundSystem="alsa" : useSoundSystem="oss";
 }
 
+//TODO: accept a drive assignment to eject/insert. this means multiple drives would be supported
 void MachineProcess::changeCdrom()
 {
-    write("change cdrom " + cdRomPathString.toAscii());
+    write("eject -f ide1-cd0\n");
+    write("change ide1-cd0 " + cdRomPathString.toAscii() + "\n");
 }
 
+//TODO: accept a drive assignment to eject/insert.
 void MachineProcess::changeFloppy()
 {
-    write("change floppy " + floppyDiskPathString.toAscii());
+    write("eject -f floppy0\n");
+    write("change floppy0 " + floppyDiskPathString.toAscii() + "\n");
 }
 
+//TODO: all network stuff needs to be implemented. some of this will require use of sudo. (bridged modes)
+//a wizard also needs to be made to set up sudo to work without manual intervention.
 void MachineProcess::smbFolderPath(const QString & newPath)
 {
 }
