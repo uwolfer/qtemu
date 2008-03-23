@@ -119,7 +119,7 @@ void MachineProcess::start()
     }
     else//allows the cdrom to exist if not specified
     {
-        arguments << "-drive" << "if=ide,bus=1,index=1,media=cdrom";
+        arguments << "-drive" << "if=ide,bus=1,unit=0,media=cdrom";
     }
     
     //TODO: modify to use new -drive syntax (man qemu for info)
