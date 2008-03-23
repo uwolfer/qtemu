@@ -273,7 +273,7 @@ ImagePage::ImagePage(MachineWizard *wizard)
 {
     QLabel *sizeLabel = new QLabel(tr("&Disk image size:"));
     sizeSpinBox = new QDoubleSpinBox;
-    registerField("size", sizeSpinBox);
+    registerField("size", sizeSpinBox, "value");
     sizeSpinBox->setFixedSize(sizeSpinBox->sizeHint());
     sizeLabel->setBuddy(sizeSpinBox);
     QLabel *sizeGbLabel = new QLabel(tr("GB"));
