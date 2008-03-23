@@ -80,7 +80,6 @@ void Nic::setType ( const NicType& theValue )
         case Bridged:
             //bridged mode setup values
             setTapInterface();
-            fillHardwareList();
             setBridgeInterface();
             break;
         case LocalBridged:
@@ -256,48 +255,52 @@ QStringList Nic::getOptionList() const
 
 bool Nic::createTap()
 {
-    
-    /*QStringList arguments;
-    /usr/bin/sudo /usr/sbin/tunctl -u `whoami` -t
-    arguments << "/usr/sbin/tunctl" << -u << userData(;
-    QProcess *process = new QProcess(this);
-    process->start("/usr/bin/sudo", arguments);*/
+    return true;
 }
 
 bool Nic::destroyTap()
 {
+    return true;
 }
 
 bool Nic::connectTapToBridge()
 {
+    return true;
 }
 
 bool Nic::removeTapFromBridge()
 {
+    return true;
 }
 
 bool Nic::bridgeExists()
 {
+    return true;
 }
 
 bool Nic::bridgeInUse()
 {
+    return false;
 }
 
 bool Nic::createBridge()
 {
+    return true;
 }
 
 bool Nic::destroyBridge()
 {
+    return true;
 }
 
 bool Nic::connectHardwareNicToBridge(const QByteArray & nicName)
 {
+    return true;
 }
 
 bool Nic::removeHardwareNicFromBridge(const QByteArray & nicName)
 {
+    return true;
 }
 
 QByteArray Nic::getHardwareInterface() const
@@ -326,9 +329,3 @@ void Nic::setLocalVLan ( bool theValue )
 //static data
 QList<int> Nic::vLanList;
 QList<QByteArray> Nic::bridges;
-QList<HwNic> Nic::hardwareInterfaces;
-
-//static methods
-QList<QByteArray> Nic::fillHardwareList()
-{
-}

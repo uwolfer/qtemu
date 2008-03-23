@@ -60,12 +60,11 @@ class Nic : public QObject
 	QByteArray getHardwareInterface() const;
 	void setLocalVLan ( bool theValue );
 	bool getLocalVLan() const;
-	
+	bool ifUp();
+        bool ifDown();
     private:
 //methods
         QByteArray generateMacAddress();
-        bool ifUp();
-        bool ifDown();
         bool createTap();
         bool destroyTap();
         bool connectTapToBridge();
@@ -90,10 +89,6 @@ class Nic : public QObject
 //static data
         static QList<int> vLanList;
         static QList<QByteArray> bridges;
-        static QList<HwNic> hardwareInterfaces;
-
-//static methods
-        static QList<QByteArray> fillHardwareList();
 };
 
 

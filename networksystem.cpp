@@ -51,11 +51,11 @@ QList<Nic *> NetworkSystem::getNicByType(NicType nicType)
 
 Nic * NetworkSystem::getNicByMac(QByteArray mac)
 {
-    Nic * smNic;
+    Nic * smNic = 0;
     for(int i=0;i<nicList.size();i++)
     {
-        if(nicList.at(i)->getMacAddress() == mac)
-            smNic = nicList.at(i);
+        if(nicList.at(i) == mac)
+        smNic = nicList.at(i);
     }
     return smNic;
 }
@@ -64,4 +64,43 @@ Nic * NetworkSystem::getNicByMac(QByteArray mac)
 void NetworkSystem::initializeNic(QByteArray macAddress)
 {
     Nic* currentNic = getNicByMac(macAddress);
+    currentNic->ifUp();
+}
+
+void NetworkSystem::saveNics()
+{
+    //get info from all nics and save to an XML file
+}
+
+void NetworkSystem::loadNics()
+{
+    //get info from an XML file and use it to create all nics
+}
+
+QStringList NetworkSystem::getOptionList()
+{
+    QStringList optionList;
+    if(nicList.size() == 0)
+        return QStringList("");
+    for (int i=0;i<nicList.size();i++)
+    {
+        if(nicList.at(i)->isEnabled())
+            optionList << nicList.at(i)->getOptionList();
+    }
+    return optionList;
+}
+
+void NetworkSystem::delNic(QByteArray mac)
+{
+    Nic * smNic = 0;
+    for(int i=0;i<nicList.size();i++)
+    {
+        if(nicList.at(i)->getMacAddress() == mac)
+            nicList.removeAt(i);
+    }
+}
+
+void NetworkSystem::findHardwareNics()
+{
+    //fill the hardwareNics qlist
 }

@@ -31,15 +31,21 @@ public:
     
     QList<Nic *> getNicByType(NicType nicType);
     Nic * getNicByMac(QByteArray mac);
-
+    QStringList getOptionList();
+    
 public slots:
     void clearAllNics();
     QByteArray makeNewNic(NicType type, int vLan = -1);//returns nic mac
+    void delNic(QByteArray macAddress);
     void initializeNic(QByteArray macAddress);
-    
+    void saveNics();
+    void loadNics();
 
 private:
     QList<Nic *> nicList;
+    QList<QByteArray> hardwareNics;
+    
+    void findHardwareNics();
 
 };
 #endif
