@@ -5,7 +5,9 @@ HEADERS =   config.h \
   machinewizard.h \
   helpwindow.h \
   configwindow.h \
-  mainwindow.h
+  mainwindow.h \
+   networksystem.h \
+   nic.h
 SOURCES =   main.cpp \
   mainwindow.cpp \
   helpwindow.cpp \
@@ -13,12 +15,14 @@ SOURCES =   main.cpp \
   machineprocess.cpp \
   wizard.cpp \
   machinewizard.cpp \
-  machinetab.cpp
+  machinetab.cpp \
+   networksystem.cpp \
+   nic.cpp
 RESOURCES =   qtemu.qrc
 QT +=   xml
 win32 {
-  LIBS =     -lshell32
-  RC_FILE =     qtemu.rc
+    LIBS =     -lshell32
+    RC_FILE =     qtemu.rc
 }
 TEMPLATE =   app
 TRANSLATIONS =   translations/template_qtemu.ts \

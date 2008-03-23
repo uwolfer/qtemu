@@ -79,7 +79,17 @@ void MachineProcess::start()
         else
           arguments << "-net" << "nic" << "-net" << "user";
           
-          //net network system here might do well if implemented in a loop structure like drives below, would make multiple nics much more extensable.
+          //net network system here might do well if implemented in a loop structure like drives below, would make multiple nics much more extensable. perhaps use an xml file here too, and several nic object(s)
+       /*if(networkSystem->numNics == 0)
+           arguments << "-net" << "none";
+         else
+           for(i=0;i<networkSystem->numNics;i++)
+           {
+               arguments << addNic(i);
+           }
+       */
+       
+        
     }
     else
         arguments << "-net" << "none";
