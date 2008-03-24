@@ -275,6 +275,7 @@ ImagePage::ImagePage(MachineWizard *wizard)
     sizeSpinBox = new QDoubleSpinBox;
     registerField("size", sizeSpinBox, "value");
     sizeSpinBox->setFixedSize(sizeSpinBox->sizeHint());
+    sizeSpinBox->setValue(2);
     sizeLabel->setBuddy(sizeSpinBox);
     QLabel *sizeGbLabel = new QLabel(tr("GB"));
     sizeGbLabel->setFixedSize(sizeGbLabel->sizeHint());
