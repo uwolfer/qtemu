@@ -40,6 +40,7 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QDomElement>
+#include <QCheckBox>
 
 MachineWizard::MachineWizard(const QString &myMachinesPathParent, QWidget *parent)
     : QWizard(parent)
@@ -288,6 +289,9 @@ ImagePage::ImagePage(MachineWizard *wizard)
     formatComboBox->addItem(tr("Native image (qcow)"));
     formatComboBox->addItem(tr("Raw image (img)"));
     formatComboBox->addItem(tr("VMWare image (vmdk)"));
+    
+    //encryptionCheckBox = new QCheckBox;//qemu does not appear to support this very well, and kvm doesn't boot encrypted images at all...
+    
     QLabel *formatInfoLabel = new QLabel(tr("The native image format enables<br>"
                                      "suspend/resume features, all other formats<br>"
                                      "lack suspend/resume. Use \"Native image (qcow)\"<br>"
@@ -325,3 +329,11 @@ bool ImagePage::isComplete() const
 {
     return (sizeSpinBox->value()!=0);
 }
+
+/*void ImagePage::enableEncryption(int choice)
+{
+    if(choice == 0)
+        encryptionCheckBox->setEnabled(true);
+    else
+        encryptionCheckBox->setEnabled(false);
+}*/

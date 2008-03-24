@@ -75,6 +75,7 @@ class Nic : public QObject
         bool destroyBridge();
         bool connectHardwareNicToBridge(const QByteArray & nicName = "detect");
         bool removeHardwareNicFromBridge(const QByteArray & nicName = "detect");
+        void findEnv();
 //data
         NicType nicType;
         QByteArray macAddress;
@@ -86,10 +87,16 @@ class Nic : public QObject
         bool enabled;
         bool localVLan;
         QStringList optionList;
+        QByteArray userName;
+        QByteArray brctlPath;
+        QByteArray ipPath;
+        QByteArray tunctlPath;
+        QByteArray sudoPath;
 //static data
         static QList<int> vLanList;
         static QList<QByteArray> bridges;
 };
+
 
 
 #endif

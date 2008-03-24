@@ -29,6 +29,7 @@
 class QComboBox;
 class QLineEdit;
 class QDoubleSpinBox;
+class QCheckBox;
 
 class MachineWizard : public QWizard
 {
@@ -86,6 +87,10 @@ public:
 
 private:
     QDoubleSpinBox *sizeSpinBox;
+    QCheckBox *encryptionCheckBox;
+    
+private slots:
+    //void enableEncryption(int choice);
 };
 
 #endif

@@ -16,9 +16,9 @@
 
 Nic::Nic(const NicType & newType, const int & vLanReq, const QByteArray & mac, QObject * parent) : QObject(parent)
 {
+    findEnv();
     new QProcess(this);
-    if(mac != "random")
-        setMacAddress(mac);
+    setMacAddress(mac);
     setType(newType);
 }
 
@@ -101,7 +101,7 @@ QByteArray Nic::getMacAddress()
 {
     QByteArray formattedMac;
     if(macAddress == "")
-        formattedMac = generateMacAddress();
+        formattedMac = "000000000000";
     else
         formattedMac = macAddress;
     for(int i = 10;i>0;i = i - 2)//going backwards through the string makes it easier to calculate positions
@@ -202,30 +202,34 @@ int Nic::getNumVLanMembers() const
 
 bool Nic::ifUp()
 {
-    bool success = true;
     optionList.clear();
     switch(nicType)
     {
         case User:
             //bring up user mode, set parameters
             optionList << "-net" << "nic" << "-net" << "user";
+            return true;
             break;
         case Bridged:
             setVLan();
             optionList << "-net" << "nic,macaddr=" + (QString)getMacAddress() + ",vlan=" + getVLan() << "-net" << "ifname=" + (QString)getTapInterface() + ",script=no";
-            success = createTap();
-            if(!bridgeExists())
-                success = createBridge();
-            success = connectTapToBridge();
-            success = connectHardwareNicToBridge(hardwareInterface);
+            if(
+                createTap() &&
+                createBridge() &&
+                connectTapToBridge() &&
+                connectHardwareNicToBridge(hardwareInterface)
+               )
+                return true;
             break;
         case LocalBridged:
              setVLan();
              optionList << "-net" << "nic,macaddr=" + (QString)getMacAddress() + ",vlan=" + getVLan() << "-net" << "ifname=" + (QString)getTapInterface() + ",script=no";
-            success = createTap();
-            if(!bridgeExists())
-                success = createBridge();
-            success = connectTapToBridge();
+            if(
+                createTap() &&
+                createBridge() &&
+                connectTapToBridge()
+              )
+                return true;
             break;
         case VLan:
             //not implemented
@@ -239,7 +243,7 @@ bool Nic::ifUp()
             //not implemented
             break;
     }
-    return success;
+    return false;
 }
 
 bool Nic::ifDown()
@@ -255,12 +259,27 @@ QStringList Nic::getOptionList() const
 
 bool Nic::createTap()
 {
-    return true;
+
+    QProcess *tempProcess = new QProcess;
+    QStringList tempOpts;
+    tempOpts << tunctlPath << "-u" << userName << "-t" << tapInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    if(tempProcess->exitCode() == -1)
+        return false;
+    else
+        return true;
 }
 
 bool Nic::destroyTap()
 {
-    return true;
+    QProcess *tempProcess = new QProcess;
+    QStringList tempOpts;
+    tempOpts << tunctlPath << "-d" << tapInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    if(tempProcess->exitCode() == -1)
+        return false;
+    else
+        return true;
 }
 
 bool Nic::connectTapToBridge()
@@ -285,7 +304,9 @@ bool Nic::bridgeInUse()
 
 bool Nic::createBridge()
 {
-    return true;
+    if(bridgeExists())
+        return true;
+    
 }
 
 bool Nic::destroyBridge()
@@ -324,8 +345,50 @@ void Nic::setLocalVLan ( bool theValue )
 {
     localVLan = theValue;
 }
+
+void Nic::findEnv()
+{
+    QProcess *tempProcess = new QProcess;
+    QByteArray tempOutput;
+    tunctlPath = sudoPath = ipPath = brctlPath = "unavailable";
+    
+    //TODO: load locations from program config here
+    #ifndef Q_OS_WIN32
+    
+    tempProcess->start("which", QStringList("sudo"));
+    sudoPath = tempProcess->readAllStandardOutput();
+    
+    tempProcess->start(sudoPath, QStringList("-l"));
+    QString sudoAllowed = tempProcess->readAllStandardOutput();
+
+    tempProcess->start("which", QStringList("brctl"));
+    tempOutput = tempProcess->readAllStandardOutput();
+    if(sudoAllowed.contains(tempOutput) && brctlPath == "unavailable")
+        brctlPath = tempOutput;
+
+    tempProcess->start("which", QStringList("ip"));
+    tempOutput = tempProcess->readAllStandardOutput();
+    if(sudoAllowed.contains(tempOutput) && ipPath == "unavailable")
+        ipPath = tempOutput;
+
+    tempProcess->start("which", QStringList("tunctl"));
+    tempOutput = tempProcess->readAllStandardOutput();
+    if(sudoAllowed.contains(tempOutput) && tunctlPath == "unavailable")
+        tunctlPath = tempOutput;
+
+    //also get the user name for tunctl's use
+    userName = qgetenv("USER");
+
+    #elif defined(Q_OS_WIN32)
+    //find needed executables in windows...
+    #endif
+    //save locations to config file
+}
+
 //static members
 
 //static data
 QList<int> Nic::vLanList;
 QList<QByteArray> Nic::bridges;
+
+
