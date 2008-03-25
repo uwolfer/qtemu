@@ -18,7 +18,6 @@
 Nic::Nic(const NicType & newType, const int & vLanReq, const QByteArray & mac, QObject * parent) : QObject(parent)
 {
     findEnv();
-    new QProcess(this);
     setMacAddress(mac);
     setType(newType);
 }
@@ -37,7 +36,7 @@ void Nic::ifUp()
     if(!initialized && !initNic())
         return;
 
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << ipPath << "link" << "set" << tapInterface << "up";
     tempProcess->start(sudoPath, tempOpts);
@@ -46,7 +45,7 @@ void Nic::ifUp()
 
 void Nic::ifDown()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << ipPath << "link" << "set" << tapInterface << "down";
     tempProcess->start(sudoPath, tempOpts);
@@ -263,7 +262,7 @@ QStringList Nic::getOptionList() const
 
 bool Nic::createTap()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << tunctlPath << "-u" << userName << "-t" << tapInterface;
     tempProcess->start(sudoPath, tempOpts);
@@ -276,7 +275,7 @@ bool Nic::createTap()
 
 bool Nic::destroyTap()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << tunctlPath << "-d" << tapInterface;
     tempProcess->start(sudoPath, tempOpts);
@@ -289,7 +288,7 @@ bool Nic::destroyTap()
 
 bool Nic::connectTapToBridge()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << brctlPath << "addif" <<  bridgeInterface << tapInterface;
     tempProcess->start(sudoPath, tempOpts);
@@ -301,7 +300,7 @@ bool Nic::connectTapToBridge()
 
 bool Nic::removeTapFromBridge()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << brctlPath << "delif" <<  bridgeInterface << tapInterface;
     tempProcess->start(sudoPath, tempOpts);
@@ -313,7 +312,7 @@ bool Nic::removeTapFromBridge()
 
 bool Nic::bridgeExists()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << brctlPath << "show";
     tempProcess->start(sudoPath, tempOpts);
@@ -325,7 +324,7 @@ bool Nic::bridgeExists()
 
 bool Nic::bridgeInUse()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << brctlPath << "show";
     tempProcess->start(sudoPath, tempOpts);
@@ -350,7 +349,7 @@ bool Nic::createBridge()
         bridges.append(bridgeInterface);
         return true;
     }
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << brctlPath << "addbr" <<  bridgeInterface;
     tempProcess->start(sudoPath, tempOpts);
@@ -366,7 +365,7 @@ bool Nic::destroyBridge()
 {
     if(bridgeInUse())
         return false;
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << brctlPath << "delbr" <<  bridgeInterface;
     tempProcess->start(sudoPath, tempOpts);
@@ -379,7 +378,7 @@ bool Nic::destroyBridge()
 
 bool Nic::connectHardwareNicToBridge()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     clearHwNic();
     HwNic thisNic;
@@ -408,7 +407,7 @@ bool Nic::connectHardwareNicToBridge()
 
 bool Nic::removeHardwareNicFromBridge()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     HwNic thisNic;
     for(int i=0;i<hardwareNics.size();i++)
@@ -455,7 +454,7 @@ void Nic::setLocalVLan ( bool theValue )
 
 void Nic::findEnv()
 {
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QByteArray tempOutput;
     tunctlPath = sudoPath = ipPath = brctlPath = "unavailable";
     
@@ -515,7 +514,7 @@ void Nic::clearHwNic()
         if(hardwareNics.at(i).kernelName == hardwareInterface)
             return;
     }
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     HwNic thisNic;
     thisNic.kernelName = hardwareInterface;
@@ -547,7 +546,7 @@ void Nic::restoreHwNic()
         if(hardwareNics.at(i).kernelName == hardwareInterface)
             thisNic = hardwareNics.at(i);
     }
-    QProcess *tempProcess = new QProcess;
+    QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << ipPath << "addr" << "add" << thisNic.HwIP + thisNic.HwCidr << "dev" << hardwareInterface;
     tempProcess->start(sudoPath, tempOpts);
