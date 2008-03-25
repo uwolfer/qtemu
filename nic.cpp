@@ -555,7 +555,7 @@ void Nic::restoreHwNic()
     {
         if(hardwareNics.at(i).kernelName == hardwareInterface)
             hardwareNics.removeAt(i);
-    }
+    }	
 }
 
 //static data
