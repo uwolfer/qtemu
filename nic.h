@@ -20,8 +20,8 @@ struct HwNic
 {
     QByteArray kernelName;
     QByteArray HwIP;
-    QByteArray HwGateway;
     QByteArray HwNetmask;
+    QByteArray HwCidr;
 };
 
 
@@ -41,9 +41,8 @@ class Nic : public QObject
         Nic ( QObject *parent = 0 );
 
         ~Nic();
-
-        void setEnabled ( bool theValue );
-        bool isEnabled() const;
+        void ifUp();
+        void ifDown();
         void setType ( const NicType& theValue );
         NicType type() const;
         void setMacAddress ( const QByteArray& theValue = "random" );
@@ -60,8 +59,14 @@ class Nic : public QObject
 	QByteArray getHardwareInterface() const;
 	void setLocalVLan ( bool theValue );
 	bool getLocalVLan() const;
-	bool ifUp();
-        bool ifDown();
+	bool initNic();
+        bool deInitNic();
+
+	void Enable ( bool theValue );
+	
+
+	bool isEnabled() const;
+	
     private:
 //methods
         QByteArray generateMacAddress();
@@ -73,9 +78,11 @@ class Nic : public QObject
         bool bridgeInUse();
         bool createBridge();
         bool destroyBridge();
-        bool connectHardwareNicToBridge(const QByteArray & nicName = "detect");
-        bool removeHardwareNicFromBridge(const QByteArray & nicName = "detect");
+        bool connectHardwareNicToBridge();
+        bool removeHardwareNicFromBridge();
         void findEnv();
+        void clearHwNic();
+        void restoreHwNic();
 //data
         NicType nicType;
         QByteArray macAddress;
@@ -85,6 +92,7 @@ class Nic : public QObject
         QByteArray bridgeInterface;
         QByteArray hardwareInterface;
         bool enabled;
+        bool initialized;
         bool localVLan;
         QStringList optionList;
         QByteArray userName;
@@ -95,6 +103,7 @@ class Nic : public QObject
 //static data
         static QList<int> vLanList;
         static QList<QByteArray> bridges;
+        static QList<HwNic> hardwareNics;
 };
 
 

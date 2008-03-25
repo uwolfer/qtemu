@@ -64,7 +64,7 @@ Nic * NetworkSystem::getNicByMac(QByteArray mac)
 void NetworkSystem::initializeNic(QByteArray macAddress)
 {
     Nic* currentNic = getNicByMac(macAddress);
-    currentNic->ifUp();
+    currentNic->initNic();
 }
 
 void NetworkSystem::saveNics()
