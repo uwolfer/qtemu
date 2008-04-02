@@ -61,7 +61,7 @@ QList<Nic *> NetworkSystem::getNicByType(NicType nicType)
     return smNicList;
 }
 
-Nic * NetworkSystem::getNicByMac(QByteArray mac)
+Nic * NetworkSystem::getNicByMac(const QByteArray mac)
 {
     Nic * smNic = 0;
     for(int i=0;i<nicList.size();i++)
@@ -73,7 +73,7 @@ Nic * NetworkSystem::getNicByMac(QByteArray mac)
 }
 
 
-void NetworkSystem::initializeNic(QByteArray macAddress)
+void NetworkSystem::initializeNic(const QByteArray macAddress)
 {
     Nic* currentNic = getNicByMac(macAddress);
     currentNic->initNic();
@@ -106,7 +106,7 @@ QStringList NetworkSystem::getOptionList()
     return optionList;
 }
 
-void NetworkSystem::delNic(QByteArray mac)
+void NetworkSystem::delNic( const QByteArray mac)
 {
     Nic * smNic = 0;
     for(int i=0;i<nicList.size();i++)
@@ -121,6 +121,6 @@ void NetworkSystem::findHardwareNics()
     //fill the hardwareNics qlist
 }
 
-void NetworkSystem::addSambaDir(QString dir)
+void NetworkSystem::addSambaDir( const QString dir)
 {
 }

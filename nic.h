@@ -48,7 +48,7 @@ class Nic : public QObject
 
         bool operator == ( Nic otherNic );
 
-        Nic ( const NicType& newType, const int & vLanReq = -1, const QByteArray & mac = "random", QObject *parent = 0 );
+        explicit Nic ( const NicType& newType, const int & vLanReq = -1, const QByteArray & mac = "random", QObject *parent = 0 );
 
         Nic ( QObject *parent = 0 );
 

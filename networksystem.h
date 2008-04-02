@@ -42,17 +42,17 @@ class NetworkSystem : public QObject
         int numNics();
 
         QList<Nic *> getNicByType ( NicType nicType );
-        Nic * getNicByMac ( QByteArray mac );
+        Nic * getNicByMac ( const QByteArray mac );
         QStringList getOptionList();
 
     public slots:
         void clearAllNics();
         QByteArray makeNewNic ( NicType type, int vLan = -1 );//returns nic mac
-        void delNic ( QByteArray macAddress );
-        void initializeNic ( QByteArray macAddress );
+        void delNic ( const QByteArray macAddress );
+        void initializeNic ( const QByteArray macAddress );
         void saveNics();
         void loadNics();
-        void addSambaDir(QString dir);
+        void addSambaDir( const QString dir);
 
     private:
         QList<Nic *> nicList;

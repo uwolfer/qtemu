@@ -91,11 +91,11 @@ void Nic::setType ( const NicType& theValue )
 
 }
 
-//doesnt work!
+//doesn't work!
 QByteArray Nic::getMacAddress()
 {
     QByteArray formattedMac;
-    if(macAddress == "")
+    if(macAddress.isEmpty())
         formattedMac = "000000000000";
     else
         formattedMac = macAddress;
@@ -156,7 +156,7 @@ QByteArray Nic::getTapInterface() const
 
 void Nic::setTapInterface ( const QByteArray& theValue )
 {
-    if(theValue != "")
+    if(!theValue.isEmpty())
         tapInterface = theValue;
     else
     {
@@ -173,7 +173,7 @@ QByteArray Nic::getBridgeInterface() const
 
 void Nic::setBridgeInterface ( const QByteArray& theValue )
 {
-    if(theValue != "")
+    if(!theValue.isEmpty())
         bridgeInterface = theValue;
     else
     {

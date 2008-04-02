@@ -452,7 +452,7 @@ void MachineProcess::getVersion()
         kvmVersion = versionString.remove(QRegExp("kvm-")).toInt();
     }
     #ifdef DEVELOPER
-    qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + "." + QString::number(versionMinor) + "." + QString::number(versionBugfix)).toAscii());
+    qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + '.' + QString::number(versionMinor) + '.' + QString::number(versionBugfix)).toAscii());
     #endif
 }
 
@@ -465,14 +465,14 @@ void MachineProcess::soundSystem(int value)
 void MachineProcess::changeCdrom()
 {
     write("eject -f ide1-cd0\n");
-    write("change ide1-cd0 " + cdRomPathString.toAscii() + "\n");
+    write("change ide1-cd0 " + cdRomPathString.toAscii() + '\n');
 }
 
 //TODO: accept a drive assignment to eject/insert.
 void MachineProcess::changeFloppy()
 {
     write("eject -f floppy0\n");
-    write("change floppy0 " + floppyDiskPathString.toAscii() + "\n");
+    write("change floppy0 " + floppyDiskPathString.toAscii() + '\n');
 }
 
 //TODO: all network stuff needs to be implemented. some of this will require use of sudo. (bridged modes)
