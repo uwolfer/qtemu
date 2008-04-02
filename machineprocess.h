@@ -26,6 +26,7 @@
 #define MACHINEPROCESS_H
 
 #include <QProcess>
+#include "networksystem.h"
 
 class MachineProcess : public QProcess
 {
@@ -102,6 +103,7 @@ private:
     QByteArray useSoundSystem;
     int memoryInt;
     int cpuInt;
+    NetworkSystem* networkSystem;
 
 private slots:
     void afterExitExecute();

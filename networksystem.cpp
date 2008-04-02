@@ -75,6 +75,10 @@ void NetworkSystem::saveNics()
 void NetworkSystem::loadNics()
 {
     //get info from an XML file and use it to create all nics
+    //if there is no network section, create the default nic. 
+    
+    //for the moment just create the default nic
+    makeNewNic(User,0);
 }
 
 QStringList NetworkSystem::getOptionList()
@@ -103,4 +107,8 @@ void NetworkSystem::delNic(QByteArray mac)
 void NetworkSystem::findHardwareNics()
 {
     //fill the hardwareNics qlist
+}
+
+void NetworkSystem::addSambaDir(QString dir)
+{
 }

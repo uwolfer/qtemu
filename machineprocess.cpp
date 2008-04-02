@@ -23,7 +23,7 @@
 ****************************************************************************/
 
 #include "machineprocess.h"
-
+#include "networksystem.h"
 #include "config.h"
 
 #include <QCoreApplication>
@@ -47,6 +47,7 @@ MachineProcess::MachineProcess(QObject *parent)
     doResume=false;
     soundSystem(0);
     getVersion();
+    networkSystem = new NetworkSystem(this);
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
     connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
@@ -69,67 +70,59 @@ void MachineProcess::start()
 
     if (snapshotEnabled)
         arguments << "-snapshot";
-
+    
     if (networkEnabled)
     {   //TODO:implement new network stuff
     
-    
-        if (!networkCustomOptionsString.isEmpty())
-          arguments << networkCustomOptionsString.split(" ", QString::SkipEmptyParts);
-        else
-          arguments << "-net" << "nic" << "-net" << "user";
-          
-          //net network system here might do well if implemented in a loop structure like drives below, would make multiple nics much more extensable. perhaps use an xml file here too, and several nic object(s)
-       /*if(networkSystem->numNics == 0)
-           arguments << "-net" << "none";
-         else
-           for(i=0;i<networkSystem->numNics;i++)
-           {
-               arguments << addNic(i);
-           }
-       */
-       
+        //load up saved network setup
+        networkSystem->loadNics();
         
+           if (networkSystem->numNics() != 0)
+               arguments << networkSystem->getOptionList();
+
+           if (!networkCustomOptionsString.isEmpty())
+               arguments << networkCustomOptionsString.split(" ", QString::SkipEmptyParts);
     }
     else
         arguments << "-net" << "none";
 
-    if (soundEnabled)
-    {
-    //FIXME: this does not work yet with alsa... no idea why. specifying oss, which is the default anyway works ok.
-        arguments << "-soundhw" << "es1370";
-        env << "QEMU_AUDIO_DRV=" + useSoundSystem;
-    }
-
-    //TODO: modify to use new -drive syntax in a loop(man qemu for info)
     /*using the drive syntax, multiple drives can be added to a VM. drives can be specified as
      disconnected, allowing media to be inserted after bootup. the initialization can take the form
      of a loop, and the device settings can be put in an array of drive objects. this also would
      allow both IDE and SCSI drives to be specified, making more than 4 disks possible.
     in order to take advantage of this, the interface will need a custom drive widget that can be
      inserted multiple times easily.
-     to save these complex settings, a new XML file in the machine directory could be used.
+     to save these complex settings, settings can be saved under <drives> with a specific <drive>
+     in the .qte file.
    */
-   //FIXME: commas need to be escaped in image paths: one comma must be written as two
+
     if (!cdRomPathString.isEmpty())
     {
+        cdRomPathString = cdRomPathString.replace(QRegExp(","),",,");
         arguments << "-drive" << "file=" + cdRomPathString + ",if=ide,bus=1,unit=0,media=cdrom";
         if (bootFromCdEnabled)
             arguments << "-boot" << "d";
     }
     else//allows the cdrom to exist if not specified
     {
-        arguments << "-drive" << "if=ide,bus=1,unit=0,media=cdrom";
+        arguments << "-drive" << "if=ide,bus=1,unit=0,media=cdrom";//TODO:make the drive location configurable
     }
     
-    //TODO: modify to use new -drive syntax (man qemu for info)
+    //TODO: modify to support multiple floppies(index=0 and index=1)
     if (!floppyDiskPathString.isEmpty())
     {
-        arguments << "-fda" << floppyDiskPathString;
+        arguments << "-drive" << "file=" + floppyDiskPathString + ",index=0,if=floppy";
         if (bootFromFloppyEnabled)
             arguments << "-boot" << "a";
     }
-
+    
+    if (soundEnabled)
+    {
+    //FIXME: this does not work yet with alsa... no idea why. specifying oss, which is the default anyway works ok.
+        arguments << "-soundhw" << "es1370";
+        env << "QEMU_AUDIO_DRV=" + useSoundSystem;
+    }
+    
     if (memoryInt > 0)
       arguments << "-m" << QString::number(memoryInt);
 
@@ -498,4 +491,4 @@ void MachineProcess::localBridgeModeNetwork(int value)
 
 void MachineProcess::sharedVlanNetwork(int value)
 {
-}
+}	

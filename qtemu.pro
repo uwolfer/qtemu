@@ -36,3 +36,5 @@ TRANSLATIONS =   translations/template_qtemu.ts \
   translations/qtemu_pt-BR.ts \
   translations/qtemu_pl.ts
 CONFIG +=   debug_and_release
+DISTFILES += networkSystemTemplate.xml
+

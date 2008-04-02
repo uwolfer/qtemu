@@ -75,9 +75,11 @@ NicType Nic::type() const
 void Nic::setType ( const NicType& theValue )
 {
     nicType = theValue;
+    initNic();
+
 }
 
-
+//doesnt work!
 QByteArray Nic::getMacAddress()
 {
     QByteArray formattedMac;
@@ -463,30 +465,57 @@ void Nic::findEnv()
     
     tempProcess->start("which", QStringList("sudo"));
     tempProcess->waitForFinished();
-    sudoPath = tempProcess->readAllStandardOutput();
+    sudoPath = tempProcess->readAllStandardOutput().trimmed();
+    
+    #ifdef DEVELOPER
+    qDebug("sudo path: " + sudoPath);
+    #endif
     
     tempProcess->start(sudoPath, QStringList("-l"));
     tempProcess->waitForFinished();
-    QString sudoAllowed = tempProcess->readAllStandardOutput();
+    QStringList sudoList = ((QString)(tempProcess->readAllStandardOutput())).split('\n');
+    QStringList sudoAllowed;
+    for(int i=0;i<sudoList.size();i++)
+    {
+        if(sudoList.at(i).contains("NOPASSWD"))
+        {
+            sudoAllowed = sudoList.at(i).split(':').at(1).split(", ");
+        }
+    }
+    #ifdef DEVELOPER
+    qDebug("allowed sudo programs: " + sudoAllowed.join(", ").toAscii());
+    #endif
 
     tempProcess->start("which", QStringList("brctl"));
     tempProcess->waitForFinished();
-    tempOutput = tempProcess->readAllStandardOutput();
+    tempOutput = tempProcess->readAllStandardOutput().trimmed();
     if(sudoAllowed.contains(tempOutput) && brctlPath == "unavailable")
         brctlPath = tempOutput;
-
+    
+    #ifdef DEVELOPER
+    qDebug("brctl path: " + brctlPath);
+    #endif
+    
     tempProcess->start("which", QStringList("ip"));
     tempProcess->waitForFinished();
-    tempOutput = tempProcess->readAllStandardOutput();
+    tempOutput = tempProcess->readAllStandardOutput().trimmed();
     if(sudoAllowed.contains(tempOutput) && ipPath == "unavailable")
         ipPath = tempOutput;
-
+    
+    #ifdef DEVELOPER
+    qDebug("ip path: " + ipPath);
+    #endif
+    
     tempProcess->start("which", QStringList("tunctl"));
     tempProcess->waitForFinished();
-    tempOutput = tempProcess->readAllStandardOutput();
+    tempOutput = tempProcess->readAllStandardOutput().trimmed();
     if(sudoAllowed.contains(tempOutput) && tunctlPath == "unavailable")
         tunctlPath = tempOutput;
-
+    
+    #ifdef DEVELOPER
+    qDebug("tunctl path: " + tunctlPath);
+    #endif
+    
     //also get the user name for tunctl's use
     userName = qgetenv("USER");
 
