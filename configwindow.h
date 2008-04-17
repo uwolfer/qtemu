@@ -41,7 +41,6 @@ public:
     QLineEdit *myMachinePathLineEdit;
     QComboBox *comboTabPosition;
     QComboBox *languagePosition;
-    QCheckBox *commandRunsKvmCheckBox;
 
 private:
     QString myMachinesPath;

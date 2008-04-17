@@ -58,8 +58,8 @@ MachineProcess::MachineProcess(QObject *parent)
 void MachineProcess::start()
 {
     getVersion();
-    if(versionMajor == -1)
-        return;
+    //if(versionMajor == -1)//executable was not found
+
     QSettings settings("QtEmu", "QtEmu");
     QStringList env = QProcess::systemEnvironment();
     QStringList arguments;
@@ -76,6 +76,7 @@ void MachineProcess::start()
     
     if (networkEnabled)
     {
+        //use the new network setup if you are developing
         #ifdef DEVELOPER
         //load up network setup
         networkSystem->loadNics();
@@ -160,11 +161,11 @@ void MachineProcess::start()
     if (timeEnabled)
         arguments << "-localtime";
 
-    if (!virtualizationEnabled&&settings.value("runsKVM").toBool())
+    if (!virtualizationEnabled && kvmVersion > 0)
         arguments << "-no-kvm";
-    else if (!virtualizationEnabled&&!settings.value("runsKVM").toBool())
+    else if (!virtualizationEnabled)
         arguments << "-no-kqemu";
-    else if (virtualizationEnabled&&!settings.value("runsKVM").toBool())
+    else if (virtualizationEnabled && kvmVersion <= 0)
         arguments << "-kernel-kqemu";
 
     if (doResume)
@@ -469,7 +470,7 @@ void MachineProcess::getVersion()
         versionMinor = -1;
         versionBugfix = -1;
         kvmVersion = -1;
-        emit error(tr("Either the qemu binary does not exist, or it is not executable!"));
+        emit error(tr("Either the qemu binary does not exist, or it is not executable at ") + qemuCommand);
         return;
     }
     
@@ -481,12 +482,15 @@ void MachineProcess::getVersion()
     versionMajor = versionStringList.at(0).toInt();
     versionMinor = versionStringList.at(1).toInt();
     versionBugfix = versionStringList.at(2).toInt();
-    if(settings.value("runsKVM")!="0")
+    versionString = infoStringList.at(5);
+    versionString.remove(QRegExp("[(),]"));
+    if(versionString.contains(QRegExp("kvm")))
     {
-        versionString = infoStringList.at(5);
-        versionString.remove(QRegExp("[(),]"));
         kvmVersion = versionString.remove(QRegExp("kvm-")).toInt();
     }
+    else
+        kvmVersion = 0;
+
     #ifdef DEVELOPER
     qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + '.' + QString::number(versionMinor) + '.' + QString::number(versionBugfix)).toAscii());
     #endif
