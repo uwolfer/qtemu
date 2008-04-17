@@ -418,6 +418,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
                                    "using Slirp; this is similar to access with a  web\n"
                                    "browser. this mode does not require administrator access,\n"
                                    "and works with wireless cards."));
+    connect(userModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
     
     QCheckBox *bridgedModeNetwork = new QCheckBox(tr("Bridged networking"));
     bridgedModeNetwork->setToolTip(tr("In this mode the virtual machine will have direct\n"
@@ -425,18 +426,20 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
                                       "ICMP (ping) to work, and allows other machines to 'see'\n"
                                       "your virtual machine on the network. This mode does not\n"
                                       "work with most wireless cards."));
+    connect(bridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
     
     QCheckBox *localBridgedModeNetwork = new QCheckBox(tr("Local bridged networking"));
     localBridgedModeNetwork->setToolTip(tr("This mode allows more advanced bridging techniques,\n"
                                           "including using the host computer as a router or\n"
                                           "restricting access to the host machine only."));
+    connect(localBridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
     
     QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared VLan Networking"));
     sharedVlanNetwork->setToolTip(tr("This mode adds a network that is shared exclusively\n"
                                      "between virtual machines. IP based guests will default\n"
                                      "to APIPA addresses unless you run a DHCP server on\n"
                                      "one of your virtual machines. This does not use bridging."));
-    
+    connect(sharedVlanNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
     
     networkFrameLayout->addWidget(userModeNetwork);
     networkFrameLayout->addWidget(bridgedModeNetwork);
@@ -454,6 +457,12 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
             machineProcess, SLOT(networkCustomOptions(const QString&)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), networkDescriptionLabel, SLOT(setEnabled(bool)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), networkCustomOptionsEdit, SLOT(setEnabled(bool)));
+    connect(networkCheckBox, SIGNAL(toggled(bool)), userModeNetwork, SLOT(setEnabled(bool)));
+    connect(networkCheckBox, SIGNAL(toggled(bool)), bridgedModeNetwork, SLOT(setEnabled(bool)));
+    connect(networkCheckBox, SIGNAL(toggled(bool)), localBridgedModeNetwork, SLOT(setEnabled(bool)));
+    connect(networkCheckBox, SIGNAL(toggled(bool)), sharedVlanNetwork, SLOT(setEnabled(bool)));
+    connect(networkCheckBox, SIGNAL(toggled(bool)), smbFolderEdit, SLOT(setEnabled(bool)));
+    connect(networkCheckBox, SIGNAL(toggled(bool)), smbSelectButton, SLOT(setEnabled(bool)));
     //network section end
 
     //sound section start
@@ -1026,4 +1035,10 @@ void MachineTab::setNewSmbFolderPath()
 
 void MachineTab::network(const int value)
 {
+}
+
+void MachineTab::unimplemented()
+{
+    QMessageBox::warning(window(), tr("QtEmu"),
+                                   tr("This function is not yet implemented."));
 }

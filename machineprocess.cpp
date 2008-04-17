@@ -109,13 +109,15 @@ void MachineProcess::start()
         if (!cdRomPathString.isEmpty())
         {
         cdRomPathString = cdRomPathString.replace(QRegExp(","),",,");
-        arguments << "-drive" << "file=" + cdRomPathString + ",if=ide,bus=1,unit=0,media=cdrom";//TODO:make the drive location configurable
+        arguments << "-drive" << "file=" + cdRomPathString + ",if=ide,bus=1,unit=0,media=cdrom";
+        //TODO:make the drive location configurable
         if (bootFromCdEnabled)
             arguments << "-boot" << "d";
         }
         else//allows the cdrom to exist if not specified
         {
-        arguments << "-drive" << "if=ide,bus=1,unit=0,media=cdrom";//TODO:make the drive location configurable
+        arguments << "-drive" << "if=ide,bus=1,unit=0,media=cdrom";
+        //TODO:make the drive location configurable
         }
 
         if (!floppyDiskPathString.isEmpty())
@@ -144,7 +146,10 @@ void MachineProcess::start()
     
     if (soundEnabled)
     {
-    //FIXME: this does not work yet with alsa... no idea why. specifying oss, which is the default anyway works ok.
+    //FIXME: this does not work yet with alsa... no idea why. specifying oss, which is the default anyway, works ok.
+    // other possible values are "wav", "none", "sdl", and maybe "esd"...
+    //we can run qemu -audio-help and any line in the format "Name: <value>" will list a driver we can use.
+    //TODO:on windows and mac i assume we have to stick with the default...
         arguments << "-soundhw" << "es1370";
         env << "QEMU_AUDIO_DRV=" + useSoundSystem;
     }
@@ -212,6 +217,11 @@ void MachineProcess::start()
     }
 
     setEnvironment(env);
+    #ifdef DEVELOPER
+    qDebug("Environment:");
+    qDebug(env.join("\n").toAscii());
+    #endif
+    
 #ifndef Q_OS_WIN32
     QProcess::start(settings.value("command", "qemu").toString(), arguments);
 #elif defined(Q_OS_WIN32)

@@ -130,6 +130,7 @@ private slots:
     void closeMachine();
     void snapshot(const int state);
     void network(const int value);
+    void unimplemented();
 };
 
 #endif
