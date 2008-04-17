@@ -57,6 +57,9 @@ MachineProcess::MachineProcess(QObject *parent)
 
 void MachineProcess::start()
 {
+    getVersion();
+    if(versionMajor == -1)
+        return;
     QSettings settings("QtEmu", "QtEmu");
     QStringList env = QProcess::systemEnvironment();
     QStringList arguments;
@@ -459,6 +462,17 @@ void MachineProcess::getVersion()
     QProcess *findVersion = new QProcess();
     findVersion->start(qemuCommand);
     findVersion->waitForFinished();
+    
+    if(findVersion->error() == QProcess::FailedToStart)
+    {
+        versionMajor = -1;
+        versionMinor = -1;
+        versionBugfix = -1;
+        kvmVersion = -1;
+        emit error(tr("Either the qemu binary does not exist, or it is not executable!"));
+        return;
+    }
+    
     QString infoString = findVersion->readLine();
     QStringList infoStringList = infoString.split(" ");
     
