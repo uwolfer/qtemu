@@ -503,7 +503,7 @@ void MachineProcess::changeCdrom()
 void MachineProcess::changeFloppy()
 {
     //handle differing version syntax...
-    if()
+    if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
     write("eject -f floppy\n");//might need to be fda , not floppy
     write("change floppy " + floppyDiskPathString.toAscii() + '\n');
 }
