@@ -413,46 +413,40 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     networkFrameLayout->addWidget(networkDescriptionLabel);
 
     
-    QRadioButton *userModeNetwork = new QRadioButton(tr("User mode networking"));
+    QCheckBox *userModeNetwork = new QCheckBox(tr("User mode networking"));
     userModeNetwork->setToolTip(tr("In this mode the virtual machine accesses the network\n"
                                    "using Slirp; this is similar to access with a  web\n"
                                    "browser. this mode does not require administrator access,\n"
                                    "and works with wireless cards."));
-    connect(userModeNetwork, SIGNAL(toggled(bool)), machineProcess, SLOT(toggleNetworkMode(bool)));
     
-    QRadioButton *bridgedModeNetwork = new QRadioButton(tr("Bridged networking"));
+    QCheckBox *bridgedModeNetwork = new QCheckBox(tr("Bridged networking"));
     bridgedModeNetwork->setToolTip(tr("In this mode the virtual machine will have direct\n"
                                       "access to the host's network; This is needed to allow\n"
                                       "ICMP (ping) to work, and allows other machines to 'see'\n"
                                       "your virtual machine on the network. This mode does not\n"
                                       "work with most wireless cards."));
-    //connect(bridgedModeNetwork, SIGNAL(toggled(bool)), machineProcess, SLOT(toggleNetworkMode()));
     
-    QCheckBox *localBridgeModeNetwork = new QCheckBox(tr("Local bridged networking"));
-    localBridgeModeNetwork->setToolTip(tr("This mode allows more advanced bridging techniques,\n"
+    QCheckBox *localBridgedModeNetwork = new QCheckBox(tr("Local bridged networking"));
+    localBridgedModeNetwork->setToolTip(tr("This mode allows more advanced bridging techniques,\n"
                                           "including using the host computer as a router or\n"
                                           "restricting access to the host machine only."));
-    connect(localBridgeModeNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(localBridgeModeNetwork(int)));
     
     QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared VLan Networking"));
     sharedVlanNetwork->setToolTip(tr("This mode adds a network that is shared exclusively\n"
                                      "between virtual machines. IP based guests will default\n"
                                      "to APIPA addresses unless you run a DHCP server on\n"
                                      "one of your virtual machines. This does not use bridging."));
-    connect(sharedVlanNetwork, SIGNAL(stateChanged(int)), machineProcess, SLOT(sharedVlanNetwork(int)));
     
     
     networkFrameLayout->addWidget(userModeNetwork);
     networkFrameLayout->addWidget(bridgedModeNetwork);
-    networkFrameLayout->addWidget(localBridgeModeNetwork);
+    networkFrameLayout->addWidget(localBridgedModeNetwork);
     networkFrameLayout->addWidget(sharedVlanNetwork);
     
-    //FIXME: some of these lines need to go away
     networkDescriptionLabel = new QLabel(tr("Custom Networking Options:"), this);
     networkDescriptionLabel->setWordWrap(true);
     networkFrameLayout->addWidget(networkDescriptionLabel);
     networkCustomOptionsEdit = new QLineEdit(this);
-    //networkCustomOptionsEdit->setHidden(true);
     networkFrameLayout->addWidget(networkCustomOptionsEdit);
     
 
@@ -579,6 +573,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(floppyLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
     connect(floppyBootCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(networkCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
+    connect(userModeNetwork, SIGNAL(toggled(bool)), this, SLOT(write()));
+    connect(bridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(write()));
+    connect(localBridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(write()));
     connect(networkCustomOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
     connect(soundCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(soundSystemCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
@@ -641,7 +638,7 @@ void MachineTab::upgradeImage()
     }
 }
 
-//TODO: the functionality in here really should be abstracted into another class, like MachineImage
+//TODO: the functionality in here really should be abstracted into another class, like DiskImage
 void MachineTab::upgradeImageStarted()
 {
     startButton->setEnabled(false);
@@ -835,7 +832,6 @@ bool MachineTab::read()
     cpuSpinBox->setValue(child.firstChildElement("cpu").text().toInt());
     additionalOptionsEdit->setText(child.firstChildElement("additionalOptions").text());
     additionalOptionsCheckBox->setChecked(child.firstChildElement("useAdditionalOptions").text() == "true");
-
     return true;
 }
 
@@ -871,16 +867,17 @@ bool MachineTab::write()
     changeValue("bootFromCd", cdBootCheckBox->isChecked() ? "true" : "false");
     changeValue("floppy", floppyLineEdit->text());
     changeValue("bootFromFloppy", floppyBootCheckBox->isChecked() ? "true" : "false");
-    changeValue("network", networkCheckBox->isChecked() ? "true" : "false");
     changeValue("sound", soundCheckBox->isChecked() ? "true" : "false");
     changeValue("soundSystem", soundSystemCheckBox->isChecked() ? "alsa" : "oss");
-    changeValue("networkCustomOptions", networkCustomOptionsEdit->text());
     changeValue("mouse", mouseCheckBox->isChecked() ? "true" : "false");
     changeValue("time", timeCheckBox->isChecked() ? "true" : "false");
     changeValue("virtualization", virtualizationCheckBox->isChecked() ? "true" : "false");
     changeValue("cpu", QString::number(cpuSpinBox->value()));
     changeValue("additionalOptions", additionalOptionsEdit->text());
     changeValue("useAdditionalOptions", additionalOptionsCheckBox->isChecked() ? "true" : "false");
+    
+    changeValue("network", networkCheckBox->isChecked() ? "true" : "false");
+    changeValue("networkCustomOptions", networkCustomOptionsEdit->text());
 
     QFile file(xmlFileName);
     if (!file.open(QFile::WriteOnly | QFile::Text))
@@ -1001,7 +998,8 @@ void MachineTab::started()
 
 void MachineTab::error(const QString & errorMsg)
 {
-    QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occurred in qemu relating to something you were doing. The error is:<br />") + errorMsg,QMessageBox::Ok);
+    QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occurred in qemu. This may have been caused by QtEmu<br />"
+                                                      "or by attempting to perform an invalid action. The error is:<br />") + errorMsg,QMessageBox::Ok);
 }
 
 void MachineTab::snapshot(const int state)
@@ -1014,12 +1012,12 @@ void MachineTab::snapshot(const int state)
 
 void MachineTab::setNewSmbFolderPath()
 {
-//#ifdef Q_OS_WIN32
-//    QMessageBox::warning(window(), tr("QtEmu"),
-//                                   tr("This function is not available under Windows due to the missing function "
-//                                      "of QEMU under Windows. It will probably be fixed in a later version."));
-//    return;
-//#endif
+#ifdef Q_OS_WIN32
+    QMessageBox::warning(window(), tr("QtEmu"),
+                                   tr("This function is not available under Windows."
+                                      "You should be able to use Windows file sharing to enable it manually, however."));
+    return;
+#endif
     QString newSmbPath = QFileDialog::getExistingDirectory(this, tr("Select a folder to use as a Virtual Network Drive"),
                                                           myMachinesPath);
     if (!newSmbPath.isEmpty())

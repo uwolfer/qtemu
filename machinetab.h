@@ -92,9 +92,9 @@ private:
     QFrame *floppyFrame;
     QPushButton *networkButton;
     QFrame *networkFrame;
-    QRadioButton *userModeNetwork;
-    QRadioButton *bridgedModeNetwork;
-    QCheckBox *localBridgeModeNetwork;
+    QCheckBox *userModeNetwork;
+    QCheckBox *bridgedModeNetwork;
+    QCheckBox *localBridgedModeNetwork;
     QPushButton *soundButton;
     QFrame *soundFrame;
     QPushButton *otherButton;
