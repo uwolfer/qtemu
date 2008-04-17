@@ -53,10 +53,7 @@ public slots:
     void cdBoot(int value);
     void floppyBoot(int value);
     void snapshot(int value);
-    void network(int value);
-    void toggleNetworkMode(bool userMode);
-    void localBridgeModeNetwork(int value);
-    void sharedVlanNetwork(int value);
+
     void sound(int value);
     void soundSystem(int value);
     void memory(int value);
@@ -65,10 +62,14 @@ public slots:
     void virtualization(int value);
     void cpu(int value);
     void useAdditionalOptions(int value);
-    void networkCustomOptions(const QString& options);
+
     void additionalOptions(const QString& options);
     void changeCdrom();
     void changeFloppy();
+    
+    void network(int value);
+    void networkCustomOptions(const QString& options);
+
 signals:
     void suspending(const QString & snapshotName);
     void suspended(const QString & snapshotName);
