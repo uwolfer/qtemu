@@ -72,16 +72,20 @@ void MachineProcess::start()
         arguments << "-snapshot";
     
     if (networkEnabled)
-    {   //TODO:implement new network stuff
-    
-        //load up saved network setup
+    {
+        #ifdef DEVELOPER
+        //load up network setup
         networkSystem->loadNics();
+        if (networkSystem->numNics() != 0)
+            arguments << networkSystem->getOptionList();
+        #endif
         
-           if (networkSystem->numNics() != 0)
-               arguments << networkSystem->getOptionList();
-
-           if (!networkCustomOptionsString.isEmpty())
-               arguments << networkCustomOptionsString.split(" ", QString::SkipEmptyParts);
+        if (!networkCustomOptionsString.isEmpty())
+            arguments << networkCustomOptionsString.split(" ", QString::SkipEmptyParts);
+        #ifndef DEVELOPER
+        else
+            arguments << "-net" << "nic" << "-net" << "user";
+        #endif
     }
     else
         arguments << "-net" << "none";
@@ -93,28 +97,46 @@ void MachineProcess::start()
     in order to take advantage of this, the interface will need a custom drive widget that can be
      inserted multiple times easily.
      to save these complex settings, settings can be saved under <drives> with a specific <drive>
-     in the .qte file.
+     in the .qte file. this does not work correctly with qemu < 0.9.1
    */
-
-    if (!cdRomPathString.isEmpty())
+    if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
     {
+        //TODO: modify to support multiple floppies and cdroms(index=0 and index=1)
+        if (!cdRomPathString.isEmpty())
+        {
         cdRomPathString = cdRomPathString.replace(QRegExp(","),",,");
-        arguments << "-drive" << "file=" + cdRomPathString + ",if=ide,bus=1,unit=0,media=cdrom";
+        arguments << "-drive" << "file=" + cdRomPathString + ",if=ide,bus=1,unit=0,media=cdrom";//TODO:make the drive location configurable
         if (bootFromCdEnabled)
             arguments << "-boot" << "d";
-    }
-    else//allows the cdrom to exist if not specified
-    {
+        }
+        else//allows the cdrom to exist if not specified
+        {
         arguments << "-drive" << "if=ide,bus=1,unit=0,media=cdrom";//TODO:make the drive location configurable
+        }
+
+        if (!floppyDiskPathString.isEmpty())
+        {
+            arguments << "-drive" << "file=" + floppyDiskPathString + ",index=0,if=floppy";
+            if (bootFromFloppyEnabled)
+                arguments << "-boot" << "a";
+        }
     }
-    
-    //TODO: modify to support multiple floppies(index=0 and index=1)
-    if (!floppyDiskPathString.isEmpty())
+    else //use old (<0.9.1) drive syntax, cdrom must exist on startup to be inserted
     {
-        arguments << "-drive" << "file=" + floppyDiskPathString + ",index=0,if=floppy";
-        if (bootFromFloppyEnabled)
-            arguments << "-boot" << "a";
+        if (!cdRomPathString.isEmpty())
+        {
+            arguments << "-cdrom" << cdRomPathString;
+            if (bootFromCdEnabled)
+                arguments << "-boot" << "d";
+        }
+        if (!floppyDiskPathString.isEmpty())
+        {
+          arguments << "-fda" << floppyDiskPathString;
+          if (bootFromFloppyEnabled)
+              arguments << "-boot" << "a";
+        }
     }
+
     
     if (soundEnabled)
     {
@@ -153,10 +175,9 @@ void MachineProcess::start()
     arguments << "-monitor" << "stdio";
 #endif
 
-    if((versionMinor + versionBugfix*.1)>=9.1||kvmVersion>=60)
+    if((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
         arguments << "-name" << "\"" + machineNameString + "\"";
 
-    //TODO: use new -drive syntax (man qemu for info)
     // Add the VM image name...
     arguments << pathString;
 
@@ -221,6 +242,7 @@ void MachineProcess::afterExitExecute()
     }
 
     doResume=false;
+    networkSystem->clearAllNics();
 }
 
 void MachineProcess::path(const QString &newPath)
@@ -464,31 +486,30 @@ void MachineProcess::soundSystem(int value)
 //TODO: accept a drive assignment to eject/insert. this means multiple drives would be supported
 void MachineProcess::changeCdrom()
 {
+    //handle differing version syntax...
+    if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
+    {
     write("eject -f ide1-cd0\n");
     write("change ide1-cd0 " + cdRomPathString.toAscii() + '\n');
+    }
+    else
+    {
+    write("eject -f cdrom\n");
+    write("change cdrom " + cdRomPathString.toAscii() + '\n');
+    }
 }
 
 //TODO: accept a drive assignment to eject/insert.
 void MachineProcess::changeFloppy()
 {
-    write("eject -f floppy0\n");
-    write("change floppy0 " + floppyDiskPathString.toAscii() + '\n');
+    //handle differing version syntax...
+    if()
+    write("eject -f floppy\n");//might need to be fda , not floppy
+    write("change floppy " + floppyDiskPathString.toAscii() + '\n');
 }
 
-//TODO: all network stuff needs to be implemented. some of this will require use of sudo. (bridged modes)
-//a wizard also needs to be made to set up sudo to work without manual intervention.
+//TODO:a wizard needs to be made to set up sudo to work without manual intervention.
 void MachineProcess::smbFolderPath(const QString & newPath)
 {
+    networkSystem->addSambaDir(newPath);
 }
-
-void MachineProcess::toggleNetworkMode(bool userMode)
-{
-}
-
-void MachineProcess::localBridgeModeNetwork(int value)
-{
-}
-
-void MachineProcess::sharedVlanNetwork(int value)
-{
-}	
