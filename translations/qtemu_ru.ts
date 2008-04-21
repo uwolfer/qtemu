@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<defaultcodec></defaultcodec>
 <context>
     <name>ChooseSystemPage</name>
     <message>
@@ -61,17 +62,17 @@
         <translation>Путь к каталогу &quot;MyMachines&quot;:</translation>
     </message>
     <message>
-        <location filename="../configwindow.cpp" line="168"/>
+        <location filename="../configwindow.cpp" line="165"/>
         <source>OK</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../configwindow.cpp" line="171"/>
+        <location filename="../configwindow.cpp" line="168"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../configwindow.cpp" line="190"/>
+        <location filename="../configwindow.cpp" line="187"/>
         <source>Select a folder for &quot;MyMachines&quot;</source>
         <translation>Выберите каталог для &quot;MyMachines&quot;</translation>
     </message>
@@ -116,7 +117,7 @@
         <translation>Команда запуска QEMU:</translation>
     </message>
     <message>
-        <location filename="../configwindow.cpp" line="152"/>
+        <location filename="../configwindow.cpp" line="150"/>
         <source>Execute after exit:</source>
         <translation>Выполнить после завершения:</translation>
     </message>
@@ -138,7 +139,7 @@
     <message>
         <location filename="../configwindow.cpp" line="150"/>
         <source>QEMU start command runs KVM</source>
-        <translation>Команда запуска QEMU выполняет KVM</translation>
+        <translation type="obsolete">Команда запуска QEMU выполняет KVM</translation>
     </message>
 </context>
 <context>
@@ -229,7 +230,7 @@
     <message>
         <location filename="../machinewizard.cpp" line="298"/>
         <source>The native image format enables&lt;br&gt;suspend/resume features, all other formats&lt;br&gt;lack suspend/resume. Use &quot;Native image (qcow)&quot;&lt;br&gt;unless you know what you are doing.</source>
-        <translation>Только формат образа QEMU (qcow)&lt;br&gt;поддерживает функцию приостановки выполнения виртуальной машины.&lt;br&gt;Используйте формат &quot;QEMU (qcow)&quot;, если нет необходимости использовать другой формат.</translation>
+        <translation>Только формат образа QEMU (qcow)&lt;br&gt;поддерживает функцию приостановки&lt;br&gt; выполнения виртуальной машины.&lt;br&gt;Используйте формат &quot;QEMU (qcow)&quot;,&lt;br&gt;если нет необходимости использовать&lt;br&gt;другой формат.</translation>
     </message>
 </context>
 <context>
@@ -253,6 +254,14 @@
         <location filename="../machinewizard.cpp" line="254"/>
         <source>Select a folder for saving the hard disk image</source>
         <translation>Выберите каталог для сохранения образа диска</translation>
+    </message>
+</context>
+<context>
+    <name>MachineProcess</name>
+    <message>
+        <location filename="../machineprocess.cpp" line="483"/>
+        <source>Either the qemu binary does not exist, or it is not executable at </source>
+        <translation>Исполняемый файл QEMU не существует, или его запуск не разрешён </translation>
     </message>
 </context>
 <context>
@@ -288,7 +297,7 @@
         <translation>Приостановить/Возобновить виртуальную машину</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="1011"/>
+        <location filename="../machinetab.cpp" line="1018"/>
         <source>Snapshot mode</source>
         <translation>Режим снимка</translation>
     </message>
@@ -348,7 +357,7 @@
         <translation>За&amp;грузка с CD-ROM</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="502"/>
+        <location filename="../machinetab.cpp" line="505"/>
         <source>&amp;Other</source>
         <translation>&amp;Дополнительно</translation>
     </message>
@@ -358,27 +367,27 @@
         <translation>  </translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="529"/>
+        <location filename="../machinetab.cpp" line="532"/>
         <source>&lt;hr&gt;Choose if the virtual machine should use the host machine clock.</source>
         <translation>&lt;hr&gt;Выберите, будет ли эта виртуальная машина использовать таймер компьютера.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="533"/>
+        <location filename="../machinetab.cpp" line="536"/>
         <source>Enable &amp;local time</source>
         <translation>Включить &amp;локальное время</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="149"/>
         <source>&lt;strong&gt;Notes&lt;/strong&gt;</source>
-        <translation>&lt;strong&gt;Примечания&lt;/strong&gt;</translation>
+        <translation type="obsolete">&lt;strong&gt;Примечания&lt;/strong&gt;</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="701"/>
+        <location filename="../machinetab.cpp" line="707"/>
         <source>Select a CD ROM Drive</source>
         <translation>Выбор привода CD-ROM</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="709"/>
+        <location filename="../machinetab.cpp" line="715"/>
         <source>Select a CD Image</source>
         <translation>Выбор образа CD-ROM</translation>
     </message>
@@ -388,51 +397,51 @@
         <translation type="obsolete">Разрешение сетевых (в т.ч. и интернет) соединений для этой виртуальной машины.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="678"/>
+        <location filename="../machinetab.cpp" line="684"/>
         <source>Select a QtEmu hard disk image</source>
         <translation>Выбор образа жёсткого диска QtEmu</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="680"/>
+        <location filename="../machinetab.cpp" line="686"/>
         <source>QtEmu hard disk images</source>
         <translation>Образы жёсткого диска QtEmu</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="711"/>
+        <location filename="../machinetab.cpp" line="717"/>
         <source>CD ROM images</source>
         <translation>Образы CD-ROM</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="888"/>
+        <location filename="../machinetab.cpp" line="1042"/>
         <source>QtEmu</source>
         <translation>QtEmu</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="764"/>
+        <location filename="../machinetab.cpp" line="770"/>
         <source>Cannot read file %1:
 %2.</source>
         <translation>Невозможно прочитать файл %1
 %2.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="778"/>
+        <location filename="../machinetab.cpp" line="784"/>
         <source>Parse error at line %1, column %2:
 %3</source>
         <translation>Ошибка обработки строки %1, колонка %2
 %3</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="788"/>
+        <location filename="../machinetab.cpp" line="794"/>
         <source>The file is not a QtEmu file.</source>
         <translation>Это файл не QtEmu.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="795"/>
+        <location filename="../machinetab.cpp" line="801"/>
         <source>The file is not a QtEmu version 1.0 file.</source>
         <translation>Это файл не QtEmu версии 1.0.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="890"/>
+        <location filename="../machinetab.cpp" line="896"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>Невозможно записать в файл %1
@@ -454,7 +463,7 @@
         <translation type="obsolete">Задайте размер памяти для этой виртуальной машины. При выделении чрезмерного объёма памяти, может начаться swapping.&lt;br /&gt;&lt;br /&gt; Память для этой машины:</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="721"/>
+        <location filename="../machinetab.cpp" line="727"/>
         <source>This function is not available under Windows due to the missing function of QEMU under Windows. It will probably be fixed in a later version.</source>
         <translation>Эта функция недоступна в Windows. Возможно, она будет реализована в следующих версиях QEMU.</translation>
     </message>
@@ -469,7 +478,7 @@
         <translation>Путь к файлу образа дискеты или файлу устройства дисковода: </translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="732"/>
+        <location filename="../machinetab.cpp" line="738"/>
         <source>Select a Floppy Disk Image</source>
         <translation>Выбор образа дискеты</translation>
     </message>
@@ -479,22 +488,22 @@
         <translation>За&amp;грузка с дискеты</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="734"/>
+        <location filename="../machinetab.cpp" line="740"/>
         <source>Floppy disk images</source>
         <translation>Образы дискет</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="724"/>
+        <location filename="../machinetab.cpp" line="730"/>
         <source>Select a Floppy Disk Drive</source>
         <translation>Выбор дисковода</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="912"/>
+        <location filename="../machinetab.cpp" line="918"/>
         <source>Close confirmation</source>
         <translation>Подтверждение закрытия</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="914"/>
+        <location filename="../machinetab.cpp" line="920"/>
         <source>Are you sure you want to close this machine?&lt;br /&gt;You can open it again with the corresponding .qte file in your &quot;MyMachines&quot; folder.</source>
         <translation>Вы уверены, что хотите закрыть виртуальную машину?&lt;br /&gt;Вы можете открыть её снова при помощи соответствующего файла .qte в каталоге &quot;MyMachines&quot;.</translation>
     </message>
@@ -504,29 +513,29 @@
         <translation type="obsolete">Параметры с&amp;ети (оставьте пустым для настроек по умолчанию):</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="466"/>
+        <location filename="../machinetab.cpp" line="469"/>
         <source>&amp;Sound</source>
         <translation>&amp;Звук</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="481"/>
+        <location filename="../machinetab.cpp" line="484"/>
         <source>Choose whether sound support should be available for this virtual machine.</source>
         <translation>Выберите, будет ли поддержка звука доступна виртуальной машине.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="484"/>
+        <location filename="../machinetab.cpp" line="487"/>
         <source>&amp;Enable sound</source>
         <translation>&amp;Включить поддержку звука</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="520"/>
+        <location filename="../machinetab.cpp" line="523"/>
         <source>Choose whether the mouse should switch seamlessly between host and virtual system. This option depends on the operating system. It is for example not supported by text based systems. &lt;strong&gt;Attention:&lt;/strong&gt; This option may reduce the system performance. </source>
-        <translation>Использовать бесшовное переключение мыши между виртуальной и базовой операционной  системой. Данная возможность не поддерживается некоторыми операционными системами, например, операционными системами с текстовым режимом. &lt;strong&gt;ПРИМЕЧАНИЕ:&lt;/strong&gt; Включение данной функции может снизить производительность системы.</translation>
+        <translation>Выберите, будет ли использоваться бесшовное переключение мыши между виртуальной и базовой операционной  системой. Данная возможность не поддерживается некоторыми операционными системами, например, операционными системами с текстовым режимом.&lt;br /&gt;&lt;strong&gt;ПРИМЕЧАНИЕ:&lt;/strong&gt; Включение данной функции может снизить производительность системы.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="524"/>
+        <location filename="../machinetab.cpp" line="527"/>
         <source>Enable seamless mo&amp;use</source>
-        <translation>Включить интеграцию м&amp;ыши</translation>
+        <translation>Включить бесшовное переключение м&amp;ыши</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="374"/>
@@ -534,12 +543,12 @@
         <translation type="obsolete">Выберите число вир&amp;туальных процессоров.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="537"/>
+        <location filename="../machinetab.cpp" line="540"/>
         <source>&amp;Additional QEMU options:</source>
         <translation>&amp;Дополнительные параметры QEMU:</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="946"/>
+        <location filename="../machinetab.cpp" line="952"/>
         <source>&amp;Suspend</source>
         <translation>&amp;Приостановить</translation>
     </message>
@@ -574,7 +583,7 @@
         <translation>Включить &amp;ускорение виртуализации</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="673"/>
+        <location filename="../machinetab.cpp" line="679"/>
         <source>Upgrade HDD Format to Native</source>
         <translation>Преобразовать формат образа в формат QEMU</translation>
     </message>
@@ -691,104 +700,119 @@ one of your virtual machines. This does not use bridging.</source>
 режим не использует сетевой мост.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="451"/>
+        <location filename="../machinetab.cpp" line="449"/>
         <source>Custom Networking Options:</source>
         <translation>Дополнительные параметры сети:</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="485"/>
+        <location filename="../machinetab.cpp" line="488"/>
         <source>Choose whether to use ALSA or OSS for sound emulation.</source>
         <translation>Выберите звуковую систему для эмуляции звука: ALSA или OSS.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="487"/>
+        <location filename="../machinetab.cpp" line="490"/>
         <source>&amp;Use ALSA</source>
         <translation>&amp;Использовать ALSA</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="626"/>
+        <location filename="../machinetab.cpp" line="632"/>
         <source>Upgrade Confirmation</source>
         <translation>Подтвердите преобразование</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="627"/>
+        <location filename="../machinetab.cpp" line="633"/>
         <source>This will upgrade your Hard Disk image to the qcow format.&lt;br /&gt;This enables more advanced features such as suspend/resume on all operating systems and image compression on Windows.&lt;br /&gt;Your old image will remain intact, so if you want to revert afterwards you may do so.</source>
         <translation>Произвести преобразование образа жёсткого диска в формат QEMU (qcow).&lt;br /&gt; Это обеспечит поддержку функции приостановки выполнения виртуальной машины.&lt;br /&gt;Существующий образ удалён не будет.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="652"/>
+        <location filename="../machinetab.cpp" line="658"/>
         <source>Upgrading...</source>
         <translation>Преобразование...</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="663"/>
+        <location filename="../machinetab.cpp" line="669"/>
         <source>Upgrade Complete</source>
         <translation>Преобразование выполнено</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="664"/>
+        <location filename="../machinetab.cpp" line="670"/>
         <source>Upgrade complete. Your old hard disk image is preserved.&lt;br /&gt;After you have determined the upgrade went smoothly and your machine will still start, you may wish to delete the old image.</source>
         <translation>Преобразование выполнено. Старый образ жёсткого диска не удалён.&lt;br /&gt;После того, как Вы убедитесь, что преобразование прошло успешно, и виртуальная машина запустится, Вы можете удалить старый образ.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="668"/>
+        <location filename="../machinetab.cpp" line="674"/>
         <source>Upgrade Failed</source>
         <translation>Не удалось выполнить преобразование</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="669"/>
+        <location filename="../machinetab.cpp" line="675"/>
         <source>Upgrading your hard disk image failed! Do you have enough disk space?&lt;br /&gt;You may want to try upgrading manually using the program qemu-img.</source>
         <translation>Не удалось выполнить преобразование образа жёсткого диска. Проверьте, достаточно ли места на жёстком диске.&lt;br /&gt;Вы можете попробовать преобразовать образ вручную при помощи программы qemu-img.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="937"/>
+        <location filename="../machinetab.cpp" line="943"/>
         <source>Suspending...</source>
-        <translation>Приостановка...</translation>
+        <translation>Ждите...</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="961"/>
+        <location filename="../machinetab.cpp" line="967"/>
         <source>Resume</source>
         <translation>Возобновить</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="962"/>
+        <location filename="../machinetab.cpp" line="968"/>
         <source>Your machine is being resumed. USB devices will not function properly on Windows. You must reload&lt;br /&gt;the USB driver to use your usb devices including the seamless mouse.&lt;br /&gt;In addition the advanced VGA adapter will not refresh initially on any OS.</source>
         <translation>Производится возобновление работы виртуальной машины. Функционирование&lt;br /&gt;устройств USB в Windows будет нарушено. Необходимо перезагрузить&lt;br /&gt; драйвер USB, прежде чем можно будет использовать устройства USB,&lt;br /&gt;в том числе мышь. Кроме того, в некоторых операционных системах может произойти&lt;br /&gt;сбой видеоадаптера.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="970"/>
+        <location filename="../machinetab.cpp" line="976"/>
         <source>This will tell the current machine to power down. Are you sure?&lt;br /&gt;If the virtual machine Operating System is ACPI or APM aware, it will power down gracefully.&lt;br /&gt;If the machine is unresponsive, you can choose a forced shutdown. Doing this may cause damage to the disk image.</source>
         <translation>Данное действие приведёт к выключению питания виртуальной машины.&lt;br /&gt;Если операционная система виртуальной машины поддерживает&lt;br /&gt;механизм управления питанием ACPI или APM, то её работа завершится корректно.&lt;br /&gt;В случа если виртуальная машина &quot;зависнет&quot;, Вы можете попробовать&lt;br /&gt; принудительное выключение. При принудительном выключении может&lt;br /&gt; произойти повреждение образа жёсткого диска.</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="972"/>
+        <location filename="../machinetab.cpp" line="978"/>
         <source>Shutdown</source>
         <translation>Выключить</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="973"/>
+        <location filename="../machinetab.cpp" line="979"/>
         <source>Force Shutdown</source>
         <translation>Выключить принудительно</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="998"/>
+        <location filename="../machinetab.cpp" line="1004"/>
         <source>(uncheck to commit changes)</source>
         <translation>(уберите галочку, чтобы записать изменения)</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="1004"/>
+        <location filename="../machinetab.cpp" line="1010"/>
         <source>QtEmu Error</source>
         <translation>Ошибка QtEmu</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="1004"/>
         <source>An error has occurred in qemu relating to something you were doing. The error is:&lt;br /&gt;</source>
-        <translation>Действия пользователя вызвали ошибку QEMU:&lt;br /&gt;</translation>
+        <translation type="obsolete">Действия пользователя вызвали ошибку QEMU:&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="../machinetab.cpp" line="1023"/>
+        <location filename="../machinetab.cpp" line="1030"/>
         <source>Select a folder to use as a Virtual Network Drive</source>
         <translation>Выберите каталог для использования в качестве виртуального сетевого диска</translation>
+    </message>
+    <message>
+        <location filename="../machinetab.cpp" line="1011"/>
+        <source>An error has occurred in qemu. This may have been caused by QtEmu&lt;br /&gt;or by attempting to perform an invalid action. The error is:&lt;br /&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../machinetab.cpp" line="1027"/>
+        <source>This function is not available under Windows.You should be able to use Windows file sharing to enable it manually, however.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../machinetab.cpp" line="1043"/>
+        <source>This function is not yet implemented.</source>
+        <translation>Эта функция ещё не реализована.</translation>
     </message>
 </context>
 <context>
