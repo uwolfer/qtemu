@@ -27,13 +27,50 @@ Compilation with cmake:
 * type 'make install' as root
 * start it now with qtemu
 
+Network Configuration:
+  QtEmu will handle all network configuration for you on Linux. In
+  order to support bridging modes, a few programs need to be
+  installed:
+     sudo
+     ip
+     route
+     brctl
+     tunctl
+  along with kernel modules to make these utilities function.
+
+  Additionally, so that QtEmu can automatically use these programs
+  as a normal user, a few lines need to be added to the end of 
+  /etc/sudoers as follows with visudo:
+
+### rules for QtEmu ###
+User_Alias QTEMU = %qtemu
+
+Cmnd_Alias      QEMU_COMMANDS = /sbin/route, /usr/sbin/brctl, /usr/sbin/tunctl, /sbin/ip
+
+QTEMU   ALL=NOPASSWD: QEMU_COMMANDS
+### end rules for QtEmu ###
+
+  You need to have the qtemu group, and your user needs to be part
+  of it. Eventually QtEmu will do all this automatically for you, 
+  but until then manual intervention is neccesary.
+
+  One last note: the above paths should be correct in most cases,
+  but if something doesn't work and debugging says that a command
+  you know is installed is "unavailable", make sure these paths
+  are right for you!
+
+Have Fun!
+
 Copyright / License
 -------------------
-QtEmu is released under GPL. Copyright © 2006-2008 Urs Wolfer. All
-rights reserved. The icons have been taken from the KDE Crystal
-theme which is LGPL licensed.
+QtEmu is released under GPL. Copyright © 2006-2008 Urs Wolfer and
+Ben Klopfenstein. All rights reserved. The icons have been taken
+from the KDE Crystal theme which is LGPL licensed.
 
 Author
 ------
 QtEmu is written by Urs Wolfer <uwolfer fwo ch>. It has been
 started as a project work for school.
+Ben Klopfenstein <benklop gmail com> began adding some features
+he wanted, and is now rather involved in writing the next few
+versions. He also uses it for school.

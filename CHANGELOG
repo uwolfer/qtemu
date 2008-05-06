@@ -15,6 +15,8 @@ Features:
     to whatever you put in the box!
 * Add the ability to commit changes to a machine started up in snapshot mode by simply unchecking
     the snapshot box!
+* New network subsystem for bridging support (and other advanced networking features eventually!)
+    see the readme for setting this up!
 All these new features listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
 * Install desktop file on Linux (e.g. to start QtEmu from startmenus)
 * Respect FHS for installation on Linux
