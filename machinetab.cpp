@@ -435,18 +435,18 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
                                           "restricting access to the host machine only.\n"
                                           "This is safe with NetworkManager."));
     connect(localBridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
-    
+/*    
     QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared VLan Networking"));
     sharedVlanNetwork->setToolTip(tr("This mode adds a network that is shared exclusively\n"
                                      "between virtual machines. IP based guests will default\n"
                                      "to APIPA addresses unless you run a DHCP server on\n"
                                      "one of your virtual machines. This does not use bridging."));
     connect(sharedVlanNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
-    
+*/    
     networkFrameLayout->addWidget(userModeNetwork);
     networkFrameLayout->addWidget(bridgedModeNetwork);
     networkFrameLayout->addWidget(localBridgedModeNetwork);
-    networkFrameLayout->addWidget(sharedVlanNetwork);
+//    networkFrameLayout->addWidget(sharedVlanNetwork);
     
     networkDescriptionLabel = new QLabel(tr("Custom Networking Options:"), this);
     networkDescriptionLabel->setWordWrap(true);
@@ -462,7 +462,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(networkCheckBox, SIGNAL(toggled(bool)), userModeNetwork, SLOT(setEnabled(bool)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), bridgedModeNetwork, SLOT(setEnabled(bool)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), localBridgedModeNetwork, SLOT(setEnabled(bool)));
-    connect(networkCheckBox, SIGNAL(toggled(bool)), sharedVlanNetwork, SLOT(setEnabled(bool)));
+//    connect(networkCheckBox, SIGNAL(toggled(bool)), sharedVlanNetwork, SLOT(setEnabled(bool)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), smbFolderEdit, SLOT(setEnabled(bool)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), smbSelectButton, SLOT(setEnabled(bool)));
     //network section end
