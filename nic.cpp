@@ -32,48 +32,61 @@ Nic::Nic(const NicType & newType, const int & vLanReq, const QByteArray & mac, Q
     findEnv();
     setMacAddress(mac);
     setType(newType);
+    //ifUp();
 }
 
 Nic::~Nic()
 {
-    Enable(false);
     ifDown();
     if(initialized)
         deInitNic();
-    vLanList.replace(vLan, vLanList.at(vLan) - 1);
+    //FIXME: screw the whole vlan thing for now...
+    //vLanList.replace(vLan, vLanList.at(vLan) - 1);
 }
 
 void Nic::ifUp()
 {
-    if(!initialized && !initNic())
-        return;
-
-    QProcess *tempProcess = new QProcess(this);
-    QStringList tempOpts;
-    tempOpts << ipPath << "link" << "set" << tapInterface << "up";
-    tempProcess->start(sudoPath, tempOpts);
-    tempProcess->waitForFinished();
+    if(!initNic())//returns if initialization fails
+    {
+       #ifdef DEVELOPER
+       qDebug("Initialization failed!");
+       #endif
+       return;
+    }   
+    //only for bridged mode networks (networks that use a tap device)
+    if( nicType == Bridged || nicType == LocalBridged )
+    {
+        QProcess *tempProcess = new QProcess(this);
+        QStringList tempOpts;
+        tempOpts << ipPath << "link" << "set" << tapInterface << "up";
+        tempProcess->start(sudoPath, tempOpts);
+        tempProcess->waitForFinished();
+    }
+    
 }
 
 void Nic::ifDown()
 {
-    QProcess *tempProcess = new QProcess(this);
-    QStringList tempOpts;
-    tempOpts << ipPath << "link" << "set" << tapInterface << "down";
-    tempProcess->start(sudoPath, tempOpts);
-    tempProcess->waitForFinished();
+    if( nicType == Bridged || nicType == LocalBridged )
+    {
+        QProcess *tempProcess = new QProcess(this);
+        QStringList tempOpts;
+        tempOpts << ipPath << "link" << "set" << tapInterface << "down";
+        tempProcess->start(sudoPath, tempOpts);
+        tempProcess->waitForFinished();
+    }
 }
 
 QByteArray Nic::generateMacAddress()
 {
     qsrand(QDateTime::currentDateTime().toTime_t());
     macAddress = "525400";//manufacturer part of the address -- from qemu's default
-    macAddressPart = "";
+    interfaceIdentifier = "";
     for(int i=0;i<6;i++)
     {
-        macAddressPart = macAddressPart + QString::number(qrand()%16, 16).toUpper().toAscii();
+        interfaceIdentifier = interfaceIdentifier + QString::number(qrand()%16, 16).toUpper().toAscii();
     }
-    macAddress = macAddress + macAddressPart;
+    macAddress = macAddress + interfaceIdentifier;
     return macAddress;
 }
 
@@ -87,11 +100,12 @@ NicType Nic::type() const
 void Nic::setType ( const NicType& theValue )
 {
     nicType = theValue;
-    initNic();
-
+    if(theValue == Bridged||theValue == LocalBridged)
+    {
+        setTapInterface();
+    }
 }
 
-//doesn't work!
 QByteArray Nic::getMacAddress()
 {
     QByteArray formattedMac;
@@ -117,9 +131,8 @@ void Nic::setMacAddress ( const QByteArray& theValue )
         for(int i=2;i<12;i = i + 2)
             temp.remove(i,1);
         macAddress = temp;
-        macAddressPart = temp.mid(7,6);
+        interfaceIdentifier = temp.mid(7,6);
     }
-    setTapInterface();
 }
 
 
@@ -160,7 +173,7 @@ void Nic::setTapInterface ( const QByteArray& theValue )
         tapInterface = theValue;
     else
     {
-        tapInterface = "qtemu-tap" + macAddressPart;
+        tapInterface = "qtemu-tap" + interfaceIdentifier;
     }
 }
 
@@ -177,7 +190,7 @@ void Nic::setBridgeInterface ( const QByteArray& theValue )
         bridgeInterface = theValue;
     else
     {
-        bridgeInterface = "qtemu-br" + macAddressPart;
+        bridgeInterface = "qtemu-br" + interfaceIdentifier;
         createBridge();
         bridgeInterface = bridges.last();
     }
@@ -203,13 +216,13 @@ bool Nic::initNic()
     {
         case User:
             //bring up user mode, set parameters
-            optionList << "-net" << "nic" << "-net" << "user";
+            optionList << "-net" << "nic,macaddr=" + (QString)getMacAddress() << "-net" << "user";
             success = true;
             break;
         case Bridged:
             //bring up bridged mode, set parameters
             setVLan();
-            optionList << "-net" << "nic,macaddr=" + (QString)getMacAddress() + ",vlan=" + getVLan() << "-net" << "ifname=" + (QString)getTapInterface() + ",script=no";
+            optionList << "-net" << "nic,macaddr=" + (QString)getMacAddress() + ",vlan=" + getVLan() << "-net" << "tap,ifname=" + (QString)getTapInterface() + ",script=no";
             if(
                 createTap() &&
                 createBridge() &&
@@ -217,11 +230,12 @@ bool Nic::initNic()
                 connectHardwareNicToBridge()
                )
                 success = true;
+            
             break;
         case LocalBridged:
              //bring up local bridged mode, set parameters
              setVLan();
-             optionList << "-net" << "nic,macaddr=" + (QString)getMacAddress() + ",vlan=" + getVLan() << "-net" << "ifname=" + (QString)getTapInterface() + ",script=no";
+             optionList << "-net" << "nic,macaddr=" + (QString)getMacAddress() + ",vlan=" + getVLan() << "-net" << "tap,ifname=" + (QString)getTapInterface() + ",script=no";
             if(
                 createTap() &&
                 createBridge() &&
@@ -281,6 +295,9 @@ bool Nic::createTap()
     tempOpts << tunctlPath << "-u" << userName << "-t" << tapInterface;
     tempProcess->start(sudoPath, tempOpts);
     tempProcess->waitForFinished();
+    #ifdef DEVELOPER
+    qDebug("tunctl output: " + tempProcess->readAllStandardOutput() + tempProcess->readAllStandardError());
+    #endif
     if(tempProcess->exitCode() == -1)
         return false;
     else
@@ -294,6 +311,9 @@ bool Nic::destroyTap()
     tempOpts << tunctlPath << "-d" << tapInterface;
     tempProcess->start(sudoPath, tempOpts);
     tempProcess->waitForFinished();
+    #ifdef DEVELOPER
+    qDebug("tunctl output: " + tempProcess->readAllStandardOutput() + tempProcess->readAllStandardError());
+    #endif
     if(tempProcess->exitCode() == -1)
         return false;
     else
@@ -337,7 +357,7 @@ bool Nic::bridgeExists()
 }
 
 bool Nic::bridgeInUse()
-{
+{   //right now this just checks whether _A_ bridge exists....
     QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     tempOpts << brctlPath << "show";
@@ -368,6 +388,7 @@ bool Nic::createBridge()
     tempOpts << brctlPath << "addbr" <<  bridgeInterface;
     tempProcess->start(sudoPath, tempOpts);
     tempProcess->waitForFinished();
+
     if(tempProcess->exitCode() == -1)
         return false;
     bridges.append(bridgeInterface);
@@ -381,9 +402,16 @@ bool Nic::destroyBridge()
         return false;
     QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
+    //bring the bridge down
+    tempOpts << ipPath << "link" << "set" << bridgeInterface << "down";
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    
+    tempOpts.clear();
     tempOpts << brctlPath << "delbr" <<  bridgeInterface;
     tempProcess->start(sudoPath, tempOpts);
     tempProcess->waitForFinished();
+
     if(tempProcess->exitCode() == -1)
         return false;
     bridges.removeAll(bridgeInterface);
@@ -394,17 +422,35 @@ bool Nic::connectHardwareNicToBridge()
 {
     QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
-    clearHwNic();
-    HwNic thisNic;
-    for(int i=0;i<hardwareNics.size();i++)
-    {
-        if(hardwareNics.at(i).kernelName == hardwareInterface)
-            thisNic = hardwareNics.at(i);
-    }
     
+    //is it already connected?
+    tempOpts << brctlPath << "show" <<  bridgeInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    if(tempProcess->readAllStandardOutput().contains(hardwareInterface))
+        return true;
+   
+    //stopping NetworkManager at this point would be a really good idea... it'll probably futz with things
+    //TODO: stop network manager
+   
+    //clear the nic's configuration and get settings from it
+    clearHwNic();
+    
+    //ok, lets try to connect to it to the bridge
+    tempOpts.clear();
     tempOpts << brctlPath << "addif" <<  bridgeInterface << hardwareInterface;
     tempProcess->start(sudoPath, tempOpts);
     tempProcess->waitForFinished();
+    if(tempProcess->exitCode() == -1)
+    {
+        #ifdef DEVELOPER
+        qDebug("adding hardware interface to bridge failed!");
+        #endif
+        return false;
+    }
+    //now we need to move the IP configuration from the ethernet interface to the bridge interface.
+
+    HwNic thisNic = hardwareNics.last();
     
     tempOpts.clear();
     tempOpts << ipPath << "addr" << "add" << thisNic.HwIP + thisNic.HwCidr << "dev" << bridgeInterface;
@@ -416,6 +462,16 @@ bool Nic::connectHardwareNicToBridge()
     tempProcess->start(sudoPath, tempOpts);
     tempProcess->waitForFinished();
 
+
+    tempOpts.clear();
+    tempOpts << routePath << "add" << "default" << "gateway" << thisNic.DefaultGateway << bridgeInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    
+    #ifdef DEVELOPER
+        qDebug("adding gateway \"" + thisNic.DefaultGateway + "\" to bridge..." + tempProcess->readAll());
+    #endif
+    
     return true;
 }
 
@@ -424,11 +480,16 @@ bool Nic::removeHardwareNicFromBridge()
     QProcess *tempProcess = new QProcess(this);
     QStringList tempOpts;
     HwNic thisNic;
+    if(hardwareNics.isEmpty())
+        return false;
     for(int i=0;i<hardwareNics.size();i++)
     {
         if(hardwareNics.at(i).kernelName == hardwareInterface)
             thisNic = hardwareNics.at(i);
     }
+    if(thisNic.HwIP.isEmpty())
+        return false;
+    //TODO:yet another test is needed to determine if another machine is using the interface...
     
     tempOpts << ipPath << "addr" << "del" << thisNic.HwIP + thisNic.HwCidr << "dev" << bridgeInterface;
     tempProcess->start(sudoPath, tempOpts);
@@ -444,13 +505,98 @@ bool Nic::removeHardwareNicFromBridge()
     return true;
 }
 
+bool Nic::clearHwNic()
+{   
+    if(!hardwareNics.isEmpty())
+        for(int i=0;i<hardwareNics.size();i++)
+        {
+            if(hardwareNics.at(i).kernelName == hardwareInterface)
+                return true;
+        }
+    HwNic thisNic;
+    QProcess *tempProcess = new QProcess(this);
+    QStringList tempOpts;
+    thisNic.kernelName = hardwareInterface;
+    
+    tempOpts << ipPath << "addr" << "show" << hardwareInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    QString ipInfo = tempProcess->readAllStandardOutput();
+    QRegExp ipAddrRegex("(([0-9]{1,3}\\.){3}[0-9]{1,3})");
+    QRegExp ipCidrRegex("(/[0-9]{1,2})");
+    ipAddrRegex.indexIn(ipInfo);
+    ipCidrRegex.indexIn(ipInfo);
+    if(ipAddrRegex.capturedTexts().isEmpty())
+        return false;
+    thisNic.HwIP = ipAddrRegex.capturedTexts().at(1).toAscii();
+    thisNic.HwCidr = ipCidrRegex.capturedTexts().at(1).toAscii();
+    
+    //find and store gateway
+    tempOpts.clear();
+    tempOpts << routePath;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    
+    QString routeInfo = tempProcess->readAllStandardOutput();
+    if(!routeInfo.isEmpty())
+    {
+        QStringList routeSplit = routeInfo.split("\n");
+        for(int i = 0;i<routeSplit.size();i++)
+        {
+            if(routeSplit.at(i).contains("default")&&routeSplit.at(i).contains(hardwareInterface))
+                thisNic.DefaultGateway = routeSplit.at(i).split(" ", QString::SkipEmptyParts).at(1).toAscii();
+        }
+
+    }
+    #ifdef DEVELOPER
+        qDebug("got default gateway: " + thisNic.DefaultGateway);
+    #endif
+    //remove the default gateway
+    tempOpts.clear();
+    tempOpts << routePath << "del" << "default" << "gateway" << thisNic.DefaultGateway << hardwareInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    
+    //remove address from interface
+    tempOpts.clear();
+    tempOpts << ipPath << "addr" << "del" << thisNic.HwIP + thisNic.HwCidr << "dev" << hardwareInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    
+    hardwareNics.append(thisNic);
+}
+
+void Nic::restoreHwNic()
+{
+    HwNic thisNic;
+    for(int i=0;i<hardwareNics.size();i++)
+    {
+        if(hardwareNics.at(i).kernelName == hardwareInterface)
+            thisNic = hardwareNics.at(i);
+    }
+    QProcess *tempProcess = new QProcess(this);
+    QStringList tempOpts;
+    tempOpts << ipPath << "addr" << "add" << thisNic.HwIP + thisNic.HwCidr << "dev" << hardwareInterface;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+    for(int i=0;i<hardwareNics.size();i++)
+    {
+        if(hardwareNics.at(i).kernelName == hardwareInterface)
+            hardwareNics.removeAt(i);
+    }
+    	
+    tempOpts.clear();
+    tempOpts << routePath << "add" << "default" << "gateway" << thisNic.DefaultGateway;
+    tempProcess->start(sudoPath, tempOpts);
+    tempProcess->waitForFinished();
+}
+
 QByteArray Nic::getHardwareInterface() const
 {
     return hardwareInterface;
 }
 
-
-void Nic::setHardwareInterface ( const QByteArray& theValue )
+void Nic::setHardwareInterface( const QByteArray& theValue )
 {
     hardwareInterface = theValue;
 }
@@ -459,7 +605,6 @@ bool Nic::getLocalVLan() const
 {
     return localVLan;
 }
-
 
 void Nic::setLocalVLan ( bool theValue )
 {
@@ -470,9 +615,9 @@ void Nic::findEnv()
 {
     QProcess *tempProcess = new QProcess(this);
     QByteArray tempOutput;
-    tunctlPath = sudoPath = ipPath = brctlPath = "unavailable";
+    tunctlPath = sudoPath = ipPath = brctlPath = routePath = "unavailable";
     
-    //TODO: load locations from program config here
+    //TODO: load locations from program config here?
     #ifndef Q_OS_WIN32
     
     tempProcess->start("which", QStringList("sudo"));
@@ -492,6 +637,7 @@ void Nic::findEnv()
         if(sudoList.at(i).contains("NOPASSWD"))
         {
             sudoAllowed = sudoList.at(i).split(':').at(1).split(", ");
+            sudoAllowed.replaceInStrings(" ","");
         }
     }
     #ifdef DEVELOPER
@@ -528,6 +674,16 @@ void Nic::findEnv()
     qDebug("tunctl path: " + tunctlPath);
     #endif
     
+    tempProcess->start("which", QStringList("route"));
+    tempProcess->waitForFinished();
+    tempOutput = tempProcess->readAllStandardOutput().trimmed();
+    if(sudoAllowed.contains(tempOutput) && routePath == "unavailable")
+        routePath = tempOutput;
+    
+    #ifdef DEVELOPER
+    qDebug("route path: " + routePath);
+    #endif
+    
     //also get the user name for tunctl's use
     userName = qgetenv("USER");
 
@@ -537,69 +693,8 @@ void Nic::findEnv()
     //save locations to config file
 }
 
-bool Nic::isEnabled() const
-{
-    return enabled;
-}
-
-
-void Nic::Enable ( bool theValue )
-{
-    enabled = theValue;
-}
-
-void Nic::clearHwNic()
-{
-    for(int i=0;i<hardwareNics.size();i++)
-    {
-        if(hardwareNics.at(i).kernelName == hardwareInterface)
-            return;
-    }
-    QProcess *tempProcess = new QProcess(this);
-    QStringList tempOpts;
-    HwNic thisNic;
-    thisNic.kernelName = hardwareInterface;
-    
-    tempOpts << ipPath << "addr" << "show" << hardwareInterface;
-    tempProcess->start(sudoPath, tempOpts);
-    tempProcess->waitForFinished();
-    QString ipInfo = tempProcess->readAllStandardOutput();
-    QRegExp ipAddrRegex("([0-9]{1,3}\\.){3}[0-9]{1,3}");
-    QRegExp ipCidrRegex("/[0-9]{1,2}");
-    ipAddrRegex.indexIn(ipInfo);
-    ipCidrRegex.indexIn(ipInfo);
-    thisNic.HwIP = ipAddrRegex.capturedTexts().at(1).toAscii();
-    thisNic.HwNetmask = ipAddrRegex.capturedTexts().at(2).toAscii();
-    thisNic.HwCidr = ipCidrRegex.capturedTexts().at(1).toAscii();
-    hardwareNics.append(thisNic);
-    
-    tempOpts.clear();
-    tempOpts << ipPath << "addr" << "del" << thisNic.HwIP + thisNic.HwCidr << "dev" << hardwareInterface;
-    tempProcess->start(sudoPath, tempOpts);
-    tempProcess->waitForFinished();
-}
-
-void Nic::restoreHwNic()
-{
-    HwNic thisNic;
-    for(int i=0;i<hardwareNics.size();i++)
-    {
-        if(hardwareNics.at(i).kernelName == hardwareInterface)
-            thisNic = hardwareNics.at(i);
-    }
-    QProcess *tempProcess = new QProcess(this);
-    QStringList tempOpts;
-    tempOpts << ipPath << "addr" << "add" << thisNic.HwIP + thisNic.HwCidr << "dev" << hardwareInterface;
-    tempProcess->start(sudoPath, tempOpts);
-    tempProcess->waitForFinished();
-    for(int i=0;i<hardwareNics.size();i++)
-    {
-        if(hardwareNics.at(i).kernelName == hardwareInterface)
-            hardwareNics.removeAt(i);
-    }	
-}
-
 //static data
 QList<int> Nic::vLanList;
 QList<QByteArray> Nic::bridges;
 QList<HwNic> Nic::hardwareNics;
+

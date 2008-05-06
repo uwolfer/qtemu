@@ -32,7 +32,7 @@ struct HwNic
 {
     QByteArray kernelName;
     QByteArray HwIP;
-    QByteArray HwNetmask;
+    QByteArray DefaultGateway;
     QByteArray HwCidr;
 };
 
@@ -49,7 +49,6 @@ class Nic : public QObject
         bool operator == ( Nic otherNic );
 
         explicit Nic ( const NicType& newType, const int & vLanReq = -1, const QByteArray & mac = "random", QObject *parent = 0 );
-
         Nic ( QObject *parent = 0 );
 
         ~Nic();
@@ -79,6 +78,7 @@ class Nic : public QObject
 
 	bool isEnabled() const;
 	
+	
     private:
 //methods
         QByteArray generateMacAddress();
@@ -93,17 +93,16 @@ class Nic : public QObject
         bool connectHardwareNicToBridge();
         bool removeHardwareNicFromBridge();
         void findEnv();
-        void clearHwNic();
+        bool clearHwNic();
         void restoreHwNic();
 //data
         NicType nicType;
         QByteArray macAddress;
-        QByteArray macAddressPart;
+        QByteArray interfaceIdentifier;
         int vLan;
         QByteArray tapInterface;
         QByteArray bridgeInterface;
         QByteArray hardwareInterface;
-        bool enabled;
         bool initialized;
         bool localVLan;
         QStringList optionList;
@@ -111,6 +110,7 @@ class Nic : public QObject
         QByteArray brctlPath;
         QByteArray ipPath;
         QByteArray tunctlPath;
+        QByteArray routePath;
         QByteArray sudoPath;
 //static data
         static QList<int> vLanList;

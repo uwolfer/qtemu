@@ -40,25 +40,20 @@ class NetworkSystem : public QObject
 
         ~NetworkSystem();
         int numNics();
-
-        QList<Nic *> getNicByType ( NicType nicType );
-        Nic * getNicByMac ( const QByteArray mac );
         QStringList getOptionList();
 
     public slots:
         void clearAllNics();
-        QByteArray makeNewNic ( NicType type, int vLan = -1 );//returns nic mac
-        void delNic ( const QByteArray macAddress );
-        void initializeNic ( const QByteArray macAddress );
-        void saveNics();
+        void makeNewNic ( const NicType type, const int vLan = -1, const QByteArray mac = "random" );
         void loadNics();
         void addSambaDir( const QString dir);
+	
 
     private:
         QList<Nic *> nicList;
         QList<QByteArray> hardwareNics;
-
-        void findHardwareNics();
+        QString sambaDir;
+        QList<Nic *> getNicByType ( NicType nicType );
 
 };
 #endif

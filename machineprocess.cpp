@@ -217,10 +217,10 @@ void MachineProcess::start()
     }
 
     setEnvironment(env);
-    #ifdef DEVELOPER
-    qDebug("Environment:");
-    qDebug(env.join("\n").toAscii());
-    #endif
+    //#ifdef DEVELOPER
+    //qDebug("Environment:");
+    //qDebug(env.join("\n").toAscii());
+    //#endif
     
 #ifndef Q_OS_WIN32
     QProcess::start(settings.value("command", "qemu").toString(), arguments);

@@ -425,13 +425,15 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
                                       "access to the host's network; This is needed to allow\n"
                                       "ICMP (ping) to work, and allows other machines to 'see'\n"
                                       "your virtual machine on the network. This mode does not\n"
-                                      "work with most wireless cards."));
+                                      "work with most wireless cards, and may cause problems\n"
+                                      "for NetworkManager."));//TODO: automatically disable NetworkManager and re-enable after VM shutdown, via d-bus
     connect(bridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
     
     QCheckBox *localBridgedModeNetwork = new QCheckBox(tr("Local bridged networking"));
     localBridgedModeNetwork->setToolTip(tr("This mode allows more advanced bridging techniques,\n"
                                           "including using the host computer as a router or\n"
-                                          "restricting access to the host machine only."));
+                                          "restricting access to the host machine only.\n"
+                                          "This is safe with NetworkManager."));
     connect(localBridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
     
     QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared VLan Networking"));
@@ -517,14 +519,14 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     otherFrame->setLayout(otherFrameLayout);
 
     QLabel *mouseDescriptionLabel = new QLabel(tr("Choose whether the mouse should switch seamlessly between "
-                                                  "host and virtual system. This option depends on the "
-                                                  "operating system. It is for example not supported by text based "
-                                                  "systems. <strong>Attention:</strong> "
-                                                  "This option may reduce the system performance. "), this);
+                                                  "host and virtual system."), this);
     mouseDescriptionLabel->setWordWrap(true);
     otherFrameLayout->addWidget(mouseDescriptionLabel);
 
     mouseCheckBox = new QCheckBox(tr("Enable seamless mo&use"), this);
+    mouseCheckBox->setToolTip(tr("This option depends on the operating system. It is not supported by non-graphical "
+                                 "systems. <strong>Attention:</strong> This option may reduce the system performance."
+                                 "this is not needed for seamless VNC."));
     connect(mouseCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(mouse(int)));
     otherFrameLayout->addWidget(mouseCheckBox);
 
@@ -947,7 +949,9 @@ void MachineTab::suspended()
     {
     machineProcess->forceStop();
     resumeButton->setHidden(false);
-    resumeButton->setEnabled(true);
+    
+    testHDDImage(hddPathLineEdit->text());//will enable the resume button if appropriate
+    //resumeButton->setEnabled(true);
     suspendButton->setHidden(true);
     suspendButton->setText(tr("&Suspend"));
     }
