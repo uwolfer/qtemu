@@ -53,9 +53,9 @@ public slots:
     void cdBoot(int value);
     void floppyBoot(int value);
     void snapshot(int value);
-
+    void supressError(QString errorText);
     void sound(int value);
-    void soundSystem(int value);
+    void soundSystem(QString systemName);
     void memory(int value);
     void mouse(int value);
     void time(int value);
@@ -89,6 +89,7 @@ private:
     QString networkCustomOptionsString;
     QString additionalOptionsString;
     QString snapshotNameString;
+    QStringList supressedErrors;
     long versionMajor, versionMinor, versionBugfix, kvmVersion;
     bool bootFromCdEnabled;
     bool bootFromFloppyEnabled;

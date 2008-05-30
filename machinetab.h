@@ -28,6 +28,7 @@
 #include <QWidget>
 #include <QDomDocument>
 #include <QRadioButton>
+#include <QButtonGroup>
 
 class QPushButton;
 class QLineEdit;
@@ -60,7 +61,10 @@ private:
     QCheckBox *snapshotCheckBox;
     QCheckBox *networkCheckBox;
     QCheckBox *soundCheckBox;
-    QCheckBox *soundSystemCheckBox;
+    QRadioButton *soundALSARadioButton;
+    QRadioButton *soundOSSRadioButton;
+    QRadioButton *soundESDRadioButton;
+    QButtonGroup *soundSystemGroup;
     QCheckBox *cdBootCheckBox;
     QCheckBox *floppyBootCheckBox;
     QCheckBox *mouseCheckBox;
@@ -131,6 +135,8 @@ private slots:
     void snapshot(const int state);
     void network(const int value);
     void unimplemented();
+    void supressAudioErrors();
+    void setSoundSystem(int id);
 };
 
 #endif

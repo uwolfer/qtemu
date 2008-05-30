@@ -288,14 +288,9 @@ void MachineProcess::snapshot(int value)
 {
     if(state() == QProcess::Running && snapshotEnabled == true)
     {
-        write("commit\n");
+        write("commit all\n");
     }
-
-#ifdef DEVELOPER
-    snapshotEnabled = true;
-#else
     snapshotEnabled = (value == Qt::Checked);
-#endif
 }
 
 void MachineProcess::network(int value)
@@ -449,7 +444,12 @@ void MachineProcess::readProcess()
 
 void MachineProcess::readProcessErrors()
 {
-    emit error(readAllStandardError());
+    QString errorText = readAllStandardError();
+    if(!supressedErrors.isEmpty())
+        for(int i=0;i<supressedErrors.size();i++)
+            if(errorText.contains(supressedErrors.at(i)))
+                return;
+    emit error(errorText);
 }
 
 qint64 MachineProcess::write ( const QByteArray & byteArray )
@@ -506,9 +506,9 @@ void MachineProcess::getVersion()
     #endif
 }
 
-void MachineProcess::soundSystem(int value)
+void MachineProcess::soundSystem(QString systemName)
 {
-    (value == Qt::Checked) ? useSoundSystem="alsa" : useSoundSystem="oss";
+    useSoundSystem = systemName.toAscii();
 }
 
 //TODO: accept a drive assignment to eject/insert. this means multiple drives would be supported
@@ -540,4 +540,9 @@ void MachineProcess::changeFloppy()
 void MachineProcess::smbFolderPath(const QString & newPath)
 {
     networkSystem->addSambaDir(newPath);
+}
+
+void MachineProcess::supressError(QString errorText)
+{
+    supressedErrors << errorText;
 }

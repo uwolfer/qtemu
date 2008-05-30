@@ -45,6 +45,7 @@
 #include <QSettings>
 #include <QFileInfo>
 #include <QMenu>
+#include <QButtonGroup>
 
 MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent)
     : QWidget(parent)
@@ -487,19 +488,27 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     soundDescriptionLabel->setWordWrap(true);
 
     soundCheckBox = new QCheckBox(tr("&Enable sound"), this);
-    QLabel *soundSystemDescriptionLabel = new QLabel(tr("Choose whether to use ALSA or OSS for sound emulation."), this);
+    QLabel *soundSystemDescriptionLabel = new QLabel(tr("Choose sound system to use for sound emulation."), this);
     soundSystemDescriptionLabel->setWordWrap(true);
-    soundSystemCheckBox = new QCheckBox(tr("&Use ALSA"), this);
+    soundSystemGroup = new QButtonGroup();
+    soundALSARadioButton = new QRadioButton(tr("Use &ALSA"), this);
+    soundOSSRadioButton = new QRadioButton(tr("Use &OSS"), this);
+    soundESDRadioButton = new QRadioButton(tr("Use &ESD"), this);
+    soundSystemGroup->addButton(soundALSARadioButton, 1);
+    soundSystemGroup->addButton(soundOSSRadioButton, 2);
+    soundSystemGroup->addButton(soundESDRadioButton, 3);
+
 
     connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
-    soundFrameLayout->addWidget(soundCheckBox);
-    
-    connect(soundSystemCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(soundSystem(int)));
-    
+    connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(setSoundSystem(int)));
+    soundOSSRadioButton->click();
     soundFrameLayout->addWidget(soundDescriptionLabel);
     soundFrameLayout->addWidget(soundCheckBox);
     soundFrameLayout->addWidget(soundSystemDescriptionLabel);
-    soundFrameLayout->addWidget(soundSystemCheckBox);
+ //   soundFrameLayout->addWidget(soundSystemGroup);
+    soundFrameLayout->addWidget(soundALSARadioButton);
+    soundFrameLayout->addWidget(soundOSSRadioButton);
+    soundFrameLayout->addWidget(soundESDRadioButton);
     //sound section end
 
 
@@ -589,7 +598,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(localBridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(write()));
     connect(networkCustomOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
     connect(soundCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(soundSystemCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
+    connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(write()));
     connect(mouseCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(timeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
     connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
@@ -825,7 +834,11 @@ bool MachineTab::read()
     cpuSpinBox->setValue(1);
 
     machineNameEdit->setText(child.firstChildElement("name").text());
+#ifdef DEVELOPER
+    snapshotCheckBox->setChecked(true);
+#else
     snapshotCheckBox->setChecked(child.firstChildElement("snapshot").text() == "true");
+#endif
     notesTextEdit->setPlainText(child.firstChildElement("notes").text());
     hddPathLineEdit->setText(child.firstChildElement("hdd").text());
     memorySlider->setValue(child.firstChildElement("memory").text().toInt());
@@ -835,7 +848,10 @@ bool MachineTab::read()
     floppyBootCheckBox->setChecked(child.firstChildElement("bootFromFloppy").text() == "true");
     networkCheckBox->setChecked(child.firstChildElement("network").text() == "true");
     soundCheckBox->setChecked(child.firstChildElement("sound").text() == "true");
-    soundSystemCheckBox->setChecked(child.firstChildElement("soundSystem").text() == "alsa");
+    QStringList sndList;
+    sndList<<"alsa"<<"oss"<<"esd";
+    if(sndList.contains(child.firstChildElement("soundSystem").text()))
+        soundSystemGroup->button(sndList.indexOf(child.firstChildElement("soundSystem").text()));
     networkCustomOptionsEdit->setText(child.firstChildElement("networkCustomOptions").text());
     mouseCheckBox->setChecked(child.firstChildElement("mouse").text() == "true");
     timeCheckBox->setChecked(child.firstChildElement("time").text() == "true");
@@ -879,7 +895,9 @@ bool MachineTab::write()
     changeValue("floppy", floppyLineEdit->text());
     changeValue("bootFromFloppy", floppyBootCheckBox->isChecked() ? "true" : "false");
     changeValue("sound", soundCheckBox->isChecked() ? "true" : "false");
-    changeValue("soundSystem", soundSystemCheckBox->isChecked() ? "alsa" : "oss");
+    QStringList sndList;
+    sndList<<"alsa"<<"oss"<<"esd";
+    changeValue("soundSystem", sndList.at(soundSystemGroup->checkedId()));
     changeValue("mouse", mouseCheckBox->isChecked() ? "true" : "false");
     changeValue("time", timeCheckBox->isChecked() ? "true" : "false");
     changeValue("virtualization", virtualizationCheckBox->isChecked() ? "true" : "false");
@@ -1045,4 +1063,26 @@ void MachineTab::unimplemented()
 {
     QMessageBox::warning(window(), tr("QtEmu"),
                                    tr("This function is not yet implemented."));
+}
+
+void MachineTab::supressAudioErrors()
+{
+    machineProcess->supressError("oss");
+    machineProcess->supressError("audio");
+}
+
+void MachineTab::setSoundSystem(int id)
+{
+    switch(id)
+    {
+        case 1:
+            machineProcess->soundSystem("alsa");
+            break;
+        case 2:
+            machineProcess->soundSystem("oss");
+            break;
+        case 3:
+            machineProcess->soundSystem("esd");
+            break;
+    }
 }
