@@ -137,8 +137,10 @@ void MainWindow::stop()
 
 void MainWindow::restart()
 {
-    stop();
-    QTimer::singleShot(500, this, SLOT(start()));
+    //stop();
+    //QTimer::singleShot(500, this, SLOT(start()));
+    MachineTab *tab = qobject_cast<MachineTab *>(tabWidget->currentWidget());
+    tab->restart();
 }
 
 void MainWindow::about()

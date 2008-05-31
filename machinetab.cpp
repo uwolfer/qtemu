@@ -559,6 +559,13 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
             machineProcess, SLOT(additionalOptions(const QString&)));
     connect(additionalOptionsCheckBox, SIGNAL(toggled(bool)),
             additionalOptionsEdit, SLOT(setEnabled(bool)));
+            
+    QLabel *monitorCommandLabel = new QLabel(tr("Machine monitor command:"), this);
+    otherFrameLayout->addWidget(monitorCommandLabel);
+    monitorCommandEdit = new QLineEdit(this);
+    otherFrameLayout->addWidget(monitorCommandEdit);
+    connect(monitorCommandEdit, SIGNAL(returnPressed()),
+            this, SLOT(runCommand()));
     //other section end
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout();
@@ -897,7 +904,7 @@ bool MachineTab::write()
     changeValue("sound", soundCheckBox->isChecked() ? "true" : "false");
     QStringList sndList;
     sndList<<"alsa"<<"oss"<<"esd";
-    changeValue("soundSystem", sndList.at(soundSystemGroup->checkedId()));
+    changeValue("soundSystem", sndList.at(soundSystemGroup->checkedId()-1));
     changeValue("mouse", mouseCheckBox->isChecked() ? "true" : "false");
     changeValue("time", timeCheckBox->isChecked() ? "true" : "false");
     changeValue("virtualization", virtualizationCheckBox->isChecked() ? "true" : "false");
@@ -947,10 +954,6 @@ void MachineTab::start()
 {
     startButton->setEnabled(false);
     stopButton->setEnabled(true);
-    pauseButton->setEnabled(true);
-    resumeButton->setHidden(true);
-    hddUpgradeButton->setEnabled(false);
-    suspendButton->setHidden(false);
     machineProcess->start();
 }
 
@@ -1025,6 +1028,10 @@ void MachineTab::started()
     {
        snapshotCheckBox->setText(snapshotCheckBox->text() + tr("(uncheck to commit changes)"));
     }
+    pauseButton->setEnabled(true);
+    suspendButton->setHidden(false);
+    resumeButton->setHidden(true);
+    hddUpgradeButton->setEnabled(false);
 }
 
 void MachineTab::error(const QString & errorMsg)
@@ -1085,4 +1092,23 @@ void MachineTab::setSoundSystem(int id)
             machineProcess->soundSystem("esd");
             break;
     }
+}
+
+void MachineTab::runCommand()
+{
+    machineProcess->write(monitorCommandEdit->text().toAscii() + "\n");
+    monitorCommandEdit->clear();
+}
+
+void MachineTab::restart()
+{
+    connect(machineProcess, SIGNAL(finished(int)) , this, SLOT(clearRestart()));
+    machineProcess->stop();
+}
+
+void MachineTab::clearRestart()
+{
+    disconnect(machineProcess, SIGNAL(finished(int)) , this, SLOT(clearRestart()));
+    startButton->click();
+    
 }

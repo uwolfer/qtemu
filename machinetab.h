@@ -54,6 +54,9 @@ public:
     QPushButton *suspendButton;
     QPushButton *resumeButton;
     QPushButton *pauseButton;
+    
+public slots:
+    void restart();
 
 private:
     MachineProcess *machineProcess;
@@ -80,6 +83,7 @@ private:
     QLineEdit *networkCustomOptionsEdit;
     QLineEdit *smbFolderEdit;
     QLineEdit *additionalOptionsEdit;
+    QLineEdit *monitorCommandEdit;
     QSlider *memorySlider;
     QString xmlFileName;
     QTabWidget *parentTabWidget;
@@ -137,6 +141,8 @@ private slots:
     void unimplemented();
     void supressAudioErrors();
     void setSoundSystem(int id);
+    void runCommand();
+    void clearRestart();
 };
 
 #endif
