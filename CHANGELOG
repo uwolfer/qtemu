@@ -17,6 +17,7 @@ Features:
     the snapshot box!
 * New network subsystem for bridging support (and other advanced networking features eventually!)
     see the readme for setting this up!
+* Machine console commands can be entered in the GUI now.. (for advanced functionality)
 All these new features listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
 * Install desktop file on Linux (e.g. to start QtEmu from startmenus)
 * Respect FHS for installation on Linux
