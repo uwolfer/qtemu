@@ -28,6 +28,8 @@
 
 #include "config.h"
 
+#include "vnc/vncview.h"
+
 #include <QMessageBox>
 #include <QPushButton>
 #include <QLineEdit>
@@ -46,6 +48,10 @@
 #include <QFileInfo>
 #include <QMenu>
 #include <QButtonGroup>
+#include <QTimer>
+#include <QResizeEvent>
+#include <QScrollArea>
+#include <QUrl>
 
 MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent)
     : QWidget(parent)
@@ -66,6 +72,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(machineProcess, SIGNAL(resuming(QString)), this, SLOT(resuming()));
     connect(machineProcess, SIGNAL(resumed(QString)), this, SLOT(resumed()));
     connect(machineProcess, SIGNAL(error(QString)), this, SLOT(error(QString)));
+    connect(machineProcess, SIGNAL(booting()), this, SLOT(booting()));
 
     machineNameEdit = new QLineEdit(this);
 
@@ -469,7 +476,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     //network section end
 
     //sound section start
-    soundButton = new QPushButton(QIcon(":/images/" + iconTheme + "/sound.png"), tr("&Sound"), this);
+    soundButton = new QPushButton(QIcon(":/images/" + iconTheme + "/sound.png"), tr("&Sound and Video"), this);
     soundButton->setCheckable(true);
     devicesLayout->addWidget(soundButton);
 
@@ -483,10 +490,12 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     QVBoxLayout *soundFrameLayout = new QVBoxLayout;
     soundFrame->setLayout(soundFrameLayout);
 
+    videoCheckBox = new QCheckBox(tr("Enable the embedded display"), this);
+
     QLabel *soundDescriptionLabel = new QLabel(tr("Choose whether sound support should "
                                                   "be available for this virtual machine."), this);
     soundDescriptionLabel->setWordWrap(true);
-
+    
     soundCheckBox = new QCheckBox(tr("&Enable sound"), this);
     QLabel *soundSystemDescriptionLabel = new QLabel(tr("Choose sound system to use for sound emulation."), this);
     soundSystemDescriptionLabel->setWordWrap(true);
@@ -499,9 +508,11 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     soundSystemGroup->addButton(soundESDRadioButton, 3);
 
 
+    connect(videoCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setupVnc(int)));
     connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
     connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(setSoundSystem(int)));
     soundOSSRadioButton->click();
+    soundFrameLayout->addWidget(videoCheckBox);
     soundFrameLayout->addWidget(soundDescriptionLabel);
     soundFrameLayout->addWidget(soundCheckBox);
     soundFrameLayout->addWidget(soundSystemDescriptionLabel);
@@ -559,7 +570,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
             machineProcess, SLOT(additionalOptions(const QString&)));
     connect(additionalOptionsCheckBox, SIGNAL(toggled(bool)),
             additionalOptionsEdit, SLOT(setEnabled(bool)));
-            
+
     QLabel *monitorCommandLabel = new QLabel(tr("Machine monitor command:"), this);
     otherFrameLayout->addWidget(monitorCommandLabel);
     monitorCommandEdit = new QLineEdit(this);
@@ -579,11 +590,36 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     buttonsLayout->addLayout(devicesLayout);
     buttonsLayout->addStretch();
 
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
-    mainLayout->addLayout(buttonsLayout);
+    //set up the layout for the tab panel
+    QGridLayout *mainLayout = new QGridLayout(this);
+    mainLayout->addLayout(buttonsLayout, 0, 0);
+    
+    QTabWidget *viewTabs = new QTabWidget(this);
+    mainLayout->addWidget(viewTabs, 0, 1);   
+    mainLayout->setColumnStretch(1, 10);
 
+    viewFrame = new QFrame(this);
+    viewTabs->addTab(viewFrame, tr("Display"));
+
+    viewLayout = new QGridLayout();
+    viewFrame->setLayout(viewLayout); 
+    viewLayout->setColumnStretch(1, 10);
+    viewLayout->setRowStretch(1, 10);
+    machineScroll = new QScrollArea(this);
+    machineScroll->setAlignment(Qt::AlignCenter);
+    machineScroll->setFrameShape(QFrame::NoFrame);
+    machineScroll->setBackgroundRole(QPalette::Window);
+    viewLayout->addWidget(machineScroll, 1, 1);
+    settingsFrame = new QFrame(this);
+    viewTabs->addTab(settingsFrame, tr("Settings"));
+    
+    consoleFrame = new QFrame(this);
+    viewTabs->addTab(consoleFrame, tr("Console"));
+    
     setLayout(mainLayout);
 
+    //TODO: load a splash image to the display area instead
+    machineView = new VncView();
     read();
 
     //read first the name, otherwise the name of the main tab changes
@@ -612,6 +648,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(cpuSpinBox, SIGNAL(valueChanged(int)), this, SLOT(write()));
     connect(additionalOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
     connect(additionalOptionsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
+
 }
 
 //TODO: the functionality in here really should be abstracted into another class, like MachineImage
@@ -1020,6 +1057,7 @@ void MachineTab::finished()
     suspendButton->setHidden(true);
     hddUpgradeButton->setEnabled(true);
     snapshotCheckBox->setText(tr("Snapshot mode"));
+    cleanupView();
 }
 
 void MachineTab::started()
@@ -1111,4 +1149,72 @@ void MachineTab::clearRestart()
     disconnect(machineProcess, SIGNAL(finished(int)) , this, SLOT(clearRestart()));
     startButton->click();
     
+}
+
+void MachineTab::booting()
+{
+    delete machineView;
+    QUrl *url = new QUrl();
+    url->setScheme("vnc");
+    url->setHost("localhost");
+    url->setPort(6900 + parentTabWidget->indexOf(this));
+    machineView = new VncView(viewFrame, *url);
+    machineScroll->setWidget(machineView);
+    machineView->enableScaling(true);
+    connect(machineView, SIGNAL(changeSize(int, int)), this, SLOT(viewRefreshSize()));
+    machineView->start();
+    machineView->show();
+}
+
+void MachineTab::cleanupView()
+{
+    machineView->hide();
+    //TODO: restore splash image to the display area
+}
+
+void MachineTab::resizeEvent(QResizeEvent * event)
+{
+#ifdef DEVELOPER
+    qDebug("resized...");
+#endif
+        viewChangeSize(machineScroll->maximumViewportSize().width(), machineScroll->maximumViewportSize().height());
+}
+
+void MachineTab::viewRefreshSize()
+{
+    viewChangeSize(machineScroll->maximumViewportSize().width() ,machineScroll->maximumViewportSize().height());
+}
+
+void MachineTab::viewChangeSize(int widgetWidth, int widgetHeight)
+{
+    //if(machineScroll->widget() == 0)
+    //    return;
+    float aspectRatio = 1.3333333;
+    //if(machineScroll->widget()->metaObject()->className() == QByteArray("VncView"))
+    {
+        aspectRatio = (1.0 * machineView->framebufferSize().width()) / machineView->framebufferSize().height();
+    }
+
+    int newWidth = widgetHeight*aspectRatio;
+    int newHeight = widgetWidth*(1/aspectRatio);
+
+#ifdef DEVELOPER
+    qDebug("choice 1: %ix%i",newWidth, widgetHeight);
+    qDebug("choice 2: %ix%i", widgetWidth, newHeight);
+    qDebug("target aspect ratio: %f",aspectRatio);
+#endif
+
+    //if the dimensions for altHeight are better, use them...
+    if(newWidth <= widgetWidth && newHeight > widgetHeight)
+        machineView->setFixedSize(newWidth, widgetHeight);
+    else
+        machineView->setFixedSize(widgetWidth, newHeight);
+}
+
+void MachineTab::setupVnc(int enable)
+{
+    if(enable == Qt::Checked)
+        machineProcess->useVnc(1000 + parentTabWidget->indexOf(this));
+    else
+        machineProcess->useVnc(0);
 }

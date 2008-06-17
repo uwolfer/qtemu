@@ -62,7 +62,7 @@ public slots:
     void virtualization(int value);
     void cpu(int value);
     void useAdditionalOptions(int value);
-
+    void useVnc(int port);
     void additionalOptions(const QString& options);
     void changeCdrom();
     void changeFloppy();
@@ -73,6 +73,7 @@ public slots:
 signals:
     void suspending(const QString & snapshotName);
     void suspended(const QString & snapshotName);
+    void booting();
     void resuming(const QString & snapshotName);
     void resumed(const QString & snapshotName);
     void error(const QString & errorText);
@@ -88,6 +89,7 @@ private:
     QString floppyDiskPathString;
     QString networkCustomOptionsString;
     QString additionalOptionsString;
+    int vncPort;
     QString snapshotNameString;
     QStringList supressedErrors;
     long versionMajor, versionMinor, versionBugfix, kvmVersion;
@@ -114,6 +116,7 @@ private slots:
     void writeDebugInfo(const QString& debugText);
     void resumeFinished(const QString& returnedText);
     void suspendFinished(const QString& returnedText);
+    void startedBooting(const QString& text);
 };
 
 #endif

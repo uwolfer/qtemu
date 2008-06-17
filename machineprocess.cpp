@@ -69,7 +69,10 @@ void MachineProcess::start()
     // where vdeq is specified as the command and kvm/qemu as the additional
     // option or parameter.
     if (additionalOptionsEnabled && !additionalOptionsString.isEmpty())
-      arguments << additionalOptionsString.split(" ", QString::SkipEmptyParts);
+        arguments << additionalOptionsString.split(" ", QString::SkipEmptyParts);
+    
+    if (vncPort != 0)
+        arguments << "-vnc" << ":" + QString::number(vncPort);
 
     if (snapshotEnabled)
         arguments << "-snapshot";
@@ -196,7 +199,7 @@ void MachineProcess::start()
         debugString = debugString + arguments.at(i).toLocal8Bit().constData() + ' ';
     qDebug(debugString.toLocal8Bit().constData());
 #endif
-
+    connect(this, SIGNAL(stdout(const QString&)), this, SLOT(startedBooting(const QString&)));
     connect(this, SIGNAL(finished(int)), SLOT(afterExitExecute()));
 
     QString command = settings.value("beforeStart").toString();
@@ -321,6 +324,11 @@ void MachineProcess::mouse(int value)
 void MachineProcess::useAdditionalOptions(int value)
 {
     additionalOptionsEnabled = (value == Qt::Checked);
+}
+
+void MachineProcess::useVnc(int port)
+{
+        vncPort = port;
 }
 
 void MachineProcess::memory(int value)
@@ -545,4 +553,16 @@ void MachineProcess::smbFolderPath(const QString & newPath)
 void MachineProcess::supressError(QString errorText)
 {
     supressedErrors << errorText;
+}
+
+void MachineProcess::startedBooting(const QString& text)
+{
+    //if(text == "(qemu)")
+    {
+        #ifdef DEVELOPER
+        qDebug("booting started");
+        #endif
+        emit booting();
+        disconnect(this, SIGNAL(stdout(const QString&)), this, SLOT(startedBooting(const QString&)));
+    }
 }

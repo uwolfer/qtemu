@@ -30,6 +30,8 @@
 #include <QRadioButton>
 #include <QButtonGroup>
 
+
+
 class QPushButton;
 class QLineEdit;
 class QCheckBox;
@@ -41,6 +43,10 @@ class QFrame;
 class QPushButton;
 class QMenu;
 class MachineProcess;
+class VncView;
+class QVBoxLayout;
+class QGridLayout;
+class QScrollArea;
 
 class MachineTab : public QWidget
 {
@@ -64,6 +70,7 @@ private:
     QCheckBox *snapshotCheckBox;
     QCheckBox *networkCheckBox;
     QCheckBox *soundCheckBox;
+    QCheckBox *videoCheckBox;
     QRadioButton *soundALSARadioButton;
     QRadioButton *soundOSSRadioButton;
     QRadioButton *soundESDRadioButton;
@@ -107,8 +114,18 @@ private:
     QFrame *soundFrame;
     QPushButton *otherButton;
     QFrame *otherFrame;
-
     QString myMachinesPath;
+    
+    VncView *machineView;
+    QFrame *viewFrame;
+    QFrame *consoleFrame;
+    QFrame *settingsFrame;
+    QGridLayout *viewLayout;
+    QScrollArea *machineScroll;
+    void cleanupView();
+
+    void resizeEvent(QResizeEvent * event);
+    void viewChangeSize(int widgetWidth, int widgetHeight);
 
 private slots:
     void start();
@@ -119,6 +136,7 @@ private slots:
     void resumed();
     void finished();
     void started();
+    void booting();
     void error(const QString& errorMsg);
     void setNewHddPath();
     void testHDDImage(const QString &path);
@@ -143,6 +161,8 @@ private slots:
     void setSoundSystem(int id);
     void runCommand();
     void clearRestart();
+    void viewRefreshSize();
+    void setupVnc(int enable);
 };
 
 #endif
