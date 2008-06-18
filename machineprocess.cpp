@@ -525,13 +525,15 @@ void MachineProcess::changeCdrom()
     //handle differing version syntax...
     if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
     {
-    write("eject -f ide1-cd0\n");
-    write("change ide1-cd0 " + cdRomPathString.toAscii() + '\n');
+        write("eject -f ide1-cd0\n");
+        sleep(2); //if we don't sleep, windows won't detect the cdrom has changed
+        write("change ide1-cd0 " + cdRomPathString.toAscii() + '\n');
     }
     else
     {
-    write("eject -f cdrom\n");
-    write("change cdrom " + cdRomPathString.toAscii() + '\n');
+        write("eject -f cdrom\n");
+        sleep(2); //if we don't sleep, windows won't detect the cdrom has changed
+        write("change cdrom " + cdRomPathString.toAscii() + '\n');
     }
 }
 
