@@ -71,6 +71,7 @@ private:
     QCheckBox *networkCheckBox;
     QCheckBox *soundCheckBox;
     QCheckBox *videoCheckBox;
+    QCheckBox *videoResizeCheckBox;
     QRadioButton *soundALSARadioButton;
     QRadioButton *soundOSSRadioButton;
     QRadioButton *soundESDRadioButton;

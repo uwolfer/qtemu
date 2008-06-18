@@ -211,7 +211,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     memoryFrameLayout->addLayout(memoryLayout);
 
-    QLabel *cpuDescriptionLabel = new QLabel(tr("<hr>Choose the number of &virtual CPUs:"), this);
+    QLabel *cpuDescriptionLabel = new QLabel(tr("<hr>&Number of virtual CPUs:"), this);
     cpuDescriptionLabel->setWordWrap(true);
     memoryFrameLayout->addWidget(cpuDescriptionLabel);
 
@@ -476,7 +476,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     //network section end
 
     //sound section start
-    soundButton = new QPushButton(QIcon(":/images/" + iconTheme + "/sound.png"), tr("&Sound and Video"), this);
+    soundButton = new QPushButton(QIcon(":/images/" + iconTheme + "/sound.png"), tr("&Sound && Video"), this);
     soundButton->setCheckable(true);
     devicesLayout->addWidget(soundButton);
 
@@ -491,8 +491,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     soundFrame->setLayout(soundFrameLayout);
 
     videoCheckBox = new QCheckBox(tr("Enable the embedded display"), this);
-
-    QLabel *soundDescriptionLabel = new QLabel(tr("Choose whether sound support should "
+    videoResizeCheckBox = new QCheckBox(tr("Scale display to fit window"), this);
+    
+    QLabel *soundDescriptionLabel = new QLabel(tr("<hr>Choose whether sound support should "
                                                   "be available for this virtual machine."), this);
     soundDescriptionLabel->setWordWrap(true);
     
@@ -509,14 +510,16 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
 
     connect(videoCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setupVnc(int)));
+    connect(videoResizeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(viewRefreshSize()));
     connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
     connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(setSoundSystem(int)));
     soundOSSRadioButton->click();
     soundFrameLayout->addWidget(videoCheckBox);
+    soundFrameLayout->addWidget(videoResizeCheckBox);
     soundFrameLayout->addWidget(soundDescriptionLabel);
     soundFrameLayout->addWidget(soundCheckBox);
     soundFrameLayout->addWidget(soundSystemDescriptionLabel);
- //   soundFrameLayout->addWidget(soundSystemGroup);
+
     soundFrameLayout->addWidget(soundALSARadioButton);
     soundFrameLayout->addWidget(soundOSSRadioButton);
     soundFrameLayout->addWidget(soundESDRadioButton);
@@ -1187,10 +1190,13 @@ void MachineTab::viewRefreshSize()
 
 void MachineTab::viewChangeSize(int widgetWidth, int widgetHeight)
 {
-    //if(machineScroll->widget() == 0)
-    //    return;
+    if(videoResizeCheckBox->checkState() != Qt::Checked)
+    {//if checked we shouldn't scale
+        machineView->setFixedSize(machineView->framebufferSize().width(), machineView->framebufferSize().height());
+        return;
+    }
+
     float aspectRatio = 1.3333333;
-    //if(machineScroll->widget()->metaObject()->className() == QByteArray("VncView"))
     {
         aspectRatio = (1.0 * machineView->framebufferSize().width()) / machineView->framebufferSize().height();
     }
@@ -1199,8 +1205,6 @@ void MachineTab::viewChangeSize(int widgetWidth, int widgetHeight)
     int newHeight = widgetWidth*(1/aspectRatio);
 
 #ifdef DEVELOPER
-    qDebug("choice 1: %ix%i",newWidth, widgetHeight);
-    qDebug("choice 2: %ix%i", widgetWidth, newHeight);
     qDebug("target aspect ratio: %f",aspectRatio);
 #endif
 
