@@ -46,6 +46,7 @@ MachineProcess::MachineProcess(QObject *parent)
 {
     paused=false;
     doResume=false;
+    vncPort=0;
     soundSystem(0);
     getVersion();
     networkSystem = new NetworkSystem(this);
@@ -74,9 +75,6 @@ void MachineProcess::start()
     
     if (vncPort != 0)
         arguments << "-vnc" << ":" + QString::number(vncPort);
-
-    //need to change this so it writes to a temp file we define
-    if (snapshotEnabled)
     
     if (networkEnabled)
     {
