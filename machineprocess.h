@@ -83,6 +83,8 @@ signals:
 
 private:
     void getVersion();
+    void commitTmp();
+    void createTmp();
     QString pathString;
     QString machineNameString;
     QString cdRomPathString;
@@ -117,6 +119,8 @@ private slots:
     void resumeFinished(const QString& returnedText);
     void suspendFinished(const QString& returnedText);
     void startedBooting(const QString& text);
+    void loadCdrom();
+    void deleteTmp(int successfulCommit);
 };
 
 #endif

@@ -492,7 +492,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     videoCheckBox = new QCheckBox(tr("Enable the embedded display"), this);
     videoResizeCheckBox = new QCheckBox(tr("Scale display to fit window"), this);
-    
+
     QLabel *soundDescriptionLabel = new QLabel(tr("<hr>Choose whether sound support should "
                                                   "be available for this virtual machine."), this);
     soundDescriptionLabel->setWordWrap(true);
@@ -548,8 +548,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     mouseCheckBox = new QCheckBox(tr("Enable seamless mo&use"), this);
     mouseCheckBox->setToolTip(tr("This option depends on the operating system. It is not supported by non-graphical "
-                                 "systems. <strong>Attention:</strong> This option may reduce the system performance."
-                                 "this is not needed for seamless VNC."));
+                                 "systems. <strong>Attention:</strong> This option may reduce the system performance." ));
     connect(mouseCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(mouse(int)));
     otherFrameLayout->addWidget(mouseCheckBox);
 
@@ -613,6 +612,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineScroll->setFrameShape(QFrame::NoFrame);
     machineScroll->setBackgroundRole(QPalette::Window);
     viewLayout->addWidget(machineScroll, 1, 1);
+
+
     settingsFrame = new QFrame(this);
     viewTabs->addTab(settingsFrame, tr("Settings"));
     
@@ -623,6 +624,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     //TODO: load a splash image to the display area instead
     machineView = new VncView();
+
     read();
 
     //read first the name, otherwise the name of the main tab changes

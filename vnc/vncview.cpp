@@ -89,7 +89,7 @@ bool VncView::eventFilter(QObject *obj, QEvent *event)
 
 QSize VncView::framebufferSize()
 {
-    return QSize(m_frame.width(), m_frame.height());
+    return m_frame.size();
 }
 
 QSize VncView::sizeHint() const

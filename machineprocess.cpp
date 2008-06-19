@@ -30,6 +30,7 @@
 #include <QSettings>
 #include <QTime>
 #include <QDir>
+#include <QTimer>
 
 MachineProcess::MachineProcess(QObject *parent)
                :QProcess(parent),
@@ -74,8 +75,8 @@ void MachineProcess::start()
     if (vncPort != 0)
         arguments << "-vnc" << ":" + QString::number(vncPort);
 
+    //need to change this so it writes to a temp file we define
     if (snapshotEnabled)
-        arguments << "-snapshot";
     
     if (networkEnabled)
     {
@@ -190,8 +191,15 @@ void MachineProcess::start()
     if((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
         arguments << "-name" << "\"" + machineNameString + "\"";
 
-    // Add the VM image name...
-    arguments << pathString;
+    // Add the VM image name
+    // And use the temp file if snapshot is enabled
+    if (snapshotEnabled)
+    {
+        createTmp();
+        arguments << pathString + ".tmp";
+    }
+    else 
+        arguments << pathString;
 
 #ifdef DEVELOPER
     QString debugString = QString();
@@ -233,12 +241,17 @@ void MachineProcess::start()
     QDir *path = new QDir(qemuCommand);
     path->cdUp();
     setWorkingDirectory(path->path());
-    QProcess::start(qemuCommand, arguments);
+    start(qemuCommand, arguments);
 #endif
 }
 
 void MachineProcess::afterExitExecute()
 {
+    if(snapshotEnabled)
+        deleteTmp(0);
+    else if(QFile::exists(pathString + ".tmp"))
+        commitTmp();
+
     QSettings settings("QtEmu", "QtEmu");
 
     QString command = settings.value("afterExit").toString();
@@ -289,10 +302,6 @@ void MachineProcess::floppyBoot(int value)
 
 void MachineProcess::snapshot(int value)
 {
-    if(state() == QProcess::Running && snapshotEnabled == true)
-    {
-        write("commit all\n");
-    }
     snapshotEnabled = (value == Qt::Checked);
 }
 
@@ -378,7 +387,7 @@ void MachineProcess::resume(const QString & snapshotName)
 
 void MachineProcess::resumeFinished(const QString& returnedText)
 {
-    if(returnedText == "(qemu)")
+    if(returnedText.contains("(qemu)"))
     {
         emit resumed(snapshotNameString);
         disconnect(this, SIGNAL(stdout(const QString&)),this,SLOT(resumeFinished(const QString&)));
@@ -477,11 +486,20 @@ void MachineProcess::getVersion()
 {
     QSettings settings("QtEmu", "QtEmu");
     QString versionString;
+    QProcess *findVersion = new QProcess(this);
+
+#ifndef Q_OS_WIN32
+    QString qemuCommand = settings.value("command", "qemu").toString();
+#elif defined(Q_OS_WIN32)
     QString qemuCommand = settings.value("command", QCoreApplication::applicationDirPath() + "/qemu/qemu.exe").toString();
-    QProcess *findVersion = new QProcess();
+    QDir *path = new QDir(qemuCommand);
+    path->cdUp();
+    setWorkingDirectory(path->path());
+#endif
+
     findVersion->start(qemuCommand);
     findVersion->waitForFinished();
-    
+
     if(findVersion->error() == QProcess::FailedToStart)
     {
         versionMajor = -1;
@@ -519,29 +537,21 @@ void MachineProcess::soundSystem(QString systemName)
     useSoundSystem = systemName.toAscii();
 }
 
-//TODO: accept a drive assignment to eject/insert. this means multiple drives would be supported
 void MachineProcess::changeCdrom()
 {
     //handle differing version syntax...
     if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
-    {
         write("eject -f ide1-cd0\n");
-        sleep(2); //if we don't sleep, windows won't detect the cdrom has changed
-        write("change ide1-cd0 " + cdRomPathString.toAscii() + '\n');
-    }
     else
-    {
         write("eject -f cdrom\n");
-        sleep(2); //if we don't sleep, windows won't detect the cdrom has changed
-        write("change cdrom " + cdRomPathString.toAscii() + '\n');
-    }
+    QTimer::singleShot(5000, this, SLOT(loadCdrom()));
 }
 
 //TODO: accept a drive assignment to eject/insert.
 void MachineProcess::changeFloppy()
 {
     //handle differing version syntax...
-    if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
+    //if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
     write("eject -f floppy\n");//might need to be fda , not floppy
     write("change floppy " + floppyDiskPathString.toAscii() + '\n');
 }
@@ -559,7 +569,7 @@ void MachineProcess::supressError(QString errorText)
 
 void MachineProcess::startedBooting(const QString& text)
 {
-    //if(text == "(qemu)")
+    if(text.contains("(qemu)"))
     {
         #ifdef DEVELOPER
         qDebug("booting started");
@@ -567,4 +577,36 @@ void MachineProcess::startedBooting(const QString& text)
         emit booting();
         disconnect(this, SIGNAL(stdout(const QString&)), this, SLOT(startedBooting(const QString&)));
     }
+}
+
+void MachineProcess::loadCdrom()
+{
+    //handle differing version syntax...
+    if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
+        write("change ide1-cd0 " + cdRomPathString.toAscii() + '\n');
+    else
+        write("change cdrom" + cdRomPathString.toAscii() + '\n'); 
+}
+
+void MachineProcess::commitTmp()
+{
+    QProcess *commitTmpProcess = new QProcess(this);
+    commitTmpProcess->start("qemu-img", QStringList() << "commit" << pathString + ".tmp");
+    connect(commitTmpProcess, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(deleteTmp(int)));
+}
+
+void MachineProcess::deleteTmp(int successfulCommit)
+{
+ if(successfulCommit == 0)
+    QFile::remove( pathString + ".tmp" );
+}
+
+void MachineProcess::createTmp()
+{
+    if(QFile::exists(pathString + ".tmp"))
+        return;
+
+    QProcess *createTmpProcess = new QProcess(this);
+    createTmpProcess->start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << pathString << pathString + ".tmp");
+    createTmpProcess->waitForFinished();
 }
