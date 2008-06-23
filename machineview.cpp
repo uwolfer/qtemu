@@ -30,15 +30,15 @@ MachineView::MachineView(QWidget *parent, const QString defaultImage)
 {
     scaleable=true;
     if(defaultImage.isEmpty())
-        splash = new QSvgWidget("images/oxygen/background.svg", this);
+        splash = new QSvgWidget("images/oxygen/splash.svg", this);
     else
         splash = new QSvgWidget(defaultImage, this);
     view = new VncView();
-    showSplash(true);
     this->setWidget(splash);
     this->setAlignment(Qt::AlignCenter);
     this->setFrameShape(QFrame::NoFrame);
     this->setBackgroundRole(QPalette::Window); 
+    showSplash(true);
 }
 
 
@@ -52,19 +52,24 @@ void MachineView::resizeEvent(QResizeEvent * event)
     qDebug("resized...");
 #endif
     resizeView(event->size().width(), event->size().height());
+    
     QScrollArea::resizeEvent(event);
 }
 
 void MachineView::resizeView(int widgetWidth, int widgetHeight)
 {
+
     if(!scaleable)
     {
         view->setFixedSize(view->framebufferSize().width(), view->framebufferSize().height());
-        
         return;
     }
-
-    float aspectRatio = (1.0 * view->framebufferSize().width()) / view->framebufferSize().height();
+    
+    float aspectRatio;
+    if(!splashShown)
+        aspectRatio = (1.0 * view->framebufferSize().width()) / view->framebufferSize().height();
+    else
+        aspectRatio = (1.0 * splash->sizeHint().width()/ splash->sizeHint().height());
 
     int newWidth = widgetHeight*aspectRatio;
     int newHeight = widgetWidth*(1/aspectRatio);
@@ -75,9 +80,9 @@ void MachineView::resizeView(int widgetWidth, int widgetHeight)
 
     //if the dimensions for altHeight are better, use them...
     if(newWidth <= widgetWidth && newHeight > widgetHeight)
-        view->setFixedSize(newWidth, widgetHeight);
+        widget()->setFixedSize(newWidth, widgetHeight);
     else
-        view->setFixedSize(widgetWidth, newHeight);
+        widget()->setFixedSize(widgetWidth, newHeight);
 }
 
 
@@ -126,6 +131,7 @@ void MachineView::showSplash(bool show)
        this->takeWidget();
        this->setWidget(view);
        view->show();
+       splashShown = false;
    }
    else
    {
@@ -133,6 +139,7 @@ void MachineView::showSplash(bool show)
        this->takeWidget();
        this->setWidget(splash);
        splash->show();
+       splashShown = true;
    }
 }
 

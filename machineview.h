@@ -42,7 +42,6 @@ public:
 
     ~MachineView();
 
-    //void redraw();
     void showSplash(bool show);
     void setSplash(QString location);
     void enableScaling(bool scale);
@@ -64,6 +63,7 @@ private:
     VncView *view;
     QSvgWidget *splash;
     bool scaleable;
+    bool splashShown;
     int port;
 };
 

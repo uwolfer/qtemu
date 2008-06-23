@@ -1156,8 +1156,8 @@ void MachineTab::clearRestart()
 void MachineTab::booting()
 {
     machineView->machineNumber(parentTabWidget->indexOf(this));
-    
-    machineView->initView();
+    if(videoCheckBox->checkState() == Qt::Checked)
+        machineView->initView();
 }
 
 void MachineTab::cleanupView()
