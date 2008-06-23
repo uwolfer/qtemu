@@ -28,7 +28,8 @@
 
 #include "config.h"
 
-#include "vnc/vncview.h"
+//#include "vnc/vncview.h"
+#include "machineview.cpp"
 
 #include <QMessageBox>
 #include <QPushButton>
@@ -510,7 +511,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
 
     connect(videoCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setupVnc(int)));
-    connect(videoResizeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(viewRefreshSize()));
+    connect(videoResizeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableScaling(int)));
     connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
     connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(setSoundSystem(int)));
     soundOSSRadioButton->click();
@@ -603,15 +604,13 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     viewFrame = new QFrame(this);
     viewTabs->addTab(viewFrame, tr("Display"));
 
+
+    machineView = new MachineView(this);
     viewLayout = new QGridLayout();
     viewFrame->setLayout(viewLayout); 
     viewLayout->setColumnStretch(1, 10);
     viewLayout->setRowStretch(1, 10);
-    machineScroll = new QScrollArea(this);
-    machineScroll->setAlignment(Qt::AlignCenter);
-    machineScroll->setFrameShape(QFrame::NoFrame);
-    machineScroll->setBackgroundRole(QPalette::Window);
-    viewLayout->addWidget(machineScroll, 1, 1);
+    viewLayout->addWidget(machineView, 1, 1);
 
 
     settingsFrame = new QFrame(this);
@@ -622,8 +621,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     
     setLayout(mainLayout);
 
-    //TODO: load a splash image to the display area instead
-    machineView = new VncView();
 
     read();
 
@@ -1158,64 +1155,16 @@ void MachineTab::clearRestart()
 
 void MachineTab::booting()
 {
-    delete machineView;
-    QUrl *url = new QUrl();
-    url->setScheme("vnc");
-    url->setHost("localhost");
-    url->setPort(6900 + parentTabWidget->indexOf(this));
-    machineView = new VncView(viewFrame, *url);
-    machineScroll->setWidget(machineView);
-    machineView->enableScaling(true);
-    connect(machineView, SIGNAL(changeSize(int, int)), this, SLOT(viewRefreshSize()));
-    machineView->start();
-    machineView->show();
+    machineView->machineNumber(parentTabWidget->indexOf(this));
+    
+    machineView->initView();
 }
 
 void MachineTab::cleanupView()
 {
-    machineView->hide();
-    //TODO: restore splash image to the display area
+    machineView->showSplash(true);
 }
 
-void MachineTab::resizeEvent(QResizeEvent * event)
-{
-#ifdef DEVELOPER
-    qDebug("resized...");
-#endif
-        viewChangeSize(machineScroll->maximumViewportSize().width(), machineScroll->maximumViewportSize().height());
-}
-
-void MachineTab::viewRefreshSize()
-{
-    viewChangeSize(machineScroll->maximumViewportSize().width() ,machineScroll->maximumViewportSize().height());
-}
-
-void MachineTab::viewChangeSize(int widgetWidth, int widgetHeight)
-{
-    if(videoResizeCheckBox->checkState() != Qt::Checked)
-    {//if checked we shouldn't scale
-        machineView->setFixedSize(machineView->framebufferSize().width(), machineView->framebufferSize().height());
-        return;
-    }
-
-    float aspectRatio = 1.3333333;
-    {
-        aspectRatio = (1.0 * machineView->framebufferSize().width()) / machineView->framebufferSize().height();
-    }
-
-    int newWidth = widgetHeight*aspectRatio;
-    int newHeight = widgetWidth*(1/aspectRatio);
-
-#ifdef DEVELOPER
-    qDebug("target aspect ratio: %f",aspectRatio);
-#endif
-
-    //if the dimensions for altHeight are better, use them...
-    if(newWidth <= widgetWidth && newHeight > widgetHeight)
-        machineView->setFixedSize(newWidth, widgetHeight);
-    else
-        machineView->setFixedSize(widgetWidth, newHeight);
-}
 
 void MachineTab::setupVnc(int enable)
 {
@@ -1223,4 +1172,9 @@ void MachineTab::setupVnc(int enable)
         machineProcess->useVnc(1000 + parentTabWidget->indexOf(this));
     else
         machineProcess->useVnc(0);
+}
+
+void MachineTab::enableScaling(int buttonState)
+{
+    machineView->enableScaling(buttonState == Qt::Checked);
 }

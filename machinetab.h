@@ -43,7 +43,7 @@ class QFrame;
 class QPushButton;
 class QMenu;
 class MachineProcess;
-class VncView;
+class MachineView;
 class QVBoxLayout;
 class QGridLayout;
 class QScrollArea;
@@ -117,16 +117,13 @@ private:
     QFrame *otherFrame;
     QString myMachinesPath;
     
-    VncView *machineView;
+    MachineView *machineView;
     QFrame *viewFrame;
     QFrame *consoleFrame;
     QFrame *settingsFrame;
     QGridLayout *viewLayout;
     QScrollArea *machineScroll;
     void cleanupView();
-
-    void resizeEvent(QResizeEvent * event);
-    void viewChangeSize(int widgetWidth, int widgetHeight);
 
 private slots:
     void start();
@@ -162,7 +159,7 @@ private slots:
     void setSoundSystem(int id);
     void runCommand();
     void clearRestart();
-    void viewRefreshSize();
+    void enableScaling(int buttonState);
     void setupVnc(int enable);
 };
 

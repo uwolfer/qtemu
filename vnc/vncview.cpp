@@ -334,7 +334,7 @@ void VncView::paintEvent(QPaintEvent *event)
                                                                   qRound(m_h*m_verticalFactor),
                                                                   Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     } else {
-//         kDebug(5011) << "resize repaint";
+         kDebug(5011) << "resize repaint";
         painter.drawImage(QRect(0, 0, width(), height()), m_frame.scaled(width(), height(),
                                                                          Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     }

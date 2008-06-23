@@ -20,7 +20,7 @@ SOURCES =   main.cpp \
    nic.cpp
 
 RESOURCES =   qtemu.qrc
-QT +=   xml
+QT +=   xml svg
 win32 {
     LIBS =     -lshell32
     RC_FILE =     qtemu.rc
@@ -38,14 +38,14 @@ TRANSLATIONS =   translations/template_qtemu.ts \
   translations/qtemu_pl.ts
 CONFIG +=   debug_and_release
 
-#include (vnc/vnc.pro)
-
 LIBS += -lvncclient
 DEFINES += QTONLY
 
 HEADERS += vnc/remoteview.h\
            vnc/vncclientthread.h\
-           vnc/vncview.h
+           vnc/vncview.h \
+ machineview.h
 SOURCES += vnc/remoteview.cpp\
            vnc/vncclientthread.cpp\
-           vnc/vncview.cpp
+           vnc/vncview.cpp \
+ machineview.cpp
