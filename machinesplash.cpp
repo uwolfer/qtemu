@@ -53,7 +53,7 @@ MachineSplash::MachineSplash(QWidget *parent)
     previewImage->setScaledContents(true);
     layout = new QStackedLayout();
     previewLayout = new QGridLayout();
-    previewFrame = new QFrame();
+    QFrame *previewFrame = new QFrame();
     layout->setStackingMode(QStackedLayout::StackAll);
     layout->addWidget(splashImage);
     previewFrame->setLayout(previewLayout);
