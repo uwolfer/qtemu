@@ -25,14 +25,11 @@
 #include <QUrl>
 #include <QSize>
 
-MachineView::MachineView(QWidget *parent, const QString defaultImage)
+MachineView::MachineView(QWidget *parent)
  : QScrollArea(parent)
 {
     scaleable=true;
-    if(defaultImage.isEmpty())
-        splash = new QSvgWidget("images/oxygen/splash.svg", this);
-    else
-        splash = new QSvgWidget(defaultImage, this);
+    splash = new MachineSplash(this);
     view = new VncView();
     this->setWidget(splash);
     this->setAlignment(Qt::AlignCenter);
@@ -158,13 +155,13 @@ void MachineView::sendKey(QKeyEvent * event)
     view->keyEvent(event);
 }
 
-void MachineView::setSplash(QString location)
-{
-    splash->load(location);
-}
-
 void MachineView::newViewSize()
 {
     resizeView(maximumViewportSize().width(), maximumViewportSize().height());
+}
+
+void MachineView::setPreview(const QString previewLocation)
+{
+    splash->setPreview(previewLocation);
 }
 

@@ -18,6 +18,7 @@
     <file>images/crystal/network.png</file>
     <file>images/crystal/sound.png</file>
     <file>images/crystal/other.png</file>
+    <file>images/crystal/splash.svg</file>
 
     <file>images/oxygen/qtemu.png</file>
     <file>images/oxygen/new.png</file>
@@ -37,5 +38,6 @@
     <file>images/oxygen/network.png</file>
     <file>images/oxygen/sound.png</file>
     <file>images/oxygen/other.png</file>
+    <file>images/oxygen/splash.svg</file>
 </qresource>
 </RCC>

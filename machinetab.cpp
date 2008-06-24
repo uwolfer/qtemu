@@ -28,7 +28,6 @@
 
 #include "config.h"
 
-//#include "vnc/vncview.h"
 #include "machineview.cpp"
 
 #include <QMessageBox>
@@ -260,6 +259,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     hddPathLineEdit = new QLineEdit(this);
     connect(hddPathLineEdit, SIGNAL(textChanged(QString)), machineProcess, SLOT(path(QString)));
     connect(hddPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(testHDDImage(QString)));
+    connect(hddPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(updatePreview(QString)));
 
     QPushButton *hddSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/open.png"), QString(), this);
     connect(hddSelectButton, SIGNAL(clicked()), this, SLOT(setNewHddPath()));
@@ -1177,4 +1177,9 @@ void MachineTab::setupVnc(int enable)
 void MachineTab::enableScaling(int buttonState)
 {
     machineView->enableScaling(buttonState == Qt::Checked);
+}
+
+void MachineTab::updatePreview(const QString & hdPath)
+{
+    machineView->setPreview(hdPath + ".ppm");
 }

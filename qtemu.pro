@@ -44,8 +44,10 @@ DEFINES += QTONLY
 HEADERS += vnc/remoteview.h\
            vnc/vncclientthread.h\
            vnc/vncview.h \
- machineview.h
+ machineview.h \
+ machinesplash.h
 SOURCES += vnc/remoteview.cpp\
            vnc/vncclientthread.cpp\
            vnc/vncview.cpp \
- machineview.cpp
+ machineview.cpp \
+ machinesplash.cpp

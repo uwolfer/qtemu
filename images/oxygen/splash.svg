@@ -1342,11 +1342,12 @@
        style="fill:#010206;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <rect
        style="fill:url(#radialGradient2611);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect3239"
+       id="QtEmu_Preview_Screen"
        width="359.49353"
        height="222.65163"
        x="38.745861"
-       y="41.73991" />
+       y="41.73991"
+       inkscape:label="#rect3239" />
     <path
        style="opacity:0.5;fill:url(#linearGradient2608);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        d="M 30.482645,25.162409 C 26.225259,25.162409 22.796916,28.590743 22.796916,32.848138 L 22.796916,284.14818 L 414.66559,284.14818 L 414.66559,32.848138 C 414.66559,28.590751 411.23726,25.162409 406.97986,25.162409 L 30.482645,25.162409 z M 36.175778,39.188217 L 400.76917,39.188217 L 400.76917,268.00039 L 36.175778,268.00039 L 36.175778,39.188217 z"

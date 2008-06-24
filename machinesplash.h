@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Ben Klopfenstein <benklop @ gmail.com>
+** Copyright (C) 2008 Ben Klopfenstein <benklop@gmail.com>
 **
 ** This file is part of QtEmu.
 **
@@ -21,53 +21,52 @@
 **
 ****************************************************************************/
 
-#ifndef MACHINEVIEW_H
-#define MACHINEVIEW_H
+/****************************************************************************
+**
+** C++ Interface: machinesplash
+**
+** Description: 
+**
+****************************************************************************/
 
-#include "vnc/vncview.h"
-#include "machinesplash.h"
+#ifndef MACHINESPLASH_H
+#define MACHINESPLASH_H
 
-#include <QScrollArea>
-#include <QKeyEvent>
-#include <QSvgWidget>
+#include <QWidget>
 
+class QImage;
+class QLabel;
+class QSvgWidget;
+class QStackedLayout;
+class QRectF;
+class QGridLayout;
+class QFrame;
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
-class MachineView : public QScrollArea
+class MachineSplash : public QWidget
 {
 Q_OBJECT
 public:
-    MachineView(QWidget *parent = 0);
+    MachineSplash(QWidget *parent = 0);
 
-    ~MachineView();
-
-    void showSplash(bool show);
-    void enableScaling(bool scale);
-    bool isScaleable() const;
-    void machineNumber(int machine);
-    void initView();
-    void fullscreen(bool enabled);
-    void captureAllKeys(bool enabled);
-    void sendKey(QKeyEvent *event);
+    ~MachineSplash();
+    
     void setPreview(const QString previewLocation);
     
-public slots:
-    void newViewSize();
-    
 private:
+
     void resizeEvent(QResizeEvent * event);
-    
-    void resizeView(int widgetWidth, int widgetHeight);
-    
-    VncView *view;
-    MachineSplash *splash;
-    bool scaleable;
-    bool splashShown;
-    int port;
+    QSvgWidget *splashImage;
+    QLabel *previewImage;
+    QStackedLayout *layout;
+    QRectF *previewBounds;
+    QGridLayout *previewLayout;
+    QFrame *previewFrame;
+    void doResize();
+    void getPreviewRect();
+
 };
-
-
 
 #endif
