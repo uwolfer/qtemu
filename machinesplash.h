@@ -25,7 +25,8 @@
 **
 ** C++ Interface: machinesplash
 **
-** Description: 
+** Description:  builds the splashscreen each machine has with an embedded
+** preview
 **
 ****************************************************************************/
 
@@ -41,6 +42,8 @@ class QStackedLayout;
 class QRectF;
 class QGridLayout;
 class QFrame;
+class QSettings;
+class QPixmap;
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
@@ -63,6 +66,7 @@ private:
     QStackedLayout *layout;
     QRectF *previewBounds;
     QGridLayout *previewLayout;
+    QPixmap alpha;
     void doResize();
     void getPreviewRect();
 

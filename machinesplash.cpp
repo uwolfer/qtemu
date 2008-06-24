@@ -25,7 +25,8 @@
 **
 ** C++ Implementation: machinesplash
 **
-** Description: 
+** Description: builds the splashscreen each machine has with an embedded
+** preview
 **
 ****************************************************************************/
 
@@ -40,16 +41,17 @@
 #include <QGridLayout>
 #include <QFrame>
 #include <QDebug>
+#include <QPixmap>
 
 MachineSplash::MachineSplash(QWidget *parent)
  : QWidget(parent)
 {
     //set up splash background from splash.svg
     QSettings settings("QtEmu", "QtEmu");
-    QString iconTheme = settings.value("iconTheme", "oxygen").toString();
-    splashImage = new QSvgWidget(":/images/" + iconTheme + "/splash.svg");
+    splashImage = new QSvgWidget(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/splash.svg");
     getPreviewRect();
     previewImage = new QLabel();
+    alpha = QPixmap(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/previewAlpha.png");
     previewImage->setScaledContents(true);
     layout = new QStackedLayout();
     previewLayout = new QGridLayout();
@@ -72,7 +74,9 @@ MachineSplash::~MachineSplash()
 
 void MachineSplash::setPreview(const QString previewLocation)
 {
-    previewImage->setPixmap(QPixmap(previewLocation));
+    QPixmap preview = QPixmap(previewLocation);
+    preview.setAlphaChannel(alpha.scaled(preview.width(),preview.height()));
+    previewImage->setPixmap(preview);
     doResize();
 }
 
