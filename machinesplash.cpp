@@ -80,8 +80,8 @@ void MachineSplash::doResize()
 {
     getPreviewRect();
     previewImage->setFixedSize(previewBounds->width(), previewBounds->height());
-    previewLayout->setRowMinimumHeight(0, previewBounds->top());
-    previewLayout->setColumnMinimumWidth(0, previewBounds->left());
+    previewLayout->setRowMinimumHeight(0, previewBounds->top() - 3);
+    previewLayout->setColumnMinimumWidth(0, previewBounds->left() - 3);
     previewLayout->setColumnMinimumWidth(2, splashImage->width() - previewBounds->right());
     previewLayout->setRowMinimumHeight(2, splashImage->height() - previewBounds->bottom());
 }

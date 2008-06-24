@@ -63,7 +63,6 @@ private:
     QStackedLayout *layout;
     QRectF *previewBounds;
     QGridLayout *previewLayout;
-    //QFrame *previewFrame;
     void doResize();
     void getPreviewRect();
 
