@@ -20,6 +20,21 @@
   <defs
      id="defs2766">
     <linearGradient
+       id="linearGradient3196">
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="0"
+         id="stop3198" />
+      <stop
+         id="stop3206"
+         offset="0.98000002"
+         style="stop-color:#000000;stop-opacity:0;" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="1"
+         id="stop3200" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient5015">
       <stop
          style="stop-color:#8c939b;stop-opacity:0;"
@@ -31,12 +46,8 @@
          style="stop-color:#8c939b;stop-opacity:0;" />
       <stop
          style="stop-color:#8c939b;stop-opacity:0.49803922;"
-         offset="0.98000002"
-         id="stop5061" />
-      <stop
-         style="stop-color:#8c939b;stop-opacity:1;"
          offset="1"
-         id="stop5019" />
+         id="stop5061" />
     </linearGradient>
     <linearGradient
        id="linearGradient3241">
@@ -147,6 +158,46 @@
        y2="-233.11038"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1,0,0,4.5714286,0,582.53708)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3196"
+       id="linearGradient3204"
+       x1="-360"
+       y1="-80"
+       x2="0"
+       y2="-80"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.8888889,0,0,0.8571429,803.11038,466.75067)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3196"
+       id="linearGradient3212"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.8888889,0,0,0.8571429,-163.11035,466.75067)"
+       x1="-360"
+       y1="-80"
+       x2="0"
+       y2="-80" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3196"
+       id="linearGradient3216"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6666667,0,0,1.1428573,-158.17923,-391.6818)"
+       x1="-360"
+       y1="-80"
+       x2="0"
+       y2="-80" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3196"
+       id="linearGradient3220"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6666666,0,0,1.1428572,638.17926,574.53895)"
+       x1="-360"
+       y1="-80"
+       x2="0"
+       y2="-80" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -159,7 +210,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.68029384"
-     inkscape:cx="353.17567"
+     inkscape:cx="93.728958"
      inkscape:cy="383.1076"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -192,6 +243,13 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-163.11038,-158.17924)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1"
+       id="rect2412"
+       width="640"
+       height="480"
+       x="163.11038"
+       y="158.17924" />
     <rect
        style="fill:url(#radialGradient2611);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="QtEmu_Preview_Screen"
@@ -231,5 +289,36 @@
        x="158.17928"
        y="-803.11035"
        transform="matrix(0,1,-1,0,0,0)" />
+    <rect
+       style="fill:url(#linearGradient3204);fill-opacity:1"
+       id="rect3194"
+       width="320"
+       height="480"
+       x="483.11038"
+       y="158.17924" />
+    <rect
+       y="158.17924"
+       x="-483.11038"
+       height="480"
+       width="320"
+       id="rect3208"
+       style="fill:url(#linearGradient3212);fill-opacity:1"
+       transform="scale(-1,1)" />
+    <rect
+       y="-803.11035"
+       x="-398.17923"
+       height="640"
+       width="240.00003"
+       id="rect3214"
+       style="fill:url(#linearGradient3216);fill-opacity:1"
+       transform="matrix(0,-1,-1,0,0,0)" />
+    <rect
+       y="163.11038"
+       x="398.17923"
+       height="640"
+       width="239.99998"
+       id="rect3218"
+       style="fill:url(#linearGradient3220);fill-opacity:1"
+       transform="matrix(0,1,1,0,0,0)" />
   </g>
 </svg>
