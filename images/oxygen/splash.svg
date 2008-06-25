@@ -1200,7 +1200,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.6965452"
-     inkscape:cx="210.51163"
+     inkscape:cx="139.77965"
      inkscape:cy="271.67048"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -1667,5 +1667,25 @@
            id="tspan2651"
            sodipodi:role="line">QtEmu</tspan></text>
     </g>
-  </g>
+    <text
+       xml:space="preserve"
+       style="font-size:27.61922264000000027px;font-style:normal;font-weight:normal;fill:#4e5359;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="74.321358"
+       y="236.08044"
+       id="text3658"><tspan
+         sodipodi:role="line"
+         id="tspan3660"
+         x="74.321358"
+         y="236.08044">No Preview Available</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3662"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:normal;font-weight:normal;font-size:12px"><flowRegion
+         id="flowRegion3664"><rect
+           id="rect3666"
+           width="37.723721"
+           height="27.703358"
+           x="44.796921"
+           y="191.17775" /></flowRegion><flowPara
+         id="flowPara3668"></flowPara></flowRoot>  </g>
 </svg>
