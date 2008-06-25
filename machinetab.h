@@ -162,6 +162,7 @@ private slots:
     void enableScaling(int buttonState);
     void setupVnc(int enable);
     void updatePreview(const QString &hdPath);
+    void takeScreenshot();
 };
 
 #endif

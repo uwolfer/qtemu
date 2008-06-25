@@ -132,6 +132,7 @@ void MachineView::showSplash(bool show)
    }
    else
    {
+       setPreview();
        view->hide();
        this->takeWidget();
        this->setWidget(splash);

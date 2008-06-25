@@ -44,6 +44,7 @@ class QGridLayout;
 class QFrame;
 class QSettings;
 class QPixmap;
+class QString;
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
@@ -56,7 +57,7 @@ public:
 
     ~MachineSplash();
     
-    void setPreview(const QString previewLocation);
+    void setPreview(const QString previewLocation = QString());
     
 private:
 
@@ -67,8 +68,10 @@ private:
     QRectF *previewBounds;
     QGridLayout *previewLayout;
     QPixmap alpha;
+    QString previewLoc;
     void doResize();
     void getPreviewRect();
+
 
 };
 

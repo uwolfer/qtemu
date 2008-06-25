@@ -52,6 +52,7 @@
 #include <QResizeEvent>
 #include <QScrollArea>
 #include <QUrl>
+#include <QToolButton>
 
 MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent)
     : QWidget(parent)
@@ -115,6 +116,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     //FIXME: I think that this button should work like the "back" button in a web browser; it should have a default action (graceful
     // shutdown), as well as a forced shutdown option that pops up in a menu if you hold it down. this will get rid of the shutdown dialog.
+    
+    //can be done with QToolButton
     stopButton = new QPushButton(QIcon(":/images/" + iconTheme + "/stop.png"), tr("&Stop"), this);
     stopButton->setWhatsThis(tr("Stop this virtual machine"));
     stopButton->setIconSize(QSize(22, 22));
@@ -149,11 +152,24 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     controlButtonsLayout->addWidget(suspendButton);
     controlButtonsLayout->addWidget(resumeButton);
     controlButtonsLayout->addWidget(pauseButton);
-
+    
     snapshotCheckBox = new QCheckBox(tr("Snapshot mode"), this);
     connect(snapshotCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(snapshot(int)));
     connect(snapshotCheckBox, SIGNAL(stateChanged(int)), this, SLOT(snapshot(int)));
-
+    
+    QToolButton *screenshotButton = new QToolButton(this);
+    screenshotButton->setAutoRaise(false);
+    screenshotButton->setIcon(QIcon(":/images/" + iconTheme + "/camera.png"));
+    screenshotButton->setIconSize(QSize(22, 22));
+    screenshotButton->setToolTip(tr("Set preview screenshot"));
+    QHBoxLayout *snapshotLayout = new QHBoxLayout;
+    snapshotLayout->addWidget(snapshotCheckBox);
+    snapshotLayout->addWidget(screenshotButton);
+    
+    connect(screenshotButton, SIGNAL(clicked()), this, SLOT(takeScreenshot()));
+    
+    //TODO: add a fullscreen button here
+    
     QLabel *notesLabel = new QLabel(tr("<strong>Notes</strong>"), this);
 
     notesTextEdit = new QTextEdit(this);
@@ -586,7 +602,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     buttonsLayout->addLayout(closeButtonLayout);
     buttonsLayout->addLayout(powerButtonsLayout);
     buttonsLayout->addLayout(controlButtonsLayout);
-    buttonsLayout->addWidget(snapshotCheckBox);
+    buttonsLayout->addLayout(snapshotLayout);
     buttonsLayout->addWidget(notesLabel);
     buttonsLayout->addWidget(notesTextEdit);
     buttonsLayout->addWidget(devicesLabel);
@@ -620,8 +636,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     viewTabs->addTab(consoleFrame, tr("Console"));
     
     setLayout(mainLayout);
-
-
+    
     read();
 
     //read first the name, otherwise the name of the main tab changes
@@ -650,6 +665,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(cpuSpinBox, SIGNAL(valueChanged(int)), this, SLOT(write()));
     connect(additionalOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
     connect(additionalOptionsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
+    
 
 }
 
@@ -1182,4 +1198,12 @@ void MachineTab::enableScaling(int buttonState)
 void MachineTab::updatePreview(const QString & hdPath)
 {
     machineView->setPreview(hdPath + ".ppm");
+}
+
+void MachineTab::takeScreenshot()
+{
+    //TODO: for now just save a screenshot to the preview location.
+    // should provide a save dialog and have a dropdown to save as the preview.
+    
+    machineProcess->write(QString("screendump " + hddPathLineEdit->text() + ".ppm").toAscii() + '\n');
 }

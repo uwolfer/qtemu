@@ -74,7 +74,9 @@ MachineSplash::~MachineSplash()
 
 void MachineSplash::setPreview(const QString previewLocation)
 {
-    QPixmap preview = QPixmap(previewLocation);
+    if(!previewLocation.isEmpty())
+        previewLoc = previewLocation;
+    QPixmap preview = QPixmap(previewLoc);
     preview.setAlphaChannel(alpha.scaled(preview.width(),preview.height()));
     previewImage->setPixmap(preview);
     doResize();
