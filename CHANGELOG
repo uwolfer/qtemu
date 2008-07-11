@@ -5,8 +5,7 @@ Features:
 * Resume support :)
 * Enable virtualization with a checkbox (kqemu)
 * Add support for kvm virtualization with that same checkbox
-* Add machine name to the window title if your qemu is 0.9.1 or better, or if you use kvm 60
-* Add checkbox to enable ALSA support
+* Add machine name to the window title if your qemu is 0.9.1 or better, or if you use kvm 60 or higher.
 * pause/unpause support (if you need to get all your processor power back for a few minutes
     but don't want to turn off your virtual machine, pause is great!)
 * Add support for qcow image format and image conversion (needed for suspend/resume)
@@ -18,10 +17,16 @@ Features:
 * New network subsystem for bridging support (and other advanced networking features eventually!)
     see the readme for setting this up!
 * Machine console commands can be entered in the GUI now.. (for advanced functionality)
+* Embedded VNC viewer
+* Machine Preview 
+* added option for OSS, ESD, or ALSA sound support
+* restart button now works correctly (powers off the machine gracefully)
+* screenshot button
 All these new features listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
 * Install desktop file on Linux (e.g. to start QtEmu from startmenus)
 * Respect FHS for installation on Linux
 * Use QWizard for machine creation wizard for better look and feel
+
 Fixes:
 * Fixed english translations of some strings
 * Only enable options that work with your qemu version
