@@ -16,7 +16,7 @@ Features:
     the snapshot box!
 * New network subsystem for bridging support (and other advanced networking features eventually!)
     see the readme for setting this up!
-* Machine console commands can be entered in the GUI now.. (for advanced functionality)
+* Full machine console in the GUI... (for advanced functionality)
 * Embedded VNC viewer
 * Machine Preview 
 * added option for OSS, ESD, or ALSA sound support

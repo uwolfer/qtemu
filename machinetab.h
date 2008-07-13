@@ -91,7 +91,8 @@ private:
     QLineEdit *networkCustomOptionsEdit;
     QLineEdit *smbFolderEdit;
     QLineEdit *additionalOptionsEdit;
-    QLineEdit *monitorCommandEdit;
+    QLineEdit *consoleCommand;
+    QTextEdit *console;
     QSlider *memorySlider;
     QString xmlFileName;
     QTabWidget *parentTabWidget;

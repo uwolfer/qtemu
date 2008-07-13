@@ -445,6 +445,7 @@ void MachineProcess::readProcess()
     QStringList splitOutput = convOutput.split("[K");
     if (splitOutput.last()==splitOutput.first())
     {
+        emit cleanConsole(convOutput);
         emit stdout(convOutput.simplified());
     }
     else 
@@ -452,6 +453,7 @@ void MachineProcess::readProcess()
         if(!splitOutput.last().isEmpty())
         {
             QString cleanOutput = splitOutput.last().remove(QRegExp("\[[KD]."));
+            emit cleanConsole(cleanOutput);
             emit stdout(cleanOutput.simplified());
         }
     }
@@ -470,6 +472,7 @@ void MachineProcess::readProcessErrors()
 qint64 MachineProcess::write ( const QByteArray & byteArray )
 {
     emit stdin(((QString)byteArray).simplified());
+    emit cleanConsole((QString)byteArray);
     return QProcess::write(byteArray);
 }
 

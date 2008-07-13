@@ -6,8 +6,16 @@ HEADERS =   config.h \
   helpwindow.h \
   configwindow.h \
   mainwindow.h \
-   networksystem.h \
-   nic.h
+  networksystem.h \
+  nic.h \
+  vnc/remoteview.h\
+  vnc/vncclientthread.h\
+  vnc/vncview.h \
+  machineview.h \
+  machinesplash.h \
+  machineconfigobject.h \
+  machineconfig.h
+
 SOURCES =   main.cpp \
   mainwindow.cpp \
   helpwindow.cpp \
@@ -16,8 +24,15 @@ SOURCES =   main.cpp \
   wizard.cpp \
   machinewizard.cpp \
   machinetab.cpp \
-   networksystem.cpp \
-   nic.cpp
+  networksystem.cpp \
+  nic.cpp \
+  vnc/remoteview.cpp\
+  vnc/vncclientthread.cpp\
+  vnc/vncview.cpp \
+  machineview.cpp \
+  machinesplash.cpp \
+  machineconfigobject.cpp \
+  machineconfig.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg
@@ -41,13 +56,5 @@ CONFIG +=   debug_and_release
 LIBS += -lvncclient
 DEFINES += QTONLY
 
-HEADERS += vnc/remoteview.h\
-           vnc/vncclientthread.h\
-           vnc/vncview.h \
- machineview.h \
- machinesplash.h
-SOURCES += vnc/remoteview.cpp\
-           vnc/vncclientthread.cpp\
-           vnc/vncview.cpp \
- machineview.cpp \
- machinesplash.cpp
+DISTFILES += TODO CHANGELOG README
+

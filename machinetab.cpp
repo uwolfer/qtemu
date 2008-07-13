@@ -590,12 +590,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(additionalOptionsCheckBox, SIGNAL(toggled(bool)),
             additionalOptionsEdit, SLOT(setEnabled(bool)));
 
-    QLabel *monitorCommandLabel = new QLabel(tr("Machine monitor command:"), this);
-    otherFrameLayout->addWidget(monitorCommandLabel);
-    monitorCommandEdit = new QLineEdit(this);
-    otherFrameLayout->addWidget(monitorCommandEdit);
-    connect(monitorCommandEdit, SIGNAL(returnPressed()),
-            this, SLOT(runCommand()));
     //other section end
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout();
@@ -635,6 +629,22 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     consoleFrame = new QFrame(this);
     viewTabs->addTab(consoleFrame, tr("Console"));
     
+    console = new QTextEdit(this);
+    console->setReadOnly(true);
+    connect(machineProcess, SIGNAL(cleanConsole(QString)), console, SLOT(append(QString)));
+    consoleCommand = new QLineEdit(this);
+    console->setFocusProxy(consoleCommand);
+    QPushButton *consoleCommandButton = new QPushButton(tr("Enter Command"), this);
+    connect(consoleCommand, SIGNAL(returnPressed()),
+            consoleCommandButton, SLOT(click()));
+    connect(consoleCommandButton, SIGNAL(clicked()), this, SLOT(runCommand()));
+    QVBoxLayout *consoleLayout = new QVBoxLayout();
+    QHBoxLayout *consoleCommandLayout = new QHBoxLayout();
+    consoleLayout->addWidget(console);
+    consoleCommandLayout->addWidget(consoleCommand);
+    consoleCommandLayout->addWidget(consoleCommandButton);
+    consoleLayout->addLayout(consoleCommandLayout);
+    consoleFrame->setLayout(consoleLayout); 
     setLayout(mainLayout);
     
     read();
@@ -1010,6 +1020,7 @@ void MachineTab::start()
     startButton->setEnabled(false);
     stopButton->setEnabled(true);
     machineProcess->start();
+    console->clear();
 }
 
 void MachineTab::suspending()
@@ -1152,8 +1163,9 @@ void MachineTab::setSoundSystem(int id)
 
 void MachineTab::runCommand()
 {
-    machineProcess->write(monitorCommandEdit->text().toAscii() + "\n");
-    monitorCommandEdit->clear();
+    machineProcess->write(consoleCommand->text().toAscii() + "\n");
+    //console->append(consoleCommand->text());
+    consoleCommand->clear();
 }
 
 void MachineTab::restart()
