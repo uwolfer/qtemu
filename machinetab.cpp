@@ -28,7 +28,7 @@
 
 #include "config.h"
 
-#include "machineview.cpp"
+#include "machineview.h"
 
 #include <QMessageBox>
 #include <QPushButton>

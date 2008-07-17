@@ -249,5 +249,3 @@ void RemoteView::focusOutEvent(QFocusEvent *event)
 
     QWidget::focusOutEvent(event);
 }
-
-#include "moc_remoteview.cpp"

@@ -564,6 +564,8 @@ bool Nic::clearHwNic()
     tempProcess->waitForFinished();
     
     hardwareNics.append(thisNic);
+
+    return true;
 }
 
 void Nic::restoreHwNic()

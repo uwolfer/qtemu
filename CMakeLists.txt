@@ -24,6 +24,11 @@
 PROJECT(qtemu)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.4.0)
 
+# where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
+set(CMAKE_MODULE_PATH
+    ${CMAKE_SOURCE_DIR}/cmake/modules
+)
+
 SET(qtemu_SRCS
     main.cpp
     mainwindow.cpp
@@ -33,6 +38,13 @@ SET(qtemu_SRCS
     wizard.cpp
     machinewizard.cpp
     machinetab.cpp
+    networksystem.cpp
+    nic.cpp
+    vnc/remoteview.cpp
+    vnc/vncclientthread.cpp
+    vnc/vncview.cpp
+    machineview.cpp
+    machinesplash.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -44,6 +56,13 @@ SET(qtemu_MOC_HDRS
     helpwindow.h
     configwindow.h
     mainwindow.h
+    networksystem.h
+    nic.h
+    vnc/vncview.h
+    vnc/remoteview.h
+    vnc/vncclientthread.h
+    machineview.h
+    machinesplash.h
 )
 
 SET(qtemu_RCS
@@ -72,6 +91,10 @@ SET(QT_MIN_VERSION "4.1.0")
 
 FIND_PACKAGE(Qt4 REQUIRED)
 INCLUDE(${QT_USE_FILE})
+
+find_package(LibVNCServer REQUIRED)
+
+add_definitions(-DQTONLY)
 
 # translation start
 FIND_PROGRAM(QT_LRELEASE_EXECUTABLE
@@ -130,7 +153,9 @@ ADD_DEFINITIONS(
 
 INCLUDE_DIRECTORIES(
     ${QT_INCLUDES}
+    ${VNCCLIENT_INCLUDE_DIRS}
     ${CMAKE_BINARY_DIR}
+    ${CMAKE_BINARY_DIR}/vnc
 )
 
 ADD_EXECUTABLE(qtemu
@@ -143,6 +168,8 @@ TARGET_LINK_LIBRARIES(qtemu
     ${QT_QTCORE_LIBRARY}
     ${QT_QTGUI_LIBRARY}
     ${QT_QTXML_LIBRARY}
+    ${QT_QTSVG_LIBRARY}
+    ${LIBVNCCLIENT_LIBRARIES}
 )
 
 FILE(GLOB helpfiles "${CMAKE_CURRENT_SOURCE_DIR}/help/*.png")

@@ -559,5 +559,3 @@ void VncView::clipboardDataChanged()
 
     vncThread.clientCut(text);
 }
-
-#include "moc_vncview.cpp"
