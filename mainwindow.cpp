@@ -149,7 +149,8 @@ void MainWindow::about()
             tr("<h2>QtEmu</h2>Version %1<br>"
                "<b><i>QtEmu</i></b> is a graphical user interface for "
                "<a href=http://qemu.org>QEMU</a>.<br><br>Copyright &copy; "
-               "2006-2008 Urs Wolfer <a href=mailto:uwolfer%2fwo.ch>uwolfer%2fwo.ch</a>. "
+               "2006-2008 Urs Wolfer <a href=mailto:uwolfer%2fwo.ch>uwolfer%2fwo.ch</a>.<br />"
+               "Copyright &copy; 2008 Ben Klopfenstein <a href=mailto:benklop%2gmail.com>benklop%2gmail.com</a>.<br />"
                "All rights reserved.<br><br>"
                "The program is provided AS IS with NO WARRANTY OF ANY KIND.<br><br>"
                "The icons have been taken from the KDE Crystal and Oxygen themes which are LGPL licensed.")
