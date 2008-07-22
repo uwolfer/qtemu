@@ -110,7 +110,7 @@ private:
     QByteArray useSoundSystem;
     int memoryInt;
     int cpuInt;
-    NetworkSystem* networkSystem;
+    //NetworkSystem* networkSystem;
 
 private slots:
     void afterExitExecute();

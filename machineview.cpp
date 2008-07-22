@@ -98,6 +98,7 @@ void MachineView::enableScaling ( bool scale )
 
 void MachineView::machineNumber(int machine)
 {
+    //port = machine;
     port = 6900 + machine;
 }
 
@@ -110,6 +111,7 @@ void MachineView::initView()
     url->setScheme("vnc");
     url->setHost("localhost");
     url->setPort(port);
+
 #ifdef DEVELOPER
     qDebug("connecting to:" + url->toString().toAscii());
 #endif

@@ -23,7 +23,7 @@
 ****************************************************************************/
 
 #include "machineprocess.h"
-#include "networksystem.h"
+//#include "networksystem.h"
 #include "config.h"
 
 #include <QCoreApplication>
@@ -49,7 +49,7 @@ MachineProcess::MachineProcess(QObject *parent)
     vncPort=0;
     soundSystem(0);
     getVersion();
-    networkSystem = new NetworkSystem(this);
+    //networkSystem = new NetworkSystem(this);
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
     connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
@@ -74,10 +74,10 @@ void MachineProcess::start()
         arguments << additionalOptionsString.split(" ", QString::SkipEmptyParts);
     
     if (vncPort != 0)
-        arguments << "-vnc" << ":" + QString::number(vncPort);
+        arguments << "-vnc" << "localhost:" + QString::number(vncPort);
     
     if (networkEnabled)
-    {
+    {   /*
         //use the new network setup if you are developing
         #ifdef DEVELOPER
         //load up network setup
@@ -85,13 +85,13 @@ void MachineProcess::start()
         if (networkSystem->numNics() != 0)
             arguments << networkSystem->getOptionList();
         #endif
-        
+        */
         if (!networkCustomOptionsString.isEmpty())
             arguments << networkCustomOptionsString.split(" ", QString::SkipEmptyParts);
-        #ifndef DEVELOPER
+        //#ifndef DEVELOPER
         else
             arguments << "-net" << "nic" << "-net" << "user";
-        #endif
+        //#endif
     }
     else
         arguments << "-net" << "none";
@@ -270,7 +270,7 @@ void MachineProcess::afterExitExecute()
     }
 
     doResume=false;
-    networkSystem->clearAllNics();
+    //networkSystem->clearAllNics();
 }
 
 void MachineProcess::path(const QString &newPath)
@@ -560,7 +560,7 @@ void MachineProcess::changeFloppy()
 //TODO:a wizard needs to be made to set up sudo to work without manual intervention.
 void MachineProcess::smbFolderPath(const QString & newPath)
 {
-    networkSystem->addSambaDir(newPath);
+    qDebug("feature temporarily disabled");//networkSystem->addSambaDir(newPath);
 }
 
 void MachineProcess::supressError(QString errorText)

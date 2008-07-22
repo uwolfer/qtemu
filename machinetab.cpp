@@ -53,6 +53,7 @@
 #include <QScrollArea>
 #include <QUrl>
 #include <QToolButton>
+#include <QAction>
 
 MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent)
     : QWidget(parent)
@@ -114,15 +115,26 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(start()));
 
 
-    //FIXME: I think that this button should work like the "back" button in a web browser; it should have a default action (graceful
-    // shutdown), as well as a forced shutdown option that pops up in a menu if you hold it down. this will get rid of the shutdown dialog.
-    
-    //can be done with QToolButton
-    stopButton = new QPushButton(QIcon(":/images/" + iconTheme + "/stop.png"), tr("&Stop"), this);
-    stopButton->setWhatsThis(tr("Stop this virtual machine"));
+
+
+    QMenu *stopMenu = new QMenu();
+    QAction *stopAction = stopMenu->addAction(QIcon(":/images/" + iconTheme + "/stop.png"), tr("&Shutdown"));
+    QAction *forceAction = stopMenu->addAction(tr("&Force Poweroff"));
+    stopAction->setWhatsThis(tr("Tell this virtual machine to shut down"));
+    forceAction->setWhatsThis(tr("Force this virtual machine to stop immediately"));
+    stopButton = new QToolButton(this);
+    stopButton->setMenu(stopMenu);
+    stopButton->setDefaultAction(stopAction);
+
+    stopButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     stopButton->setIconSize(QSize(22, 22));
+    stopButton->setSizePolicy(startButton->sizePolicy());
+    stopButton->setText(tr("&Stop"));
+
+
     stopButton->setEnabled(false);
-    connect(stopButton, SIGNAL(clicked(bool)), this, SLOT(stop()));
+    connect(stopAction, SIGNAL(triggered(bool)), machineProcess, SLOT(stop()));
+    connect(forceAction, SIGNAL(triggered(bool)), this, SLOT(forceStop()));
 
     QHBoxLayout *powerButtonsLayout = new QHBoxLayout;
     powerButtonsLayout->addWidget(startButton);
@@ -1059,21 +1071,17 @@ void MachineTab::resumed()
                              tr("Your machine is being resumed. USB devices will not function properly on Windows. You must reload<br />the USB driver to use your usb devices including the seamless mouse.<br />In addition the advanced VGA adapter will not refresh initially on any OS."));
 }
 
-void MachineTab::stop()
+void MachineTab::forceStop()
 {
     QMessageBox msgBox;
-    msgBox.setText(tr("This will tell the current machine to power down. Are you sure?<br />"
-                             "If the virtual machine Operating System is ACPI or APM aware, it will power down gracefully.<br />"
-                             "If the machine is unresponsive, you can choose a forced shutdown. Doing this may cause damage to the disk image."));
+    msgBox.setText(tr("This will force the current machine to power down. Are you sure?<br />"
+                             "You should only do this if the machine is unresponsive. Doing this may cause damage to the disk image."));
     msgBox.setStandardButtons(QMessageBox::Cancel);
-    QPushButton *shutdownButton = msgBox.addButton(tr("Shutdown"), QMessageBox::ActionRole);
     QPushButton *forceShutdownButton = msgBox.addButton(tr("Force Shutdown"), QMessageBox::DestructiveRole);
     msgBox.setDefaultButton(QMessageBox::Cancel);
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.exec();
-    if (msgBox.clickedButton()==shutdownButton)
-        machineProcess->stop();
-    else if (msgBox.clickedButton()==forceShutdownButton)
+    if (msgBox.clickedButton()==forceShutdownButton)
         machineProcess->forceStop();
 }
 

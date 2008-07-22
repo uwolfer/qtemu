@@ -264,11 +264,15 @@ void VncClientThread::run()
 
         cl->serverHost = strdup(m_host.toUtf8().constData());
 
-        if (m_port < 0 || !m_port) // port is invalid or empty...
-            m_port = 5900; // fallback: try an often used VNC port
+        if (m_port != -2) // -2 means unix sockets and should be preserved
+        {
+            if (m_port < 0 || !m_port) // port is invalid or empty...
+                m_port = 5900; // fallback: try an often used VNC port
 
-        if (m_port >= 0 && m_port < 100) // the user most likely used the short form (e.g. :1)
-            m_port += 5900;
+            if (m_port >= 0 && m_port < 100) // the user most likely used the short form (e.g. :1)
+                m_port += 5900;
+        }
+
         cl->serverPort = m_port;
 
         kDebug(5011) << "--------------------- trying init ---------------------";

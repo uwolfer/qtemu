@@ -45,6 +45,7 @@
 #include <QStatusBar>
 #include <QToolBar>
 #include <QMessageBox>
+#include <QToolButton>
 
 MainWindow::MainWindow()
 {
@@ -131,7 +132,7 @@ void MainWindow::pause()
 void MainWindow::stop()
 {
     MachineTab *tab = qobject_cast<MachineTab *>(tabWidget->currentWidget());
-    QPushButton *stopButton = qobject_cast<QPushButton *>(tab->stopButton);
+    QToolButton *stopButton = qobject_cast<QToolButton *>(tab->stopButton);
     stopButton->click();
 }
 
@@ -390,7 +391,7 @@ void MainWindow::changeMachineState(int value)
         QPushButton *startButton = qobject_cast<QPushButton *>(tab->startButton);
         if (value != -1)
             startButton->setFocus();
-        QPushButton *stopButton = qobject_cast<QPushButton *>(tab->stopButton);
+        QToolButton *stopButton = qobject_cast<QToolButton *>(tab->stopButton);
         connect(startButton, SIGNAL(clicked()), this, SLOT(changeMachineState()));
         connect(stopButton, SIGNAL(clicked()), this, SLOT(changeMachineState()));
         if (!startButton->isEnabled())

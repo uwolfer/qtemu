@@ -47,6 +47,7 @@ class MachineView;
 class QVBoxLayout;
 class QGridLayout;
 class QScrollArea;
+class QToolButton;
 
 class MachineTab : public QWidget
 {
@@ -56,7 +57,7 @@ public:
     MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent);
     QString machineName();
     QPushButton *startButton;
-    QPushButton *stopButton;
+    QToolButton *stopButton;
     QPushButton *suspendButton;
     QPushButton *resumeButton;
     QPushButton *pauseButton;
@@ -128,7 +129,7 @@ private:
 
 private slots:
     void start();
-    void stop();
+    void forceStop();
     void suspending();
     void suspended();
     void resuming();

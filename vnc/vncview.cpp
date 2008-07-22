@@ -53,8 +53,16 @@ VncView::VncView(QWidget *parent, const KUrl &url)
         m_forceLocalCursor(false)
 {
     m_url = url;
-    m_host = url.host();
-    m_port = url.port();
+    if( url.scheme() == "unix" ) //unix sockets
+    {
+        m_port = -2; //this value signifies unix sockets
+        m_host = url.path();
+    }
+    else
+    {
+        m_host = url.host();
+        m_port = url.port();
+    }
 
     connect(&vncThread, SIGNAL(imageUpdated(int, int, int, int)), this, SLOT(updateImage(int, int, int, int)), Qt::BlockingQueuedConnection);
     connect(&vncThread, SIGNAL(gotCut(const QString&)), this, SLOT(setCut(const QString&)), Qt::BlockingQueuedConnection);
