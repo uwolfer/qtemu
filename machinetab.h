@@ -30,7 +30,8 @@
 #include <QRadioButton>
 #include <QButtonGroup>
 
-
+#include "machineconfigobject.h"
+#include "machineconfig.h"
 
 class QPushButton;
 class QLineEdit;
@@ -66,6 +67,9 @@ public slots:
     void restart();
 
 private:
+    MachineConfig *machineConfig;
+    MachineConfigObject *machineConfigObject;
+
     MachineProcess *machineProcess;
     QDomDocument domDocument;
     QCheckBox *snapshotCheckBox;

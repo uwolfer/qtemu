@@ -12,7 +12,10 @@ HEADERS =   config.h \
   vnc/vncclientthread.h\
   vnc/vncview.h \
   machineview.h \
-  machinesplash.h
+  machinesplash.h \
+  machineconfig.h \
+  machineconfigobject.h \
+   configevent.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -28,7 +31,10 @@ SOURCES =   main.cpp \
   vnc/vncclientthread.cpp\
   vnc/vncview.cpp \
   machineview.cpp \
-  machinesplash.cpp
+  machinesplash.cpp \
+  machineconfig.cpp \
+  machineconfigobject.cpp \
+   configevent.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg

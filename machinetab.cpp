@@ -65,6 +65,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     QSettings settings("QtEmu", "QtEmu");
     QString iconTheme = settings.value("iconTheme", "oxygen").toString();
 
+    machineConfig = new MachineConfig(this, fileName);
+    machineConfigObject = new MachineConfigObject(this, machineConfig);
+
     machineProcess = new MachineProcess(this);
     
     connect(machineProcess, SIGNAL(finished(int)), this, SLOT(finished()));
@@ -520,7 +523,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     soundFrame->setLayout(soundFrameLayout);
 
     videoCheckBox = new QCheckBox(tr("Enable the embedded display"), this);
+    machineConfigObject->registerObject(videoCheckBox,"embeddedDisplay", Qt::Checked);
+
     videoResizeCheckBox = new QCheckBox(tr("Scale display to fit window"), this);
+    machineConfigObject->registerObject(videoResizeCheckBox,"scaleEmbeddedDisplay", Qt::Checked);
 
     QLabel *soundDescriptionLabel = new QLabel(tr("<hr>Choose whether sound support should "
                                                   "be available for this virtual machine."), this);

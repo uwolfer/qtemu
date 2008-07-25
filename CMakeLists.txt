@@ -38,13 +38,14 @@ SET(qtemu_SRCS
     wizard.cpp
     machinewizard.cpp
     machinetab.cpp
-    networksystem.cpp
-    nic.cpp
     vnc/remoteview.cpp
     vnc/vncclientthread.cpp
     vnc/vncview.cpp
     machineview.cpp
     machinesplash.cpp
+    machineconfig.cpp
+    machineconfigobject.cpp
+    configevent.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -56,13 +57,14 @@ SET(qtemu_MOC_HDRS
     helpwindow.h
     configwindow.h
     mainwindow.h
-    networksystem.h
-    nic.h
     vnc/vncview.h
     vnc/remoteview.h
     vnc/vncclientthread.h
     machineview.h
     machinesplash.h
+    machineconfig.h
+    machineconfigobject.h
+    configevent.h
 )
 
 SET(qtemu_RCS
