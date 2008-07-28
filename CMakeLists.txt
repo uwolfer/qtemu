@@ -45,6 +45,7 @@ SET(qtemu_SRCS
     machinesplash.cpp
     machineconfig.cpp
     machineconfigobject.cpp
+    settingstab.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -63,6 +64,11 @@ SET(qtemu_MOC_HDRS
     machinesplash.h
     machineconfig.h
     machineconfigobject.h
+    settingstab.h
+)
+
+SET(qtemu_UIS
+    ui/settingstab.ui
 )
 
 SET(qtemu_RCS
@@ -144,6 +150,7 @@ SET(QT_USE_QTXML)
 
 QT4_WRAP_CPP(qtemu_MOC_SRCS ${qtemu_MOC_HDRS})
 QT4_ADD_RESOURCES (qtsourceview_RC_SRCS  ${qtemu_RESOUCES})
+QT4_WRAP_UI(qtemu_UIS ${qtemu_UIS})
 QT4_AUTOMOC(${qtemu_SRCS})
 
 ADD_DEFINITIONS(
