@@ -65,6 +65,7 @@ public:
     
 public slots:
     void restart();
+	
 
 private:
     MachineConfig *machineConfig;
@@ -165,8 +166,6 @@ private slots:
     void setSoundSystem(int id);
     void runCommand();
     void clearRestart();
-    void enableScaling(int buttonState);
-    void setupVnc(int enable);
     void updatePreview(const QString &hdPath);
     void takeScreenshot();
 };

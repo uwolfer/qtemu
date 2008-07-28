@@ -100,7 +100,7 @@ public slots:
 /**
     slot is activated if there is a config change
 */
-    void configChanged(const ConfigEvent event);
+    void configChanged(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value);
 
 /**
     get the value of the calling object and sets the value of the associated config option

@@ -31,7 +31,6 @@
 ****************************************************************************/
 
 #include "machineconfigobject.h"
-#include "configevent.h"
 #include <QObject>
 #include <QStringList>
 #include <QDynamicPropertyChangeEvent>
@@ -41,6 +40,7 @@ MachineConfigObject::MachineConfigObject(QObject *parent, MachineConfig *config)
  : QObject(parent)
 {
     setConfig(config);
+    connect(config, SIGNAL(optionChanged(QString, QString, QString, QVariant)),this,SLOT(configChanged(QString, QString, QString, QVariant)));
 }
 
 
@@ -156,36 +156,33 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString nodeTyp
     //set the object's value, analyzing its type / properties to determine how to do so.
     if(object->property("optionName").isNull())
     {
+        object->removeEventFilter(this);
         object->setProperty(optionName.toAscii(), value);
-        //no signals to connect here
+        object->installEventFilter(this);
     }
     else if (object->inherits("QAbstractButton"))
     {
         object->disconnect(this);
         object->setProperty("checked", value);
         connect(object, SIGNAL(toggled(bool)), this, SLOT(getObjectValue()));
-        qDebug("detected a button");
     }
     else if (object->inherits("QSpinBox")||object->inherits("QAbstractSlider"))
     {
         object->disconnect(this);
         object->setProperty("value", value);
         connect(object, SIGNAL(valueChanged(int)), this, SLOT(getObjectValue()));
-        qDebug("detected a spinbox/slider");
     }
     else if (object->inherits("QLineEdit"))
     {
         object->disconnect(this);
         object->setProperty("text", value);
         connect(object, SIGNAL(textChanged(QString)), this, SLOT(getObjectValue()));
-        qDebug("detected a line edit");
     }
     else if (object->inherits("QTextEdit"))
     {
         object->disconnect(this);
         object->setProperty("plainText", value);
         connect(object, SIGNAL(textChanged()), this, SLOT(getObjectValue()));
-        qDebug("detected a text edit");
     }
     else
     {
@@ -223,7 +220,6 @@ void MachineConfigObject::getObjectValue()
 {
     QVariant value;
     QObject *object = sender();
-
     //get value from the object, analyzing its type / properties to determine how to do so.
     if (object->inherits("QAbstractButton"))
     {
@@ -258,18 +254,18 @@ void MachineConfigObject::getObjectValue()
 /**
     slot is activated if there is a config change
 */
-void MachineConfigObject::configChanged(const ConfigEvent event)
+void MachineConfigObject::configChanged(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value)
 {
     QObject *object;
     for(int i=0;i<registeredObjects.size();i++)
     {
         object = registeredObjects.at(i);
-        if(object->property("nodeType").toString() == event.nodeType
-        && object->property("nodeName").toString() == event.nodeName
-        &&(object->property("optionName").isNull()
-        || object->property("optionName").toString() == event.optionName))
+        QString thisNodeType = object->property("nodeType").toString();
+        QString thisNodeName = object->property("nodeName").toString();
+        QString thisOptionName = object->property("optionName").toString();
+        if(( thisNodeType == nodeType ) && ( thisNodeName == nodeName || thisNodeName.isEmpty() ) && ( thisOptionName.isEmpty() || thisOptionName == optionName ))
         {
-            setObjectValue(object, event.nodeType, event.nodeName, event.optionName, event.value);
+                setObjectValue(object, nodeType, nodeName, optionName, value);
         }
     }
 

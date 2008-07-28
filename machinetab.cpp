@@ -69,7 +69,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineConfigObject = new MachineConfigObject(this, machineConfig);
 
     machineProcess = new MachineProcess(this);
-    
+    machineConfigObject->registerObject(machineProcess);
+    machineConfigObject->setOption("vncPort", 1000 + parentTabWidget->currentIndex() + 1);
+    //this is a hack... eventually we will be able to support using a unix socket (a file) instead of a network port.
+
     connect(machineProcess, SIGNAL(finished(int)), this, SLOT(finished()));
     connect(machineProcess, SIGNAL(started()), this, SLOT(started()));
     connect(machineProcess, SIGNAL(suspending(QString)), this, SLOT(suspending()));
@@ -526,6 +529,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineConfigObject->registerObject(videoCheckBox,"embeddedDisplay", Qt::Checked);
 
     videoResizeCheckBox = new QCheckBox(tr("Scale display to fit window"), this);
+    
     machineConfigObject->registerObject(videoResizeCheckBox,"scaleEmbeddedDisplay", Qt::Checked);
 
     QLabel *soundDescriptionLabel = new QLabel(tr("<hr>Choose whether sound support should "
@@ -544,8 +548,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     soundSystemGroup->addButton(soundESDRadioButton, 3);
 
 
-    connect(videoCheckBox, SIGNAL(stateChanged(int)), this, SLOT(setupVnc(int)));
-    connect(videoResizeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableScaling(int)));
+
+
     connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
     connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(setSoundSystem(int)));
     soundOSSRadioButton->click();
@@ -634,6 +638,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
 
     machineView = new MachineView(this);
+    machineConfigObject->registerObject(machineView);
     viewLayout = new QGridLayout();
     viewFrame->setLayout(viewLayout); 
     viewLayout->setColumnStretch(1, 10);
@@ -1178,7 +1183,6 @@ void MachineTab::setSoundSystem(int id)
 void MachineTab::runCommand()
 {
     machineProcess->write(consoleCommand->text().toAscii() + "\n");
-    //console->append(consoleCommand->text());
     consoleCommand->clear();
 }
 
@@ -1207,20 +1211,6 @@ void MachineTab::cleanupView()
     machineView->showSplash(true);
 }
 
-
-void MachineTab::setupVnc(int enable)
-{
-    if(enable == Qt::Checked)
-        machineProcess->useVnc(1000 + parentTabWidget->indexOf(this));
-    else
-        machineProcess->useVnc(0);
-}
-
-void MachineTab::enableScaling(int buttonState)
-{
-    machineView->enableScaling(buttonState == Qt::Checked);
-}
-
 void MachineTab::updatePreview(const QString & hdPath)
 {
     machineView->setPreview(hdPath + ".ppm");
@@ -1233,3 +1223,4 @@ void MachineTab::takeScreenshot()
     
     machineProcess->write(QString("screendump " + hddPathLineEdit->text() + ".ppm").toAscii() + '\n');
 }
+

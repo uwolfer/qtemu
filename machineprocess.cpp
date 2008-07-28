@@ -59,6 +59,7 @@ MachineProcess::MachineProcess(QObject *parent)
 
 void MachineProcess::start()
 {
+    qDebug(property("nodeType").toByteArray());
     getVersion();
     //if(versionMajor == -1)//executable was not found
 
@@ -73,9 +74,9 @@ void MachineProcess::start()
     if (additionalOptionsEnabled && !additionalOptionsString.isEmpty())
         arguments << additionalOptionsString.split(" ", QString::SkipEmptyParts);
     
-    if (vncPort != 0)
-        arguments << "-vnc" << "localhost:" + QString::number(vncPort);
-    
+    if (property("embeddedDisplay").toBool())
+        arguments << "-vnc" << "localhost:" + property("vncPort").toString();
+
     if (networkEnabled)
     {   /*
         //use the new network setup if you are developing

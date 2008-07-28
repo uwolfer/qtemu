@@ -28,7 +28,9 @@
 #include "machinesplash.h"
 
 #include <QScrollArea>
-#include <QKeyEvent>
+#include <QEvent>
+#include <QResizeEvent>
+#include <QDynamicPropertyChangeEvent>
 #include <QSvgWidget>
 
 
@@ -44,14 +46,13 @@ public:
     ~MachineView();
 
     void showSplash(bool show);
-    void enableScaling(bool scale);
-    bool isScaleable() const;
     void machineNumber(int machine);
     void initView();
     void fullscreen(bool enabled);
     void captureAllKeys(bool enabled);
     void sendKey(QKeyEvent *event);
     void setPreview(const QString previewLocation = QString());
+    bool event(QEvent * event);
     
 public slots:
     void newViewSize();
@@ -63,7 +64,6 @@ private:
     
     VncView *view;
     MachineSplash *splash;
-    bool scaleable;
     bool splashShown;
     int port;
 };

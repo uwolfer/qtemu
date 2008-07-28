@@ -32,7 +32,6 @@
 #ifndef MACHINECONFIG_H
 #define MACHINECONFIG_H
 
-#include "configevent.h"
 #include <QObject>
 #include <QDomElement>
 #include <QVariant>
@@ -67,7 +66,7 @@ public slots:
     void setOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value);
 
 signals:
-    void optionChanged(const ConfigEvent event);
+    void optionChanged(const QString nodeType, const QString nodeType, const QString optionName, const QVariant value);
 
 private:
     QFile *configFile;

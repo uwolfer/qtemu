@@ -14,8 +14,7 @@ HEADERS =   config.h \
   machineview.h \
   machinesplash.h \
   machineconfig.h \
-  machineconfigobject.h \
-   configevent.h
+  machineconfigobject.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -33,8 +32,7 @@ SOURCES =   main.cpp \
   machineview.cpp \
   machinesplash.cpp \
   machineconfig.cpp \
-  machineconfigobject.cpp \
-   configevent.cpp
+  machineconfigobject.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg

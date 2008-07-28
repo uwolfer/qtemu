@@ -28,7 +28,7 @@
 MachineView::MachineView(QWidget *parent)
  : QScrollArea(parent)
 {
-    scaleable=true;
+
     splash = new MachineSplash(this);
     view = new VncView();
     this->setWidget(splash);
@@ -56,12 +56,11 @@ void MachineView::resizeEvent(QResizeEvent * event)
 void MachineView::resizeView(int widgetWidth, int widgetHeight)
 {
 
-    if(!scaleable)
+    if(!(property("scaleEmbeddedDisplay").toBool())&&!splashShown)
     {
         view->setFixedSize(view->framebufferSize().width(), view->framebufferSize().height());
         return;
     }
-    
     float aspectRatio;
     if(!splashShown)
         aspectRatio = (1.0 * view->framebufferSize().width()) / view->framebufferSize().height();
@@ -80,20 +79,6 @@ void MachineView::resizeView(int widgetWidth, int widgetHeight)
         widget()->setFixedSize(newWidth, widgetHeight);
     else
         widget()->setFixedSize(widgetWidth, newHeight);
-}
-
-
-bool MachineView::isScaleable() const
-{
-    return scaleable;
-}
-
-
-void MachineView::enableScaling ( bool scale )
-{
-    scaleable = scale;
-    //this->setWidgetResizable(scale);
-    newViewSize();
 }
 
 void MachineView::machineNumber(int machine)
@@ -166,5 +151,20 @@ void MachineView::newViewSize()
 void MachineView::setPreview(const QString previewLocation)
 {
     splash->setPreview(previewLocation);
+}
+
+bool MachineView::event(QEvent * event)
+{
+    if(event->type() == QEvent::DynamicPropertyChange)
+    {
+        //any property changes dealt with in here
+        QDynamicPropertyChangeEvent *propEvent = static_cast<QDynamicPropertyChangeEvent *>(event);
+        if(propEvent->propertyName() == "scaleEmbeddedDisplay")
+        {
+            newViewSize();
+            return false;
+        }
+    }
+    return QScrollArea::event(event);
 }
 

@@ -133,7 +133,7 @@ void MachineConfig::setOption(const QString nodeType, const QString nodeName, co
     }
 
     //if successful then
-    emit optionChanged(ConfigEvent(nodeType, nodeName, optionName, value,QVariant()));
+    emit optionChanged(nodeType, nodeName, optionName, value);
 }
 
 

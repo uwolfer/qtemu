@@ -45,7 +45,6 @@ SET(qtemu_SRCS
     machinesplash.cpp
     machineconfig.cpp
     machineconfigobject.cpp
-    configevent.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -64,7 +63,6 @@ SET(qtemu_MOC_HDRS
     machinesplash.h
     machineconfig.h
     machineconfigobject.h
-    configevent.h
 )
 
 SET(qtemu_RCS
