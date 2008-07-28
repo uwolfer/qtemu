@@ -170,7 +170,7 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString nodeTyp
         QList<QAbstractButton *> buttons = group->buttons();
         for(int i=0;i<buttons.size();i++)
         {
-            if(buttons.at(i)->text() == value.toString())
+            if(buttons.at(i)->property("value") == value)
             {
                 buttons.at(i)->setProperty("checked", true);
             }
@@ -246,7 +246,7 @@ void MachineConfigObject::getObjectValue()
     if (object->inherits("QButtonGroup"))
     {
         QButtonGroup *group = static_cast<QButtonGroup *>(object);
-        value = group->checkedButton()->text();
+        value = group->checkedButton()->property("value");
     }
     else if (object->inherits("QAbstractButton"))
     {

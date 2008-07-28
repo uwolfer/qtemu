@@ -104,7 +104,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineNameEdit->setStyleSheet(QString(flatStyle).replace("TYPE", "QLineEdit")
                                    +"QLineEdit { font: bold 16px; }");
 #endif
-    connect(machineNameEdit, SIGNAL(textChanged(QString)), machineProcess, SLOT(name(QString)));
 
     QPushButton *closeButton = new QPushButton(QIcon(":/images/" + iconTheme + "/close.png"), QString(), this);
     closeButton->setFlat(true);
@@ -172,7 +171,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     controlButtonsLayout->addWidget(pauseButton);
     
     snapshotCheckBox = new QCheckBox(tr("Snapshot mode"), this);
-    connect(snapshotCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(snapshot(int)));
     connect(snapshotCheckBox, SIGNAL(stateChanged(int)), this, SLOT(snapshot(int)));
     
     QToolButton *screenshotButton = new QToolButton(this);
@@ -236,8 +234,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(memorySlider, SIGNAL(valueChanged(int)), memorySpinBox, SLOT(setValue(int)));
     connect(memorySpinBox, SIGNAL(valueChanged(int)), memorySlider, SLOT(setValue(int)));
 
-    connect(memorySpinBox, SIGNAL(valueChanged(int)), machineProcess, SLOT(memory(int)));
-
     QHBoxLayout *memoryLayout = new QHBoxLayout;
     memoryLayout->addWidget(memorySlider);
     memoryLayout->addWidget(memorySpinBox);
@@ -253,12 +249,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     cpuSpinBox->setRange(1, 4);
     cpuSpinBox->setValue(2);
     cpuDescriptionLabel->setBuddy(cpuSpinBox);
-    connect(cpuSpinBox, SIGNAL(valueChanged(int)), machineProcess, SLOT(cpu(int)));
 
     QLabel *cpuLabel = new QLabel(tr("Virtual CPU(s)"), this);
 
     virtualizationCheckBox = new QCheckBox(tr("Enable &virtualization"), this);
-    connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(virtualization(int)));
 
     QHBoxLayout *cpuLayout = new QHBoxLayout;
     cpuLayout->addWidget(cpuSpinBox);
@@ -291,7 +285,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     hddFrameLayout->addWidget(hddDescriptionLabel);
 
     hddPathLineEdit = new QLineEdit(this);
-    connect(hddPathLineEdit, SIGNAL(textChanged(QString)), machineProcess, SLOT(path(QString)));
     connect(hddPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(testHDDImage(QString)));
     connect(hddPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(updatePreview(QString)));
 
@@ -331,7 +324,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     cdromFrameLayout->addWidget(cdromDescriptionLabel);
 
     cdromLineEdit = new QLineEdit(this);
-    connect(cdromLineEdit, SIGNAL(textChanged(const QString&)), machineProcess, SLOT(cdRomPath(const QString&)));
 
     QPushButton *cdromSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdrom.png"), QString(), this);
     cdromSelectButton->setToolTip(tr("Select a CD ROM Drive"));
@@ -348,7 +340,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     cdromFrameLayout->addLayout(cdromLayout);
 
     cdBootCheckBox = new QCheckBox(tr("&Boot from CD ROM"), this);
-    connect(cdBootCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(cdBoot(int)));
     cdromReloadButton = new QPushButton(tr("Reload the virtual CD &ROM"));
     
     connect(cdromReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeCdrom()));
@@ -378,7 +369,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     floppyFrameLayout->addWidget(floppyDescriptionLabel);
 
     floppyLineEdit = new QLineEdit(this);
-    connect(floppyLineEdit, SIGNAL(textChanged(const QString&)), machineProcess, SLOT(floppyDiskPath(const QString&)));
 
     QPushButton *floppySelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/floppy.png"), QString(), this);
     floppySelectButton->setToolTip(tr("Select a Floppy Disk Drive"));
@@ -395,7 +385,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     floppyFrameLayout->addLayout(floppyLayout);
 
     floppyBootCheckBox = new QCheckBox(tr("&Boot from floppy disk"), this);
-    connect(floppyBootCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(floppyBoot(int)));
     
     floppyReloadButton = new QPushButton(tr("Reload the virtual Floppy Disk"));
     
@@ -429,7 +418,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     networkCheckBox = new QCheckBox(tr("&Enable network"), this);
     networkCheckBox->setToolTip(tr("By default, the Qtemu uses User Mode Networking.\n"
                                     "This default should be fine for most people.\n"));
-    connect(networkCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(network(int)));
     connect(networkCheckBox, SIGNAL(stateChanged(int)), this, SLOT(network(int)));
     networkFrameLayout->addWidget(networkCheckBox);
     
@@ -439,7 +427,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     networkFrameLayout->addWidget(networkDescriptionLabel);
     smbFolderEdit = new QLineEdit(this);
     networkDescriptionLabel->setBuddy(smbFolderEdit);
-    connect(smbFolderEdit, SIGNAL(textChanged(const QString&)), machineProcess, SLOT(smbFolderPath(const QString&)));
 
     QPushButton *smbSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/network.png"), QString(), this);
     smbSelectButton->setToolTip(tr("Select a Folder to share"));
@@ -498,8 +485,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     networkFrameLayout->addWidget(networkCustomOptionsEdit);
     
 
-    connect(networkCustomOptionsEdit, SIGNAL(textChanged(const QString&)),
-            machineProcess, SLOT(networkCustomOptions(const QString&)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), networkDescriptionLabel, SLOT(setEnabled(bool)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), networkCustomOptionsEdit, SLOT(setEnabled(bool)));
     connect(networkCheckBox, SIGNAL(toggled(bool)), userModeNetwork, SLOT(setEnabled(bool)));
@@ -541,17 +526,17 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     soundSystemDescriptionLabel->setWordWrap(true);
     soundSystemGroup = new QButtonGroup();
     soundALSARadioButton = new QRadioButton(tr("Use &ALSA"), this);
+    soundALSARadioButton->setProperty("value", "alsa");
     soundOSSRadioButton = new QRadioButton(tr("Use &OSS"), this);
+    soundOSSRadioButton->setProperty("value", "oss");
     soundESDRadioButton = new QRadioButton(tr("Use &ESD"), this);
-    soundSystemGroup->addButton(soundALSARadioButton, 1);
-    soundSystemGroup->addButton(soundOSSRadioButton, 2);
-    soundSystemGroup->addButton(soundESDRadioButton, 3);
+    soundESDRadioButton->setProperty("value", "esd");
+    soundSystemGroup->addButton(soundALSARadioButton);
+    soundSystemGroup->addButton(soundOSSRadioButton);
+    soundSystemGroup->addButton(soundESDRadioButton);
 
+    machineConfigObject->registerObject(soundSystemGroup, "soundSystem", QVariant("oss"));
 
-
-
-    connect(soundCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(sound(int)));
-    connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(setSoundSystem(int)));
     soundOSSRadioButton->click();
     soundFrameLayout->addWidget(videoCheckBox);
     soundFrameLayout->addWidget(videoResizeCheckBox);
@@ -588,8 +573,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     mouseCheckBox = new QCheckBox(tr("Enable seamless mo&use"), this);
     mouseCheckBox->setToolTip(tr("This option depends on the operating system. It is not supported by non-graphical "
                                  "systems. <strong>Attention:</strong> This option may reduce the system performance." ));
-    connect(mouseCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(mouse(int)));
-    otherFrameLayout->addWidget(mouseCheckBox);
+
+   otherFrameLayout->addWidget(mouseCheckBox);
 
     QLabel *timeDescriptionLabel = new QLabel(tr("<hr>Choose if the virtual machine should use "
                                                  "the host machine clock."), this);
@@ -597,18 +582,14 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     otherFrameLayout->addWidget(timeDescriptionLabel);
 
     timeCheckBox = new QCheckBox(tr("Enable &local time"), this);
-    connect(timeCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(time(int)));
     otherFrameLayout->addWidget(timeCheckBox);
 
     additionalOptionsCheckBox = new QCheckBox(tr("&Additional QEMU options:"), this);
-    connect(additionalOptionsCheckBox, SIGNAL(stateChanged(int)), machineProcess, SLOT(useAdditionalOptions(int)));
     otherFrameLayout->addWidget(new QLabel(QLatin1String("<hr>"), this));
     otherFrameLayout->addWidget(additionalOptionsCheckBox);
 
     additionalOptionsEdit = new QLineEdit(this);
     otherFrameLayout->addWidget(additionalOptionsEdit);
-    connect(additionalOptionsEdit, SIGNAL(textChanged(const QString&)),
-            machineProcess, SLOT(additionalOptions(const QString&)));
     connect(additionalOptionsCheckBox, SIGNAL(toggled(bool)),
             additionalOptionsEdit, SLOT(setEnabled(bool)));
 
@@ -859,8 +840,6 @@ bool MachineTab::read()
     machineConfigObject->registerObject(floppyBootCheckBox, "bootFromFloppy", QVariant(false));
     machineConfigObject->registerObject(networkCheckBox, "network", QVariant(true));
     machineConfigObject->registerObject(soundCheckBox, "sound", QVariant(false));
-    machineConfigObject->registerObject(soundSystemGroup, "soundSystem", QVariant(soundOSSRadioButton->text()));
-    
     machineConfigObject->registerObject(networkCustomOptionsEdit, "networkCustomOptions");
     machineConfigObject->registerObject(mouseCheckBox, "mouse", QVariant(true));
     machineConfigObject->registerObject(timeCheckBox, "time", QVariant(true));
@@ -1016,22 +995,6 @@ void MachineTab::supressAudioErrors()
 {
     machineProcess->supressError("oss");
     machineProcess->supressError("audio");
-}
-
-void MachineTab::setSoundSystem(int id)
-{
-    switch(id)
-    {
-        case 1:
-            machineProcess->soundSystem("alsa");
-            break;
-        case 2:
-            machineProcess->soundSystem("oss");
-            break;
-        case 3:
-            machineProcess->soundSystem("esd");
-            break;
-    }
 }
 
 void MachineTab::runCommand()

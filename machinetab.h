@@ -161,7 +161,6 @@ private slots:
     void network(const int value);
     void unimplemented();
     void supressAudioErrors();
-    void setSoundSystem(int id);
     void runCommand();
     void clearRestart();
     void updatePreview(const QString &hdPath);

@@ -33,21 +33,10 @@
 #include <QTimer>
 
 MachineProcess::MachineProcess(QObject *parent)
-               :QProcess(parent),
-                bootFromCdEnabled(false),
-                bootFromFloppyEnabled(false),
-                snapshotEnabled(false),
-                networkEnabled(false),
-                mouseEnabled(false),
-                timeEnabled(false),
-                additionalOptionsEnabled(false),
-                memoryInt(-1),
-                cpuInt(-1)
+               :QProcess(parent)
 {
     paused=false;
     doResume=false;
-    vncPort=0;
-    soundSystem(0);
     getVersion();
     //networkSystem = new NetworkSystem(this);
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
@@ -71,13 +60,13 @@ void MachineProcess::start()
     // can be used to start the virtual machine, e.g. vdeq kvm or vdeq qemu
     // where vdeq is specified as the command and kvm/qemu as the additional
     // option or parameter.
-    if (additionalOptionsEnabled && !additionalOptionsString.isEmpty())
-        arguments << additionalOptionsString.split(" ", QString::SkipEmptyParts);
+    if (property("useAdditionalOptions").toBool() && !property("addiionalOptions").toString().isEmpty())
+        arguments << property("addiionalOptions").toString().split(" ", QString::SkipEmptyParts);
     
     if (property("embeddedDisplay").toBool())
         arguments << "-vnc" << "localhost:" + property("vncPort").toString();
 
-    if (networkEnabled)
+    if (property("network").toBool())
     {   /*
         //use the new network setup if you are developing
         #ifdef DEVELOPER
@@ -87,8 +76,8 @@ void MachineProcess::start()
             arguments << networkSystem->getOptionList();
         #endif
         */
-        if (!networkCustomOptionsString.isEmpty())
-            arguments << networkCustomOptionsString.split(" ", QString::SkipEmptyParts);
+        if (!property("networkCustomOptions").toString().isEmpty())
+            arguments << property("networkCustomOptions").toString().split(" ", QString::SkipEmptyParts);
         //#ifndef DEVELOPER
         else
             arguments << "-net" << "nic" << "-net" << "user";
@@ -109,12 +98,12 @@ void MachineProcess::start()
     if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
     {
         //TODO: modify to support multiple floppies and cdroms(index=0 and index=1)
-        if (!cdRomPathString.isEmpty())
+        if (!property("cdrom").toString().isEmpty())
         {
-        cdRomPathString = cdRomPathString.replace(QRegExp(","),",,");
+        QString cdRomPathString = property("cdrom").toString().replace(QRegExp(","),",,");
         arguments << "-drive" << "file=" + cdRomPathString + ",if=ide,bus=1,unit=0,media=cdrom";
         //TODO:make the drive location configurable
-        if (bootFromCdEnabled)
+        if (property("bootFromCd").toBool())
             arguments << "-boot" << "d";
         }
         else//allows the cdrom to exist if not specified
@@ -123,57 +112,57 @@ void MachineProcess::start()
         //TODO:make the drive location configurable
         }
 
-        if (!floppyDiskPathString.isEmpty())
+        if (!property("floppy").toString().isEmpty())
         {
-            arguments << "-drive" << "file=" + floppyDiskPathString + ",index=0,if=floppy";
-            if (bootFromFloppyEnabled)
+            arguments << "-drive" << "file=" + property("floppy").toString() + ",index=0,if=floppy";
+            if (property("bootFromFloppy").toBool())
                 arguments << "-boot" << "a";
         }
     }
     else //use old (<0.9.1) drive syntax, cdrom must exist on startup to be inserted
     {
-        if (!cdRomPathString.isEmpty())
+        if (!property("cdrom").toString().isEmpty())
         {
-            arguments << "-cdrom" << cdRomPathString;
-            if (bootFromCdEnabled)
+            arguments << "-cdrom" << property("cdrom").toString();
+            if (property("bootFromCd").toBool())
                 arguments << "-boot" << "d";
         }
-        if (!floppyDiskPathString.isEmpty())
+        if (!property("floppy").toString().isEmpty())
         {
-          arguments << "-fda" << floppyDiskPathString;
-          if (bootFromFloppyEnabled)
+          arguments << "-fda" << property("floppy").toString();
+          if (property("bootFromFloppy").toBool())
               arguments << "-boot" << "a";
         }
     }
 
     
-    if (soundEnabled)
+    if (property("sound").toBool())
     {
     //FIXME: this does not work yet with alsa... no idea why. specifying oss, which is the default anyway, works ok.
-    // other possible values are "wav", "none", "sdl", and maybe "esd"...
+    // other possible values are "wav", "none", "sdl", and maybe "esd" or "pulse"
     //we can run qemu -audio-help and any line in the format "Name: <value>" will list a driver we can use.
-    //TODO:on windows and mac i assume we have to stick with the default...
+    //TODO:on windows and mac i assume we have to stick with the default... (directSound / coreAudio)
         arguments << "-soundhw" << "es1370";
-        env << "QEMU_AUDIO_DRV=" + useSoundSystem;
+        env << "QEMU_AUDIO_DRV=" + property("soundSystem").toString();
     }
     
-    if (memoryInt > 0)
-      arguments << "-m" << QString::number(memoryInt);
+    if (property("memory").toInt() > 0)
+      arguments << "-m" << QString::number(property("memory").toInt());
 
-    if (cpuInt > 1)
-      arguments << "-smp" << QString::number(cpuInt);
+    if (property("cpu").toInt() > 1)
+      arguments << "-smp" << QString::number(property("cpu").toInt());
 
-    if (mouseEnabled)
+    if (property("mouse").toBool())
         arguments << "-usb" << "-usbdevice" << "tablet";
 
-    if (timeEnabled)
+    if (property("time").toBool())
         arguments << "-localtime";
 
-    if (!virtualizationEnabled && kvmVersion > 0)
+    if (!(property("virtualization").toBool()) && kvmVersion > 0)
         arguments << "-no-kvm";
-    else if (!virtualizationEnabled)
+    else if (!(property("virtualization").toBool()))
         arguments << "-no-kqemu";
-    else if (virtualizationEnabled && kvmVersion <= 0)
+    else if (property("virtualization").toBool() && kvmVersion <= 0)
         arguments << "-kernel-kqemu";
 
     if (doResume)
@@ -188,17 +177,19 @@ void MachineProcess::start()
 #endif
 
     if((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
-        arguments << "-name" << "\"" + machineNameString + "\"";
+        arguments << "-name" << "\"" + property("name").toString() + "\"";
 
     // Add the VM image name
     // And use the temp file if snapshot is enabled
-    if (snapshotEnabled)
+    if (property("snapshot").toBool())
     {
         createTmp();
-        arguments << pathString + ".tmp";
+        //arguments << pathString + ".tmp";
+        arguments << property("hdd").toString() + ".tmp";
     }
     else 
-        arguments << pathString;
+        //arguments << pathString;
+        arguments << property("hdd").toString();
 
 #ifdef DEVELOPER
     QString debugString = QString();
@@ -246,9 +237,9 @@ void MachineProcess::start()
 
 void MachineProcess::afterExitExecute()
 {
-    if(snapshotEnabled)
+    if(property("snapshot").toBool())
         deleteTmp(0);
-    else if(QFile::exists(pathString + ".tmp"))
+    else if(QFile::exists(property("hdd").toString() + ".tmp"))
         commitTmp();
 
     QSettings settings("QtEmu", "QtEmu");
@@ -272,96 +263,6 @@ void MachineProcess::afterExitExecute()
 
     doResume=false;
     //networkSystem->clearAllNics();
-}
-
-void MachineProcess::path(const QString &newPath)
-{
-    pathString = newPath;
-}
-
-void MachineProcess::cdRomPath(const QString &newPath)
-{
-    cdRomPathString = newPath;
-}
-
-void MachineProcess::cdBoot(int value)
-{
-    bootFromCdEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::floppyDiskPath(const QString &newPath)
-{
-    floppyDiskPathString = newPath;
-}
-
-void MachineProcess::floppyBoot(int value)
-{
-    bootFromFloppyEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::snapshot(int value)
-{
-    snapshotEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::network(int value)
-{
-    networkEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::sound(int value)
-{
-    soundEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::time(int value)
-{
-    timeEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::virtualization(int value)
-{
-    virtualizationEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::mouse(int value)
-{
-    mouseEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::useAdditionalOptions(int value)
-{
-    additionalOptionsEnabled = (value == Qt::Checked);
-}
-
-void MachineProcess::useVnc(int port)
-{
-        vncPort = port;
-}
-
-void MachineProcess::memory(int value)
-{
-    memoryInt = value;
-}
-
-void MachineProcess::cpu(int value)
-{
-    cpuInt = value;
-}
-
-void MachineProcess::networkCustomOptions(const QString& options)
-{
-    networkCustomOptionsString = options;
-}
-
-void MachineProcess::additionalOptions(const QString& options)
-{
-    additionalOptionsString = options;
-}
-
-void MachineProcess::name(const QString & name)
-{
-    machineNameString = name;
 }
 
 void MachineProcess::resume() {resume("Default");}
@@ -402,7 +303,7 @@ void MachineProcess::suspend(const QString & snapshotName)
     //usb is not properly resumed, so we need to disable it first in order to keep things working afterwords.
     //this also means that we need to dynamically get usb devices to unload and save them with the qtemu config
     //file for proper usb support with suspend. as it is we just unload the tablet, which is all we know about.
-    if(mouseEnabled) 
+    if(property("mouse").toBool()) 
     {
         write("usb_del 0.1\n");
         sleep(2);//wait for the guest OS to notice
@@ -534,11 +435,6 @@ void MachineProcess::getVersion()
     #endif
 }
 
-void MachineProcess::soundSystem(QString systemName)
-{
-    useSoundSystem = systemName.toAscii();
-}
-
 void MachineProcess::changeCdrom()
 {
     //handle differing version syntax...
@@ -555,13 +451,7 @@ void MachineProcess::changeFloppy()
     //handle differing version syntax...
     //if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
     write("eject -f floppy\n");//might need to be fda , not floppy
-    write("change floppy " + floppyDiskPathString.toAscii() + '\n');
-}
-
-//TODO:a wizard needs to be made to set up sudo to work without manual intervention.
-void MachineProcess::smbFolderPath(const QString & newPath)
-{
-    qDebug("feature temporarily disabled");//networkSystem->addSambaDir(newPath);
+    write("change floppy " + property("floppy").toByteArray() + '\n');
 }
 
 void MachineProcess::supressError(QString errorText)
@@ -585,30 +475,30 @@ void MachineProcess::loadCdrom()
 {
     //handle differing version syntax...
     if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
-        write("change ide1-cd0 " + cdRomPathString.toAscii() + '\n');
+        write("change ide1-cd0 " + property("cdrom").toByteArray() + '\n');
     else
-        write("change cdrom" + cdRomPathString.toAscii() + '\n'); 
+        write("change cdrom" + property("cdrom").toByteArray() + '\n'); 
 }
 
 void MachineProcess::commitTmp()
 {
     QProcess *commitTmpProcess = new QProcess(this);
-    commitTmpProcess->start("qemu-img", QStringList() << "commit" << pathString + ".tmp");
+    commitTmpProcess->start("qemu-img", QStringList() << "commit" << property("hdd").toString() + ".tmp");
     connect(commitTmpProcess, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(deleteTmp(int)));
 }
 
 void MachineProcess::deleteTmp(int successfulCommit)
 {
  if(successfulCommit == 0)
-    QFile::remove( pathString + ".tmp" );
+    QFile::remove( property("hdd").toString() + ".tmp" );
 }
 
 void MachineProcess::createTmp()
 {
-    if(QFile::exists(pathString + ".tmp"))
+    if(QFile::exists(property("hdd").toString() + ".tmp"))
         return;
 
     QProcess *createTmpProcess = new QProcess(this);
-    createTmpProcess->start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << pathString << pathString + ".tmp");
+    createTmpProcess->start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << property("hdd").toString() << property("hdd").toString() + ".tmp");
     createTmpProcess->waitForFinished();
 }

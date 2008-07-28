@@ -45,30 +45,10 @@ public slots:
     void stop();
     void forceStop();
     void togglePause();
-    void name(const QString &name);
-    void path(const QString &newPath);
-    void cdRomPath(const QString &newPath);
-    void floppyDiskPath(const QString &newPath);
-    void smbFolderPath(const QString &newPath);
-    void cdBoot(int value);
-    void floppyBoot(int value);
-    void snapshot(int value);
     void supressError(QString errorText);
-    void sound(int value);
-    void soundSystem(QString systemName);
-    void memory(int value);
-    void mouse(int value);
-    void time(int value);
-    void virtualization(int value);
-    void cpu(int value);
-    void useAdditionalOptions(int value);
-    void useVnc(int port);
-    void additionalOptions(const QString& options);
     void changeCdrom();
     void changeFloppy();
-    
-    void network(int value);
-    void networkCustomOptions(const QString& options);
+    void loadCdrom();
 
 signals:
     void suspending(const QString & snapshotName);
@@ -86,30 +66,11 @@ private:
     void getVersion();
     void commitTmp();
     void createTmp();
-    QString pathString;
-    QString machineNameString;
-    QString cdRomPathString;
-    QString floppyDiskPathString;
-    QString networkCustomOptionsString;
-    QString additionalOptionsString;
-    int vncPort;
     QString snapshotNameString;
     QStringList supressedErrors;
     long versionMajor, versionMinor, versionBugfix, kvmVersion;
-    bool bootFromCdEnabled;
-    bool bootFromFloppyEnabled;
-    bool snapshotEnabled;
-    bool networkEnabled;
-    bool soundEnabled;
-    bool mouseEnabled;
-    bool timeEnabled;
-    bool virtualizationEnabled;
-    bool additionalOptionsEnabled;
     bool paused;
     bool doResume;
-    QByteArray useSoundSystem;
-    int memoryInt;
-    int cpuInt;
     //NetworkSystem* networkSystem;
 
 private slots:
@@ -120,7 +81,6 @@ private slots:
     void resumeFinished(const QString& returnedText);
     void suspendFinished(const QString& returnedText);
     void startedBooting(const QString& text);
-    void loadCdrom();
     void deleteTmp(int successfulCommit);
 };
 
