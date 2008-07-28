@@ -675,31 +675,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     //read first the name, otherwise the name of the main tab changes
     connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(nameChanged(QString)));
 
-    //save it after each change
-    connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
-    connect(snapshotCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(notesTextEdit, SIGNAL(textChanged()), this, SLOT(write()));
-    connect(memorySpinBox, SIGNAL(valueChanged(int)), this, SLOT(write()));
-    connect(hddPathLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
-    connect(cdromLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
-    connect(cdBootCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(floppyLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
-    connect(floppyBootCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(networkCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(userModeNetwork, SIGNAL(toggled(bool)), this, SLOT(write()));
-    connect(bridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(write()));
-    connect(localBridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(write()));
-    connect(networkCustomOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
-    connect(soundCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(soundSystemGroup, SIGNAL(buttonClicked(int)), this, SLOT(write()));
-    connect(mouseCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(timeCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(virtualizationCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    connect(cpuSpinBox, SIGNAL(valueChanged(int)), this, SLOT(write()));
-    connect(additionalOptionsEdit, SIGNAL(textChanged(const QString&)), this, SLOT(write()));
-    connect(additionalOptionsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(write()));
-    
-
 }
 
 //TODO: the functionality in here really should be abstracted into another class, like MachineImage
@@ -868,155 +843,34 @@ void MachineTab::closeAllSections()
 
 bool MachineTab::read()
 {
-    QFile file(xmlFileName);
-    if (!file.open(QFile::ReadOnly | QFile::Text))
-    {
-        QMessageBox::warning(window(), tr("QtEmu"),
-                             tr("Cannot read file %1:\n%2.")
-                             .arg(xmlFileName)
-                             .arg(file.errorString()));
-        return false;
-    }
+    //init and register values
 
-    QString errorStr;
-    int errorLine;
-    int errorColumn;
-
-    if (!domDocument.setContent(&file, true, &errorStr, &errorLine,
-                                &errorColumn))
-    {
-        QMessageBox::warning(window(), tr("QtEmu"),
-                                 tr("Parse error at line %1, column %2:\n%3")
-                                 .arg(errorLine)
-                                 .arg(errorColumn)
-                                 .arg(errorStr));
-        return false;
-    }
-
-    QDomElement root = domDocument.documentElement();
-    if (root.tagName() != "qtemu")
-    {
-        QMessageBox::warning(window(), tr("QtEmu"),
-                                 tr("The file is not a QtEmu file."));
-        return false;
-    }
-
-    else if (root.hasAttribute("version") && root.attribute("version") != "1.0")
-    {
-        QMessageBox::warning(window(), tr("QtEmu"),
-                                 tr("The file is not a QtEmu version 1.0 file."));
-        return false;
-    }
-
-
-    QDomElement child = root.firstChildElement("machine");
-
-    //init values
-    snapshotCheckBox->setChecked(false);
-    cdromLineEdit->setText(QString());
-    cdBootCheckBox->setChecked(false);
-    floppyLineEdit->setText(QString());
-    floppyBootCheckBox->setChecked(false);
-    networkCheckBox->setChecked(true);
-    soundCheckBox->setChecked(true);
-    soundCheckBox->setChecked(false);
-    networkCustomOptionsEdit->setText(QString());
-    additionalOptionsCheckBox->setChecked(true);
-    additionalOptionsEdit->setText(QString());
-    mouseCheckBox->setChecked(true);
-    timeCheckBox->setChecked(true);
-    virtualizationCheckBox->setChecked(true);
-    cpuSpinBox->setValue(1);
-
-    machineNameEdit->setText(child.firstChildElement("name").text());
+    machineConfigObject->registerObject(machineNameEdit, "name");
+    machineConfigObject->registerObject(snapshotCheckBox, "snapshot", QVariant(false));
 #ifdef DEVELOPER
-    snapshotCheckBox->setChecked(true);
-#else
-    snapshotCheckBox->setChecked(child.firstChildElement("snapshot").text() == "true");
+    machineConfigObject->setOption("snapshot", true);
 #endif
-    notesTextEdit->setPlainText(child.firstChildElement("notes").text());
-    hddPathLineEdit->setText(child.firstChildElement("hdd").text());
-    memorySlider->setValue(child.firstChildElement("memory").text().toInt());
-    cdromLineEdit->setText(child.firstChildElement("cdrom").text());
-    cdBootCheckBox->setChecked(child.firstChildElement("bootFromCd").text() == "true");
-    floppyLineEdit->setText(child.firstChildElement("floppy").text());
-    floppyBootCheckBox->setChecked(child.firstChildElement("bootFromFloppy").text() == "true");
-    networkCheckBox->setChecked(child.firstChildElement("network").text() == "true");
-    soundCheckBox->setChecked(child.firstChildElement("sound").text() == "true");
-    QStringList sndList;
-    sndList<<"alsa"<<"oss"<<"esd";
-    if(sndList.contains(child.firstChildElement("soundSystem").text()))
-        soundSystemGroup->button(sndList.indexOf(child.firstChildElement("soundSystem").text()));
-    networkCustomOptionsEdit->setText(child.firstChildElement("networkCustomOptions").text());
-    mouseCheckBox->setChecked(child.firstChildElement("mouse").text() == "true");
-    timeCheckBox->setChecked(child.firstChildElement("time").text() == "true");
-    virtualizationCheckBox->setChecked(child.firstChildElement("virtualization").text() == "true");
-    cpuSpinBox->setValue(child.firstChildElement("cpu").text().toInt());
-    additionalOptionsEdit->setText(child.firstChildElement("additionalOptions").text());
-    additionalOptionsCheckBox->setChecked(child.firstChildElement("useAdditionalOptions").text() == "true");
-    return true;
-}
-
-void MachineTab::changeValue(const QString &name, const QString &value)
-{
-    QDomElement element = domDocument.documentElement();
-    QDomElement child = element.firstChildElement("machine");
-
-    if (!child.isNull())
-    {
-        QDomElement oldElement = child.firstChildElement(name);
-        if (oldElement == QDomElement())
-        {
-            oldElement = domDocument.createElement(name);
-            child.appendChild(oldElement);
-        }
-
-        QDomElement newElement = domDocument.createElement(name);
-        QDomText newText = domDocument.createTextNode(value);
-        newElement.appendChild(newText);
-        child.replaceChild(newElement, oldElement);
-    }
-}
-
-bool MachineTab::write()
-{
-    changeValue("name", machineNameEdit->text());
-    changeValue("snapshot", snapshotCheckBox->isChecked() ? "true" : "false");
-    changeValue("notes", notesTextEdit->toPlainText());
-    changeValue("hdd", hddPathLineEdit->text());
-    changeValue("memory", QString::number(memorySlider->value()));
-    changeValue("cdrom", cdromLineEdit->text());
-    changeValue("bootFromCd", cdBootCheckBox->isChecked() ? "true" : "false");
-    changeValue("floppy", floppyLineEdit->text());
-    changeValue("bootFromFloppy", floppyBootCheckBox->isChecked() ? "true" : "false");
-    changeValue("sound", soundCheckBox->isChecked() ? "true" : "false");
-    QStringList sndList;
-    sndList<<"alsa"<<"oss"<<"esd";
-    changeValue("soundSystem", sndList.at(soundSystemGroup->checkedId()-1));
-    changeValue("mouse", mouseCheckBox->isChecked() ? "true" : "false");
-    changeValue("time", timeCheckBox->isChecked() ? "true" : "false");
-    changeValue("virtualization", virtualizationCheckBox->isChecked() ? "true" : "false");
-    changeValue("cpu", QString::number(cpuSpinBox->value()));
-    changeValue("additionalOptions", additionalOptionsEdit->text());
-    changeValue("useAdditionalOptions", additionalOptionsCheckBox->isChecked() ? "true" : "false");
+    machineConfigObject->registerObject(notesTextEdit, "notes");
+    machineConfigObject->registerObject(hddPathLineEdit, "hdd");
+    machineConfigObject->registerObject(memorySlider, "memory");
+    machineConfigObject->registerObject(cdromLineEdit, "cdrom");
+    machineConfigObject->registerObject(cdBootCheckBox, "bootFromCd", QVariant(false));
+    machineConfigObject->registerObject(floppyLineEdit, "floppy");
+    machineConfigObject->registerObject(floppyBootCheckBox, "bootFromFloppy", QVariant(false));
+    machineConfigObject->registerObject(networkCheckBox, "network", QVariant(true));
+    machineConfigObject->registerObject(soundCheckBox, "sound", QVariant(false));
+    machineConfigObject->registerObject(soundSystemGroup, "soundSystem", QVariant(soundOSSRadioButton->text()));
     
-    changeValue("network", networkCheckBox->isChecked() ? "true" : "false");
-    changeValue("networkCustomOptions", networkCustomOptionsEdit->text());
-
-    QFile file(xmlFileName);
-    if (!file.open(QFile::WriteOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, tr("QtEmu"),
-                             tr("Cannot write file %1:\n%2.")
-                             .arg(xmlFileName)
-                             .arg(file.errorString()));
-        return false;
-    }
-
-    QTextStream out(&file);
-    domDocument.save(out, 4);
+    machineConfigObject->registerObject(networkCustomOptionsEdit, "networkCustomOptions");
+    machineConfigObject->registerObject(mouseCheckBox, "mouse", QVariant(true));
+    machineConfigObject->registerObject(timeCheckBox, "time", QVariant(true));
+    machineConfigObject->registerObject(virtualizationCheckBox, "virtualization", QVariant(false));
+    machineConfigObject->registerObject(cpuSpinBox, "cpu", QVariant(1));
+    machineConfigObject->registerObject(additionalOptionsEdit, "additionalOptions");
+    machineConfigObject->registerObject(additionalOptionsCheckBox, "useAdditionalOptions", QVariant(false));
     return true;
 }
+
 
 void MachineTab::nameChanged(const QString &name)
 {

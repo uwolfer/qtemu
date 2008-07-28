@@ -35,6 +35,8 @@
 #include <QStringList>
 #include <QDynamicPropertyChangeEvent>
 #include <QEvent>
+#include <QButtonGroup>
+#include <QAbstractButton>
 
 MachineConfigObject::MachineConfigObject(QObject *parent, MachineConfig *config)
  : QObject(parent)
@@ -103,7 +105,6 @@ void MachineConfigObject::registerObject(QObject *object, const QString nodeType
     if(optionName.isEmpty())
     {
         //dealing with an object with multiple properties
-
         //add all properties in the config under this node name/type
         QStringList options = myConfig->getAllOptionNames(nodeType, nodeName);
         for(int i=0;i<options.size();i++)
@@ -148,9 +149,10 @@ void MachineConfigObject::unregisterObject(QObject *object)
 void MachineConfigObject::setObjectValue(QObject * object, const QString nodeType, const QString nodeName, const QString optionName, const QVariant defaultValue)
 {
 
+
     //get the value from the config
     QVariant value = getOption(nodeType, nodeName, optionName, defaultValue);
-
+    //qDebug("setting object for " + optionName.toAscii() + " to " + value.toByteArray());
     //disconnect so that we don't go in a loop forever
 
     //set the object's value, analyzing its type / properties to determine how to do so.
@@ -159,6 +161,25 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString nodeTyp
         object->removeEventFilter(this);
         object->setProperty(optionName.toAscii(), value);
         object->installEventFilter(this);
+    }
+    //QButtonGroup handling is sticky...
+    else if(object->inherits("QButtonGroup"))
+    {
+        object->disconnect(this);
+        QButtonGroup *group = static_cast<QButtonGroup *>(object);
+        QList<QAbstractButton *> buttons = group->buttons();
+        for(int i=0;i<buttons.size();i++)
+        {
+            if(buttons.at(i)->text() == value.toString())
+            {
+                buttons.at(i)->setProperty("checked", true);
+            }
+            else
+            {
+                buttons.at(i)->setProperty("checked", false);
+            }
+        }
+        connect(object, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(getObjectValue()));
     }
     else if (object->inherits("QAbstractButton"))
     {
@@ -189,6 +210,7 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString nodeTyp
         //if it's none of those... we don't know what it is yet.
         qDebug("unknown object type" + QByteArray(object->metaObject()->className()));
     }
+    //qDebug("set!");
 }
 
 /**
@@ -221,7 +243,12 @@ void MachineConfigObject::getObjectValue()
     QVariant value;
     QObject *object = sender();
     //get value from the object, analyzing its type / properties to determine how to do so.
-    if (object->inherits("QAbstractButton"))
+    if (object->inherits("QButtonGroup"))
+    {
+        QButtonGroup *group = static_cast<QButtonGroup *>(object);
+        value = group->checkedButton()->text();
+    }
+    else if (object->inherits("QAbstractButton"))
     {
         value = object->property("checked");
     }

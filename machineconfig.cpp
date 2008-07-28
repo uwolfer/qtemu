@@ -133,6 +133,7 @@ void MachineConfig::setOption(const QString nodeType, const QString nodeName, co
     }
 
     //if successful then
+    saveConfig(configFile->fileName());
     emit optionChanged(nodeType, nodeName, optionName, value);
 }
 

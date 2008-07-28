@@ -155,8 +155,6 @@ private slots:
     void setNewSmbFolderPath();
     void closeAllSections();
     bool read();
-    bool write();
-    void changeValue(const QString &name, const QString &value);
     void nameChanged(const QString &name);
     void closeMachine();
     void snapshot(const int state);
