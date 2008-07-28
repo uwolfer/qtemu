@@ -246,7 +246,7 @@ void MachineConfigObject::getObjectValue()
     if (object->inherits("QButtonGroup"))
     {
         QButtonGroup *group = static_cast<QButtonGroup *>(object);
-        if(group->checkedButton()->property("value").isEmpty())
+        if(group->checkedButton()->property("value").toString().isEmpty())
             value = group->checkedButton()->text();
         else
             value = group->checkedButton()->property("value");
