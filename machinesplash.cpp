@@ -42,6 +42,7 @@
 #include <QFrame>
 #include <QDebug>
 #include <QPixmap>
+#include <QStyle>
 
 MachineSplash::MachineSplash(QWidget *parent)
  : QWidget(parent)
@@ -86,8 +87,10 @@ void MachineSplash::doResize()
 {
     getPreviewRect();
     previewImage->setFixedSize(previewBounds->width(), previewBounds->height());
-    previewLayout->setRowMinimumHeight(0, previewBounds->top() - 3);
-    previewLayout->setColumnMinimumWidth(0, previewBounds->left() - 3);
+    previewLayout->setHorizontalSpacing(0);
+    previewLayout->setVerticalSpacing(0);
+    previewLayout->setRowMinimumHeight(0, previewBounds->top() -  1.5 * QStyle::PM_DefaultFrameWidth);
+    previewLayout->setColumnMinimumWidth(0, previewBounds->left() - 1.5 * QStyle::PM_DefaultFrameWidth);
     previewLayout->setColumnMinimumWidth(2, splashImage->width() - previewBounds->right());
     previewLayout->setRowMinimumHeight(2, splashImage->height() - previewBounds->bottom());
 }

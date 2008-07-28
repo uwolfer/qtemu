@@ -14,7 +14,8 @@ HEADERS =   config.h \
   machineview.h \
   machinesplash.h \
   machineconfig.h \
-  machineconfigobject.h
+  machineconfigobject.h \
+   settingstab.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -32,7 +33,8 @@ SOURCES =   main.cpp \
   machineview.cpp \
   machinesplash.cpp \
   machineconfig.cpp \
-  machineconfigobject.cpp
+  machineconfigobject.cpp \
+   settingstab.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg
@@ -57,4 +59,6 @@ LIBS += -lvncclient
 DEFINES += QTONLY
 
 DISTFILES += TODO CHANGELOG README
+
+FORMS += ui/settingstab.ui
 

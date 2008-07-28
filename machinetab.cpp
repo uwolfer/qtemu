@@ -30,6 +30,8 @@
 
 #include "machineview.h"
 
+#include "settingstab.h"
+
 #include <QMessageBox>
 #include <QPushButton>
 #include <QLineEdit>
@@ -627,9 +629,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     viewLayout->addWidget(machineView, 1, 1);
 
 
-    settingsFrame = new QFrame(this);
+    SettingsTab *settingsFrame = new SettingsTab(machineConfigObject, this);
     viewTabs->addTab(settingsFrame, tr("Settings"));
-    
+
+
     consoleFrame = new QFrame(this);
     viewTabs->addTab(consoleFrame, tr("Console"));
     
@@ -919,9 +922,9 @@ void MachineTab::forceStop()
 {
     QMessageBox msgBox;
     msgBox.setText(tr("This will force the current machine to power down. Are you sure?<br />"
-                             "You should only do this if the machine is unresponsive. Doing this may cause damage to the disk image."));
+                             "You should only do this if the machine is unresponsive or does not support ACPI. Doing this may cause damage to the disk image."));
     msgBox.setStandardButtons(QMessageBox::Cancel);
-    QPushButton *forceShutdownButton = msgBox.addButton(tr("Force Shutdown"), QMessageBox::DestructiveRole);
+    QPushButton *forceShutdownButton = msgBox.addButton(tr("Force Power Off"), QMessageBox::DestructiveRole);
     msgBox.setDefaultButton(QMessageBox::Cancel);
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.exec();

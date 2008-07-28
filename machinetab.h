@@ -127,7 +127,6 @@ private:
     MachineView *machineView;
     QFrame *viewFrame;
     QFrame *consoleFrame;
-    QFrame *settingsFrame;
     QGridLayout *viewLayout;
     QScrollArea *machineScroll;
     void cleanupView();
