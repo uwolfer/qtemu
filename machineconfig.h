@@ -66,7 +66,7 @@ public slots:
     void setOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value);
 
 signals:
-    void optionChanged(const QString nodeType, const QString nodeType, const QString optionName, const QVariant value);
+    void optionChanged(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value);
 
 private:
     QFile *configFile;
