@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title></title>
+    <meta content=""><style></style>
+  </head>
+  <body>
+   <div align="center">
+    <h2>Cpu / Memory Online help</h2>
+   </div>
+
+   <h3>Number of virtual cpus:</h3>
+   <p>This option changes the number of virtual CPUs that qemu or kvm emulates. Currently (version 0.9.2) qemu does not use multithreading, so this does not actually use multiple CPUs.</p>
+   <h3>Memory for this virtual machine:</h3>
+   <p>
+      You can set qemu or kvm to use any amount of memory from 1 to 1024 megabytes. You can set a higher amount by putting a larger number in the box. <br/> <strong>Do not set the virtual machine memory higher than your machine can handle!</strong> all running virtual machines <u>plus</u> your host system must be able to run within your available memory.
+    </p>
+    <strong></strong>
+    <h3>Enable virtualization</h3>
+    <p>
+    Enabling this makes qemu or kvm use your processor to directly run the host operating system, bypassing processor emulation. This usually will result in a large speed up.
+    </p>
+    <p>If you are using kvm, this enables full virtualization. In qemu this option enables partial virtualization using kqemu. Additional configuration of your system is required for either of these solutions to be available to you, but usually installing your system's <em>kvm</em> package and setting QtEmu to use it is all that is required. more help for this can be found <!--here -->
+    </p>
+  </body>
+</html>

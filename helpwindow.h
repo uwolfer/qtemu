@@ -33,7 +33,7 @@ class HelpWindow : public QDialog
 
 public:
     HelpWindow(QWidget *parent = 0);
-
+    static QUrl getHelpLocation();
 private slots:
     QUrl getHelpFile();
 };

@@ -31,6 +31,7 @@
 
 #include "settingstab.h"
 #include "machineconfigobject.h"
+#include "helpwindow.h"
 
 
 
@@ -39,11 +40,14 @@ SettingsTab::SettingsTab(MachineConfigObject *config, QWidget *parent)
  : QFrame(parent)
 {
     setupUi(this);
-    
 
     this->config = config;
     
     registerWidgets();
+
+    //set up the help browser
+    helpBrowser->hide();
+    connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic(int)));
 }
 
 
@@ -58,5 +62,23 @@ void SettingsTab::registerWidgets()
 {
     config->registerObject(cpuSpinBox, "cpu", QVariant(1));
     config->registerObject(memorySpinBox, "memory");
-     config->registerObject(virtCheckBox, "virtualization", QVariant(false));
+    config->registerObject(virtCheckBox, "virtualization", QVariant(false));
+    config->registerObject(hdImage, "hdd");
+    config->registerObject(cdImage, "cdrom");
+    config->registerObject(floppyImage, "floppy");
+    config->registerObject(cdBootCheck, "bootFromCd", QVariant(false));
+    config->registerObject(floppyBootCheck, "bootFromFloppy", QVariant(false));
+    config->registerObject(soundCheck, "sound", QVariant(false));
+    config->registerObject(soundCombo, "soundSystem", QVariant("oss"));
+    config->registerObject(networkCheck, "network", QVariant(true));
+    config->registerObject(networkEdit, "networkCustomOptions");
+    
+}
+
+void SettingsTab::changeHelpTopic(int page)
+{
+    //QString helpFile = ;
+    QUrl helpFile = QUrl(HelpWindow::getHelpLocation().toString() + "dynamic/" + settingsStack->currentWidget()->property("helpFile").toString());
+    helpBrowser->setSource(helpFile);
+
 }

@@ -37,6 +37,7 @@
 #include <QEvent>
 #include <QButtonGroup>
 #include <QAbstractButton>
+#include <QComboBox>
 
 MachineConfigObject::MachineConfigObject(QObject *parent, MachineConfig *config)
  : QObject(parent)
@@ -181,6 +182,18 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString nodeTyp
         }
         connect(object, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(getObjectValue()));
     }
+    else if(object->inherits("QComboBox"))
+    {
+        object->disconnect(this);
+        QComboBox *thisBox = static_cast<QComboBox *>(object);
+        int index = thisBox->findText(value.toString());
+        if(index!=-1)
+            object->setProperty("currentIndex", index);
+        else
+            object->setProperty("currentText", value);
+        connect(object, SIGNAL(currentIndexChanged(int)), this, SLOT(getObjectValue()));
+        connect(object, SIGNAL(editTextChanged(QString)), this, SLOT(getObjectValue()));
+    }
     else if (object->inherits("QAbstractButton"))
     {
         object->disconnect(this);
@@ -250,6 +263,10 @@ void MachineConfigObject::getObjectValue()
             value = group->checkedButton()->text();
         else
             value = group->checkedButton()->property("value");
+    }
+    else if(object->inherits("QComboBox"))
+    {
+        value = object->property("currentText");
     }
     else if (object->inherits("QAbstractButton"))
     {

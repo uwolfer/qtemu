@@ -86,9 +86,9 @@ private:
     QCheckBox *floppyBootCheckBox;
     QCheckBox *mouseCheckBox;
     QCheckBox *timeCheckBox;
-    QCheckBox *virtualizationCheckBox;
+    //QCheckBox *virtualizationCheckBox;
     QCheckBox *additionalOptionsCheckBox;
-    QSpinBox *cpuSpinBox;
+    //QSpinBox *cpuSpinBox;
     QLineEdit *machineNameEdit;
     QLineEdit *hddPathLineEdit;
     QPushButton *hddUpgradeButton;
@@ -99,12 +99,12 @@ private:
     QLineEdit *additionalOptionsEdit;
     QLineEdit *consoleCommand;
     QTextEdit *console;
-    QSlider *memorySlider;
+    //QSlider *memorySlider;
     QString xmlFileName;
     QTabWidget *parentTabWidget;
     QTextEdit *notesTextEdit;
-    QPushButton *memoryButton;
-    QFrame *memoryFrame;
+    //QPushButton *memoryButton;
+    //QFrame *memoryFrame;
     QPushButton *hddButton;
     QFrame *hddFrame;
     QPushButton *cdromButton;

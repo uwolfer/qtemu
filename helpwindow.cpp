@@ -65,33 +65,40 @@ HelpWindow::HelpWindow(QWidget *parent)
 
 QUrl HelpWindow::getHelpFile()
 {
+QUrl url = QUrl(getHelpLocation().toString() + "main.htm");
+    if(url.isEmpty())
+        QMessageBox::critical(this, tr("Help not found"),
+                                tr("Help not found. It is probably not installed."));
+return url;
+}
+
+QUrl HelpWindow::getHelpLocation()
+{
     QSettings settings("QtEmu", "QtEmu");
     QString locale = settings.value("language", QString(QLocale::system().name())).toString();
     if (locale != "en")
     {
         //check for case when qtemu executable is in same dir (linux / win)
-        QUrl testUrl = QUrl(QCoreApplication::applicationDirPath() + "/help/" + locale + "/main.htm");
+        QUrl testUrl = QUrl(QCoreApplication::applicationDirPath() + "/help/" + locale);
         if (QFile::exists(testUrl.toString()))
             return testUrl;
     
         //check for case when qtemu executable is in bin/ (installed on linux)
-        testUrl = QUrl(QCoreApplication::applicationDirPath() + "/../share/qtemu/help/" + locale + "/main.htm");
+        testUrl = QUrl(QCoreApplication::applicationDirPath() + "/../share/qtemu/help/" + locale);
         if (QFile::exists(testUrl.toString()))
             return testUrl;
     }
 
     //check for case when qtemu executable is in same dir (linux / win)
-    QUrl testUrl = QUrl(QCoreApplication::applicationDirPath() + "/help/main.htm");
+    QUrl testUrl = QUrl(QCoreApplication::applicationDirPath() + "/help/");
     if (QFile::exists(testUrl.toString()))
         return testUrl;
 
     //check for case when qtemu executable is in bin/ (installed on linux)
-    testUrl = QUrl(QCoreApplication::applicationDirPath() + "/../share/qtemu/help/main.htm");
+    testUrl = QUrl(QCoreApplication::applicationDirPath() + "/../share/qtemu/help/");
     if (QFile::exists(testUrl.toString()))
         return testUrl;
 
     //qDebug(testUrl.toString().toLocal8Bit().constData());
-    QMessageBox::critical(this, tr("Help not found"),
-                                tr("Help not found. It is probably not installed."));
     return QUrl();
 }

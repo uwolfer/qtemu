@@ -199,7 +199,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     QVBoxLayout *devicesLayout = new QVBoxLayout;
 
-    //memory section start
+/*    //memory section start
     memoryButton = new QPushButton(QIcon(":/images/" + iconTheme + "/memory.png"), tr("&Memory"), this);
     memoryButton->setCheckable(true);
     devicesLayout->addWidget(memoryButton);
@@ -263,7 +263,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     cpuLayout->addStretch();
     memoryFrameLayout->addLayout(cpuLayout);
     //memory section end
-
+*/
     //hdd section start
     hddButton = new QPushButton(QIcon(":/images/" + iconTheme + "/hdd.png"), tr("&Hard Disk"), this);
     hddButton->setCheckable(true);
@@ -809,8 +809,8 @@ void MachineTab::setNewFloppyDiskImagePath()
 
 void MachineTab::closeAllSections()
 {
-    memoryButton->setChecked(false);
-    memoryFrame->setVisible(false);
+//    memoryButton->setChecked(false);
+//    memoryFrame->setVisible(false);
     hddButton->setChecked(false);
     hddFrame->setVisible(false);
     cdromButton->setChecked(false);
@@ -836,7 +836,6 @@ bool MachineTab::read()
 #endif
     machineConfigObject->registerObject(notesTextEdit, "notes");
     machineConfigObject->registerObject(hddPathLineEdit, "hdd");
-    machineConfigObject->registerObject(memorySlider, "memory");
     machineConfigObject->registerObject(cdromLineEdit, "cdrom");
     machineConfigObject->registerObject(cdBootCheckBox, "bootFromCd", QVariant(false));
     machineConfigObject->registerObject(floppyLineEdit, "floppy");
@@ -846,8 +845,6 @@ bool MachineTab::read()
     machineConfigObject->registerObject(networkCustomOptionsEdit, "networkCustomOptions");
     machineConfigObject->registerObject(mouseCheckBox, "mouse", QVariant(true));
     machineConfigObject->registerObject(timeCheckBox, "time", QVariant(true));
-    machineConfigObject->registerObject(virtualizationCheckBox, "virtualization", QVariant(false));
-    machineConfigObject->registerObject(cpuSpinBox, "cpu", QVariant(1));
     machineConfigObject->registerObject(additionalOptionsEdit, "additionalOptions");
     machineConfigObject->registerObject(additionalOptionsCheckBox, "useAdditionalOptions", QVariant(false));
     return true;

@@ -43,5 +43,6 @@
     <file>images/oxygen/splash.svg</file>
     <file>images/oxygen/previewAlpha.png</file>
     <file>images/oxygen/camera.png</file>
+    <file>images/oxygen/usb.png</file>
 </qresource>
 </RCC>
