@@ -836,6 +836,7 @@ bool MachineTab::read()
 #endif
     machineConfigObject->registerObject(notesTextEdit, "notes");
     machineConfigObject->registerObject(hddPathLineEdit, "hdd");
+//    machineConfigObject->registerObject(memorySlider, "memory");
     machineConfigObject->registerObject(cdromLineEdit, "cdrom");
     machineConfigObject->registerObject(cdBootCheckBox, "bootFromCd", QVariant(false));
     machineConfigObject->registerObject(floppyLineEdit, "floppy");
@@ -845,6 +846,8 @@ bool MachineTab::read()
     machineConfigObject->registerObject(networkCustomOptionsEdit, "networkCustomOptions");
     machineConfigObject->registerObject(mouseCheckBox, "mouse", QVariant(true));
     machineConfigObject->registerObject(timeCheckBox, "time", QVariant(true));
+//    machineConfigObject->registerObject(virtualizationCheckBox, "virtualization", QVariant(false));
+//    machineConfigObject->registerObject(cpuSpinBox, "cpu", QVariant(1));
     machineConfigObject->registerObject(additionalOptionsEdit, "additionalOptions");
     machineConfigObject->registerObject(additionalOptionsCheckBox, "useAdditionalOptions", QVariant(false));
     return true;

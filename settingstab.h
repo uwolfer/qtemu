@@ -57,7 +57,6 @@ private slots:
 
 void changeHelpTopic(int page);
 
-
 };
 
 #endif

@@ -37,7 +37,7 @@ SOURCES =   main.cpp \
    settingstab.cpp
 
 RESOURCES =   qtemu.qrc
-QT +=   xml svg
+QT +=   xml svg webkit
 win32 {
     LIBS =     -lshell32
     RC_FILE =     qtemu.rc

@@ -150,7 +150,6 @@ void MachineConfigObject::unregisterObject(QObject *object)
 void MachineConfigObject::setObjectValue(QObject * object, const QString nodeType, const QString nodeName, const QString optionName, const QVariant defaultValue)
 {
 
-
     //get the value from the config
     QVariant value = getOption(nodeType, nodeName, optionName, defaultValue);
     //qDebug("setting object for " + optionName.toAscii() + " to " + value.toByteArray());

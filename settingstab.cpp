@@ -47,10 +47,9 @@ SettingsTab::SettingsTab(MachineConfigObject *config, QWidget *parent)
     //register all the widgets with their associated options
     registerWidgets();
     //set up the help browser
-    helpBrowser->hide();
-    changeHelpTopic(1);
+    helpArea->hide();
+    changeHelpTopic(0);
     connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic(int)));
-
 }
 
 
@@ -75,14 +74,13 @@ void SettingsTab::registerWidgets()
     config->registerObject(soundCombo, "soundSystem", QVariant("oss"));
     config->registerObject(networkCheck, "network", QVariant(true));
     config->registerObject(networkEdit, "networkCustomOptions");
-    
 }
 
 void SettingsTab::changeHelpTopic(int page)
 {
     //QString helpFile = ;
     QUrl helpFile = QUrl(HelpWindow::getHelpLocation().toString() + "dynamic/" + settingsStack->currentWidget()->property("helpFile").toString());
-    helpBrowser->setSource(helpFile);
+    helpView->load(helpFile);
 
 }
 
@@ -90,3 +88,4 @@ void SettingsTab::setIcons()
 {
 
 }
+

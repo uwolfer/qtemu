@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>735</width>
-    <height>526</height>
+    <width>740</width>
+    <height>591</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -22,12 +22,156 @@
    <enum>QFrame::Raised</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" >
+    <layout class="QVBoxLayout" name="verticalLayout_18" >
+     <item>
+      <widget class="QListWidget" name="settingsList" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Minimum" hsizetype="Fixed" >
+         <horstretch>0</horstretch>
+         <verstretch>10</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize" >
+        <size>
+         <width>192</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="contextMenuPolicy" >
+        <enum>Qt::ActionsContextMenu</enum>
+       </property>
+       <property name="editTriggers" >
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="showDropIndicator" stdset="0" >
+        <bool>false</bool>
+       </property>
+       <property name="alternatingRowColors" >
+        <bool>true</bool>
+       </property>
+       <property name="iconSize" >
+        <size>
+         <width>48</width>
+         <height>48</height>
+        </size>
+       </property>
+       <property name="resizeMode" >
+        <enum>QListView::Adjust</enum>
+       </property>
+       <property name="spacing" >
+        <number>4</number>
+       </property>
+       <property name="uniformItemSizes" >
+        <bool>false</bool>
+       </property>
+       <property name="selectionRectVisible" >
+        <bool>true</bool>
+       </property>
+       <property name="currentRow" >
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text" >
+         <string>Cpu / Memory</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/memory.png</normaloff>:/images/oxygen/memory.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Hard Disk</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/hdd.png</normaloff>:/images/oxygen/hdd.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Removable Media</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/cdrom.png</normaloff>:/images/oxygen/cdrom.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>USB Devices</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/usb.png</normaloff>:/images/oxygen/usb.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Virtual Drives</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Networking</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/network.png</normaloff>:/images/oxygen/network.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Sound</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/sound.png</normaloff>:/images/oxygen/sound.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Display</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Other Options</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/other.png</normaloff>:/images/oxygen/other.png</iconset>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="helpButton" >
+       <property name="text" >
+        <string>&amp;Help</string>
+       </property>
+       <property name="checkable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item row="0" column="2" >
     <layout class="QVBoxLayout" name="verticalLayout_17" >
      <item>
       <widget class="QScrollArea" name="scrollArea" >
        <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -46,8 +190,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>451</width>
-          <height>308</height>
+          <width>513</width>
+          <height>336</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19" >
@@ -60,15 +204,15 @@
             </sizepolicy>
            </property>
            <property name="currentIndex" >
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>362</width>
-              <height>288</height>
+              <width>505</width>
+              <height>328</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -205,8 +349,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>433</width>
-              <height>290</height>
+              <width>505</width>
+              <height>328</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -276,35 +420,47 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_6" >
-                  <property name="orientation" >
-                   <enum>Qt::Horizontal</enum>
+                 <widget class="QFrame" name="upgradeFrame" >
+                  <property name="frameShape" >
+                   <enum>QFrame::NoFrame</enum>
                   </property>
+                  <property name="frameShadow" >
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_25" >
+                   <item>
+                    <widget class="Line" name="line_7" >
+                     <property name="orientation" >
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout" >
+                     <item>
+                      <widget class="QPushButton" name="pushButton" >
+                       <property name="text" >
+                        <string>Upgrade Image</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_12" >
+                       <property name="text" >
+                        <string>Upgrade your image to enable advanced features</string>
+                       </property>
+                       <property name="wordWrap" >
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout" >
-                  <item>
-                   <widget class="QPushButton" name="pushButton" >
-                    <property name="text" >
-                     <string>Upgrade Image</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_12" >
-                    <property name="text" >
-                     <string>Upgrade your image to enable advanced features</string>
-                    </property>
-                    <property name="wordWrap" >
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <widget class="Line" name="line_7" >
+                 <widget class="Line" name="line_6" >
                   <property name="orientation" >
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -333,8 +489,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>433</width>
-              <height>290</height>
+              <width>519</width>
+              <height>314</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -492,8 +648,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>362</width>
-              <height>288</height>
+              <width>519</width>
+              <height>314</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -510,13 +666,35 @@ p, li { white-space: pre-wrap; }
              </item>
             </layout>
            </widget>
+           <widget class="QWidget" name="virtualDrivePage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>519</width>
+              <height>314</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>virtualdrives.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_20" >
+             <item>
+              <widget class="QGroupBox" name="virtualDriveBox" >
+               <property name="title" >
+                <string>Virtual Drives</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
            <widget class="QWidget" name="networkPage" >
             <property name="geometry" >
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>362</width>
-              <height>288</height>
+              <width>519</width>
+              <height>314</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -596,8 +774,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>362</width>
-              <height>288</height>
+              <width>519</width>
+              <height>314</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -698,8 +876,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>362</width>
-              <height>288</height>
+              <width>505</width>
+              <height>328</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -711,7 +889,179 @@ p, li { white-space: pre-wrap; }
                <property name="title" >
                 <string>&amp;Display</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_15" />
+               <layout class="QVBoxLayout" name="verticalLayout_15" >
+                <item>
+                 <widget class="QCheckBox" name="embedCheck" >
+                  <property name="text" >
+                   <string>Embedded Display</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="embedGroup" >
+                  <property name="enabled" >
+                   <bool>false</bool>
+                  </property>
+                  <property name="title" >
+                   <string>VNC Transport</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_22" >
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_12" >
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_27" >
+                       <item>
+                        <widget class="QRadioButton" name="tcpRadio" >
+                         <property name="text" >
+                          <string>TCP</string>
+                         </property>
+                         <property name="value" stdset="0" >
+                          <string>tcp</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="tcpFrame" >
+                         <property name="enabled" >
+                          <bool>false</bool>
+                         </property>
+                         <property name="frameShape" >
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow" >
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_24" >
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_11" >
+                            <item>
+                             <widget class="QLabel" name="label_11" >
+                              <property name="text" >
+                               <string>Host:</string>
+                              </property>
+                              <property name="buddy" >
+                               <cstring>hostEdit</cstring>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QLineEdit" name="hostEdit" >
+                              <property name="text" >
+                               <string>localhost</string>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </item>
+                          <item>
+                           <layout class="QHBoxLayout" name="horizontalLayout_10" >
+                            <item>
+                             <widget class="QLabel" name="label_10" >
+                              <property name="text" >
+                               <string>Port:</string>
+                              </property>
+                              <property name="alignment" >
+                               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                              </property>
+                              <property name="buddy" >
+                               <cstring>portBox</cstring>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QSpinBox" name="portBox" >
+                              <property name="sizePolicy" >
+                               <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                               </sizepolicy>
+                              </property>
+                              <property name="alignment" >
+                               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <spacer name="horizontalSpacer_8" >
+                              <property name="orientation" >
+                               <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0" >
+                               <size>
+                                <width>40</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                             </spacer>
+                            </item>
+                           </layout>
+                          </item>
+                         </layout>
+                         <zorder>fileRadio</zorder>
+                         <zorder>tcpRadio</zorder>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="fileRadio" >
+                         <property name="text" >
+                          <string>File Socket</string>
+                         </property>
+                         <property name="value" stdset="0" >
+                          <string>unix</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="label_13" >
+                       <property name="sizePolicy" >
+                        <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text" >
+                        <string>Set the method used to connect the virtual machine to the embedded display. File Socket is the most secure.</string>
+                       </property>
+                       <property name="wordWrap" >
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox" >
+                     <property name="text" >
+                      <string>Allow remote connection instead of embedding</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="scaleCheck" >
+                  <property name="text" >
+                   <string>Scale display to fit window</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_6" >
+                  <property name="orientation" >
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0" >
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -721,8 +1071,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>362</width>
-              <height>288</height>
+              <width>505</width>
+              <height>328</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -746,160 +1096,56 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="helpBrowser" >
-       <property name="enabled" >
-        <bool>true</bool>
-       </property>
+      <widget class="QScrollArea" name="helpArea" >
        <property name="sizePolicy" >
-        <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+        <sizepolicy vsizetype="Maximum" hsizetype="Expanding" >
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="acceptDrops" >
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="0" >
-    <layout class="QVBoxLayout" name="verticalLayout_18" >
-     <item>
-      <widget class="QListWidget" name="settingsList" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Minimum" hsizetype="Fixed" >
-         <horstretch>0</horstretch>
-         <verstretch>10</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize" >
-        <size>
-         <width>192</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="contextMenuPolicy" >
-        <enum>Qt::ActionsContextMenu</enum>
-       </property>
-       <property name="editTriggers" >
-        <set>QAbstractItemView::NoEditTriggers</set>
-       </property>
-       <property name="showDropIndicator" stdset="0" >
-        <bool>false</bool>
-       </property>
-       <property name="alternatingRowColors" >
+       <property name="widgetResizable" >
         <bool>true</bool>
        </property>
-       <property name="iconSize" >
-        <size>
-         <width>48</width>
-         <height>48</height>
-        </size>
-       </property>
-       <property name="resizeMode" >
-        <enum>QListView::Adjust</enum>
-       </property>
-       <property name="spacing" >
-        <number>4</number>
-       </property>
-       <property name="uniformItemSizes" >
-        <bool>false</bool>
-       </property>
-       <property name="selectionRectVisible" >
-        <bool>true</bool>
-       </property>
-       <property name="currentRow" >
-        <number>0</number>
-       </property>
-       <item>
-        <property name="text" >
-         <string>Cpu / Memory</string>
+       <widget class="QWidget" name="scrollAreaWidgetContents_2" >
+        <property name="geometry" >
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>526</width>
+          <height>249</height>
+         </rect>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/memory.png</normaloff>:/images/oxygen/memory.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Hard Disk</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/hdd.png</normaloff>:/images/oxygen/hdd.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Removable Media</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/cdrom.png</normaloff>:/images/oxygen/cdrom.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>USB Devices</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/usb.png</normaloff>:/images/oxygen/usb.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Networking</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/network.png</normaloff>:/images/oxygen/network.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Sound</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/sound.png</normaloff>:/images/oxygen/sound.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Display</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
-         <string>Other Options</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/other.png</normaloff>:/images/oxygen/other.png</iconset>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="helpButton" >
-       <property name="text" >
-        <string>&amp;Help</string>
-       </property>
-       <property name="checkable" >
-        <bool>true</bool>
-       </property>
+        <layout class="QVBoxLayout" name="verticalLayout_26" >
+         <item>
+          <widget class="QWebView" name="helpView" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="url" >
+            <url>
+             <string>about:blank</string>
+            </url>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>cpuSpinBox</tabstop>
   <tabstop>memorySlider</tabstop>
@@ -910,22 +1156,6 @@ p, li { white-space: pre-wrap; }
   <include location="../qtemu.qrc" />
  </resources>
  <connections>
-  <connection>
-   <sender>helpButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>helpBrowser</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>132</x>
-     <y>586</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>625</x>
-     <y>554</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>memorySlider</sender>
    <signal>valueChanged(int)</signal>
@@ -971,6 +1201,54 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel" >
      <x>451</x>
      <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>embedCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>embedGroup</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>390</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>390</x>
+     <y>163</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tcpRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>tcpFrame</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>390</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>390</x>
+     <y>184</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>helpButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>helpArea</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>100</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>498</x>
+     <y>425</y>
     </hint>
    </hints>
   </connection>
