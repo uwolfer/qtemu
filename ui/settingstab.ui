@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>582</width>
-    <height>506</height>
+    <width>735</width>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -25,626 +25,720 @@
    <item row="0" column="2" >
     <layout class="QVBoxLayout" name="verticalLayout_17" >
      <item>
-      <widget class="QStackedWidget" name="settingsStack" >
+      <widget class="QScrollArea" name="scrollArea" >
        <property name="sizePolicy" >
-        <sizepolicy vsizetype="MinimumExpanding" hsizetype="Minimum" >
-         <horstretch>10</horstretch>
-         <verstretch>10</verstretch>
+        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="currentIndex" >
-        <number>2</number>
+       <property name="frameShape" >
+        <enum>QFrame::NoFrame</enum>
        </property>
-       <widget class="QWidget" name="cpuPage" >
+       <property name="lineWidth" >
+        <number>0</number>
+       </property>
+       <property name="widgetResizable" >
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents" >
         <property name="geometry" >
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>362</width>
-          <height>288</height>
+          <width>451</width>
+          <height>308</height>
          </rect>
         </property>
-        <property name="helpFile" stdset="0" >
-         <string>cpu-memory.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_9" >
+        <layout class="QVBoxLayout" name="verticalLayout_19" >
          <item>
-          <widget class="QGroupBox" name="cpuBox" >
-           <property name="title" >
-            <string>Cpu / &amp;Memory</string>
+          <widget class="QStackedWidget" name="settingsStack" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+             <horstretch>10</horstretch>
+             <verstretch>10</verstretch>
+            </sizepolicy>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3" >
-            <item>
-             <widget class="QLabel" name="label_3" >
-              <property name="text" >
-               <string>Number of virtual CPUs:</string>
-              </property>
-              <property name="buddy" >
-               <cstring>cpuSpinBox</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2" >
-              <item>
-               <widget class="QSpinBox" name="cpuSpinBox" />
-              </item>
-              <item>
-               <widget class="QLabel" name="label" >
-                <property name="text" >
-                 <string>Virtual CPU(s)</string>
-                </property>
-                <property name="buddy" >
-                 <cstring>cpuSpinBox</cstring>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_2" >
-              <property name="text" >
-               <string>Memory for this virtual machine:</string>
-              </property>
-              <property name="buddy" >
-               <cstring>memorySpinBox</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3" >
-              <item>
-               <widget class="QSlider" name="memorySlider" >
-                <property name="maximum" >
-                 <number>1024</number>
-                </property>
-                <property name="singleStep" >
-                 <number>16</number>
-                </property>
-                <property name="pageStep" >
-                 <number>128</number>
-                </property>
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="memorySpinBox" >
-                <property name="maximum" >
-                 <number>4096</number>
-                </property>
-                <property name="singleStep" >
-                 <number>0</number>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2" >
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0" >
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line_2" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="virtCheckBox" >
-              <property name="text" >
-               <string>Enable Virtualization</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_3" >
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="hardDiskPage" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>362</width>
-          <height>288</height>
-         </rect>
-        </property>
-        <property name="helpFile" stdset="0" >
-         <string>harddisk.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_11" >
-         <item>
-          <widget class="QGroupBox" name="hdBox" >
-           <property name="title" >
-            <string>&amp;Hard Disk</string>
+           <property name="currentIndex" >
+            <number>2</number>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_4" >
-            <item>
-             <widget class="QLabel" name="label_4" >
-              <property name="text" >
-               <string>Select a valid hard disk image for QtEmu. </string>
-              </property>
-              <property name="buddy" >
-               <cstring>hdImage</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_4" >
-              <item>
-               <widget class="QLineEdit" name="hdImage" />
-              </item>
-              <item>
-               <widget class="QPushButton" name="hdSelectButton" >
-                <property name="text" >
-                 <string/>
-                </property>
-                <property name="icon" >
-                 <iconset>
-                  <normalon>:/images/oxygen/open.png</normalon>
-                 </iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_4" >
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0" >
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_2" >
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="mediaPage" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>362</width>
-          <height>288</height>
-         </rect>
-        </property>
-        <property name="helpFile" stdset="0" >
-         <string>removablemedia.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_12" >
-         <item>
-          <widget class="QGroupBox" name="mediaBox" >
-           <property name="title" >
-            <string>Removable Media</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5" >
-            <item>
-             <widget class="QLabel" name="label_5" >
-              <property name="text" >
-               <string>CD/DVD Image or device:</string>
-              </property>
-              <property name="buddy" >
-               <cstring>cdImage</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7" >
-              <item>
-               <widget class="QLineEdit" name="cdImage" />
-              </item>
-              <item>
-               <widget class="QPushButton" name="cdSelectButton" >
-                <property name="text" >
-                 <string/>
-                </property>
-                <property name="icon" >
-                 <iconset>
-                  <normalon>:/images/oxygen/cdrom.png</normalon>
-                 </iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_5" >
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0" >
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="cdBootCheck" >
-              <property name="text" >
-               <string>Boot from CD/DVD</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line_4" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_6" >
-              <property name="text" >
-               <string>Floppy disk Image or device:</string>
-              </property>
-              <property name="buddy" >
-               <cstring>floppyImage</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_6" >
-              <item>
-               <widget class="QLineEdit" name="floppyImage" />
-              </item>
-              <item>
-               <widget class="QPushButton" name="floppySelectButton" >
-                <property name="text" >
-                 <string/>
-                </property>
-                <property name="icon" >
-                 <iconset>
-                  <normalon>:/images/oxygen/floppy.png</normalon>
-                 </iconset>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_6" >
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0" >
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="floppyBootCheck" >
-              <property name="text" >
-               <string>Boot from floppy disk</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer" >
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType" >
-               <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="usbPage" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>362</width>
-          <height>288</height>
-         </rect>
-        </property>
-        <property name="helpFile" stdset="0" >
-         <string>usb.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout" >
-         <item>
-          <widget class="QGroupBox" name="usbBox" >
-           <property name="title" >
-            <string>USB Devices</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_14" />
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="networkPage" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>362</width>
-          <height>288</height>
-         </rect>
-        </property>
-        <property name="helpFile" stdset="0" >
-         <string>networking.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_8" >
-         <item>
-          <widget class="QGroupBox" name="networkBox" >
-           <property name="title" >
-            <string>&amp;Networking</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_6" >
-            <item>
-             <widget class="QCheckBox" name="networkCheck" >
-              <property name="text" >
-               <string>Enable network</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line_3" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_7" >
-              <property name="text" >
-               <string>Custom networking options:</string>
-              </property>
-              <property name="buddy" >
-               <cstring>networkEdit</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_8" >
-              <item>
-               <widget class="QLineEdit" name="networkEdit" />
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_3" >
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0" >
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_4" >
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="soundPage" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>362</width>
-          <height>288</height>
-         </rect>
-        </property>
-        <property name="helpFile" stdset="0" >
-         <string>sound.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_10" >
-         <item>
-          <widget class="QGroupBox" name="soundBox" >
-           <property name="title" >
-            <string>&amp;Sound</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_7" >
-            <item>
-             <widget class="QCheckBox" name="soundCheck" >
-              <property name="text" >
-               <string>Enable sound</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="Line" name="line_5" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_8" >
-              <property name="text" >
-               <string>Choose sound system to use for sound emulation:</string>
-              </property>
-              <property name="buddy" >
-               <cstring>soundCombo</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_5" >
-              <item>
-               <widget class="QComboBox" name="soundCombo" >
+           <widget class="QWidget" name="cpuPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>362</width>
+              <height>288</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>cpu-memory.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_9" >
+             <item>
+              <widget class="QGroupBox" name="cpuBox" >
+               <property name="title" >
+                <string>Cpu / &amp;Memory</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_3" >
                 <item>
-                 <property name="text" >
-                  <string>alsa</string>
-                 </property>
+                 <widget class="QLabel" name="label_3" >
+                  <property name="text" >
+                   <string>Number of virtual CPUs:</string>
+                  </property>
+                  <property name="buddy" >
+                   <cstring>cpuSpinBox</cstring>
+                  </property>
+                 </widget>
                 </item>
                 <item>
-                 <property name="text" >
-                  <string>oss</string>
-                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_2" >
+                  <item>
+                   <widget class="QSpinBox" name="cpuSpinBox" />
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label" >
+                    <property name="text" >
+                     <string>Virtual CPU(s)</string>
+                    </property>
+                    <property name="buddy" >
+                     <cstring>cpuSpinBox</cstring>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
-                 <property name="text" >
-                  <string>esd</string>
-                 </property>
+                 <widget class="Line" name="line" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
                 </item>
                 <item>
-                 <property name="text" >
-                  <string>pulse</string>
-                 </property>
+                 <widget class="QLabel" name="label_2" >
+                  <property name="text" >
+                   <string>Memory for this virtual machine:</string>
+                  </property>
+                  <property name="buddy" >
+                   <cstring>memorySpinBox</cstring>
+                  </property>
+                 </widget>
                 </item>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer" >
-                <property name="orientation" >
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0" >
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_5" >
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="displayPage" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>362</width>
-          <height>288</height>
-         </rect>
-        </property>
-        <property name="helpFile" stdset="0" >
-         <string>display.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_13" >
-         <item>
-          <widget class="QGroupBox" name="displayBox" >
-           <property name="title" >
-            <string>&amp;Display</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_15" />
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="otherPage" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>362</width>
-          <height>288</height>
-         </rect>
-        </property>
-        <property name="helpFile" stdset="0" >
-         <string>otheroptions.html</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2" >
-         <item>
-          <widget class="QGroupBox" name="otherBox" >
-           <property name="title" >
-            <string>Other Options</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_16" />
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_3" >
+                  <item>
+                   <widget class="QSlider" name="memorySlider" >
+                    <property name="maximum" >
+                     <number>1024</number>
+                    </property>
+                    <property name="singleStep" >
+                     <number>16</number>
+                    </property>
+                    <property name="pageStep" >
+                     <number>128</number>
+                    </property>
+                    <property name="orientation" >
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="memorySpinBox" >
+                    <property name="maximum" >
+                     <number>4096</number>
+                    </property>
+                    <property name="singleStep" >
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_2" >
+                    <property name="orientation" >
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0" >
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="Line" name="line_2" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="virtCheckBox" >
+                  <property name="text" >
+                   <string>Enable Virtualization</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_3" >
+                  <property name="orientation" >
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0" >
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="hardDiskPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>433</width>
+              <height>290</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>harddisk.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11" >
+             <item>
+              <widget class="QGroupBox" name="hdBox" >
+               <property name="title" >
+                <string>&amp;Hard Disk</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_4" >
+                <item>
+                 <widget class="QLabel" name="label_4" >
+                  <property name="text" >
+                   <string>Select a valid hard disk image for QtEmu. </string>
+                  </property>
+                  <property name="buddy" >
+                   <cstring>hdImage</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4" >
+                  <item>
+                   <widget class="QLineEdit" name="hdImage" />
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="hdSelectButton" >
+                    <property name="text" >
+                     <string/>
+                    </property>
+                    <property name="icon" >
+                     <iconset>
+                      <normalon>:/images/oxygen/open.png</normalon>
+                     </iconset>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_4" >
+                    <property name="orientation" >
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0" >
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_9" >
+                  <property name="text" >
+                   <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">do not&lt;/span> change this if you do not know what you are doing! See dynamic help for more details.&lt;/p>&lt;/body>&lt;/html></string>
+                  </property>
+                  <property name="wordWrap" >
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line_6" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout" >
+                  <item>
+                   <widget class="QPushButton" name="pushButton" >
+                    <property name="text" >
+                     <string>Upgrade Image</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_12" >
+                    <property name="text" >
+                     <string>Upgrade your image to enable advanced features</string>
+                    </property>
+                    <property name="wordWrap" >
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="Line" name="line_7" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2" >
+                  <property name="orientation" >
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0" >
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="mediaPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>433</width>
+              <height>290</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>removablemedia.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_12" >
+             <item>
+              <widget class="QGroupBox" name="mediaBox" >
+               <property name="title" >
+                <string>Removable Media</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_5" >
+                <item>
+                 <widget class="QLabel" name="label_5" >
+                  <property name="text" >
+                   <string>CD/DVD Image or device:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7" >
+                  <item>
+                   <widget class="QComboBox" name="cdImage" >
+                    <property name="sizePolicy" >
+                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="editable" >
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="cdSelectButton" >
+                    <property name="text" >
+                     <string/>
+                    </property>
+                    <property name="icon" >
+                     <iconset>
+                      <normalon>:/images/oxygen/cdrom.png</normalon>
+                     </iconset>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_5" >
+                    <property name="orientation" >
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0" >
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="cdBootCheck" >
+                  <property name="text" >
+                   <string>Boot from CD/DVD</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line_4" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_6" >
+                  <property name="text" >
+                   <string>Floppy disk Image or device:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6" >
+                  <item>
+                   <widget class="QComboBox" name="floppyImage" >
+                    <property name="sizePolicy" >
+                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="editable" >
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="floppySelectButton" >
+                    <property name="text" >
+                     <string/>
+                    </property>
+                    <property name="icon" >
+                     <iconset>
+                      <normalon>:/images/oxygen/floppy.png</normalon>
+                     </iconset>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_6" >
+                    <property name="orientation" >
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0" >
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="floppyBootCheck" >
+                  <property name="text" >
+                   <string>Boot from floppy disk</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer" >
+                  <property name="orientation" >
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType" >
+                   <enum>QSizePolicy::Expanding</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0" >
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="usbPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>362</width>
+              <height>288</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>usb.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout" >
+             <item>
+              <widget class="QGroupBox" name="usbBox" >
+               <property name="title" >
+                <string>USB Devices</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_14" />
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="networkPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>362</width>
+              <height>288</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>networking.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8" >
+             <item>
+              <widget class="QGroupBox" name="networkBox" >
+               <property name="title" >
+                <string>&amp;Networking</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6" >
+                <item>
+                 <widget class="QCheckBox" name="networkCheck" >
+                  <property name="text" >
+                   <string>Enable network</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line_3" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_7" >
+                  <property name="text" >
+                   <string>Custom networking options:</string>
+                  </property>
+                  <property name="buddy" >
+                   <cstring>networkEdit</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_8" >
+                  <item>
+                   <widget class="QLineEdit" name="networkEdit" />
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_3" >
+                    <property name="orientation" >
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0" >
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_4" >
+                  <property name="orientation" >
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0" >
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="soundPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>362</width>
+              <height>288</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>sound.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_10" >
+             <item>
+              <widget class="QGroupBox" name="soundBox" >
+               <property name="title" >
+                <string>&amp;Sound</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_7" >
+                <item>
+                 <widget class="QCheckBox" name="soundCheck" >
+                  <property name="text" >
+                   <string>Enable sound</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line_5" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_8" >
+                  <property name="text" >
+                   <string>Choose sound system to use for sound emulation:</string>
+                  </property>
+                  <property name="buddy" >
+                   <cstring>soundCombo</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5" >
+                  <item>
+                   <widget class="QComboBox" name="soundCombo" >
+                    <item>
+                     <property name="text" >
+                      <string>alsa</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>oss</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>esd</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>pulse</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer" >
+                    <property name="orientation" >
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0" >
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_5" >
+                  <property name="orientation" >
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0" >
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="displayPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>362</width>
+              <height>288</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>display.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_13" >
+             <item>
+              <widget class="QGroupBox" name="displayBox" >
+               <property name="title" >
+                <string>&amp;Display</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_15" />
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="otherPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>362</width>
+              <height>288</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>otheroptions.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2" >
+             <item>
+              <widget class="QGroupBox" name="otherBox" >
+               <property name="title" >
+                <string>Other Options</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_16" />
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </widget>
          </item>
         </layout>

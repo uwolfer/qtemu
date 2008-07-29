@@ -190,7 +190,7 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString nodeTyp
         if(index!=-1)
             object->setProperty("currentIndex", index);
         else
-            object->setProperty("currentText", value);
+            thisBox->setEditText(value.toString());
         connect(object, SIGNAL(currentIndexChanged(int)), this, SLOT(getObjectValue()));
         connect(object, SIGNAL(editTextChanged(QString)), this, SLOT(getObjectValue()));
     }

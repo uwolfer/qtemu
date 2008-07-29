@@ -1,8 +1,82 @@
 <html>
   <head>
     <title></title>
-    <meta content="">
-    <style></style>
+    <meta content=""><style></style>
   </head>
-  <body></body>
+  <body>
+  <div align=center>
+  <h2>Hard Disk Online help</h2>
+  </div>
+
+  <h3>Selecting a Hard Disk Image:</h3>
+  <p>There is often no need to change this option; your hard disk image is just like a computer's physical hard disk - it stores all of the information in your virtual machine. Unless you have a good reason to change this option, don't bother.</p>
+  <p>If you have decided you want to change the hard disk image, be aware that qemu supports several disk image types.</p>
+  <div align="center">
+  <table cellspacing="0" border="1" cellpadding="0" width=80%>
+  <tbody>
+    <tr>
+      <td>File Type</td>
+      <td>Extension</td>
+      <td>Read Mode</td>
+      <td>Comments</td>
+    </tr>
+    <tr>
+      <td>
+            Raw Image
+          </td>
+      <td>.raw / .img</td>
+      <td>
+              read / write
+            </td>
+      <td>default no frills format</td>
+    </tr>
+    <tr>
+      <td>Qemu Copy On Write (qcow2)      </td>
+      <td>.qcow</td>
+      <td>
+              read / write / overlay
+            </td>
+      <td>
+              qemu native format. supports many advanced features.
+            </td>
+    </tr>
+    <tr>
+      <td>VMWare image
+            
+          </td>
+      <td>.vmdk</td>
+      <td>
+              read / write
+            </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Parallels image</td>
+      <td>.hdd</td>
+      <td>read only</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Virtual PC Image</td>
+      <td>.vpc</td>
+      <td>read only</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+  <p>
+      In addition to these formats, qemu supports the vvfat, bochs, dmg, cloop, qcow, cow, and host_device file types as well. Little info is available on their support however, so if you need to use one of these your milage may vary.
+    </p>
+  <h3>Upgrade Image:</h3>
+  <p>This button will upgrade your hard disk image from whatever format it is using to the qcow2 format. your original image is preseved, so you will need at least enough disk space to hold a second complete copy of your image.</p>
+  <!-- 
+  <h3>Create Overlay:</h3>
+  <p>This button will create a new <em>overlay</em> image based on your current hard disk image. An overlay allows you to preserve your virtual machine to a particular state, but still continue to work with it, saving any changes to a new file. An overlay only takes up as much space as the changes to the original disk image - usually not very much.</p>
+  <h3>Merge Overlay:</h3>
+  <p>If your virtual machine is already using an overlay, you will see this option instead of Create Overlay. This button will allow you to merge an overlay with changes back into the original hard disk image.</p>
+  <h3>Properties:</h3>
+  <p>You will find more advanced information about your image here, including it's save states and whether it is an overlay of any other image.</p>
+  -->
+  </body>
 </html>
