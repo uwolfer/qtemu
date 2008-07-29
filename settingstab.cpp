@@ -33,7 +33,7 @@
 #include "machineconfigobject.h"
 #include "helpwindow.h"
 
-
+#include <QIcon>
 
 
 SettingsTab::SettingsTab(MachineConfigObject *config, QWidget *parent)
@@ -42,12 +42,15 @@ SettingsTab::SettingsTab(MachineConfigObject *config, QWidget *parent)
     setupUi(this);
 
     this->config = config;
-    
+    //icons can't change based on a setting in a ui file...
+    void setIcons();
+    //register all the widgets with their associated options
     registerWidgets();
-
     //set up the help browser
     helpBrowser->hide();
+    changeHelpTopic(1);
     connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic(int)));
+
 }
 
 
@@ -80,5 +83,10 @@ void SettingsTab::changeHelpTopic(int page)
     //QString helpFile = ;
     QUrl helpFile = QUrl(HelpWindow::getHelpLocation().toString() + "dynamic/" + settingsStack->currentWidget()->property("helpFile").toString());
     helpBrowser->setSource(helpFile);
+
+}
+
+void SettingsTab::setIcons()
+{
 
 }
