@@ -53,6 +53,7 @@ MachineConfigObject *config;
 
 void registerWidgets();
 void setIcons();
+void setupHelp();
 private slots:
 
 void changeHelpTopic(int page);

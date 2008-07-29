@@ -46,10 +46,7 @@ SettingsTab::SettingsTab(MachineConfigObject *config, QWidget *parent)
     void setIcons();
     //register all the widgets with their associated options
     registerWidgets();
-    //set up the help browser
-    helpArea->hide();
-    changeHelpTopic(0);
-    connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic(int)));
+    setupHelp();
 }
 
 
@@ -87,5 +84,13 @@ void SettingsTab::changeHelpTopic(int page)
 void SettingsTab::setIcons()
 {
 
+}
+
+void SettingsTab::setupHelp()
+{
+    //set up the help browser
+    helpArea->hide();
+    changeHelpTopic(0);
+    connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic(int)));
 }
 

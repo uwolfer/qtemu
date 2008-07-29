@@ -8,9 +8,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
-    <height>591</height>
+    <width>652</width>
+    <height>417</height>
    </rect>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>652</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle" >
    <string>Settings</string>
@@ -56,6 +62,9 @@
          <height>48</height>
         </size>
        </property>
+       <property name="isWrapping" stdset="0" >
+        <bool>false</bool>
+       </property>
        <property name="resizeMode" >
         <enum>QListView::Adjust</enum>
        </property>
@@ -64,6 +73,9 @@
        </property>
        <property name="uniformItemSizes" >
         <bool>false</bool>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
        </property>
        <property name="selectionRectVisible" >
         <bool>true</bool>
@@ -176,6 +188,12 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape" >
         <enum>QFrame::NoFrame</enum>
        </property>
@@ -186,33 +204,33 @@
         <bool>true</bool>
        </property>
        <widget class="QWidget" name="scrollAreaWidgetContents" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
         <property name="geometry" >
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>513</width>
-          <height>336</height>
+          <width>444</width>
+          <height>343</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
-             <horstretch>10</horstretch>
-             <verstretch>10</verstretch>
-            </sizepolicy>
-           </property>
            <property name="currentIndex" >
-            <number>0</number>
+            <number>7</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
-              <height>328</height>
+              <width>444</width>
+              <height>343</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -349,8 +367,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
-              <height>328</height>
+              <width>444</width>
+              <height>322</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -489,8 +507,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>519</width>
-              <height>314</height>
+              <width>444</width>
+              <height>322</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -648,8 +666,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>519</width>
-              <height>314</height>
+              <width>444</width>
+              <height>322</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -671,8 +689,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>519</width>
-              <height>314</height>
+              <width>444</width>
+              <height>322</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -693,8 +711,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>519</width>
-              <height>314</height>
+              <width>444</width>
+              <height>322</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -774,8 +792,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>519</width>
-              <height>314</height>
+              <width>444</width>
+              <height>322</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -876,8 +894,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
-              <height>328</height>
+              <width>444</width>
+              <height>343</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -891,19 +909,32 @@ p, li { white-space: pre-wrap; }
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_15" >
                 <item>
-                 <widget class="QCheckBox" name="embedCheck" >
-                  <property name="text" >
-                   <string>Embedded Display</string>
-                  </property>
-                 </widget>
+                 <layout class="QHBoxLayout" name="horizontalLayout_14" >
+                  <item>
+                   <widget class="QCheckBox" name="embedCheck" >
+                    <property name="text" >
+                     <string>Embedded Display</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
                  <widget class="QGroupBox" name="embedGroup" >
                   <property name="enabled" >
                    <bool>false</bool>
                   </property>
+                  <property name="autoFillBackground" >
+                   <bool>false</bool>
+                  </property>
                   <property name="title" >
                    <string>VNC Transport</string>
+                  </property>
+                  <property name="flat" >
+                   <bool>false</bool>
+                  </property>
+                  <property name="checkable" >
+                   <bool>false</bool>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_22" >
                    <item>
@@ -914,6 +945,9 @@ p, li { white-space: pre-wrap; }
                         <widget class="QRadioButton" name="tcpRadio" >
                          <property name="text" >
                           <string>TCP</string>
+                         </property>
+                         <property name="checked" >
+                          <bool>true</bool>
                          </property>
                          <property name="value" stdset="0" >
                           <string>tcp</string>
@@ -997,8 +1031,6 @@ p, li { white-space: pre-wrap; }
                            </layout>
                           </item>
                          </layout>
-                         <zorder>fileRadio</zorder>
-                         <zorder>tcpRadio</zorder>
                         </widget>
                        </item>
                        <item>
@@ -1024,6 +1056,9 @@ p, li { white-space: pre-wrap; }
                        <property name="text" >
                         <string>Set the method used to connect the virtual machine to the embedded display. File Socket is the most secure.</string>
                        </property>
+                       <property name="scaledContents" >
+                        <bool>false</bool>
+                       </property>
                        <property name="wordWrap" >
                         <bool>true</bool>
                        </property>
@@ -1043,8 +1078,14 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QCheckBox" name="scaleCheck" >
+                  <property name="enabled" >
+                   <bool>false</bool>
+                  </property>
                   <property name="text" >
                    <string>Scale display to fit window</string>
+                  </property>
+                  <property name="checked" >
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -1071,8 +1112,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
-              <height>328</height>
+              <width>444</width>
+              <height>343</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -1111,19 +1152,13 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>526</width>
-          <height>249</height>
+          <width>438</width>
+          <height>54</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26" >
          <item>
           <widget class="QWebView" name="helpView" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="url" >
             <url>
              <string>about:blank</string>
@@ -1156,6 +1191,22 @@ p, li { white-space: pre-wrap; }
   <include location="../qtemu.qrc" />
  </resources>
  <connections>
+  <connection>
+   <sender>helpButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>helpArea</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>100</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>498</x>
+     <y>425</y>
+    </hint>
+   </hints>
+  </connection>
   <connection>
    <sender>memorySlider</sender>
    <signal>valueChanged(int)</signal>
@@ -1237,18 +1288,18 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>helpButton</sender>
+   <sender>embedCheck</sender>
    <signal>toggled(bool)</signal>
-   <receiver>helpArea</receiver>
-   <slot>setVisible(bool)</slot>
+   <receiver>scaleCheck</receiver>
+   <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>100</x>
-     <y>505</y>
+     <x>268</x>
+     <y>76</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>498</x>
-     <y>425</y>
+     <x>268</x>
+     <y>324</y>
     </hint>
    </hints>
   </connection>

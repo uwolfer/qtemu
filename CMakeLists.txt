@@ -187,6 +187,8 @@ INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/help/main.htm DESTINATION share/qtemu/
 FILE(GLOB dynamichelp "${CMAKE_CURRENT_SOURCE_DIR}/help/dynamic/*.html")
 INSTALL(FILES ${dynamichelp} DESTINATION share/qtemu/help/dynamic)
 
+FILE(GLOB dynamichelpimg "${CMAKE_CURRENT_SOURCE_DIR}/help/dynamic/*.png")
+INSTALL(FILES ${dynamichelpimg} DESTINATION share/qtemu/help/dynamic)
 
 FILE(GLOB helpfiles_de "${CMAKE_CURRENT_SOURCE_DIR}/help/de/*.png")
 INSTALL(FILES ${helpfiles_de} DESTINATION share/qtemu/help/de)
