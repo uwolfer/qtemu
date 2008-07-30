@@ -15,7 +15,8 @@ HEADERS =   config.h \
   machinesplash.h \
   machineconfig.h \
   machineconfigobject.h \
-   settingstab.h
+   settingstab.h \
+   qtemuenvironment.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -34,7 +35,8 @@ SOURCES =   main.cpp \
   machinesplash.cpp \
   machineconfig.cpp \
   machineconfigobject.cpp \
-   settingstab.cpp
+   settingstab.cpp \
+   qtemuenvironment.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg webkit

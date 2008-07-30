@@ -193,6 +193,15 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString nodeTyp
         connect(object, SIGNAL(currentIndexChanged(int)), this, SLOT(getObjectValue()));
         connect(object, SIGNAL(editTextChanged(QString)), this, SLOT(getObjectValue()));
     }
+    else if (object->inherits("QRadioButton"))
+    {
+        object->disconnect(this);
+        if(object->property("value") == value)
+            object->setProperty("checked", true);
+        else if (object->property("value").isNull())
+            object->setProperty("checked", value);
+        connect(object, SIGNAL(toggled(bool)), this, SLOT(getObjectValue()));
+    }
     else if (object->inherits("QAbstractButton"))
     {
         object->disconnect(this);
@@ -266,6 +275,13 @@ void MachineConfigObject::getObjectValue()
     else if(object->inherits("QComboBox"))
     {
         value = object->property("currentText");
+    }
+    else if (object->inherits("QRadioButton"))
+    {
+        if(object->property("checked").toBool() && object->property("value").isValid())
+            value = object->property("value");
+        else if(object->property("value").isNull())
+            value = object->property("checked");
     }
     else if (object->inherits("QAbstractButton"))
     {

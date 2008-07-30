@@ -9,7 +9,7 @@
     <x>0</x>
     <y>0</y>
     <width>652</width>
-    <height>417</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="minimumSize" >
@@ -194,6 +194,9 @@
          <height>0</height>
         </size>
        </property>
+       <property name="autoFillBackground" >
+        <bool>false</bool>
+       </property>
        <property name="frameShape" >
         <enum>QFrame::NoFrame</enum>
        </property>
@@ -212,7 +215,7 @@
           <x>0</x>
           <y>0</y>
           <width>444</width>
-          <height>343</height>
+          <height>456</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19" >
@@ -222,7 +225,7 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
            <property name="currentIndex" >
-            <number>7</number>
+            <number>8</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
@@ -230,7 +233,7 @@
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>343</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -345,6 +348,30 @@
                  </widget>
                 </item>
                 <item>
+                 <widget class="Line" name="line_8" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_14" >
+                  <property name="text" >
+                   <string>Allow the virtual machine to use the system clock for improved accuracy:</string>
+                  </property>
+                  <property name="wordWrap" >
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="timeCheck" >
+                  <property name="text" >
+                   <string>Enable Local Time</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <spacer name="verticalSpacer_3" >
                   <property name="orientation" >
                    <enum>Qt::Vertical</enum>
@@ -368,7 +395,7 @@
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>322</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -439,6 +466,9 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QFrame" name="upgradeFrame" >
+                  <property name="enabled" >
+                   <bool>false</bool>
+                  </property>
                   <property name="frameShape" >
                    <enum>QFrame::NoFrame</enum>
                   </property>
@@ -456,7 +486,7 @@ p, li { white-space: pre-wrap; }
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout" >
                      <item>
-                      <widget class="QPushButton" name="pushButton" >
+                      <widget class="QPushButton" name="upgradeButton" >
                        <property name="text" >
                         <string>Upgrade Image</string>
                        </property>
@@ -508,7 +538,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>322</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -667,7 +697,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>322</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -690,7 +720,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>322</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -712,7 +742,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>322</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -730,44 +760,59 @@ p, li { white-space: pre-wrap; }
                   <property name="text" >
                    <string>Enable network</string>
                   </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="Line" name="line_3" >
-                  <property name="orientation" >
-                   <enum>Qt::Horizontal</enum>
+                  <property name="checked" >
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_7" >
-                  <property name="text" >
-                   <string>Custom networking options:</string>
+                 <widget class="QFrame" name="networkFrame" >
+                  <property name="frameShape" >
+                   <enum>QFrame::NoFrame</enum>
                   </property>
-                  <property name="buddy" >
-                   <cstring>networkEdit</cstring>
+                  <property name="frameShadow" >
+                   <enum>QFrame::Raised</enum>
                   </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_28" >
+                   <item>
+                    <widget class="Line" name="line_3" >
+                     <property name="orientation" >
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_7" >
+                     <property name="text" >
+                      <string>Custom networking options:</string>
+                     </property>
+                     <property name="buddy" >
+                      <cstring>networkEdit</cstring>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_8" >
+                     <item>
+                      <widget class="QLineEdit" name="networkEdit" />
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_3" >
+                       <property name="orientation" >
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0" >
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
                  </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_8" >
-                  <item>
-                   <widget class="QLineEdit" name="networkEdit" />
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_3" >
-                    <property name="orientation" >
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0" >
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
                 </item>
                 <item>
                  <spacer name="verticalSpacer_4" >
@@ -793,7 +838,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>322</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -895,7 +940,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>343</height>
+              <height>370</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -915,6 +960,9 @@ p, li { white-space: pre-wrap; }
                     <property name="text" >
                      <string>Embedded Display</string>
                     </property>
+                    <property name="checked" >
+                     <bool>true</bool>
+                    </property>
                    </widget>
                   </item>
                  </layout>
@@ -922,7 +970,7 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <widget class="QGroupBox" name="embedGroup" >
                   <property name="enabled" >
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="autoFillBackground" >
                    <bool>false</bool>
@@ -957,7 +1005,7 @@ p, li { white-space: pre-wrap; }
                        <item>
                         <widget class="QFrame" name="tcpFrame" >
                          <property name="enabled" >
-                          <bool>false</bool>
+                          <bool>true</bool>
                          </property>
                          <property name="frameShape" >
                           <enum>QFrame::StyledPanel</enum>
@@ -1013,6 +1061,9 @@ p, li { white-space: pre-wrap; }
                               <property name="alignment" >
                                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                               </property>
+                              <property name="maximum" >
+                               <number>59635</number>
+                              </property>
                              </widget>
                             </item>
                             <item>
@@ -1054,7 +1105,7 @@ p, li { white-space: pre-wrap; }
                         </sizepolicy>
                        </property>
                        <property name="text" >
-                        <string>Set the method used to connect the virtual machine to the embedded display. File Socket is the most secure.</string>
+                        <string>Set the method used to connect the virtual machine to the embedded display. A File Socket is the most secure.</string>
                        </property>
                        <property name="scaledContents" >
                         <bool>false</bool>
@@ -1067,7 +1118,10 @@ p, li { white-space: pre-wrap; }
                     </layout>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox" >
+                    <widget class="QCheckBox" name="remoteConnect" >
+                     <property name="enabled" >
+                      <bool>false</bool>
+                     </property>
                      <property name="text" >
                       <string>Allow remote connection instead of embedding</string>
                      </property>
@@ -1079,7 +1133,7 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <widget class="QCheckBox" name="scaleCheck" >
                   <property name="enabled" >
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="text" >
                    <string>Scale display to fit window</string>
@@ -1113,7 +1167,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>343</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -1125,7 +1179,102 @@ p, li { white-space: pre-wrap; }
                <property name="title" >
                 <string>Other Options</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_16" />
+               <layout class="QVBoxLayout" name="verticalLayout_16" >
+                <item>
+                 <widget class="QGroupBox" name="groupBox_2" >
+                  <property name="title" >
+                   <string>Additional QEMU Options</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_23" >
+                   <item>
+                    <widget class="QCheckBox" name="additionalCheck" >
+                     <property name="text" >
+                      <string>Use Additional Options:</string>
+                     </property>
+                     <property name="checked" >
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="additionalEdit" >
+                     <property name="enabled" >
+                      <bool>false</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line_9" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox" >
+                  <property name="title" >
+                   <string>Pre / Post Scripts</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_21" >
+                   <item>
+                    <widget class="QLabel" name="label_18" >
+                     <property name="text" >
+                      <string>These commands will be executed before or after QEMU</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_13" >
+                     <item>
+                      <widget class="QCheckBox" name="beforeCheck" >
+                       <property name="text" >
+                        <string>Execute Before:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QCheckBox" name="afterCheck" >
+                       <property name="text" >
+                        <string>Execute After:</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9" >
+                     <item>
+                      <widget class="QTextEdit" name="beforeEdit" >
+                       <property name="enabled" >
+                        <bool>false</bool>
+                       </property>
+                       <property name="acceptRichText" >
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="afterEdit" >
+                       <property name="enabled" >
+                        <bool>false</bool>
+                       </property>
+                       <property name="autoFillBackground" >
+                        <bool>false</bool>
+                       </property>
+                       <property name="acceptRichText" >
+                        <bool>false</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -1300,6 +1449,70 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel" >
      <x>268</x>
      <y>324</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>additionalCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>additionalEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>424</x>
+     <y>92</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>424</x>
+     <y>123</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>networkCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>networkFrame</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>424</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>424</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>beforeCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>beforeEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>324</x>
+     <y>231</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>324</x>
+     <y>343</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>afterCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>afterEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>525</x>
+     <y>231</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>525</x>
+     <y>343</y>
     </hint>
    </hints>
   </connection>

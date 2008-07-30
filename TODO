@@ -27,10 +27,6 @@ Version 2.0:
 ------------------
 * Embedded full screen view
 
-* configuration archetecture.
-
-* a working machine console instead of the lineedit currently in Other.
-
 * UI changes to make things less cluttered and more clear. also allow the addition of more options without confusion. (in the already existing settings tab)
 
 * working network configuration.

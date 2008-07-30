@@ -71,6 +71,20 @@ void SettingsTab::registerWidgets()
     config->registerObject(soundCombo, "soundSystem", QVariant("oss"));
     config->registerObject(networkCheck, "network", QVariant(true));
     config->registerObject(networkEdit, "networkCustomOptions");
+    config->registerObject(timeCheck, "time", QVariant(true));
+    config->registerObject(embedCheck, "embeddedDisplay", QVariant(true));
+    config->registerObject(scaleCheck, "scaleEmbeddedDisplay", QVariant(true));
+    config->registerObject(portBox, "vncPort");
+    config->registerObject(hostEdit, "vncHost", QVariant("localhost"));
+    config->registerObject(tcpRadio, "vncTransport");
+    config->registerObject(fileRadio, "vncTransport");
+    config->registerObject(additionalCheck, "useAdditionalOptions", QVariant(false));
+    config->registerObject(additionalEdit, "additionalOptions");
+    config->registerObject(beforeCheck, "enableExecBefore", QVariant(false));
+    config->registerObject(beforeEdit, "execBefore");
+    config->registerObject(afterCheck, "enableExecAfter", QVariant(false));
+    config->registerObject(afterEdit, "execAfter");
+    //TODO:finish adding widgets
 }
 
 void SettingsTab::changeHelpTopic(int page)
