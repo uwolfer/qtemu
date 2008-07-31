@@ -33,7 +33,6 @@
 
 
 #include "qtemuenvironment.h"
-
 #include <QSettings>
 #include <QProcess>
 #include <QDir>

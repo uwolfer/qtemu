@@ -225,7 +225,7 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
            <property name="currentIndex" >
-            <number>8</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
@@ -233,7 +233,7 @@
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -249,7 +249,7 @@
                 <item>
                  <widget class="QLabel" name="label_3" >
                   <property name="text" >
-                   <string>Number of virtual CPUs:</string>
+                   <string>Number of virtual &amp;CPUs:</string>
                   </property>
                   <property name="buddy" >
                    <cstring>cpuSpinBox</cstring>
@@ -283,7 +283,7 @@
                 <item>
                  <widget class="QLabel" name="label_2" >
                   <property name="text" >
-                   <string>Memory for this virtual machine:</string>
+                   <string>&amp;Memory for this virtual machine:</string>
                   </property>
                   <property name="buddy" >
                    <cstring>memorySpinBox</cstring>
@@ -319,6 +319,13 @@
                    </widget>
                   </item>
                   <item>
+                   <widget class="QLabel" name="label_17" >
+                    <property name="text" >
+                     <string>Mb</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <spacer name="horizontalSpacer_2" >
                     <property name="orientation" >
                      <enum>Qt::Horizontal</enum>
@@ -343,7 +350,7 @@
                 <item>
                  <widget class="QCheckBox" name="virtCheckBox" >
                   <property name="text" >
-                   <string>Enable Virtualization</string>
+                   <string>Enable &amp;Virtualization</string>
                   </property>
                  </widget>
                 </item>
@@ -367,9 +374,69 @@
                 <item>
                  <widget class="QCheckBox" name="timeCheck" >
                   <property name="text" >
-                   <string>Enable Local Time</string>
+                   <string>Enable &amp;Local Time</string>
                   </property>
                  </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line_10" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_15" >
+                  <property name="text" >
+                   <string>Change your &amp;Operating System preferences</string>
+                  </property>
+                  <property name="buddy" >
+                   <cstring>osCheck</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QFormLayout" name="formLayout" >
+                  <item row="0" column="0" >
+                   <widget class="QComboBox" name="osCheck" >
+                    <item>
+                     <property name="text" >
+                      <string>Linux</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>Windows (2000/XP/Vista)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>Dos</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>Other</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>BSD</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="0" column="1" >
+                   <widget class="QLabel" name="label_16" >
+                    <property name="text" >
+                     <string>This option allows QtEmu to use faster I/O drivers for OSes that support it</string>
+                    </property>
+                    <property name="wordWrap" >
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
                  <spacer name="verticalSpacer_3" >
@@ -385,6 +452,18 @@
                  </spacer>
                 </item>
                </layout>
+               <zorder>line</zorder>
+               <zorder>line_2</zorder>
+               <zorder>virtCheckBox</zorder>
+               <zorder>line_8</zorder>
+               <zorder>label_14</zorder>
+               <zorder>timeCheck</zorder>
+               <zorder>line_10</zorder>
+               <zorder>label_15</zorder>
+               <zorder>osCheck</zorder>
+               <zorder>formLayoutWidget</zorder>
+               <zorder>formLayoutWidget_2</zorder>
+               <zorder>formLayoutWidget_2</zorder>
               </widget>
              </item>
             </layout>
@@ -395,7 +474,7 @@
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -538,7 +617,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -697,7 +776,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -720,7 +799,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -742,7 +821,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -838,7 +917,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -879,6 +958,9 @@ p, li { white-space: pre-wrap; }
                  <layout class="QHBoxLayout" name="horizontalLayout_5" >
                   <item>
                    <widget class="QComboBox" name="soundCombo" >
+                    <property name="editable" >
+                     <bool>true</bool>
+                    </property>
                     <item>
                      <property name="text" >
                       <string>alsa</string>
@@ -940,7 +1022,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>444</width>
-              <height>370</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
