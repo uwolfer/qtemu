@@ -46,6 +46,7 @@ SET(qtemu_SRCS
     machineconfig.cpp
     machineconfigobject.cpp
     settingstab.cpp
+    qtemuenvironment.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -65,6 +66,7 @@ SET(qtemu_MOC_HDRS
     machineconfig.h
     machineconfigobject.h
     settingstab.h
+    qtemuenvironment.h
 )
 
 SET(qtemu_UIS

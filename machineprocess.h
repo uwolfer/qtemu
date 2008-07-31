@@ -26,7 +26,8 @@
 #define MACHINEPROCESS_H
 
 #include <QProcess>
-#include "networksystem.h"
+//#include "networksystem.h"
+#include "qtemuenvironment.h"
 
 class MachineProcess : public QProcess
 {
@@ -68,6 +69,7 @@ private:
     void createTmp();
     QString snapshotNameString;
     QStringList supressedErrors;
+    QtEmuEnvironment env;
     long versionMajor, versionMinor, versionBugfix, kvmVersion;
     bool paused;
     bool doResume;

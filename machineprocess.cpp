@@ -387,52 +387,14 @@ void MachineProcess::writeDebugInfo(const QString & debugText)
 
 void MachineProcess::getVersion()
 {
-    QSettings settings("QtEmu", "QtEmu");
-    QString versionString;
-    QProcess *findVersion = new QProcess(this);
-
-#ifndef Q_OS_WIN32
-    QString qemuCommand = settings.value("command", "qemu").toString();
-#elif defined(Q_OS_WIN32)
-    QString qemuCommand = settings.value("command", QCoreApplication::applicationDirPath() + "/qemu/qemu.exe").toString();
-    QDir *path = new QDir(qemuCommand);
-    path->cdUp();
-    setWorkingDirectory(path->path());
-#endif
-
-    findVersion->start(qemuCommand);
-    findVersion->waitForFinished();
-
-    if(findVersion->error() == QProcess::FailedToStart)
-    {
-        versionMajor = -1;
-        versionMinor = -1;
-        versionBugfix = -1;
-        kvmVersion = -1;
-        emit error(tr("Either the qemu binary does not exist, or it is not executable at ") + qemuCommand);
-        return;
-    }
-    
-    QString infoString = findVersion->readLine();
-    QStringList infoStringList = infoString.split(" ");
-    
-    versionString = infoStringList.at(4);
-    QStringList versionStringList = versionString.split(".");
-    versionMajor = versionStringList.at(0).toInt();
-    versionMinor = versionStringList.at(1).toInt();
-    versionBugfix = versionStringList.at(2).toInt();
-    versionString = infoStringList.at(5);
-    versionString.remove(QRegExp("[(),]"));
-    if(versionString.contains(QRegExp("kvm")))
-    {
-        kvmVersion = versionString.remove(QRegExp("kvm-")).toInt();
-    }
-    else
-        kvmVersion = 0;
-
-    #ifdef DEVELOPER
-    qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + '.' + QString::number(versionMinor) + '.' + QString::number(versionBugfix)).toAscii());
-    #endif
+ int *qemuVersion = env.getQemuVersion();
+ versionMajor = qemuVersion[0];
+ versionMinor = qemuVersion[1];
+ versionBugfix = qemuVersion[2];
+ kvmVersion = env.getKvmVersion();
+ #ifdef DEVELOPER
+ qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + '.' + QString::number(versionMinor) + '.' + QString::number(versionBugfix)).toAscii());
+ #endif
 }
 
 void MachineProcess::changeCdrom()
