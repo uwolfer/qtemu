@@ -10,16 +10,24 @@
 
    <h3>Number of virtual cpus:</h3>
    <p>This option changes the number of virtual CPUs that qemu or kvm emulates. Currently (version 0.9.1) qemu does not use multithreading, so this does not actually use multiple physical CPUs.</p>
-   <h3>Memory for this virtual machine:</h3>
+   <h3>Memory for this Virtual Machine:</h3>
    <p>
       You can set qemu or kvm to use any amount of memory from 1 to 1024 megabytes. You can set a higher amount by putting a larger number in the box. <br/> <strong>Do not set the virtual machine memory higher than your machine can handle!</strong> all running virtual machines <u>plus</u> your host system must be able to run within your available memory.
     </p>
     <strong></strong>
-    <h3>Enable virtualization</h3>
+    <h3>Enable Virtualization</h3>
     <p>
     Enabling this makes qemu or kvm use your processor to directly run the host operating system, bypassing processor emulation. This usually will result in a large speed up.
     </p>
-    <p>If you are using kvm, this enables full virtualization. In qemu this option enables partial virtualization using kqemu. Additional configuration of your system is required for either of these solutions to be available to you, but usually installing your system's <em>kvm</em> package and setting QtEmu to use it is all that is required. more help for this can be found <!--here -->
+    <p>If you are using kvm, this enables full virtualization. In qemu this option enables partial virtualization using kqemu. Additional configuration of your system is required for either of these solutions to be available to you, but usually installing your system's <em>kvm</em> package and setting QtEmu to use it is all that is required. more help for this can be found in your distribution's documentation.
+    </p>
+    <h3>Enable Local Time</h3>
+    <p>
+    Setting this option allows your virtual machine to use your host system's hardware clock, instead of an emulated clock. This will result in a more accurate clock in your virtual machine.
+    </p>
+    <h3>Change your Operating System prefrences</h3>
+    <p>
+    Here you can select which operating system you are using in your virtual machine. Selecting the correct operating system will allow QtEmu to use faster drivers for networking, and possibly hard disk as well. Whether or not qtemu is able to use these accelerated drivers is dependant on two things. First, you must be using KVM. Second, you must be usnig a supported operating system. So far, KVM supports Linux and Windows XP/2000/Vista for accelerated networking, and Linux only for accelerated hard disk access.
     </p>
   </body>
 </html>

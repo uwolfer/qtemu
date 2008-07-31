@@ -34,16 +34,21 @@
 #include "helpwindow.h"
 
 #include <QIcon>
+#include <QFileDialog>
+#include <QSettings>
 
 
-SettingsTab::SettingsTab(MachineConfigObject *config, QWidget *parent)
+SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
  : QFrame(parent)
 {
+    this->parent = parent;
+    this->config = config;
+    getSettings();
+    //add the ui elements
     setupUi(this);
 
-    this->config = config;
-    //icons can't change based on a setting in a ui file...
-    void setIcons();
+    setupConnections();
+
     //register all the widgets with their associated options
     registerWidgets();
     setupHelp();
@@ -88,7 +93,7 @@ void SettingsTab::registerWidgets()
     //TODO:finish adding widgets
 }
 
-void SettingsTab::changeHelpTopic(int page)
+void SettingsTab::changeHelpTopic()
 {
     //QString helpFile = ;
     QUrl helpFile = QUrl(HelpWindow::getHelpLocation().toString() + "dynamic/" + settingsStack->currentWidget()->property("helpFile").toString());
@@ -96,16 +101,51 @@ void SettingsTab::changeHelpTopic(int page)
 
 }
 
-void SettingsTab::setIcons()
-{
-
-}
-
 void SettingsTab::setupHelp()
 {
     //set up the help browser
     helpArea->hide();
-    changeHelpTopic(0);
-    connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic(int)));
+    changeHelpTopic();
+    connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic()));
 }
 
+void SettingsTab::setupConnections()
+{
+    connect(hdSelectButton, SIGNAL(clicked()), this, SLOT(setNewHddPath()));
+    connect(cdSelectButton, SIGNAL(clicked()), this, SLOT(setNewCdImagePath()));
+    connect(floppySelectButton, SIGNAL(clicked()), this, SLOT(setNewFloppyImagePath()));
+
+}
+
+void SettingsTab::setNewHddPath()
+{
+    QString newHddPath = QFileDialog::getOpenFileName(this, tr("Select a QtEmu hard disk image"),
+                                              config->getOption("hdd", myMachinesPath).toString(),
+                                              tr("QtEmu hard disk images")+" (*.img *.qcow *.vmdk *.hdd *.vpc)");
+    if (!newHddPath.isEmpty())
+        config->setOption("hdd", newHddPath);
+}
+
+void SettingsTab::setNewCdImagePath()
+{
+    QString newCdPath = QFileDialog::getOpenFileName(this, tr("Select a CD Image"),
+                                                     config->getOption("cdrom", myMachinesPath).toString(),
+                                                     tr("CD ROM images")+" (*.iso *.img)");
+    if (!newCdPath.isEmpty())
+        config->setOption("cdrom", newCdPath);
+}
+
+void SettingsTab::setNewFloppyImagePath()
+{
+    QString newFloppyPath = QFileDialog::getOpenFileName(this, tr("Select a Floppy Disk Image"),
+                                                         config->getOption("floppy", myMachinesPath).toString(),
+                                                         tr("Floppy disk images")+" (*.iso *.img)");
+    if (!newFloppyPath.isEmpty())
+        config->setOption("floppy", newFloppyPath);
+}
+
+void SettingsTab::getSettings()
+{
+    QSettings settings("QtEmu", "QtEmu");
+    myMachinesPath = settings.value("machinesPath", QString(QDir::homePath()+'/'+tr("MyMachines"))).toString();
+}

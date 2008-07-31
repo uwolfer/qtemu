@@ -64,7 +64,16 @@ void MachineProcess::start()
         arguments << property("addiionalOptions").toString().split(" ", QString::SkipEmptyParts);
     
     if (property("embeddedDisplay").toBool())
-        arguments << "-vnc" << "localhost:" + property("vncPort").toString();
+    {
+        if(property("vncTransport").toString() == "tcp")
+            arguments << "-vnc" << property("vncHost").toString() + ":" + property("vncPort").toString();
+        else
+        {
+            QString socketLocation = property("hdImage").toString();
+            socketLocation = socketLocation.replace(QRegExp("[.][^.]+$"), ".vnc");
+            arguments << "-vnc" << "unix:" + socketLocation;
+        }
+    }
 
     if (property("network").toBool())
     {   /*
@@ -216,6 +225,22 @@ void MachineProcess::start()
             }
         }
     }
+    command = property("execBefore").toString();
+    if (property("enableExecBefore").toBool()&&!command.isEmpty())
+    {
+        QStringList commandList;
+        commandList = command.split("\n");
+        for (int i = 0; i < commandList.size(); ++i)
+        {
+            QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            while (waitForFinished())
+            {
+                QTime sleepTime = QTime::currentTime().addMSecs(5);
+                while (QTime::currentTime() < sleepTime)
+                    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+            }
+        }
+    }
 
     setEnvironment(env);
     //#ifdef DEVELOPER
@@ -260,7 +285,22 @@ void MachineProcess::afterExitExecute()
             }
         }
     }
-
+    command = property("execAfter").toString();
+    if (property("enableExecAfter").toBool()&&!command.isEmpty())
+    {
+        QStringList commandList;
+        commandList = command.split("\n");
+        for (int i = 0; i < commandList.size(); ++i)
+        {
+            QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            while (waitForFinished())
+            {
+                QTime sleepTime = QTime::currentTime().addMSecs(5);
+                while (QTime::currentTime() < sleepTime)
+                    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+            }
+        }
+    }
     doResume=false;
     //networkSystem->clearAllNics();
 }

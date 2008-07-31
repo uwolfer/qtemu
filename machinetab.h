@@ -74,54 +74,20 @@ private:
     MachineProcess *machineProcess;
     QDomDocument domDocument;
     QCheckBox *snapshotCheckBox;
-    QCheckBox *networkCheckBox;
-    QCheckBox *soundCheckBox;
-    QCheckBox *videoCheckBox;
-    QCheckBox *videoResizeCheckBox;
-    QRadioButton *soundALSARadioButton;
-    QRadioButton *soundOSSRadioButton;
-    QRadioButton *soundESDRadioButton;
-    QButtonGroup *soundSystemGroup;
-    QCheckBox *cdBootCheckBox;
-    QCheckBox *floppyBootCheckBox;
-    QCheckBox *mouseCheckBox;
-    QCheckBox *timeCheckBox;
-    //QCheckBox *virtualizationCheckBox;
-    QCheckBox *additionalOptionsCheckBox;
-    //QSpinBox *cpuSpinBox;
+    
     QLineEdit *machineNameEdit;
-    QLineEdit *hddPathLineEdit;
-    QPushButton *hddUpgradeButton;
-    QLineEdit *cdromLineEdit;
-    QLineEdit *floppyLineEdit;
-    QLineEdit *networkCustomOptionsEdit;
-    QLineEdit *smbFolderEdit;
-    QLineEdit *additionalOptionsEdit;
+    
     QLineEdit *consoleCommand;
     QTextEdit *console;
-    //QSlider *memorySlider;
+    
     QString xmlFileName;
     QTabWidget *parentTabWidget;
     QTextEdit *notesTextEdit;
-    //QPushButton *memoryButton;
-    //QFrame *memoryFrame;
-    QPushButton *hddButton;
-    QFrame *hddFrame;
-    QPushButton *cdromButton;
+    
     QPushButton *cdromReloadButton;
-    QFrame *cdromFrame;
-    QPushButton *floppyButton;
+
     QPushButton *floppyReloadButton;
-    QFrame *floppyFrame;
-    QPushButton *networkButton;
-    QFrame *networkFrame;
-    QCheckBox *userModeNetwork;
-    QCheckBox *bridgedModeNetwork;
-    QCheckBox *localBridgedModeNetwork;
-    QPushButton *soundButton;
-    QFrame *soundFrame;
-    QPushButton *otherButton;
-    QFrame *otherFrame;
+
     QString myMachinesPath;
     
     MachineView *machineView;
@@ -142,22 +108,15 @@ private slots:
     void started();
     void booting();
     void error(const QString& errorMsg);
-    void setNewHddPath();
-    void testHDDImage(const QString &path);
-    void upgradeImage();
-    void upgradeImageStarted();
-    void upgradeImageFinished(const int &exitCode);
-    void setNewCdRomPath();
-    void setNewCdImagePath();
-    void setNewFloppyDiskPath();
-    void setNewFloppyDiskImagePath();
-    void setNewSmbFolderPath();
+    //void testHDDImage(const QString &path);
+    //void upgradeImage();
+    //void upgradeImageStarted();
+    //void upgradeImageFinished(const int &exitCode);
     void closeAllSections();
     bool read();
     void nameChanged(const QString &name);
     void closeMachine();
     void snapshot(const int state);
-    void network(const int value);
     void unimplemented();
     void supressAudioErrors();
     void runCommand();

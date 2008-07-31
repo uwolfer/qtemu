@@ -33,6 +33,8 @@
 #define SETTINGSTAB_H
 
 #include "ui_settingstab.h"
+#include "machineprocess.h"
+#include "machinetab.h"
 #include <QFrame>
 
 class MachineConfigObject;
@@ -44,19 +46,24 @@ class SettingsTab : public QFrame, public Ui::SettingsTab
 {
 Q_OBJECT
 public:
-    SettingsTab(MachineConfigObject *config, QWidget *parent = 0);
+    SettingsTab(MachineConfigObject *config, MachineTab *parent = 0);
 
     ~SettingsTab();
 
 private:
-MachineConfigObject *config;
-
-void registerWidgets();
-void setIcons();
-void setupHelp();
+    MachineConfigObject *config;
+    MachineTab *parent;
+    QString myMachinesPath;
+    void registerWidgets();
+    void setupHelp();
+    void setupConnections();
+    void getSettings();
 private slots:
 
-void changeHelpTopic(int page);
+    void changeHelpTopic();
+    void setNewHddPath();
+    void setNewCdImagePath();
+    void setNewFloppyImagePath();
 
 };
 

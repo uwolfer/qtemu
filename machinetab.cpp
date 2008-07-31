@@ -195,407 +195,23 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #if QT_VERSION >= 0x040200
     notesTextEdit->setStyleSheet(QString(flatStyle).replace("TYPE", "QTextEdit"));
 #endif
-    QLabel *devicesLabel = new QLabel(tr("<strong>Devices</strong>"), this);
+    QLabel *controlLabel = new QLabel(tr("<strong>Machine Control</strong>"), this);
 
-    QVBoxLayout *devicesLayout = new QVBoxLayout;
+    QVBoxLayout *controlLayout = new QVBoxLayout;
 
-/*    //memory section start
-    memoryButton = new QPushButton(QIcon(":/images/" + iconTheme + "/memory.png"), tr("&Memory"), this);
-    memoryButton->setCheckable(true);
-    devicesLayout->addWidget(memoryButton);
 
-    memoryFrame = new QFrame(this);
-    memoryFrame->setVisible(false);
-    devicesLayout->addWidget(memoryFrame);
-    connect(memoryButton, SIGNAL(clicked(bool)), this, SLOT(closeAllSections()));
-    connect(memoryButton, SIGNAL(clicked(bool)), memoryFrame, SLOT(setVisible(bool)));
-    connect(memoryButton, SIGNAL(clicked(bool)), memoryButton, SLOT(setChecked(bool)));
+    floppyReloadButton = new QPushButton(tr("Reload Floppy"));
+    
+    connect(floppyReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeFloppy()));
 
-    QVBoxLayout *memoryFrameLayout = new QVBoxLayout;
-    memoryFrame->setLayout(memoryFrameLayout);
-
-    QLabel *memoryDescriptionLabel = new QLabel(tr("Set the size of memory for this virtual machine."
-                                                    " If you set too high an amount, memory "
-                                                    "swapping may occur.<br /><br />"
-                                                    "Memory for this virtual machine:"), this);
-    memoryDescriptionLabel->setWordWrap(true);
-    memoryFrameLayout->addWidget(memoryDescriptionLabel);
-
-    memorySlider = new QSlider(Qt::Horizontal, this);
-    memorySlider->setRange(4, 1024);
-    memorySlider->setSingleStep(4);
-    memorySlider->setTickPosition(QSlider::TicksBelow);
-    memorySlider->setTickInterval(64);
-
-    QSpinBox *memorySpinBox = new QSpinBox(this);
-    memorySpinBox->setRange(4, 1024);
-    memorySpinBox->setSingleStep(4);
-
-    QLabel *memoryMbLabel = new QLabel(tr("MB"), this);
-
-    connect(memorySlider, SIGNAL(valueChanged(int)), memorySpinBox, SLOT(setValue(int)));
-    connect(memorySpinBox, SIGNAL(valueChanged(int)), memorySlider, SLOT(setValue(int)));
-
-    QHBoxLayout *memoryLayout = new QHBoxLayout;
-    memoryLayout->addWidget(memorySlider);
-    memoryLayout->addWidget(memorySpinBox);
-    memoryLayout->addWidget(memoryMbLabel);
-
-    memoryFrameLayout->addLayout(memoryLayout);
-
-    QLabel *cpuDescriptionLabel = new QLabel(tr("<hr>&Number of virtual CPUs:"), this);
-    cpuDescriptionLabel->setWordWrap(true);
-    memoryFrameLayout->addWidget(cpuDescriptionLabel);
-
-    cpuSpinBox = new QSpinBox(this);
-    cpuSpinBox->setRange(1, 4);
-    cpuSpinBox->setValue(2);
-    cpuDescriptionLabel->setBuddy(cpuSpinBox);
-
-    QLabel *cpuLabel = new QLabel(tr("Virtual CPU(s)"), this);
-
-    virtualizationCheckBox = new QCheckBox(tr("Enable &virtualization"), this);
-
-    QHBoxLayout *cpuLayout = new QHBoxLayout;
-    cpuLayout->addWidget(cpuSpinBox);
-    cpuLayout->addWidget(cpuLabel);
-    cpuLayout->addWidget(virtualizationCheckBox);
-    cpuLayout->addStretch();
-    memoryFrameLayout->addLayout(cpuLayout);
-    //memory section end
-*/
-    //hdd section start
-    hddButton = new QPushButton(QIcon(":/images/" + iconTheme + "/hdd.png"), tr("&Hard Disk"), this);
-    hddButton->setCheckable(true);
-    devicesLayout->addWidget(hddButton);
-
-    hddFrame = new QFrame(this);
-    hddFrame->setVisible(false);
-    devicesLayout->addWidget(hddFrame);
-    connect(hddButton, SIGNAL(clicked(bool)), this, SLOT(closeAllSections()));
-    connect(hddButton, SIGNAL(clicked(bool)), hddFrame, SLOT(setVisible(bool)));
-    connect(hddButton, SIGNAL(clicked(bool)), hddButton, SLOT(setChecked(bool)));
-
-    QVBoxLayout *hddFrameLayout = new QVBoxLayout;
-    hddFrame->setLayout(hddFrameLayout);
-
-    QLabel *hddDescriptionLabel = new QLabel(tr("Select a valid hard disk image for QtEmu. "
-                                                "Do <b>not change</b> the hard disk image unless you "
-                                                "know what you are doing!<br /><br />"
-                                                "Hard disk image for this virtual machine:"), this);
-    hddDescriptionLabel->setWordWrap(true);
-    hddFrameLayout->addWidget(hddDescriptionLabel);
-
-    hddPathLineEdit = new QLineEdit(this);
-    connect(hddPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(testHDDImage(QString)));
-    connect(hddPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(updatePreview(QString)));
-
-    QPushButton *hddSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/open.png"), QString(), this);
-    connect(hddSelectButton, SIGNAL(clicked()), this, SLOT(setNewHddPath()));
-
-    hddUpgradeButton = new QPushButton(QIcon(":/images/" + iconTheme + "/wizard.png"), QString(tr("Upgrade HDD Format to Native")), this);
-    connect(hddUpgradeButton, SIGNAL(clicked()), this, SLOT(upgradeImage()));
-
-    QHBoxLayout *hddLayout = new QHBoxLayout;
-    hddLayout->addWidget(hddPathLineEdit);
-    hddLayout->addWidget(hddSelectButton);
-
-    hddFrameLayout->addLayout(hddLayout);
-    hddFrameLayout->addWidget(hddUpgradeButton);
-    hddUpgradeButton->setHidden(true);
-    //hdd section end
-
-    //cdrom section start
-    cdromButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdrom.png"), tr("&CD ROM"), this);
-    cdromButton->setCheckable(true);
-    devicesLayout->addWidget(cdromButton);
-
-    cdromFrame = new QFrame(this);
-    cdromFrame->setVisible(false);
-    devicesLayout->addWidget(cdromFrame);
-    connect(cdromButton, SIGNAL(clicked(bool)), this, SLOT(closeAllSections()));
-    connect(cdromButton, SIGNAL(clicked(bool)), cdromFrame, SLOT(setVisible(bool)));
-    connect(cdromButton, SIGNAL(clicked(bool)), cdromButton, SLOT(setChecked(bool)));
-
-    QVBoxLayout *cdromFrameLayout = new QVBoxLayout;
-    cdromFrame->setLayout(cdromFrameLayout);
-
-    QLabel *cdromDescriptionLabel = new QLabel(tr("Select a valid CD ROM image or a physical device.<br /><br />"
-                                                  "Image or device for this virtual machine:"), this);
-    cdromDescriptionLabel->setWordWrap(true);
-    cdromFrameLayout->addWidget(cdromDescriptionLabel);
-
-    cdromLineEdit = new QLineEdit(this);
-
-    QPushButton *cdromSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdrom.png"), QString(), this);
-    cdromSelectButton->setToolTip(tr("Select a CD ROM Drive"));
-    connect(cdromSelectButton, SIGNAL(clicked()), this, SLOT(setNewCdRomPath()));
-
-    QPushButton *cdImageSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdimage.png"), QString(), this);
-    cdImageSelectButton->setToolTip(tr("Select a CD Image"));
-    connect(cdImageSelectButton, SIGNAL(clicked()), this, SLOT(setNewCdImagePath()));
-
-    QHBoxLayout *cdromLayout = new QHBoxLayout;
-    cdromLayout->addWidget(cdromLineEdit);
-    cdromLayout->addWidget(cdromSelectButton);
-    cdromLayout->addWidget(cdImageSelectButton);
-    cdromFrameLayout->addLayout(cdromLayout);
-
-    cdBootCheckBox = new QCheckBox(tr("&Boot from CD ROM"), this);
-    cdromReloadButton = new QPushButton(tr("Reload the virtual CD &ROM"));
+    cdromReloadButton = new QPushButton(tr("Reload CD &ROM"));
     
     connect(cdromReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeCdrom()));
     
-    cdromFrameLayout->addWidget(cdromReloadButton);
-    cdromFrameLayout->addWidget(cdBootCheckBox);
-    //cdrom section end
-
-    //floppy section start
-    floppyButton = new QPushButton(QIcon(":/images/" + iconTheme + "/floppy.png"), tr("&Floppy Disk"), this);
-    floppyButton->setCheckable(true);
-    devicesLayout->addWidget(floppyButton);
-
-    floppyFrame = new QFrame(this);
-    floppyFrame->setVisible(false);
-    devicesLayout->addWidget(floppyFrame);
-    connect(floppyButton, SIGNAL(clicked(bool)), this, SLOT(closeAllSections()));
-    connect(floppyButton, SIGNAL(clicked(bool)), floppyFrame, SLOT(setVisible(bool)));
-    connect(floppyButton, SIGNAL(clicked(bool)), floppyButton, SLOT(setChecked(bool)));
-
-    QVBoxLayout *floppyFrameLayout = new QVBoxLayout;
-    floppyFrame->setLayout(floppyFrameLayout);
-
-    QLabel *floppyDescriptionLabel = new QLabel(tr("Select a valid floppy disk image or a physical device.<br /><br />"
-                                                   "Image or device for this virtual machine:"), this);
-    floppyDescriptionLabel->setWordWrap(true);
-    floppyFrameLayout->addWidget(floppyDescriptionLabel);
-
-    floppyLineEdit = new QLineEdit(this);
-
-    QPushButton *floppySelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/floppy.png"), QString(), this);
-    floppySelectButton->setToolTip(tr("Select a Floppy Disk Drive"));
-    connect(floppySelectButton, SIGNAL(clicked()), this, SLOT(setNewFloppyDiskPath()));
-
-    QPushButton *floppyImageSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdimage.png"), QString(), this);
-    floppyImageSelectButton->setToolTip(tr("Select a Floppy Disk Image"));
-    connect(floppyImageSelectButton, SIGNAL(clicked()), this, SLOT(setNewFloppyDiskImagePath()));
-
-    QHBoxLayout *floppyLayout = new QHBoxLayout;
-    floppyLayout->addWidget(floppyLineEdit);
-    floppyLayout->addWidget(floppySelectButton);
-    floppyLayout->addWidget(floppyImageSelectButton);
-    floppyFrameLayout->addLayout(floppyLayout);
-
-    floppyBootCheckBox = new QCheckBox(tr("&Boot from floppy disk"), this);
-    
-    floppyReloadButton = new QPushButton(tr("Reload the virtual Floppy Disk"));
-    
-    connect(floppyReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeFloppy()));
-    
-    floppyFrameLayout->addWidget(floppyReloadButton);
-    floppyFrameLayout->addWidget(floppyBootCheckBox);
-    //floppy section end
-
-    //network section start
-    networkButton = new QPushButton(QIcon(":/images/" + iconTheme + "/network.png"), tr("&Network"), this);
-    networkButton->setCheckable(true);
-    devicesLayout->addWidget(networkButton);
-
-    networkFrame = new QFrame(this);
-    networkFrame->setVisible(false);
-    devicesLayout->addWidget(networkFrame);
-    connect(networkButton, SIGNAL(clicked(bool)), this, SLOT(closeAllSections()));
-    connect(networkButton, SIGNAL(clicked(bool)), networkFrame, SLOT(setVisible(bool)));
-    connect(networkButton, SIGNAL(clicked(bool)), networkButton, SLOT(setChecked(bool)));
-
-    QVBoxLayout *networkFrameLayout = new QVBoxLayout;
-    networkFrame->setLayout(networkFrameLayout);
-
-    QLabel *networkDescriptionLabel = new QLabel(tr("Choose whether the network (and internet) connection should "
-                                                    "be available for this virtual machine. Different network "
-                                                    "modes are available, and multiple modes can be used at once."), this);
-    networkDescriptionLabel->setWordWrap(true);
-    networkFrameLayout->addWidget(networkDescriptionLabel);
-
-    networkCheckBox = new QCheckBox(tr("&Enable network"), this);
-    networkCheckBox->setToolTip(tr("By default, the Qtemu uses User Mode Networking.\n"
-                                    "This default should be fine for most people.\n"));
-    connect(networkCheckBox, SIGNAL(stateChanged(int)), this, SLOT(network(int)));
-    networkFrameLayout->addWidget(networkCheckBox);
-    
-    networkDescriptionLabel = new QLabel(tr("Choose a folder to use as a virtual network drive:"), this);
-    
-    networkDescriptionLabel->setWordWrap(true);
-    networkFrameLayout->addWidget(networkDescriptionLabel);
-    smbFolderEdit = new QLineEdit(this);
-    networkDescriptionLabel->setBuddy(smbFolderEdit);
-
-    QPushButton *smbSelectButton = new QPushButton(QIcon(":/images/" + iconTheme + "/network.png"), QString(), this);
-    smbSelectButton->setToolTip(tr("Select a Folder to share"));
-    connect(smbSelectButton, SIGNAL(clicked()), this, SLOT(setNewSmbFolderPath()));
-
-    QHBoxLayout *smbLayout = new QHBoxLayout;
-    smbLayout->addWidget(smbFolderEdit);
-    smbLayout->addWidget(smbSelectButton);
-    networkFrameLayout->addLayout(smbLayout);
-    networkDescriptionLabel->setBuddy(smbFolderEdit);
-    
-    networkDescriptionLabel = new QLabel(tr("Advanced Network Modes:"), this);
-    networkDescriptionLabel->setWordWrap(true);
-    networkFrameLayout->addWidget(networkDescriptionLabel);
-
-    
-    QCheckBox *userModeNetwork = new QCheckBox(tr("User mode networking"));
-    userModeNetwork->setToolTip(tr("In this mode the virtual machine accesses the network\n"
-                                   "using Slirp; this is similar to access with a  web\n"
-                                   "browser. this mode does not require administrator access,\n"
-                                   "and works with wireless cards."));
-    connect(userModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
-    
-    QCheckBox *bridgedModeNetwork = new QCheckBox(tr("Bridged networking"));
-    bridgedModeNetwork->setToolTip(tr("In this mode the virtual machine will have direct\n"
-                                      "access to the host's network; This is needed to allow\n"
-                                      "ICMP (ping) to work, and allows other machines to 'see'\n"
-                                      "your virtual machine on the network. This mode does not\n"
-                                      "work with most wireless cards, and may cause problems\n"
-                                      "for NetworkManager."));//TODO: automatically disable NetworkManager and re-enable after VM shutdown, via d-bus
-    connect(bridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
-    
-    QCheckBox *localBridgedModeNetwork = new QCheckBox(tr("Local bridged networking"));
-    localBridgedModeNetwork->setToolTip(tr("This mode allows more advanced bridging techniques,\n"
-                                          "including using the host computer as a router or\n"
-                                          "restricting access to the host machine only.\n"
-                                          "This is safe with NetworkManager."));
-    connect(localBridgedModeNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
-/*    
-    QCheckBox *sharedVlanNetwork = new QCheckBox(tr("Shared VLan Networking"));
-    sharedVlanNetwork->setToolTip(tr("This mode adds a network that is shared exclusively\n"
-                                     "between virtual machines. IP based guests will default\n"
-                                     "to APIPA addresses unless you run a DHCP server on\n"
-                                     "one of your virtual machines. This does not use bridging."));
-    connect(sharedVlanNetwork, SIGNAL(toggled(bool)), this, SLOT(unimplemented()));
-*/    
-    networkFrameLayout->addWidget(userModeNetwork);
-    networkFrameLayout->addWidget(bridgedModeNetwork);
-    networkFrameLayout->addWidget(localBridgedModeNetwork);
-//    networkFrameLayout->addWidget(sharedVlanNetwork);
-    
-    networkDescriptionLabel = new QLabel(tr("Custom Networking Options:"), this);
-    networkDescriptionLabel->setWordWrap(true);
-    networkFrameLayout->addWidget(networkDescriptionLabel);
-    networkCustomOptionsEdit = new QLineEdit(this);
-    networkFrameLayout->addWidget(networkCustomOptionsEdit);
-    
-
-    connect(networkCheckBox, SIGNAL(toggled(bool)), networkDescriptionLabel, SLOT(setEnabled(bool)));
-    connect(networkCheckBox, SIGNAL(toggled(bool)), networkCustomOptionsEdit, SLOT(setEnabled(bool)));
-    connect(networkCheckBox, SIGNAL(toggled(bool)), userModeNetwork, SLOT(setEnabled(bool)));
-    connect(networkCheckBox, SIGNAL(toggled(bool)), bridgedModeNetwork, SLOT(setEnabled(bool)));
-    connect(networkCheckBox, SIGNAL(toggled(bool)), localBridgedModeNetwork, SLOT(setEnabled(bool)));
-//    connect(networkCheckBox, SIGNAL(toggled(bool)), sharedVlanNetwork, SLOT(setEnabled(bool)));
-    connect(networkCheckBox, SIGNAL(toggled(bool)), smbFolderEdit, SLOT(setEnabled(bool)));
-    connect(networkCheckBox, SIGNAL(toggled(bool)), smbSelectButton, SLOT(setEnabled(bool)));
-    //network section end
-
-    //sound section start
-    soundButton = new QPushButton(QIcon(":/images/" + iconTheme + "/sound.png"), tr("&Sound && Video"), this);
-    soundButton->setCheckable(true);
-    devicesLayout->addWidget(soundButton);
-
-    soundFrame = new QFrame(this);
-    soundFrame->setVisible(false);
-    devicesLayout->addWidget(soundFrame);
-    connect(soundButton, SIGNAL(clicked(bool)), this, SLOT(closeAllSections()));
-    connect(soundButton, SIGNAL(clicked(bool)), soundFrame, SLOT(setVisible(bool)));
-    connect(soundButton, SIGNAL(clicked(bool)), soundButton, SLOT(setChecked(bool)));
-
-    QVBoxLayout *soundFrameLayout = new QVBoxLayout;
-    soundFrame->setLayout(soundFrameLayout);
-
-    videoCheckBox = new QCheckBox(tr("Enable the embedded display"), this);
-    machineConfigObject->registerObject(videoCheckBox,"embeddedDisplay", Qt::Checked);
-
-    videoResizeCheckBox = new QCheckBox(tr("Scale display to fit window"), this);
-    
-    machineConfigObject->registerObject(videoResizeCheckBox,"scaleEmbeddedDisplay", Qt::Checked);
-
-    QLabel *soundDescriptionLabel = new QLabel(tr("<hr>Choose whether sound support should "
-                                                  "be available for this virtual machine."), this);
-    soundDescriptionLabel->setWordWrap(true);
-    
-    soundCheckBox = new QCheckBox(tr("&Enable sound"), this);
-    QLabel *soundSystemDescriptionLabel = new QLabel(tr("Choose sound system to use for sound emulation."), this);
-    soundSystemDescriptionLabel->setWordWrap(true);
-    soundSystemGroup = new QButtonGroup();
-    soundALSARadioButton = new QRadioButton(tr("Use &ALSA"), this);
-    soundALSARadioButton->setProperty("value", "alsa");
-    soundOSSRadioButton = new QRadioButton(tr("Use &OSS"), this);
-    soundOSSRadioButton->setProperty("value", "oss");
-    soundESDRadioButton = new QRadioButton(tr("Use &ESD"), this);
-    soundESDRadioButton->setProperty("value", "esd");
-    soundSystemGroup->addButton(soundALSARadioButton);
-    soundSystemGroup->addButton(soundOSSRadioButton);
-    soundSystemGroup->addButton(soundESDRadioButton);
-
-    machineConfigObject->registerObject(soundSystemGroup, "soundSystem", QVariant("oss"));
-
-    soundOSSRadioButton->click();
-    soundFrameLayout->addWidget(videoCheckBox);
-    soundFrameLayout->addWidget(videoResizeCheckBox);
-    soundFrameLayout->addWidget(soundDescriptionLabel);
-    soundFrameLayout->addWidget(soundCheckBox);
-    soundFrameLayout->addWidget(soundSystemDescriptionLabel);
-
-    soundFrameLayout->addWidget(soundALSARadioButton);
-    soundFrameLayout->addWidget(soundOSSRadioButton);
-    soundFrameLayout->addWidget(soundESDRadioButton);
-    //sound section end
+    controlLayout->addWidget(floppyReloadButton);
+    controlLayout->addWidget(cdromReloadButton);
 
 
-    //other section start
-    otherButton = new QPushButton(QIcon(":/images/" + iconTheme + "/other.png"), tr("&Other"), this);
-    otherButton->setCheckable(true);
-    devicesLayout->addWidget(otherButton);
-
-    otherFrame = new QFrame(this);
-    otherFrame->setVisible(false);
-    devicesLayout->addWidget(otherFrame);
-    connect(otherButton, SIGNAL(clicked(bool)), this, SLOT(closeAllSections()));
-    connect(otherButton, SIGNAL(clicked(bool)), otherFrame, SLOT(setVisible(bool)));
-    connect(otherButton, SIGNAL(clicked(bool)), otherButton, SLOT(setChecked(bool)));
-
-    QVBoxLayout *otherFrameLayout = new QVBoxLayout;
-    otherFrame->setLayout(otherFrameLayout);
-
-    QLabel *mouseDescriptionLabel = new QLabel(tr("Choose whether the mouse should switch seamlessly between "
-                                                  "host and virtual system."), this);
-    mouseDescriptionLabel->setWordWrap(true);
-    otherFrameLayout->addWidget(mouseDescriptionLabel);
-
-    mouseCheckBox = new QCheckBox(tr("Enable seamless mo&use"), this);
-    mouseCheckBox->setToolTip(tr("This option depends on the operating system. It is not supported by non-graphical "
-                                 "systems. <strong>Attention:</strong> This option may reduce the system performance." ));
-
-   otherFrameLayout->addWidget(mouseCheckBox);
-
-    QLabel *timeDescriptionLabel = new QLabel(tr("<hr>Choose if the virtual machine should use "
-                                                 "the host machine clock."), this);
-    timeDescriptionLabel->setWordWrap(true);
-    otherFrameLayout->addWidget(timeDescriptionLabel);
-
-    timeCheckBox = new QCheckBox(tr("Enable &local time"), this);
-    otherFrameLayout->addWidget(timeCheckBox);
-
-    additionalOptionsCheckBox = new QCheckBox(tr("&Additional QEMU options:"), this);
-    otherFrameLayout->addWidget(new QLabel(QLatin1String("<hr>"), this));
-    otherFrameLayout->addWidget(additionalOptionsCheckBox);
-
-    additionalOptionsEdit = new QLineEdit(this);
-    otherFrameLayout->addWidget(additionalOptionsEdit);
-    connect(additionalOptionsCheckBox, SIGNAL(toggled(bool)),
-            additionalOptionsEdit, SLOT(setEnabled(bool)));
-
-    //other section end
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout();
     buttonsLayout->addLayout(closeButtonLayout);
@@ -604,8 +220,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     buttonsLayout->addLayout(snapshotLayout);
     buttonsLayout->addWidget(notesLabel);
     buttonsLayout->addWidget(notesTextEdit);
-    buttonsLayout->addWidget(devicesLabel);
-    buttonsLayout->addLayout(devicesLayout);
+    buttonsLayout->addWidget(controlLabel);
+    buttonsLayout->addLayout(controlLayout);
     buttonsLayout->addStretch();
 
     //set up the layout for the tab panel
@@ -661,20 +277,20 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
 }
 
-//TODO: the functionality in here really should be abstracted into another class, like MachineImage
+/*//TODO: the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::testHDDImage(const QString &path)
 {
     QFileInfo *currentImage = new QFileInfo(path);
     
     if(currentImage->suffix()!="qcow")
     {
-        hddUpgradeButton->setHidden(false);
+//        hddUpgradeButton->setHidden(false);
         suspendButton->setEnabled(false);
         resumeButton->setEnabled(false);
     }
     else
     {
-        hddUpgradeButton->setHidden(true);
+//        hddUpgradeButton->setHidden(true);
         suspendButton->setEnabled(true);
 
         //test for a valid suspend/resume image
@@ -690,7 +306,6 @@ void MachineTab::testHDDImage(const QString &path)
             resumeButton->setEnabled(false);
     }
 }
-
 //TODO: the functionality in here really should be abstracted into another class, like MachineImage
 void MachineTab::upgradeImage()
 {
@@ -743,86 +358,23 @@ void MachineTab::upgradeImageFinished(const int &exitCode)
     hddUpgradeButton->hide();
     hddUpgradeButton->setText(tr("Upgrade HDD Format to Native"));
 }
-
-void MachineTab::setNewHddPath()
-{
-    QString newHddPath = QFileDialog::getOpenFileName(this, tr("Select a QtEmu hard disk image"),
-                                              myMachinesPath,
-                                              tr("QtEmu hard disk images")+" (*.img *.qcow *.vmdk)");
-    if (!newHddPath.isEmpty())
-        hddPathLineEdit->setText(newHddPath);
-}
-
-void MachineTab::setNewCdRomPath()
-{
-  //TODO: a dialog that displays current removable drives and allows one to be selected
-  //instead of a file picker.
-  // /sys/block/<kernel device>/device/uevent contains "DRIVER=ide-cdrom" or "DRIVER=sr" if it is optical, drive is at /dev/<kernel device>.
-  // the box should show the model name of the device, or perhaps just "Internal Optical Drive"
-  //if there is only one drive in the PC. 
-  //the device name is available in /proc/ide/<kernel device>/model for ide (hdx) drives
-  //and at /sys/block/<kernel device>/device/model for scsi (sdx) drives.
-  
-#ifdef Q_OS_WIN32
-    QMessageBox::warning(window(), tr("QtEmu"),
-                                   tr("This function is not available under Windows due to the missing function "
-                                      "of QEMU under Windows. It will probably be fixed in a later version."));
-    return;
-#endif
-    QString newCdPath = QFileDialog::getOpenFileName(this, tr("Select a CD ROM Drive"),
-                                                          cdromLineEdit->text(), "");
-    if (!newCdPath.isEmpty())
-        cdromLineEdit->setText(newCdPath);
-}
-
-void MachineTab::setNewCdImagePath()
-{
-    QString newCdPath = QFileDialog::getOpenFileName(this, tr("Select a CD Image"),
-                                                     myMachinesPath,
-                                                     tr("CD ROM images")+" (*.iso *.img)");
-    if (!newCdPath.isEmpty())
-        cdromLineEdit->setText(newCdPath);
-}
-
-void MachineTab::setNewFloppyDiskPath()
-{
-#ifdef Q_OS_WIN32
-    QMessageBox::warning(window(), tr("QtEmu"),
-                                   tr("This function is not available under Windows due to the missing function "
-                                      "of QEMU under Windows. It will probably be fixed in a later version."));
-    return;
-#endif
-    QString newFloppyPath = QFileDialog::getExistingDirectory(this, tr("Select a Floppy Disk Drive"),
-                                                              myMachinesPath);
-    if (!newFloppyPath.isEmpty())
-        floppyLineEdit->setText(newFloppyPath);
-}
-
-void MachineTab::setNewFloppyDiskImagePath()
-{
-    QString newFloppyPath = QFileDialog::getOpenFileName(this, tr("Select a Floppy Disk Image"),
-                                                         myMachinesPath,
-                                                         tr("Floppy disk images")+" (*.iso *.img)");
-    if (!newFloppyPath.isEmpty())
-        floppyLineEdit->setText(newFloppyPath);
-}
-
+*/
 void MachineTab::closeAllSections()
 {
 //    memoryButton->setChecked(false);
 //    memoryFrame->setVisible(false);
-    hddButton->setChecked(false);
-    hddFrame->setVisible(false);
-    cdromButton->setChecked(false);
-    cdromFrame->setVisible(false);
-    floppyButton->setChecked(false);
-    floppyFrame->setVisible(false);
-    networkButton->setChecked(false);
-    networkFrame->setVisible(false);
-    soundButton->setChecked(false);
-    soundFrame->setVisible(false);
-    otherButton->setChecked(false);
-    otherFrame->setVisible(false);
+//    hddButton->setChecked(false);
+//    hddFrame->setVisible(false);
+//    cdromButton->setChecked(false);
+//    cdromFrame->setVisible(false);
+//    floppyButton->setChecked(false);
+//    floppyFrame->setVisible(false);
+//    networkButton->setChecked(false);
+//    networkFrame->setVisible(false);
+//    soundButton->setChecked(false);
+//    soundFrame->setVisible(false);
+//    otherButton->setChecked(false);
+//    otherFrame->setVisible(false);
 }
 
 bool MachineTab::read()
@@ -835,21 +387,21 @@ bool MachineTab::read()
     machineConfigObject->setOption("snapshot", true);
 #endif
     machineConfigObject->registerObject(notesTextEdit, "notes");
-    machineConfigObject->registerObject(hddPathLineEdit, "hdd");
+//    machineConfigObject->registerObject(hddPathLineEdit, "hdd");
 //    machineConfigObject->registerObject(memorySlider, "memory");
-    machineConfigObject->registerObject(cdromLineEdit, "cdrom");
-    machineConfigObject->registerObject(cdBootCheckBox, "bootFromCd", QVariant(false));
-    machineConfigObject->registerObject(floppyLineEdit, "floppy");
-    machineConfigObject->registerObject(floppyBootCheckBox, "bootFromFloppy", QVariant(false));
-    machineConfigObject->registerObject(networkCheckBox, "network", QVariant(true));
-    machineConfigObject->registerObject(soundCheckBox, "sound", QVariant(false));
-    machineConfigObject->registerObject(networkCustomOptionsEdit, "networkCustomOptions");
-    machineConfigObject->registerObject(mouseCheckBox, "mouse", QVariant(true));
-    machineConfigObject->registerObject(timeCheckBox, "time", QVariant(true));
+//    machineConfigObject->registerObject(cdromLineEdit, "cdrom");
+//    machineConfigObject->registerObject(cdBootCheckBox, "bootFromCd", QVariant(false));
+//    machineConfigObject->registerObject(floppyLineEdit, "floppy");
+//    machineConfigObject->registerObject(floppyBootCheckBox, "bootFromFloppy", QVariant(false));
+//    machineConfigObject->registerObject(networkCheckBox, "network", QVariant(true));
+//    machineConfigObject->registerObject(soundCheckBox, "sound", QVariant(false));
+//    machineConfigObject->registerObject(networkCustomOptionsEdit, "networkCustomOptions");
+//    machineConfigObject->registerObject(mouseCheckBox, "mouse", QVariant(true));
+//    machineConfigObject->registerObject(timeCheckBox, "time", QVariant(true));
 //    machineConfigObject->registerObject(virtualizationCheckBox, "virtualization", QVariant(false));
 //    machineConfigObject->registerObject(cpuSpinBox, "cpu", QVariant(1));
-    machineConfigObject->registerObject(additionalOptionsEdit, "additionalOptions");
-    machineConfigObject->registerObject(additionalOptionsCheckBox, "useAdditionalOptions", QVariant(false));
+ //   machineConfigObject->registerObject(additionalOptionsEdit, "additionalOptions");
+//    machineConfigObject->registerObject(additionalOptionsCheckBox, "useAdditionalOptions", QVariant(false));
     return true;
 }
 
@@ -896,7 +448,7 @@ void MachineTab::suspended()
     machineProcess->forceStop();
     resumeButton->setHidden(false);
     
-    testHDDImage(hddPathLineEdit->text());//will enable the resume button if appropriate
+//    testHDDImage(hddPathLineEdit->text());//will enable the resume button if appropriate
     //resumeButton->setEnabled(true);
     suspendButton->setHidden(true);
     suspendButton->setText(tr("&Suspend"));
@@ -939,7 +491,7 @@ void MachineTab::finished()
     pauseButton->setEnabled(false);
     resumeButton->setHidden(false);
     suspendButton->setHidden(true);
-    hddUpgradeButton->setEnabled(true);
+//    hddUpgradeButton->setEnabled(true);
     snapshotCheckBox->setText(tr("Snapshot mode"));
     cleanupView();
 }
@@ -953,7 +505,7 @@ void MachineTab::started()
     pauseButton->setEnabled(true);
     suspendButton->setHidden(false);
     resumeButton->setHidden(true);
-    hddUpgradeButton->setEnabled(false);
+//    hddUpgradeButton->setEnabled(false);
 }
 
 void MachineTab::error(const QString & errorMsg)
@@ -968,24 +520,6 @@ void MachineTab::snapshot(const int state)
     {
         snapshotCheckBox->setText(tr("Snapshot mode"));
     }
-}
-
-void MachineTab::setNewSmbFolderPath()
-{
-#ifdef Q_OS_WIN32
-    QMessageBox::warning(window(), tr("QtEmu"),
-                                   tr("This function is not available under Windows."
-                                      "You should be able to use Windows file sharing to enable it manually, however."));
-    return;
-#endif
-    QString newSmbPath = QFileDialog::getExistingDirectory(this, tr("Select a folder to use as a Virtual Network Drive"),
-                                                          myMachinesPath);
-    if (!newSmbPath.isEmpty())
-        smbFolderEdit->setText(newSmbPath);
-}
-
-void MachineTab::network(const int value)
-{
 }
 
 void MachineTab::unimplemented()
@@ -1021,8 +555,8 @@ void MachineTab::clearRestart()
 
 void MachineTab::booting()
 {
-    machineView->machineNumber(parentTabWidget->indexOf(this));
-    if(videoCheckBox->checkState() == Qt::Checked)
+    machineView->machineNumber(parentTabWidget->indexOf(this));//FIXME
+    if(machineConfigObject->getOption("embeddedDisplay",QVariant(false)).toBool())
         machineView->initView();
 }
 
@@ -1041,6 +575,6 @@ void MachineTab::takeScreenshot()
     //TODO: for now just save a screenshot to the preview location.
     // should provide a save dialog and have a dropdown to save as the preview.
     
-    machineProcess->write(QString("screendump " + hddPathLineEdit->text() + ".ppm").toAscii() + '\n');
+    machineProcess->write(QString("screendump " + machineConfigObject->getOption("hdd",QString()).toString() + ".ppm").toAscii() + '\n');
 }
 
