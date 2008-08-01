@@ -121,7 +121,6 @@ private slots:
     void supressAudioErrors();
     void runCommand();
     void clearRestart();
-    void updatePreview(const QString &hdPath);
     void takeScreenshot();
 };
 

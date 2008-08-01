@@ -55,22 +55,20 @@ MachineSplash::MachineSplash(QWidget *parent)
     alpha = QPixmap(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/previewAlpha.png");
     previewImage->setScaledContents(true);
     layout = new QStackedLayout();
-    previewLayout = new QGridLayout();
-    QFrame *previewFrame = new QFrame();
     layout->setStackingMode(QStackedLayout::StackAll);
     layout->addWidget(splashImage);
-    previewFrame->setLayout(previewLayout);
-    layout->addWidget(previewFrame);
-    previewLayout->addWidget(previewImage, 1, 1);
-    previewLayout->setColumnStretch(1, 10);
-    previewLayout->setRowStretch(1, 10);
+    layout->addWidget(previewImage);
     setLayout(layout);
+    doResize();
     
 }
 
 
 MachineSplash::~MachineSplash()
 {
+    delete splashImage;
+    delete previewImage;
+    delete layout;
 }
 
 void MachineSplash::setPreview(const QString previewLocation)
@@ -86,13 +84,7 @@ void MachineSplash::setPreview(const QString previewLocation)
 void MachineSplash::doResize()
 {
     getPreviewRect();
-    previewImage->setFixedSize(previewBounds->width(), previewBounds->height());
-    previewLayout->setHorizontalSpacing(0);
-    previewLayout->setVerticalSpacing(0);
-    previewLayout->setRowMinimumHeight(0, previewBounds->top() -  1.5 * QStyle::PM_DefaultFrameWidth);
-    previewLayout->setColumnMinimumWidth(0, previewBounds->left() - 1.5 * QStyle::PM_DefaultFrameWidth);
-    previewLayout->setColumnMinimumWidth(2, splashImage->width() - previewBounds->right());
-    previewLayout->setRowMinimumHeight(2, splashImage->height() - previewBounds->bottom());
+    previewImage->setGeometry(previewBounds.toRect());
 }
 
 void MachineSplash::resizeEvent(QResizeEvent * event)
@@ -101,16 +93,23 @@ void MachineSplash::resizeEvent(QResizeEvent * event)
     QWidget::resizeEvent(event);
 }
 
+void MachineSplash::showEvent(QShowEvent * event)
+{
+    doResize();
+    QWidget::showEvent(event);
+}
+
+
 void MachineSplash::getPreviewRect()
 {
-    QRectF *fullsizeBounds = new QRectF( splashImage->renderer()->boundsOnElement("QtEmu_Preview_Screen"));
+    QRectF fullsizeBounds = splashImage->renderer()->boundsOnElement("QtEmu_Preview_Screen");
     float scaleFactor = 
         splashImage->width() / splashImage->renderer()->viewBoxF().width();
-    previewBounds = new QRectF(
-        fullsizeBounds->left()*scaleFactor,
-        fullsizeBounds->top()*scaleFactor,
-        fullsizeBounds->width()*scaleFactor,
-        fullsizeBounds->height()*scaleFactor
+    previewBounds = QRectF(
+        fullsizeBounds.left()*scaleFactor,
+        fullsizeBounds.top()*scaleFactor,
+        fullsizeBounds.width()*scaleFactor,
+        fullsizeBounds.height()*scaleFactor
         );
 }
 

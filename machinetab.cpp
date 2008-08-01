@@ -197,7 +197,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #endif
     QLabel *controlLabel = new QLabel(tr("<strong>Machine Control</strong>"), this);
 
-    QVBoxLayout *controlLayout = new QVBoxLayout;
+    QHBoxLayout *controlLayout = new QHBoxLayout;
 
 
     floppyReloadButton = new QPushButton(tr("Reload Floppy"));
@@ -207,10 +207,16 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     cdromReloadButton = new QPushButton(tr("Reload CD &ROM"));
     
     connect(cdromReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeCdrom()));
-    
+
     controlLayout->addWidget(floppyReloadButton);
     controlLayout->addWidget(cdromReloadButton);
 
+    QHBoxLayout *inputLayout = new QHBoxLayout;
+    QLineEdit *imageLocation = new QLineEdit(this);
+    QPushButton *imageButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdrom.png"),QString(), this);
+
+    inputLayout->addWidget(imageLocation);
+    inputLayout->addWidget(imageButton);
 
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout();
@@ -221,7 +227,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     buttonsLayout->addWidget(notesLabel);
     buttonsLayout->addWidget(notesTextEdit);
     buttonsLayout->addWidget(controlLabel);
-    buttonsLayout->addLayout(controlLayout);
+    //buttonsLayout->addLayout(controlLayout);
+    //buttonsLayout->addLayout(inputLayout);
     buttonsLayout->addStretch();
 
     //set up the layout for the tab panel
@@ -565,16 +572,12 @@ void MachineTab::cleanupView()
     machineView->showSplash(true);
 }
 
-void MachineTab::updatePreview(const QString & hdPath)
-{
-    machineView->setPreview(hdPath + ".ppm");
-}
-
 void MachineTab::takeScreenshot()
 {
     //TODO: for now just save a screenshot to the preview location.
     // should provide a save dialog and have a dropdown to save as the preview.
-    
-    machineProcess->write(QString("screendump " + machineConfigObject->getOption("hdd",QString()).toString() + ".ppm").toAscii() + '\n');
+    QString fileName = machineConfigObject->getOption("hdd",QString()).toString().replace(QRegExp("[.][^.]+$"), ".ppm");
+    machineProcess->write(QString("screendump " + fileName).toAscii() + '\n');
+    machineConfigObject->setOption("preview", fileName);
 }
 

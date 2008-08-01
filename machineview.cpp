@@ -119,7 +119,7 @@ void MachineView::showSplash(bool show)
    }
    else
    {
-       setPreview();
+       splash->setPreview(property("preview").toString());
        view->hide();
        this->takeWidget();
        this->setWidget(splash);
@@ -148,11 +148,6 @@ void MachineView::newViewSize()
     resizeView(maximumViewportSize().width(), maximumViewportSize().height());
 }
 
-void MachineView::setPreview(const QString previewLocation)
-{
-    splash->setPreview(previewLocation);
-}
-
 bool MachineView::event(QEvent * event)
 {
     if(event->type() == QEvent::DynamicPropertyChange)
@@ -163,6 +158,10 @@ bool MachineView::event(QEvent * event)
         {
             newViewSize();
             return false;
+        }
+        else if(propEvent->propertyName() == "preview")
+        {
+            splash->setPreview(property("preview").toString());
         }
     }
     return QScrollArea::event(event);

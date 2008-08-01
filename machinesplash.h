@@ -62,11 +62,11 @@ public:
 private:
 
     void resizeEvent(QResizeEvent * event);
+    void showEvent(QShowEvent * event);
     QSvgWidget *splashImage;
     QLabel *previewImage;
     QStackedLayout *layout;
-    QRectF *previewBounds;
-    QGridLayout *previewLayout;
+    QRectF previewBounds;
     QPixmap alpha;
     QString previewLoc;
     void doResize();

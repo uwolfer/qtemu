@@ -51,7 +51,6 @@ public:
     void fullscreen(bool enabled);
     void captureAllKeys(bool enabled);
     void sendKey(QKeyEvent *event);
-    void setPreview(const QString previewLocation = QString());
     bool event(QEvent * event);
     
 public slots:
