@@ -47,6 +47,7 @@ SET(qtemu_SRCS
     machineconfigobject.cpp
     settingstab.cpp
     qtemuenvironment.cpp
+    harddiskmanager.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -67,6 +68,7 @@ SET(qtemu_MOC_HDRS
     machineconfigobject.h
     settingstab.h
     qtemuenvironment.h
+    harddiskmanager.h
 )
 
 SET(qtemu_UIS
