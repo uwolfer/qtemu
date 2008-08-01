@@ -52,7 +52,7 @@ MachineSplash::MachineSplash(QWidget *parent)
     splashImage = new QSvgWidget(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/splash.svg");
     getPreviewRect();
     previewImage = new QLabel();
-    alpha = QPixmap(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/previewAlpha.png");
+    alpha = QPixmap(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/alpha.svg");
     previewImage->setScaledContents(true);
     layout = new QStackedLayout();
     layout->setStackingMode(QStackedLayout::StackAll);

@@ -81,12 +81,6 @@ void MachineView::resizeView(int widgetWidth, int widgetHeight)
         widget()->setFixedSize(widgetWidth, newHeight);
 }
 
-void MachineView::machineNumber(int machine)
-{
-    //port = machine;
-    port = 6900 + machine;
-}
-
 void MachineView::initView()
 {
     showSplash(true);
@@ -94,8 +88,8 @@ void MachineView::initView()
 
     QUrl *url = new QUrl();
     url->setScheme("vnc");
-    url->setHost("localhost");
-    url->setPort(port);
+    url->setHost(property("vncHost").toString());
+    url->setPort(property("vncPort").toInt() + 5900);
 
 #ifdef DEVELOPER
     qDebug("connecting to:" + url->toString().toAscii());

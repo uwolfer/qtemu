@@ -562,7 +562,6 @@ void MachineTab::clearRestart()
 
 void MachineTab::booting()
 {
-    machineView->machineNumber(parentTabWidget->indexOf(this));//FIXME
     if(machineConfigObject->getOption("embeddedDisplay",QVariant(false)).toBool())
         machineView->initView();
 }

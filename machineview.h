@@ -46,7 +46,6 @@ public:
     ~MachineView();
 
     void showSplash(bool show);
-    void machineNumber(int machine);
     void initView();
     void fullscreen(bool enabled);
     void captureAllKeys(bool enabled);
