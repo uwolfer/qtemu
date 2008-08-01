@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>652</width>
-    <height>530</height>
+    <width>691</width>
+    <height>543</height>
    </rect>
   </property>
   <property name="minimumSize" >
@@ -214,7 +214,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>444</width>
+          <width>471</width>
           <height>456</height>
          </rect>
         </property>
@@ -232,7 +232,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -350,7 +350,7 @@
                 <item>
                  <widget class="QCheckBox" name="virtCheckBox" >
                   <property name="text" >
-                   <string>Enable &amp;Virtualization</string>
+                   <string>Enable Hardware &amp;Virtualization</string>
                   </property>
                  </widget>
                 </item>
@@ -374,7 +374,7 @@
                 <item>
                  <widget class="QCheckBox" name="timeCheck" >
                   <property name="text" >
-                   <string>Enable &amp;Local Time</string>
+                   <string>Use the &amp;System Clock</string>
                   </property>
                  </widget>
                 </item>
@@ -411,17 +411,17 @@
                     </item>
                     <item>
                      <property name="text" >
-                      <string>Dos</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text" >
-                      <string>Other</string>
+                      <string>Windows 95/98/ME</string>
                      </property>
                     </item>
                     <item>
                      <property name="text" >
                       <string>BSD</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>Other</string>
                      </property>
                     </item>
                    </widget>
@@ -452,6 +452,8 @@
                  </spacer>
                 </item>
                </layout>
+               <zorder>label_3</zorder>
+               <zorder>label_2</zorder>
                <zorder>line</zorder>
                <zorder>line_2</zorder>
                <zorder>virtCheckBox</zorder>
@@ -460,10 +462,6 @@
                <zorder>timeCheck</zorder>
                <zorder>line_10</zorder>
                <zorder>label_15</zorder>
-               <zorder>osCheck</zorder>
-               <zorder>formLayoutWidget</zorder>
-               <zorder>formLayoutWidget_2</zorder>
-               <zorder>formLayoutWidget_2</zorder>
               </widget>
              </item>
             </layout>
@@ -473,7 +471,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -603,7 +601,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -815,7 +813,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -838,7 +836,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -860,7 +858,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -956,7 +954,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -1061,7 +1059,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -1151,7 +1149,7 @@ p, li { white-space: pre-wrap; }
                             <item>
                              <widget class="QLineEdit" name="hostEdit" >
                               <property name="text" >
-                               <string>localhost</string>
+                               <string/>
                               </property>
                              </widget>
                             </item>
@@ -1288,7 +1286,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>444</width>
+              <width>471</width>
               <height>456</height>
              </rect>
             </property>
@@ -1423,8 +1421,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>438</width>
-          <height>54</height>
+          <width>467</width>
+          <height>57</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26" >
@@ -1642,7 +1640,7 @@ p, li { white-space: pre-wrap; }
    <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>cdImage</receiver>
-   <slot>clear()</slot>
+   <slot>clearEditText()</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>281</x>
@@ -1658,7 +1656,7 @@ p, li { white-space: pre-wrap; }
    <sender>pushButton_2</sender>
    <signal>clicked()</signal>
    <receiver>floppyImage</receiver>
-   <slot>clear()</slot>
+   <slot>clearEditText()</slot>
    <hints>
     <hint type="sourcelabel" >
      <x>290</x>

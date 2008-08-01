@@ -394,18 +394,25 @@ void MainWindow::changeMachineState(int value)
         QToolButton *stopButton = qobject_cast<QToolButton *>(tab->stopButton);
         connect(startButton, SIGNAL(clicked()), this, SLOT(changeMachineState()));
         connect(stopButton, SIGNAL(clicked()), this, SLOT(changeMachineState()));
-        if (!startButton->isEnabled())
+        if (!startButton->isEnabled()&&tab->isEnabled())
         {
             stopAct->setEnabled(true);
             pauseAct->setEnabled(true);
             startAct->setEnabled(false);
             restartAct->setEnabled(true);
         }
+        else if (tab->isEnabled())
+        {
+            stopAct->setEnabled(false);
+            pauseAct->setEnabled(false);
+            startAct->setEnabled(true);
+            restartAct->setEnabled(false);
+        }
         else
         {
             stopAct->setEnabled(false);
-            stopAct->setEnabled(false);
-            startAct->setEnabled(true);
+            pauseAct->setEnabled(false);
+            startAct->setEnabled(false);
             restartAct->setEnabled(false);
         }
     }

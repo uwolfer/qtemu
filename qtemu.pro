@@ -16,7 +16,8 @@ HEADERS =   config.h \
   machineconfig.h \
   machineconfigobject.h \
    settingstab.h \
-   qtemuenvironment.h
+   qtemuenvironment.h \
+   harddiskmanager.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -36,7 +37,8 @@ SOURCES =   main.cpp \
   machineconfig.cpp \
   machineconfigobject.cpp \
    settingstab.cpp \
-   qtemuenvironment.cpp
+   qtemuenvironment.cpp \
+   harddiskmanager.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg webkit

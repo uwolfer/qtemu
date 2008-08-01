@@ -91,9 +91,9 @@ void MachineView::initView()
     url->setHost(property("vncHost").toString());
     url->setPort(property("vncPort").toInt() + 5900);
 
-#ifdef DEVELOPER
+//#ifdef DEVELOPER
     qDebug("connecting to:" + url->toString().toAscii());
-#endif
+//#endif
     view = new VncView(this, *url);
     view->start();
     showSplash(false);
@@ -105,6 +105,7 @@ void MachineView::showSplash(bool show)
 {
    if(!show)
    {
+       //initView();
        splash->hide();
        this->takeWidget();
        this->setWidget(view);

@@ -39,12 +39,19 @@ MachineProcess::MachineProcess(QObject *parent)
     doResume=false;
     getVersion();
     //networkSystem = new NetworkSystem(this);
+    hdManager = new HardDiskManager(this);
+
+
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
     connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
     connect(this, SIGNAL(stdin(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
 }
 
+HardDiskManager * MachineProcess::getHdManager()
+{
+    return hdManager;
+}
 
 void MachineProcess::start()
 {
@@ -504,3 +511,5 @@ void MachineProcess::createTmp()
     createTmpProcess->start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << property("hdd").toString() << property("hdd").toString() + ".tmp");
     createTmpProcess->waitForFinished();
 }
+
+

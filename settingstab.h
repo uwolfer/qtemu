@@ -61,10 +61,17 @@ private:
 private slots:
 
     void changeHelpTopic();
+
+    //file select dialogs
     void setNewHddPath();
     void setNewCdImagePath();
     void setNewFloppyImagePath();
 
+    //warning dialogs
+    void confirmUpgrade();
+
+signals:
+    void upgradeHdd();
 };
 
 #endif

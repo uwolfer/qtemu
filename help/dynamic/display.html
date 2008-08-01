@@ -8,5 +8,13 @@
    <div align="center">
     <h2>Display Online help</h2>
    </div>
+   <h3>Embedded Display</h3>
+   <p>This option determines whether the machine display is shown embedded in QtEmu's main window, or is shown in an external window. Non-embedded mode is slightly faster because it uses SDL (Simple DirectMedia Layer) to do it's drawing, whereas embedded mode uses VNC.</p>
+   <h3>Vnc Transport</h3>
+   <p>You may use either unix file sockets or tcp sockets to connect to the virtual machine. The default settings are to use tcp on a predetermined port on the hostname 'localhost'. this is fairly secure for single user machines, but communication could be intercepted locally. Unix sockets are preferred because they are only accessible by the user running the virtual machine and are thus more secure.</p>
+   <h3>Allow Remote Connection</h3>
+   <p>This option disables the internal viewer so you can connect from another viewer, either on this machine or remotely. This checkbox also stops the vnc port from being automatically assigned at every startup.</p>
+   <p>If you want to connect from a remote machine, you should also change the host name above to your machine's actual host name or IP address.</p>
+   <p>Password protection and other methods of protection for a remote session will be available in a future version. In the meantime you can set up password protection manually through the Other Options section if you know what you are doing.</p>
   </body>
 </html>

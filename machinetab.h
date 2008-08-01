@@ -49,6 +49,7 @@ class QVBoxLayout;
 class QGridLayout;
 class QScrollArea;
 class QToolButton;
+class SettingsTab;
 
 class MachineTab : public QWidget
 {
@@ -68,11 +69,16 @@ public slots:
 	
 
 private:
+
+    void makeConnections();
+
     MachineConfig *machineConfig;
     MachineConfigObject *machineConfigObject;
 
     MachineProcess *machineProcess;
-    QDomDocument domDocument;
+    SettingsTab *settingsTab;
+
+
     QCheckBox *snapshotCheckBox;
     
     QLineEdit *machineNameEdit;
@@ -108,11 +114,7 @@ private slots:
     void started();
     void booting();
     void error(const QString& errorMsg);
-    //void testHDDImage(const QString &path);
-    //void upgradeImage();
-    //void upgradeImageStarted();
-    //void upgradeImageFinished(const int &exitCode);
-    void closeAllSections();
+
     bool read();
     void nameChanged(const QString &name);
     void closeMachine();
@@ -122,6 +124,7 @@ private slots:
     void runCommand();
     void clearRestart();
     void takeScreenshot();
+
 };
 
 #endif

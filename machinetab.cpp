@@ -32,6 +32,8 @@
 
 #include "settingstab.h"
 
+#include "harddiskmanager.h"
+
 #include <QMessageBox>
 #include <QPushButton>
 #include <QLineEdit>
@@ -72,8 +74,13 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     machineProcess = new MachineProcess(this);
     machineConfigObject->registerObject(machineProcess);
+    machineConfigObject->registerObject(machineProcess->getHdManager());
+    //FIXME this is a hack... eventually we will be able to support using a unix socket (a file) instead of a network port.
     machineConfigObject->setOption("vncPort", 1000 + parentTabWidget->currentIndex() + 1);
-    //this is a hack... eventually we will be able to support using a unix socket (a file) instead of a network port.
+
+    settingsTab = new SettingsTab(machineConfigObject, this);
+
+    makeConnections();
 
     connect(machineProcess, SIGNAL(finished(int)), this, SLOT(finished()));
     connect(machineProcess, SIGNAL(started()), this, SLOT(started()));
@@ -197,26 +204,26 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #endif
     QLabel *controlLabel = new QLabel(tr("<strong>Machine Control</strong>"), this);
 
-    QHBoxLayout *controlLayout = new QHBoxLayout;
+//    QHBoxLayout *controlLayout = new QHBoxLayout;
 
 
-    floppyReloadButton = new QPushButton(tr("Reload Floppy"));
+//    floppyReloadButton = new QPushButton(tr("Reload Floppy"));
     
-    connect(floppyReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeFloppy()));
+//    connect(floppyReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeFloppy()));
 
-    cdromReloadButton = new QPushButton(tr("Reload CD &ROM"));
+//    cdromReloadButton = new QPushButton(tr("Reload CD &ROM"));
     
-    connect(cdromReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeCdrom()));
+//    connect(cdromReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeCdrom()));
 
-    controlLayout->addWidget(floppyReloadButton);
-    controlLayout->addWidget(cdromReloadButton);
+//    controlLayout->addWidget(floppyReloadButton);
+//    controlLayout->addWidget(cdromReloadButton);
 
-    QHBoxLayout *inputLayout = new QHBoxLayout;
-    QLineEdit *imageLocation = new QLineEdit(this);
-    QPushButton *imageButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdrom.png"),QString(), this);
+//    QHBoxLayout *inputLayout = new QHBoxLayout;
+//    QLineEdit *imageLocation = new QLineEdit(this);
+//    QPushButton *imageButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdrom.png"),QString(), this);
 
-    inputLayout->addWidget(imageLocation);
-    inputLayout->addWidget(imageButton);
+//    inputLayout->addWidget(imageLocation);
+//    inputLayout->addWidget(imageButton);
 
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout();
@@ -251,9 +258,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     viewLayout->setRowStretch(1, 10);
     viewLayout->addWidget(machineView, 1, 1);
 
-
-    SettingsTab *settingsFrame = new SettingsTab(machineConfigObject, this);
-    viewTabs->addTab(settingsFrame, tr("Settings"));
+    viewTabs->addTab(settingsTab, tr("Settings"));
 
 
     consoleFrame = new QFrame(this);
@@ -284,105 +289,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
 }
 
-/*//TODO: the functionality in here really should be abstracted into another class, like MachineImage
-void MachineTab::testHDDImage(const QString &path)
-{
-    QFileInfo *currentImage = new QFileInfo(path);
-    
-    if(currentImage->suffix()!="qcow")
-    {
-//        hddUpgradeButton->setHidden(false);
-        suspendButton->setEnabled(false);
-        resumeButton->setEnabled(false);
-    }
-    else
-    {
-//        hddUpgradeButton->setHidden(true);
-        suspendButton->setEnabled(true);
-
-        //test for a valid suspend/resume image
-        QProcess *testImage = new QProcess();
-        QStringList arguments;
-        arguments <<"info" << path;
-        testImage->start("qemu-img", arguments);
-        testImage->waitForFinished();
-        QString output = testImage->readAll();
-        if(output.contains("Default"))
-            resumeButton->setEnabled(true);
-        else
-            resumeButton->setEnabled(false);
-    }
-}
-//TODO: the functionality in here really should be abstracted into another class, like MachineImage
-void MachineTab::upgradeImage()
-{
-    if (QMessageBox::question(this, tr("Upgrade Confirmation"),
-                              tr("This will upgrade your Hard Disk image to the qcow format.<br />This enables more advanced features such as suspend/resume on all operating systems and image compression on Windows.<br />Your old image will remain intact, so if you want to revert afterwards you may do so."),
-                              QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
-      == QMessageBox::Yes)
-    {
-        QFileInfo *currentImage = new QFileInfo(hddPathLineEdit->text());
-        QString finalName = currentImage->path() + '/' + currentImage->completeBaseName() + ".qcow";
-        QStringList arguments;
-        QProcess *upgradeProcess = new QProcess(this);
-        connect(upgradeProcess, SIGNAL(started()), this, SLOT(upgradeImageStarted()));
-        connect(upgradeProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(upgradeImageFinished(int)));
-        
-        arguments << "convert" << currentImage->filePath() << "-O" << "qcow2" << finalName;
-        QString program = "qemu-img";
-        upgradeProcess->start(program, arguments);
-    }
-}
-
-//TODO: the functionality in here really should be abstracted into another class, like DiskImage
-void MachineTab::upgradeImageStarted()
-{
-    startButton->setEnabled(false);
-    resumeButton->setEnabled(false);
-    
-    hddUpgradeButton->setEnabled(false);
-    hddPathLineEdit->setEnabled(false);
-    hddUpgradeButton->setText(tr("Upgrading..."));
-}
-
-void MachineTab::upgradeImageFinished(const int &exitCode)
-{
-    QFileInfo *oldImage = new QFileInfo(hddPathLineEdit->text());
-    QFileInfo *newImage = new QFileInfo(oldImage->path() + '/' + oldImage->completeBaseName() + ".qcow");
-    hddPathLineEdit->setEnabled(true);
-    if(newImage->exists()&&exitCode==0)
-    {
-        hddPathLineEdit->setText(newImage->filePath());
-        QMessageBox::information(window(), tr("Upgrade Complete"),
-                                   tr("Upgrade complete. Your old hard disk image is preserved.<br />After you have determined the upgrade went smoothly and your machine will still start, you may wish to delete the old image."));
-    }
-    else
-    {
-    QMessageBox::warning(window(), tr("Upgrade Failed"),
-                                   tr("Upgrading your hard disk image failed! Do you have enough disk space?<br />You may want to try upgrading manually using the program qemu-img."));
-    }
-    startButton->setEnabled(true);
-    hddUpgradeButton->hide();
-    hddUpgradeButton->setText(tr("Upgrade HDD Format to Native"));
-}
-*/
-void MachineTab::closeAllSections()
-{
-//    memoryButton->setChecked(false);
-//    memoryFrame->setVisible(false);
-//    hddButton->setChecked(false);
-//    hddFrame->setVisible(false);
-//    cdromButton->setChecked(false);
-//    cdromFrame->setVisible(false);
-//    floppyButton->setChecked(false);
-//    floppyFrame->setVisible(false);
-//    networkButton->setChecked(false);
-//    networkFrame->setVisible(false);
-//    soundButton->setChecked(false);
-//    soundFrame->setVisible(false);
-//    otherButton->setChecked(false);
-//    otherFrame->setVisible(false);
-}
 
 bool MachineTab::read()
 {
@@ -394,21 +300,6 @@ bool MachineTab::read()
     machineConfigObject->setOption("snapshot", true);
 #endif
     machineConfigObject->registerObject(notesTextEdit, "notes");
-//    machineConfigObject->registerObject(hddPathLineEdit, "hdd");
-//    machineConfigObject->registerObject(memorySlider, "memory");
-//    machineConfigObject->registerObject(cdromLineEdit, "cdrom");
-//    machineConfigObject->registerObject(cdBootCheckBox, "bootFromCd", QVariant(false));
-//    machineConfigObject->registerObject(floppyLineEdit, "floppy");
-//    machineConfigObject->registerObject(floppyBootCheckBox, "bootFromFloppy", QVariant(false));
-//    machineConfigObject->registerObject(networkCheckBox, "network", QVariant(true));
-//    machineConfigObject->registerObject(soundCheckBox, "sound", QVariant(false));
-//    machineConfigObject->registerObject(networkCustomOptionsEdit, "networkCustomOptions");
-//    machineConfigObject->registerObject(mouseCheckBox, "mouse", QVariant(true));
-//    machineConfigObject->registerObject(timeCheckBox, "time", QVariant(true));
-//    machineConfigObject->registerObject(virtualizationCheckBox, "virtualization", QVariant(false));
-//    machineConfigObject->registerObject(cpuSpinBox, "cpu", QVariant(1));
- //   machineConfigObject->registerObject(additionalOptionsEdit, "additionalOptions");
-//    machineConfigObject->registerObject(additionalOptionsCheckBox, "useAdditionalOptions", QVariant(false));
     return true;
 }
 
@@ -578,5 +469,13 @@ void MachineTab::takeScreenshot()
     QString fileName = machineConfigObject->getOption("hdd",QString()).toString().replace(QRegExp("[.][^.]+$"), ".ppm");
     machineProcess->write(QString("screendump " + fileName).toAscii() + '\n');
     machineConfigObject->setOption("preview", fileName);
+}
+
+void MachineTab::makeConnections()
+{
+    HardDiskManager *hdManager = machineProcess->getHdManager();
+    connect(settingsTab, SIGNAL(upgradeHdd()), hdManager, SLOT(upgradeImage()));
+    connect(hdManager, SIGNAL(imageUpgradable(bool)), settingsTab->upgradeFrame, SLOT(setEnabled(bool)));
+    connect(hdManager, SIGNAL(processingImage(bool)), this, SLOT(setDisabled(bool)));
 }
 

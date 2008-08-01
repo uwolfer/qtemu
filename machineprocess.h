@@ -28,6 +28,7 @@
 #include <QProcess>
 //#include "networksystem.h"
 #include "qtemuenvironment.h"
+#include "harddiskmanager.h"
 
 class MachineProcess : public QProcess
 {
@@ -36,6 +37,8 @@ class MachineProcess : public QProcess
 public:
     MachineProcess(QObject *parent = 0);
     qint64 write(const QByteArray & byteArray);
+
+    HardDiskManager* getHdManager();
 
 public slots:
     void start();
@@ -74,7 +77,7 @@ private:
     bool paused;
     bool doResume;
     //NetworkSystem* networkSystem;
-
+    HardDiskManager *hdManager;
 private slots:
     void afterExitExecute();
     void readProcess();

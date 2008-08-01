@@ -36,6 +36,7 @@
 #include <QIcon>
 #include <QFileDialog>
 #include <QSettings>
+#include <QMessageBox>
 
 
 SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
@@ -81,7 +82,7 @@ void SettingsTab::registerWidgets()
     config->registerObject(scaleCheck, "scaleEmbeddedDisplay", QVariant(true));
     config->registerObject(portBox, "vncPort");
     config->registerObject(hostEdit, "vncHost", QVariant("localhost"));
-    config->registerObject(tcpRadio, "vncTransport");
+    config->registerObject(tcpRadio, "vncTransport", QVariant("tcp"));
     config->registerObject(fileRadio, "vncTransport");
     config->registerObject(additionalCheck, "useAdditionalOptions", QVariant(false));
     config->registerObject(additionalEdit, "additionalOptions");
@@ -117,6 +118,7 @@ void SettingsTab::setupConnections()
 
 }
 
+//various file select dialogs
 void SettingsTab::setNewHddPath()
 {
     QString newHddPath = QFileDialog::getOpenFileName(this, tr("Select a QtEmu hard disk image"),
@@ -125,7 +127,6 @@ void SettingsTab::setNewHddPath()
     if (!newHddPath.isEmpty())
         config->setOption("hdd", newHddPath);
 }
-
 void SettingsTab::setNewCdImagePath()
 {
     QString newCdPath = QFileDialog::getOpenFileName(this, tr("Select a CD Image"),
@@ -134,7 +135,6 @@ void SettingsTab::setNewCdImagePath()
     if (!newCdPath.isEmpty())
         config->setOption("cdrom", newCdPath);
 }
-
 void SettingsTab::setNewFloppyImagePath()
 {
     QString newFloppyPath = QFileDialog::getOpenFileName(this, tr("Select a Floppy Disk Image"),
@@ -143,9 +143,26 @@ void SettingsTab::setNewFloppyImagePath()
     if (!newFloppyPath.isEmpty())
         config->setOption("floppy", newFloppyPath);
 }
+//end file select dialogs
 
+//warning dialogs
+void SettingsTab::confirmUpgrade()
+{
+    if (QMessageBox::question(this, tr("Upgrade Confirmation"),
+                              tr("This will upgrade your Hard Disk image to the qcow format.<br />This enables more advanced features such as suspend/resume on all operating systems and image compression on Windows.<br />Your old image will remain intact, so if you want to revert afterwards you may do so."),
+                              QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
+      == QMessageBox::Yes)
+    {
+        emit upgradeHdd();
+    }
+}
+//end warning dialogs
+
+//load program wide settings
 void SettingsTab::getSettings()
 {
     QSettings settings("QtEmu", "QtEmu");
     myMachinesPath = settings.value("machinesPath", QString(QDir::homePath()+'/'+tr("MyMachines"))).toString();
 }
+
+
