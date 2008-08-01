@@ -58,6 +58,7 @@ MachineSplash::MachineSplash(QWidget *parent)
     layout->setStackingMode(QStackedLayout::StackAll);
     layout->addWidget(splashImage);
     layout->addWidget(previewImage);
+
     setLayout(layout);
     doResize();
     
@@ -111,6 +112,11 @@ void MachineSplash::getPreviewRect()
         fullsizeBounds.width()*scaleFactor,
         fullsizeBounds.height()*scaleFactor
         );
+}
+
+const QSize MachineSplash::sizeHint()
+{
+    return splashImage->size();
 }
 
 

@@ -59,6 +59,8 @@ public:
     
     void setPreview(const QString previewLocation = QString());
     
+    const QSize sizeHint();
+
 private:
 
     void resizeEvent(QResizeEvent * event);
