@@ -473,9 +473,13 @@ void MachineTab::takeScreenshot()
 
 void MachineTab::makeConnections()
 {
+
+    //hard disk manager related connections
     HardDiskManager *hdManager = machineProcess->getHdManager();
     connect(settingsTab, SIGNAL(upgradeHdd()), hdManager, SLOT(upgradeImage()));
     connect(hdManager, SIGNAL(imageUpgradable(bool)), settingsTab->upgradeFrame, SLOT(setEnabled(bool)));
     connect(hdManager, SIGNAL(processingImage(bool)), this, SLOT(setDisabled(bool)));
+    connect(hdManager, SIGNAL(error(const QString&)), this, SLOT(error(const QString&)));
+    
 }
 
