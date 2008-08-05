@@ -110,12 +110,13 @@ void SettingsTab::setupHelp()
     connect(settingsStack, SIGNAL(currentChanged(int)), this, SLOT(changeHelpTopic()));
 }
 
+
 void SettingsTab::setupConnections()
 {
     connect(hdSelectButton, SIGNAL(clicked()), this, SLOT(setNewHddPath()));
     connect(cdSelectButton, SIGNAL(clicked()), this, SLOT(setNewCdImagePath()));
     connect(floppySelectButton, SIGNAL(clicked()), this, SLOT(setNewFloppyImagePath()));
-
+    connect(advancedButton, SIGNAL(toggled(bool)), this, SLOT(changeNetPage(bool)));
 }
 
 //various file select dialogs
@@ -163,6 +164,11 @@ void SettingsTab::getSettings()
 {
     QSettings settings("QtEmu", "QtEmu");
     myMachinesPath = settings.value("machinesPath", QString(QDir::homePath()+'/'+tr("MyMachines"))).toString();
+}
+
+void SettingsTab::changeNetPage(bool state)
+{
+    networkStack->setCurrentIndex((int)state);
 }
 
 

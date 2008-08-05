@@ -61,6 +61,7 @@ private:
 private slots:
 
     void changeHelpTopic();
+    void changeNetPage(bool state);
 
     //file select dialogs
     void setNewHddPath();

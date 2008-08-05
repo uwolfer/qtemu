@@ -30,15 +30,18 @@ public:
     ~HardDiskManager();
 
 
-    void testHDDImage(const QString &path);
-
-    void upgradeImageStarted();
-    void upgradeImageFinished(const int &exitCode);
+    bool imageIs();
 public slots:
     void upgradeImage();
 
 private:
     void addDisk(const QString &path, const int address);
+
+//data
+    QStringList diskImages;
+
+
+//used for some functions
     QString upgradeImageName;
     QTimer *updateProgressTimer;
     QProcess *currentProcess;
