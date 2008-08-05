@@ -41,9 +41,9 @@
 
 SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
  : QFrame(parent)
+ ,parent(parent)
+ ,config(config)
 {
-    this->parent = parent;
-    this->config = config;
     getSettings();
     //add the ui elements
     setupUi(this);
