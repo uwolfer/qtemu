@@ -151,8 +151,15 @@ const QVariant MachineConfig::getOption(const QString &nodeType, const QString &
         }
     }
     optionElement = childElement.firstChildElement(optionName);
-    if(optionElement.text().size()!=0)
+    if(optionElement.isNull())
+    {
+        //the option did not exist: set default value!
+        setOption(nodeType, nodeName, optionName, defaultValue);
+        optionValue = defaultValue;
+    }
+    else
         optionValue = QVariant(optionElement.text());
+
     return optionValue;
 }
 

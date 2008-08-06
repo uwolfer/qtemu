@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>685</width>
-    <height>547</height>
+    <width>713</width>
+    <height>554</height>
    </rect>
   </property>
   <property name="minimumSize" >
@@ -212,10 +212,10 @@
         </property>
         <property name="geometry" >
          <rect>
-          <x>-10</x>
+          <x>0</x>
           <y>0</y>
-          <width>497</width>
-          <height>454</height>
+          <width>505</width>
+          <height>480</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19" >
@@ -232,8 +232,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>497</width>
-              <height>454</height>
+              <width>505</width>
+              <height>480</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -1112,8 +1112,8 @@ p, li { white-space: pre-wrap; }
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>445</width>
-                              <height>189</height>
+                              <width>175</width>
+                              <height>136</height>
                              </rect>
                             </property>
                             <attribute name="label" >
@@ -1173,7 +1173,7 @@ p, li { white-space: pre-wrap; }
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>426</width>
+                              <width>424</width>
                               <height>196</height>
                              </rect>
                             </property>
@@ -1319,6 +1319,14 @@ p, li { white-space: pre-wrap; }
                                   </layout>
                                  </widget>
                                  <widget class="QWidget" name="netBridge" >
+                                  <property name="geometry" >
+                                   <rect>
+                                    <x>0</x>
+                                    <y>0</y>
+                                    <width>100</width>
+                                    <height>30</height>
+                                   </rect>
+                                  </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_36" >
                                    <property name="spacing" >
                                     <number>0</number>
@@ -1389,7 +1397,16 @@ p, li { white-space: pre-wrap; }
                                    </item>
                                   </layout>
                                  </widget>
-                                 <widget class="QWidget" name="netRoute" />
+                                 <widget class="QWidget" name="netRoute" >
+                                  <property name="geometry" >
+                                   <rect>
+                                    <x>0</x>
+                                    <y>0</y>
+                                    <width>100</width>
+                                    <height>30</height>
+                                   </rect>
+                                  </property>
+                                 </widget>
                                  <widget class="QWidget" name="netSocket" >
                                   <property name="geometry" >
                                    <rect>
@@ -1457,6 +1474,14 @@ p, li { white-space: pre-wrap; }
                                   </layout>
                                  </widget>
                                  <widget class="QWidget" name="netTap" >
+                                  <property name="geometry" >
+                                   <rect>
+                                    <x>0</x>
+                                    <y>0</y>
+                                    <width>100</width>
+                                    <height>30</height>
+                                   </rect>
+                                  </property>
                                   <layout class="QFormLayout" name="formLayout_5" >
                                    <property name="fieldGrowthPolicy" >
                                     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
@@ -1488,12 +1513,7 @@ p, li { white-space: pre-wrap; }
                                   </layout>
                                   <zorder>lineEdit_4</zorder>
                                   <zorder>label_24</zorder>
-                                  <zorder>checkBox_5</zorder>
                                   <zorder>label_25</zorder>
-                                  <zorder>lineEdit_5</zorder>
-                                  <zorder>horizontalLayoutWidget</zorder>
-                                  <zorder>pushButton_7</zorder>
-                                  <zorder>lineEdit_5</zorder>
                                  </widget>
                                 </widget>
                                </item>
@@ -1513,26 +1533,10 @@ p, li { white-space: pre-wrap; }
                               </layout>
                              </item>
                             </layout>
-                            <zorder>listView</zorder>
-                            <zorder>listView_2</zorder>
-                            <zorder>horizontalLayoutWidget</zorder>
-                            <zorder>horizontalLayoutWidget_2</zorder>
-                            <zorder>horizontalLayoutWidget_2</zorder>
-                            <zorder>horizontalLayoutWidget_2</zorder>
-                            <zorder>comboBox_2</zorder>
-                            <zorder>verticalSpacer_4</zorder>
-                            <zorder>horizontalLayoutWidget</zorder>
-                            <zorder>horizontalLayoutWidget_2</zorder>
-                            <zorder>stackedWidget</zorder>
-                            <zorder>verticalLayoutWidget_2</zorder>
-                            <zorder>comboBox_2</zorder>
                            </widget>
                           </widget>
                          </item>
                         </layout>
-                        <zorder>line_13</zorder>
-                        <zorder>toolBox</zorder>
-                        <zorder>pushButton_5</zorder>
                        </widget>
                       </widget>
                      </item>
@@ -1686,8 +1690,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>471</width>
-              <height>456</height>
+              <width>505</width>
+              <height>480</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -1916,8 +1920,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>471</width>
-              <height>456</height>
+              <width>505</width>
+              <height>480</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -2051,7 +2055,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>471</width>
+          <width>499</width>
           <height>54</height>
          </rect>
         </property>

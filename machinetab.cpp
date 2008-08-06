@@ -398,7 +398,7 @@ void MachineTab::started()
 {
     if(snapshotCheckBox->isChecked())
     {
-       snapshotCheckBox->setText(snapshotCheckBox->text() + tr("(uncheck to commit changes)"));
+       snapshotCheckBox->setText(snapshotCheckBox->text() + "\n" + tr("(uncheck to commit changes)"));
     }
     pauseButton->setEnabled(true);
     suspendButton->setHidden(false);

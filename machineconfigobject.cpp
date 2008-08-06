@@ -142,10 +142,14 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
 {
     //get the value from the config
     QVariant value = getOption(nodeType, nodeName, optionName, defaultValue);
+#ifdef DEVELOPER
     //qDebug("setting object for " + optionName.toAscii() + " to " + value.toByteArray());
+#endif
     //disconnect so that we don't go in a loop forever
 
     //set the object's value, analyzing its type / properties to determine how to do so.
+
+    //multiple property object
     if(object->property("optionName").isNull())
     {
         object->removeEventFilter(this);
