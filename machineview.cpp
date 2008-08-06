@@ -27,14 +27,13 @@
 
 MachineView::MachineView(QWidget *parent)
  : QScrollArea(parent)
+    , view(new VncView(this))
+    , splash(new MachineSplash(this))
 {
-
-    splash = new MachineSplash(this);
-    view = new VncView();
-    this->setWidget(splash);
-    this->setAlignment(Qt::AlignCenter);
-    this->setFrameShape(QFrame::NoFrame);
-    this->setBackgroundRole(QPalette::Window); 
+    setWidget(splash);
+    setAlignment(Qt::AlignCenter);
+    setFrameShape(QFrame::NoFrame);
+    setBackgroundRole(QPalette::Window); 
     showSplash(true);
 }
 
@@ -86,19 +85,18 @@ void MachineView::initView()
     showSplash(true);
     delete view;
 
-    QUrl *url = new QUrl();
-    url->setScheme("vnc");
-    url->setHost(property("vncHost").toString());
-    url->setPort(property("vncPort").toInt() + 5900);
+    QUrl url;
+    url.setScheme("vnc");
+    url.setHost(property("vncHost").toString());
+    url.setPort(property("vncPort").toInt() + 5900);
 
 //#ifdef DEVELOPER
-    qDebug("connecting to:" + url->toString().toAscii());
+    qDebug("connecting to:" + url.toString().toAscii());
 //#endif
-    view = new VncView(this, *url);
+    view = new VncView(this, url);
     view->start();
     showSplash(false);
     connect(view, SIGNAL(changeSize(int, int)), this, SLOT(newViewSize()));
-    
 }
 
 void MachineView::showSplash(bool show)
@@ -161,4 +159,3 @@ bool MachineView::event(QEvent * event)
     }
     return QScrollArea::event(event);
 }
-
