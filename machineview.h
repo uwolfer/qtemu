@@ -30,6 +30,7 @@
 #include <QScrollArea>
 #include <QEvent>
 #include <QResizeEvent>
+#include <QMouseEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QSvgWidget>
 

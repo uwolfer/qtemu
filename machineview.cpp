@@ -30,6 +30,7 @@ MachineView::MachineView(QWidget *parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
 {
+    setAttribute(Qt::WA_Hover);
     setWidget(splash);
     setAlignment(Qt::AlignCenter);
     setFrameShape(QFrame::NoFrame);
@@ -157,5 +158,14 @@ bool MachineView::event(QEvent * event)
             splash->setPreview(property("preview").toString());
         }
     }
+    else if(event->type() == QEvent::HoverEnter)
+    {
+        view->setFocus();
+    }
+    else if (event->type() == QEvent::HoverLeave)
+    {
+        view->clearFocus();
+    }
+
     return QScrollArea::event(event);
 }
