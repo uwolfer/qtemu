@@ -6,8 +6,6 @@ HEADERS =   config.h \
   helpwindow.h \
   configwindow.h \
   mainwindow.h \
-  networksystem.h \
-  nic.h \
   vnc/remoteview.h\
   vnc/vncclientthread.h\
   vnc/vncview.h \
@@ -27,8 +25,6 @@ SOURCES =   main.cpp \
   wizard.cpp \
   machinewizard.cpp \
   machinetab.cpp \
-  networksystem.cpp \
-  nic.cpp \
   vnc/remoteview.cpp\
   vnc/vncclientthread.cpp\
   vnc/vncview.cpp \
