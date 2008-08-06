@@ -79,6 +79,7 @@ private:
     QClipboard *m_clipboard;
     bool m_initDone;
     int m_buttonMask;
+    int m_modifiersMask; // Stores the currently pressed modifier keys
     int m_x, m_y, m_w, m_h;
     bool m_repaint;
     bool m_quitFlag;

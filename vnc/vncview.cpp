@@ -39,10 +39,18 @@
 #include <QPainter>
 #include <QMouseEvent>
 
+// Definition of key modifier mask constants
+#define KMOD_Alt_R 	0x01
+#define KMOD_Alt_L 	0x02
+#define KMOD_Meta_L 	0x04
+#define KMOD_Control_L 	0x08
+#define KMOD_Shift_L	0x10
+
 VncView::VncView(QWidget *parent, const KUrl &url)
         : RemoteView(parent),
         m_initDone(false),
         m_buttonMask(0),
+        m_modifiersMask(0),
         m_repaint(false),
         m_quitFlag(false),
         m_firstPasswordTry(true),
@@ -121,7 +129,7 @@ void VncView::startQuitting()
 {
     kDebug(5011) << "about to quit";
 
-    bool connected = (status() == RemoteView::Connected);
+    bool connected = status() == RemoteView::Connected;
 
     setStatus(Disconnecting);
 
@@ -129,8 +137,6 @@ void VncView::startQuitting()
 
     if (connected) {
         vncThread.stop();
-        //vncThread.wait(500);
-        //vncThread.quit();
     } else {
         vncThread.quit();
     }
@@ -237,7 +243,7 @@ void VncView::outputErrorMessage(const QString &message)
 
     startQuitting();
 
-    //KMessageBox::error(this, message, i18n("VNC failure"));
+//     KMessageBox::error(this, message, i18n("VNC failure"));
 }
 
 void VncView::updateImage(int x, int y, int w, int h)
@@ -260,7 +266,7 @@ void VncView::updateImage(int x, int y, int w, int h)
 
         setMouseTracking(true); // get mouse events even when there is no mousebutton pressed
         setFocusPolicy(Qt::WheelFocus);
-        //resize(m_frame.width(), m_frame.height());
+//         resize(m_frame.width(), m_frame.height());
         setStatus(Connected);
         emit changeSize(m_frame.width(), m_frame.height());
         emit connected();
@@ -323,7 +329,7 @@ void VncView::setCut(const QString &text)
 
 void VncView::paintEvent(QPaintEvent *event)
 {
-     //kDebug(5011) << "paint event: x: " << m_x << ", y: " << m_y << ", w: " << m_w << ", h: " << m_h;
+//     kDebug(5011) << "paint event: x: " << m_x << ", y: " << m_y << ", w: " << m_w << ", h: " << m_h;
     if (m_frame.isNull() || m_frame.format() == QImage::Format_Invalid) {
         kDebug(5011) << "no valid image to paint";
         RemoteView::paintEvent(event);
@@ -335,14 +341,14 @@ void VncView::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
     if (m_repaint) {
-         //kDebug(5011) << "normal repaint";
+//         kDebug(5011) << "normal repaint";
         painter.drawImage(QRect(qRound(m_x*m_horizontalFactor), qRound(m_y*m_verticalFactor),
                                 qRound(m_w*m_horizontalFactor), qRound(m_h*m_verticalFactor)), 
                           m_frame.copy(m_x, m_y, m_w, m_h).scaled(qRound(m_w*m_horizontalFactor), 
                                                                   qRound(m_h*m_verticalFactor),
                                                                   Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     } else {
-         //kDebug(5011) << "resize repaint";
+//         kDebug(5011) << "resize repaint";
         painter.drawImage(QRect(0, 0, width(), height()), m_frame.scaled(width(), height(),
                                                                          Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     }
@@ -454,6 +460,8 @@ void VncView::wheelEvent(QWheelEvent *event)
 
 void VncView::keyEvent(QKeyEvent *e)
 {
+    int mask = 0;
+    
     rfbKeySym k = 0;
     switch (e->key()) {
     case Qt::Key_Backspace: k = XK_BackSpace; break;
@@ -465,7 +473,7 @@ void VncView::keyEvent(QKeyEvent *e)
     case Qt::Key_Space: k = XK_space; break;
     case Qt::Key_Delete: k = XK_Delete; break;
     case Qt::Key_Enter: k = XK_KP_Enter; break;
-    case Qt::Key_Equal: k = XK_KP_Equal; break;
+    case Qt::Key_Equal: k = XK_equal; break;
     case Qt::Key_Up: k = XK_Up; break;
     case Qt::Key_Down: k = XK_Down; break;
     case Qt::Key_Right: k = XK_Right; break;
@@ -493,30 +501,52 @@ void VncView::keyEvent(QKeyEvent *e)
     case Qt::Key_NumLock: k = XK_Num_Lock; break;
     case Qt::Key_CapsLock: k = XK_Caps_Lock; break;
     case Qt::Key_ScrollLock: k = XK_Scroll_Lock; break;
-    case Qt::Key_Shift: k = XK_Shift_L; break;
-    case Qt::Key_Control: k = XK_Control_L; break;
-    case Qt::Key_AltGr: k = XK_Alt_R; break;
-    case Qt::Key_Alt: k = XK_Alt_L; break;
-    case Qt::Key_Meta: k = XK_Meta_L; break;
+    case Qt::Key_Shift: k = XK_Shift_L; mask |= KMOD_Shift_L; break;
+    case Qt::Key_Control: k = XK_Control_L; mask |= KMOD_Control_L; break;
+    case Qt::Key_AltGr: k = XK_ISO_Level3_Shift; mask |= KMOD_Alt_R; break;
+    case Qt::Key_Alt: k = XK_Alt_L; mask |= KMOD_Alt_L; break;
+    case Qt::Key_Meta: k = XK_Meta_L; mask |= KMOD_Meta_L; break;
     case Qt::Key_Mode_switch: k = XK_Mode_switch; break;
     case Qt::Key_Help: k = XK_Help; break;
     case Qt::Key_Print: k = XK_Print; break;
     case Qt::Key_SysReq: k = XK_Sys_Req; break;
     default: break;
     }
+    
+    // Transform dead keys
+    if (e->key() >= Qt::Key_Dead_Grave && e->key() <= Qt::Key_Dead_Horn) {
+        k = e->key() - Qt::Key_Dead_Grave + XK_dead_grave;
+    }
+    
+    bool pressed = (e->type() == QEvent::KeyPress) ? true : false;
+    m_modifiersMask = pressed ? m_modifiersMask | mask : m_modifiersMask & ~mask;
+
+    bool hasShift = m_modifiersMask & KMOD_Shift_L;
+    bool hasOtherMod = m_modifiersMask & (KMOD_Alt_R | KMOD_Alt_L | KMOD_Meta_L | KMOD_Control_L);
+    bool isUpper = e->key() >= 'A' && e->key() <= 'Z';
+    // bool isLower = e->key() >= 'a' && e->key() <= 'z';
+    // bool isLetter = isLower || isUpper;
+    
+    // If shift is pressed, we receive Alt as Meta, but we want to actually send Alt.
+    if (k == XK_Meta_L && hasShift) k = XK_Alt_L;
 
     if (k == 0) {
-        if (e->key() < 0x100)
-            k = QChar(e->text().at(0)).unicode(); //respect upper- / lowercase
-        else
-            rfbClientLog("Unknown keysym: %d\n", e->key());
+        if (hasOtherMod && (! isUpper || hasShift)) {
+            k = e->key();
+        } else {
+            if (e->key() < 0x100 && e->text().length() > 0)
+                k = QChar(e->text().at(0)).unicode(); //respect upper- / lowercase
+            else
+                rfbClientLog("Unknown keysym: 0x%x\n", e->key());
+        }
     }
 
     if (k < 26) // workaround for modified keys by pressing CTRL
         k += 96;
 
-    vncThread.keyEvent(k, (e->type() == QEvent::KeyPress) ? true : false);
+    //rfbClientLog("Key event(%s): orig: 0x%x, sent: 0x%x\n", pressed ? "P" : "R", e->key(), k);
 
+    vncThread.keyEvent(k, pressed);
     RemoteView::keyEvent(e);
 }
 

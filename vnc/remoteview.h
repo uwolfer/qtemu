@@ -292,6 +292,12 @@ public slots:
      */
     virtual void keyEvent(QKeyEvent *event);
 
+    /**
+     * Called when the visible place changed so remote
+     * view can resize itself.
+     */
+    virtual void scaleResize(int w, int h);
+
 signals:
     /**
      * Emitted when the size of the remote screen changes. Also

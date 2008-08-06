@@ -47,6 +47,13 @@ RemoteView::RemoteView(QWidget *parent)
 {
 }
 
+RemoteView::~RemoteView()
+{
+#ifndef QTONLY
+    delete m_wallet;
+#endif
+}
+
 RemoteView::RemoteStatus RemoteView::status()
 {
     return m_status;
@@ -79,10 +86,6 @@ void RemoteView::setStatus(RemoteView::RemoteStatus s)
     }
     m_status = s;
     emit statusChanged(m_status);
-}
-
-RemoteView::~RemoteView()
-{
 }
 
 bool RemoteView::supportsScaling() const
@@ -171,6 +174,10 @@ void RemoteView::enableScaling(bool scale)
 }
 
 void RemoteView::switchFullscreen(bool)
+{
+}
+
+void RemoteView::scaleResize(int, int)
 {
 }
 
