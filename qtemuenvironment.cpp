@@ -21,17 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Implementation: qtemuenvironment
-**
-** Description: 
-** provides information about the environment qtemu is run in, including
-** the current version of qemu or kvm and other info.
-**
-****************************************************************************/
-
-
 #include "qtemuenvironment.h"
 #include <QSettings>
 #include <QProcess>
@@ -56,11 +45,11 @@ void QtEmuEnvironment::getVersion()
     QProcess *findVersion = new QProcess();
 
 #ifndef Q_OS_WIN32
-    QString qemuCommand = settings.value("command", "qemu").toString();
+    const QString qemuCommand = settings.value("command", "qemu").toString();
 #elif defined(Q_OS_WIN32)
-    QString qemuCommand = settings.value("command", QCoreApplication::applicationDirPath() + "/qemu/qemu.exe").toString();
-    QDir *path = new QDir(qemuCommand);
-    path->cdUp();
+    const QString qemuCommand = settings.value("command", QCoreApplication::applicationDirPath() + "/qemu/qemu.exe").toString();
+    QDir path(qemuCommand);
+    path.cdUp();
     setWorkingDirectory(path->path());
 #endif
 
@@ -77,10 +66,10 @@ void QtEmuEnvironment::getVersion()
     }
     
     QString infoString = findVersion->readLine();
-    QStringList infoStringList = infoString.split(" ");
+    QStringList infoStringList = infoString.split(' ');
     
     versionString = infoStringList.at(4);
-    QStringList versionStringList = versionString.split(".");
+    QStringList versionStringList = versionString.split('.');
     qemuVersion[0] = versionStringList.at(0).toInt();
     qemuVersion[1] = versionStringList.at(1).toInt();
     qemuVersion[2] = versionStringList.at(2).toInt();
@@ -117,7 +106,3 @@ int QtEmuEnvironment::getKvmVersion()
 int QtEmuEnvironment::qemuVersion[] = {-1, -1, -1};
 int QtEmuEnvironment::kvmVersion = -1;
 bool QtEmuEnvironment::versionChecked = false;
-
-
-
-

@@ -33,14 +33,13 @@
 #include <QTimer>
 
 MachineProcess::MachineProcess(QObject *parent)
-               :QProcess(parent)
+  : QProcess(parent)
+    , paused(false)
+    , doResume(false)
+    , hdManager(new HardDiskManager(this))
 {
-    paused=false;
-    doResume=false;
     getVersion();
     //networkSystem = new NetworkSystem(this);
-    hdManager = new HardDiskManager(this);
-
 
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
@@ -68,12 +67,12 @@ void MachineProcess::start()
     // where vdeq is specified as the command and kvm/qemu as the additional
     // option or parameter.
     if (property("useAdditionalOptions").toBool() && !property("addiionalOptions").toString().isEmpty())
-        arguments << property("addiionalOptions").toString().split(" ", QString::SkipEmptyParts);
+        arguments << property("addiionalOptions").toString().split(' ', QString::SkipEmptyParts);
     
     if (property("embeddedDisplay").toBool())
     {
         if(property("vncTransport").toString() == "tcp")
-            arguments << "-vnc" << property("vncHost").toString() + ":" + property("vncPort").toString();
+            arguments << "-vnc" << property("vncHost").toString() + ':' + property("vncPort").toString();
         else
         {
             QString socketLocation = property("hdImage").toString();
@@ -93,7 +92,7 @@ void MachineProcess::start()
         #endif
         */
         if (!property("networkCustomOptions").toString().isEmpty())
-            arguments << property("networkCustomOptions").toString().split(" ", QString::SkipEmptyParts);
+            arguments << property("networkCustomOptions").toString().split(' ', QString::SkipEmptyParts);
         //#ifndef DEVELOPER
         else
             arguments << "-net" << "nic" << "-net" << "user";
@@ -208,7 +207,7 @@ void MachineProcess::start()
         arguments << property("hdd").toString();
 
 #ifdef DEVELOPER
-    QString debugString = QString();
+    QString debugString;
     for (int i = 0; i < arguments.size(); ++i)
         debugString = debugString + arguments.at(i).toLocal8Bit().constData() + ' ';
     qDebug(debugString.toLocal8Bit().constData());
@@ -220,7 +219,7 @@ void MachineProcess::start()
     if (!command.isEmpty())
     {
         QStringList commandList;
-        commandList = command.split("\n");
+        commandList = command.split('\n');
         for (int i = 0; i < commandList.size(); ++i)
         {
             QProcess::start(commandList.at(i).toLocal8Bit().constData());
@@ -236,7 +235,7 @@ void MachineProcess::start()
     if (property("enableExecBefore").toBool()&&!command.isEmpty())
     {
         QStringList commandList;
-        commandList = command.split("\n");
+        commandList = command.split('\n');
         for (int i = 0; i < commandList.size(); ++i)
         {
             QProcess::start(commandList.at(i).toLocal8Bit().constData());
@@ -260,9 +259,9 @@ void MachineProcess::start()
 #elif defined(Q_OS_WIN32)
     arguments << "-L" << ".";
     QString qemuCommand = settings.value("command", QCoreApplication::applicationDirPath() + "/qemu/qemu.exe").toString();
-    QDir *path = new QDir(qemuCommand);
-    path->cdUp();
-    setWorkingDirectory(path->path());
+    QDir path(qemuCommand);
+    path.cdUp();
+    setWorkingDirectory(path.path());
     start(qemuCommand, arguments);
 #endif
 }
@@ -280,7 +279,7 @@ void MachineProcess::afterExitExecute()
     if (!command.isEmpty())
     {
         QStringList commandList;
-        commandList = command.split("\n");
+        commandList = command.split('\n');
         for (int i = 0; i < commandList.size(); ++i)
         {
             QProcess::start(commandList.at(i).toLocal8Bit().constData());
@@ -296,7 +295,7 @@ void MachineProcess::afterExitExecute()
     if (property("enableExecAfter").toBool()&&!command.isEmpty())
     {
         QStringList commandList;
-        commandList = command.split("\n");
+        commandList = command.split('\n');
         for (int i = 0; i < commandList.size(); ++i)
         {
             QProcess::start(commandList.at(i).toLocal8Bit().constData());
@@ -491,9 +490,9 @@ void MachineProcess::loadCdrom()
 
 void MachineProcess::commitTmp()
 {
-    QProcess *commitTmpProcess = new QProcess(this);
-    commitTmpProcess->start("qemu-img", QStringList() << "commit" << property("hdd").toString() + ".tmp");
-    connect(commitTmpProcess, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(deleteTmp(int)));
+    QProcess commitTmpProcess;
+    commitTmpProcess.start("qemu-img", QStringList() << "commit" << property("hdd").toString() + ".tmp");
+    connect(&commitTmpProcess, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(deleteTmp(int)));
 }
 
 void MachineProcess::deleteTmp(int successfulCommit)
@@ -507,9 +506,7 @@ void MachineProcess::createTmp()
     if(QFile::exists(property("hdd").toString() + ".tmp"))
         return;
 
-    QProcess *createTmpProcess = new QProcess(this);
-    createTmpProcess->start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << property("hdd").toString() << property("hdd").toString() + ".tmp");
-    createTmpProcess->waitForFinished();
+    QProcess createTmpProcess;
+    createTmpProcess.start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << property("hdd").toString() << property("hdd").toString() + ".tmp");
+    createTmpProcess.waitForFinished();
 }
-
-

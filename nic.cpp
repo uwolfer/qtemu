@@ -364,10 +364,10 @@ bool Nic::bridgeInUse()
     tempProcess->start(sudoPath, tempOpts);
     tempProcess->waitForFinished();
     QString output = tempProcess->readAllStandardOutput();
-    QStringList singleLines = output.split("\n");
+    QStringList singleLines = output.split('\n');
     for(int i=0;i<singleLines.size();i++)
     {
-        QStringList partsOfEach = singleLines.at(i).split("\t");
+        QStringList partsOfEach = singleLines.at(i).split('\t');
         if( partsOfEach.last().contains("[\\S]"))
         {
             return true;
@@ -540,11 +540,11 @@ bool Nic::clearHwNic()
     QString routeInfo = tempProcess->readAllStandardOutput();
     if(!routeInfo.isEmpty())
     {
-        QStringList routeSplit = routeInfo.split("\n");
+        QStringList routeSplit = routeInfo.split('\n');
         for(int i = 0;i<routeSplit.size();i++)
         {
             if(routeSplit.at(i).contains("default")&&routeSplit.at(i).contains(hardwareInterface))
-                thisNic.DefaultGateway = routeSplit.at(i).split(" ", QString::SkipEmptyParts).at(1).toAscii();
+                thisNic.DefaultGateway = routeSplit.at(i).split(' ', QString::SkipEmptyParts).at(1).toAscii();
         }
 
     }

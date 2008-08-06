@@ -21,15 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Implementation: machinesplash
-**
-** Description: builds the splashscreen each machine has with an embedded
-** preview
-**
-****************************************************************************/
-
 #include "machinesplash.h"
 #include <QImage>
 #include <QSettings>
@@ -118,5 +109,3 @@ const QSize MachineSplash::sizeHint()
 {
     return splashImage->size();
 }
-
-

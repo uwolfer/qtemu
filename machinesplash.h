@@ -21,15 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Interface: machinesplash
-**
-** Description:  builds the splashscreen each machine has with an embedded
-** preview
-**
-****************************************************************************/
-
 #ifndef MACHINESPLASH_H
 #define MACHINESPLASH_H
 

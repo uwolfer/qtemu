@@ -434,7 +434,7 @@ void MachineTab::supressAudioErrors()
 
 void MachineTab::runCommand()
 {
-    machineProcess->write(consoleCommand->text().toAscii() + "\n");
+    machineProcess->write(consoleCommand->text().toAscii() + '\n');
     consoleCommand->clear();
 }
 

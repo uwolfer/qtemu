@@ -21,14 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Interface: settingstab
-**
-** Description: 
-**
-****************************************************************************/
-
 #ifndef SETTINGSTAB_H
 #define SETTINGSTAB_H
 
@@ -46,7 +38,7 @@ class SettingsTab : public QFrame, public Ui::SettingsTab
 {
 Q_OBJECT
 public:
-    SettingsTab(MachineConfigObject *config, MachineTab *parent = 0);
+    explicit SettingsTab(MachineConfigObject *config, MachineTab *parent = 0);
 
     ~SettingsTab();
 

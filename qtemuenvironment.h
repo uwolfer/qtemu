@@ -21,16 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Interface: qtemuenvironment
-**
-** Description: 
-** provides information about the environment qtemu is run in, including
-** the current version of qemu or kvm and other info.
-**
-****************************************************************************/
-
 #ifndef QTEMUENVIRONMENT_H
 #define QTEMUENVIRONMENT_H
 
@@ -44,10 +34,10 @@ public:
     ~QtEmuEnvironment();
 
 ///returned as an array with 3 members: major version, minor version, and bugfix version.
-int* getQemuVersion();
+    int* getQemuVersion();
 
 ///just a plain old number
-int getKvmVersion();
+    int getKvmVersion();
 
 private:
 void getVersion();

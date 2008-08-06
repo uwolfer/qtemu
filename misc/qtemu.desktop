@@ -6,4 +6,4 @@ Icon=qtemu
 Type=Application
 Terminal=false
 Comment=Frontend to QEMU virtual machine monitor
-Categories=Qt;System;Emulator
+Categories=Qt;System;Emulator;

@@ -44,9 +44,8 @@
 
 MachineWizard::MachineWizard(const QString &myMachinesPathParent, QWidget *parent)
     : QWizard(parent)
+    , myMachinesPath(myMachinesPathParent)
 {
-    myMachinesPath = myMachinesPathParent;
-
     addPage(new ChooseSystemPage(this));
     addPage(new LocationPage(this));
     addPage(new ImagePage(this));
@@ -67,8 +66,6 @@ QString MachineWizard::newMachine(const QString &myMachinesPath, QWidget *parent
 
     if (accepted)
         result = wizard.field("path").toString()+'/'+wizard.field("name").toString().replace(' ', '_')+".qte";
-    else
-        result = QString();
 
     return result;
 }

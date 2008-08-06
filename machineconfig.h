@@ -21,14 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Interface: machineconfig
-**
-** Description: 
-**
-****************************************************************************/
-
 #ifndef MACHINECONFIG_H
 #define MACHINECONFIG_H
 
@@ -48,25 +40,25 @@ class MachineConfig : public QObject
 {
 Q_OBJECT
 public:
-    MachineConfig(QObject *parent = 0, const QString store = QString());
+    explicit MachineConfig(QObject *parent = 0, const QString &store = QString());
 
     ~MachineConfig();
 
-    bool loadConfig(const QString fileName);
-    bool saveConfig(const QString fileName);
-    bool convertConfig(const QString fileName);
+    bool loadConfig(const QString &fileName);
+    bool saveConfig(const QString &fileName);
+    bool convertConfig(const QString &fileName);
 
     //if nodeType and nodeName are not specified, they are assumed to be "machine" and ""
-    const QVariant getOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant defaultValue = QVariant());
+    const QVariant getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant defaultValue = QVariant());
 
-    const QStringList getAllOptionNames(const QString nodeType, const QString nodeName);
+    const QStringList getAllOptionNames(const QString &nodeType, const QString &nodeName);
 
 public slots:
     //if nodeType and nodeName are not specified, they are assumed to be "machine" and ""
-    void setOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value);
+    void setOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);
 
 signals:
-    void optionChanged(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value);
+    void optionChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);
 
 private:
     QFile *configFile;

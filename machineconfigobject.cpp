@@ -21,15 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Implementation: machineconfigobject
-**
-** Description: implements an event to signal config changes and 
-** a way to save and retrieve config values.
-**
-****************************************************************************/
-
 #include "machineconfigobject.h"
 #include <QObject>
 #include <QStringList>
@@ -41,6 +32,7 @@
 
 MachineConfigObject::MachineConfigObject(QObject *parent, MachineConfig *config)
  : QObject(parent)
+    , myConfig(0)
 {
     setConfig(config);
     connect(config, SIGNAL(optionChanged(QString, QString, QString, QVariant)),this,SLOT(configChanged(QString, QString, QString, QVariant)));
@@ -59,13 +51,13 @@ void MachineConfigObject::setConfig(MachineConfig * config)
     if(config!=0)
         myConfig = config;
     else
-       myConfig = new MachineConfig();
+       myConfig = new MachineConfig(this);
 }
 
 /**
     get an option from the config file
 */
-QVariant MachineConfigObject::getOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant defaultValue)
+QVariant MachineConfigObject::getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &defaultValue)
 {
     return myConfig->getOption(nodeType, nodeName, optionName, defaultValue);
 }
@@ -73,7 +65,7 @@ QVariant MachineConfigObject::getOption(const QString nodeType, const QString no
 /**
     get an option from the config file using the short syntax
 */
-QVariant MachineConfigObject::getOption(const QString optionName, const QVariant defaultValue)
+QVariant MachineConfigObject::getOption(const QString &optionName, const QVariant &defaultValue)
 {
     return getOption("machine", QString(), optionName, defaultValue);
 }
@@ -81,7 +73,7 @@ QVariant MachineConfigObject::getOption(const QString optionName, const QVariant
 /**
     sets an option in the config file
 */
-void MachineConfigObject::setOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value)
+void MachineConfigObject::setOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value)
 {
     myConfig->setOption(nodeType, nodeName, optionName, value);
 }
@@ -89,7 +81,7 @@ void MachineConfigObject::setOption(const QString nodeType, const QString nodeNa
 /**
     set an option in the config file using the short syntax
 */
-void MachineConfigObject::setOption(const QString optionName, const QVariant value)
+void MachineConfigObject::setOption(const QString &optionName, const QVariant &value)
 {
     setOption("machine", QString(), optionName, value);
 }
@@ -97,9 +89,8 @@ void MachineConfigObject::setOption(const QString optionName, const QVariant val
 /**
     add an object to the list along with the config option it uses, stored in the object as a property.
 */
-void MachineConfigObject::registerObject(QObject *object, const QString nodeType, const QString nodeName, const QString optionName, const QVariant defaultValue)
+void MachineConfigObject::registerObject(QObject *object, const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &defaultValue)
 {
-
     object->setProperty("nodeType", nodeType);
     object->setProperty("nodeName", nodeName);
 
@@ -131,7 +122,7 @@ void MachineConfigObject::registerObject(QObject *object, const QString nodeType
 /**
     registers an object using the short syntax
 */
-void MachineConfigObject::registerObject(QObject *object, const QString optionName, const QVariant defaultValue)
+void MachineConfigObject::registerObject(QObject *object, const QString &optionName, const QVariant &defaultValue)
 {
     registerObject(object, "machine", QString(), optionName, defaultValue);
 }
@@ -147,9 +138,8 @@ void MachineConfigObject::unregisterObject(QObject *object)
 /**
     set an object's property to the value of its associated config option, or default
 */
-void MachineConfigObject::setObjectValue(QObject * object, const QString nodeType, const QString nodeName, const QString optionName, const QVariant defaultValue)
+void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &defaultValue)
 {
-
     //get the value from the config
     QVariant value = getOption(nodeType, nodeName, optionName, defaultValue);
     //qDebug("setting object for " + optionName.toAscii() + " to " + value.toByteArray());
@@ -316,7 +306,7 @@ void MachineConfigObject::getObjectValue()
 /**
     slot is activated if there is a config change
 */
-void MachineConfigObject::configChanged(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value)
+void MachineConfigObject::configChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value)
 {
     QObject *object;
     for(int i=0;i<registeredObjects.size();i++)

@@ -21,14 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Implementation: settingstab
-**
-** Description: 
-**
-****************************************************************************/
-
 #include "settingstab.h"
 #include "machineconfigobject.h"
 #include "helpwindow.h"
@@ -41,8 +33,8 @@
 
 SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
  : QFrame(parent)
- ,parent(parent)
  ,config(config)
+ ,parent(parent)
 {
     getSettings();
     //add the ui elements
@@ -97,9 +89,8 @@ void SettingsTab::registerWidgets()
 void SettingsTab::changeHelpTopic()
 {
     //QString helpFile = ;
-    QUrl helpFile = QUrl(HelpWindow::getHelpLocation().toString() + "dynamic/" + settingsStack->currentWidget()->property("helpFile").toString());
+    QUrl helpFile(HelpWindow::getHelpLocation().toString() + "dynamic/" + settingsStack->currentWidget()->property("helpFile").toString());
     helpView->load(helpFile);
-
 }
 
 void SettingsTab::setupHelp()
@@ -170,5 +161,3 @@ void SettingsTab::changeNetPage(bool state)
 {
     networkStack->setCurrentIndex((int)state);
 }
-
-

@@ -21,14 +21,6 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-**
-** C++ Implementation: machineconfig
-**
-** Description: 
-**
-****************************************************************************/
-
 #include "machineconfig.h"
 #include <QFile>
 #include <QVariant>
@@ -39,13 +31,11 @@
 #include <QTextStream>
 #include <QStringList>
 
-MachineConfig::MachineConfig(QObject *parent, const QString config)
+MachineConfig::MachineConfig(QObject *parent, const QString &config)
  : QObject(parent)
 {
-
     if(!config.isEmpty())
         loadConfig(config);
-
 }
 
 
@@ -54,9 +44,9 @@ MachineConfig::~MachineConfig()
     saveConfig(configFile->fileName());
 }
 
-bool MachineConfig::loadConfig(const QString fileName)
+bool MachineConfig::loadConfig(const QString &fileName)
 {
-        configFile = new QFile(fileName);
+    configFile = new QFile(fileName);
     if (!configFile->open(QFile::ReadOnly | QFile::Text))
     {
         qDebug("Cannot read file" + fileName.toAscii() + ", " + configFile->errorString().toAscii());
@@ -88,7 +78,7 @@ bool MachineConfig::loadConfig(const QString fileName)
     return true;
 }
 
-bool MachineConfig::saveConfig(const QString fileName)
+bool MachineConfig::saveConfig(const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text))
@@ -102,9 +92,8 @@ bool MachineConfig::saveConfig(const QString fileName)
     return true;
 }
 
-void MachineConfig::setOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant value)
+void MachineConfig::setOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value)
 {
-
     //save the value to the config
     QDomElement child = root.firstChildElement(nodeType);
 
@@ -137,9 +126,7 @@ void MachineConfig::setOption(const QString nodeType, const QString nodeName, co
     emit optionChanged(nodeType, nodeName, optionName, value);
 }
 
-
-
-const QVariant MachineConfig::getOption(const QString nodeType, const QString nodeName, const QString optionName, const QVariant defaultValue)
+const QVariant MachineConfig::getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant defaultValue)
 {
     //return the value of node named nodeType's child with property name=nodeName's child named optionName
     QDomElement typeElement;
@@ -169,7 +156,7 @@ const QVariant MachineConfig::getOption(const QString nodeType, const QString no
     return optionValue;
 }
 
-const QStringList MachineConfig::getAllOptionNames(const QString nodeType, const QString nodeName)
+const QStringList MachineConfig::getAllOptionNames(const QString &nodeType, const QString &nodeName)
 {
     QDomElement typeElement;
     QDomElement childElement;
@@ -199,8 +186,3 @@ const QStringList MachineConfig::getAllOptionNames(const QString nodeType, const
     }
     return optionNameList;
 }
-
-
-
-
-
