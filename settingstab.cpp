@@ -83,6 +83,7 @@ void SettingsTab::registerWidgets()
     config->registerObject(afterCheck, "enableExecAfter", QVariant(false));
     config->registerObject(afterEdit, "execAfter");
     config->registerObject(osCheck, "operatingSystem", QVariant("Other"));
+    config->registerObject(hiResCheck, "hiRes", QVariant(true));
     //TODO:finish adding widgets
 }
 
