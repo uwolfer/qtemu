@@ -153,7 +153,8 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
     if(object->property("optionName").isNull())
     {
         object->removeEventFilter(this);
-        object->setProperty(optionName.toAscii(), value);
+        if(object->property(optionName.toAscii()) != value)
+            object->setProperty(optionName.toAscii(), value);
         object->installEventFilter(this);
     }
     //QButtonGroup handling is sticky...
@@ -166,11 +167,13 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
         {
             if(((buttons.at(i)->property("value").toString().isEmpty()) && buttons.at(i)->text() == value.toString()) || buttons.at(i)->property("value") == value)
             {
-                buttons.at(i)->setProperty("checked", true);
+                if(object->property("checked").toBool() != true)
+                    buttons.at(i)->setProperty("checked", true);
             }
             else
             {
-                buttons.at(i)->setProperty("checked", false);
+                if(object->property("checked").toBool() != false)
+                    buttons.at(i)->setProperty("checked", false);
             }
         }
         connect(object, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(getObjectValue()));
@@ -180,9 +183,9 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
         object->disconnect(this);
         QComboBox *thisBox = static_cast<QComboBox *>(object);
         int index = thisBox->findText(value.toString());
-        if(index!=-1)
+        if(index!=-1 && object->property("currentIndex").toInt() != index)
             object->setProperty("currentIndex", index);
-        else
+        else if(thisBox->currentText() != value.toString())
             thisBox->setEditText(value.toString());
         connect(object, SIGNAL(currentIndexChanged(int)), this, SLOT(getObjectValue()));
         connect(object, SIGNAL(editTextChanged(QString)), this, SLOT(getObjectValue()));
@@ -190,34 +193,38 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
     else if (object->inherits("QRadioButton"))
     {
         object->disconnect(this);
-        if(object->property("value") == value)
+        if(object->property("value") == value && object->property("checked").toBool() != true)
             object->setProperty("checked", true);
-        else if (object->property("value").isNull())
+        else if (object->property("value").isNull() && object->property("checked") != value)
             object->setProperty("checked", value);
         connect(object, SIGNAL(toggled(bool)), this, SLOT(getObjectValue()));
     }
     else if (object->inherits("QAbstractButton"))
     {
         object->disconnect(this);
-        object->setProperty("checked", value);
+        if(object->property("checked") != value)
+            object->setProperty("checked", value);
         connect(object, SIGNAL(toggled(bool)), this, SLOT(getObjectValue()));
     }
     else if (object->inherits("QSpinBox")||object->inherits("QAbstractSlider"))
     {
         object->disconnect(this);
-        object->setProperty("value", value);
+        if(object->property("value") != value)
+            object->setProperty("value", value);
         connect(object, SIGNAL(valueChanged(int)), this, SLOT(getObjectValue()));
     }
     else if (object->inherits("QLineEdit"))
     {
         object->disconnect(this);
-        object->setProperty("text", value);
+        if(object->property("text") != value)
+            object->setProperty("text", value);
         connect(object, SIGNAL(textChanged(QString)), this, SLOT(getObjectValue()));
     }
     else if (object->inherits("QTextEdit"))
     {
         object->disconnect(this);
-        object->setProperty("plainText", value);
+        if(object->property("plainText") != value)
+            object->setProperty("plainText", value);
         connect(object, SIGNAL(textChanged()), this, SLOT(getObjectValue()));
     }
     else
