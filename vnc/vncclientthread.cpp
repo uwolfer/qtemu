@@ -294,14 +294,15 @@ void VncClientThread::run()
         if (i < 0)
             break;
         if (i)
-            if (!HandleRFBServerMessage(cl))
+            if (!m_stopped&&!HandleRFBServerMessage(cl))
                 break;
 
         locker.relock();
 
         while (!m_eventQueue.isEmpty()) {
             ClientEvent* clientEvent = m_eventQueue.dequeue();
-            clientEvent->fire(cl);
+            if(!m_stopped)
+                clientEvent->fire(cl);
             delete clientEvent;
         }
 
