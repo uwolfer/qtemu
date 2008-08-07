@@ -84,6 +84,9 @@ void MachineProcess::start()
     if(property("hiRes").toBool())
         arguments << "-std-vga";
 
+    if(!property("acpi").toBool())
+        arguments << "-no-acpi";
+
     if (property("network").toBool())
     {   /*
         //use the new network setup if you are developing

@@ -215,7 +215,7 @@
           <x>0</x>
           <y>0</y>
           <width>505</width>
-          <height>456</height>
+          <height>480</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19" >
@@ -233,7 +233,7 @@
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>456</height>
+              <height>480</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -348,11 +348,22 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="virtCheckBox" >
-                  <property name="text" >
-                   <string>Enable Hardware &amp;Virtualization</string>
-                  </property>
-                 </widget>
+                 <layout class="QHBoxLayout" name="horizontalLayout_25" >
+                  <item>
+                   <widget class="QCheckBox" name="virtCheckBox" >
+                    <property name="text" >
+                     <string>Enable Hardware &amp;Virtualization</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="acpiCheck" >
+                    <property name="text" >
+                     <string>Enable ACPI</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                 <item>
                  <widget class="Line" name="line_8" >
@@ -461,16 +472,6 @@
                  </spacer>
                 </item>
                </layout>
-               <zorder>label_3</zorder>
-               <zorder>label_2</zorder>
-               <zorder>line</zorder>
-               <zorder>line_2</zorder>
-               <zorder>virtCheckBox</zorder>
-               <zorder>line_8</zorder>
-               <zorder>label_14</zorder>
-               <zorder>timeCheck</zorder>
-               <zorder>line_10</zorder>
-               <zorder>label_15</zorder>
               </widget>
              </item>
             </layout>
@@ -980,7 +981,7 @@ p, li { white-space: pre-wrap; }
                           <x>3</x>
                           <y>3</y>
                           <width>471</width>
-                          <height>276</height>
+                          <height>273</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_31" >
@@ -1133,8 +1134,8 @@ p, li { white-space: pre-wrap; }
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>167</width>
-                              <height>135</height>
+                              <width>445</width>
+                              <height>189</height>
                              </rect>
                             </property>
                             <attribute name="label" >
@@ -1194,8 +1195,8 @@ p, li { white-space: pre-wrap; }
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>387</width>
-                              <height>189</height>
+                              <width>424</width>
+                              <height>196</height>
                              </rect>
                             </property>
                             <attribute name="label" >
@@ -2091,7 +2092,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>499</width>
-          <height>78</height>
+          <height>54</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26" >
@@ -2123,7 +2124,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>cpuSpinBox</tabstop>
   <tabstop>memorySlider</tabstop>
   <tabstop>memorySpinBox</tabstop>
-  <tabstop>virtCheckBox</tabstop>
  </tabstops>
  <resources>
   <include location="../qtemu.qrc" />

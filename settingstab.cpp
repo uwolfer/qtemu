@@ -85,6 +85,7 @@ void SettingsTab::registerWidgets()
     config->registerObject(osCheck, "operatingSystem", QVariant("Other"));
     config->registerObject(hiResCheck, "hiRes", QVariant(true));
     config->registerObject(mouseCheck, "mouse", QVariant(true));
+    config->registerObject(acpiCheck, "acpi", QVariant(true));
     //TODO:finish adding widgets
 }
 
