@@ -33,6 +33,8 @@
 #include "ui_controlpanel.h"
 #include <QWidget>
 
+class MachineTab;
+
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
@@ -40,12 +42,13 @@ class ControlPanel : public QWidget , public Ui::ControlPanel
 {
 Q_OBJECT
 public:
-    explicit ControlPanel(QWidget *parent = 0);
+    explicit ControlPanel(MachineTab *parent);
 
     ~ControlPanel();
 
 private:
     void makeConnections();
+    MachineTab *parent;
 
 private slots:
     void mediaActivate();

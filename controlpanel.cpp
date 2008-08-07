@@ -29,8 +29,11 @@
 ****************************************************************************/
 #include "controlpanel.h"
 
-ControlPanel::ControlPanel(QWidget *parent)
+#include "machinetab.h"
+
+ControlPanel::ControlPanel(MachineTab *parent)
  : QWidget(parent)
+ , parent(parent)
 {
     setupUi(this);
     makeConnections();
@@ -43,8 +46,12 @@ ControlPanel::~ControlPanel()
 
 void ControlPanel::makeConnections()
 {
+    //navigation connections
     connect(mediaButton, SIGNAL(clicked()), this, SLOT(mediaActivate()));
     connect(optionButton, SIGNAL(clicked()), this, SLOT(optionActivate()));
+
+    //action connections
+    //connect(cdReloadButton, SIGNAL(clicked()), parent->settingsTab, SLOT(setNewCdImagePath()));
 }
 
 void ControlPanel::mediaActivate()

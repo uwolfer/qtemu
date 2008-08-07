@@ -63,7 +63,9 @@ public:
     QPushButton *suspendButton;
     QPushButton *resumeButton;
     QPushButton *pauseButton;
-    
+    MachineConfigObject *machineConfigObject;
+    SettingsTab *settingsTab;
+    MachineProcess *machineProcess;
 public slots:
     void restart();
 	
@@ -73,11 +75,6 @@ private:
     void makeConnections();
 
     MachineConfig *machineConfig;
-    MachineConfigObject *machineConfigObject;
-
-    MachineProcess *machineProcess;
-    SettingsTab *settingsTab;
-
 
     QCheckBox *snapshotCheckBox;
     

@@ -187,7 +187,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2" >
          <item>
-          <widget class="QPushButton" name="pushButton_2" >
+          <widget class="QPushButton" name="cdReloadButton" >
            <property name="text" >
             <string>Reload</string>
            </property>
@@ -257,7 +257,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3" >
          <item>
-          <widget class="QPushButton" name="pushButton_3" >
+          <widget class="QPushButton" name="floppyReloadButton" >
            <property name="text" >
             <string>Reload</string>
            </property>
