@@ -161,10 +161,12 @@ bool MachineView::event(QEvent * event)
     else if(event->type() == QEvent::HoverEnter)
     {
         view->setFocus();
+        view->grabKeyboard();
     }
     else if (event->type() == QEvent::HoverLeave)
     {
         view->clearFocus();
+        view->releaseKeyboard();
     }
 
     return QScrollArea::event(event);

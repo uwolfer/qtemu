@@ -215,7 +215,7 @@
           <x>0</x>
           <y>0</y>
           <width>505</width>
-          <height>480</height>
+          <height>456</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19" >
@@ -233,7 +233,7 @@
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -481,7 +481,7 @@
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -611,7 +611,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -823,7 +823,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -835,7 +835,28 @@ p, li { white-space: pre-wrap; }
                <property name="title" >
                 <string>USB Devices</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_14" />
+               <layout class="QVBoxLayout" name="verticalLayout_14" >
+                <item>
+                 <widget class="QCheckBox" name="mouseCheck" >
+                  <property name="text" >
+                   <string>Seamless USB Mouse</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_9" >
+                  <property name="orientation" >
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0" >
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -846,7 +867,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -868,7 +889,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -959,7 +980,7 @@ p, li { white-space: pre-wrap; }
                           <x>3</x>
                           <y>3</y>
                           <width>471</width>
-                          <height>297</height>
+                          <height>276</height>
                          </rect>
                         </property>
                         <layout class="QVBoxLayout" name="verticalLayout_31" >
@@ -1112,8 +1133,8 @@ p, li { white-space: pre-wrap; }
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>175</width>
-                              <height>136</height>
+                              <width>167</width>
+                              <height>135</height>
                              </rect>
                             </property>
                             <attribute name="label" >
@@ -1173,8 +1194,8 @@ p, li { white-space: pre-wrap; }
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>424</width>
-                              <height>196</height>
+                              <width>387</width>
+                              <height>189</height>
                              </rect>
                             </property>
                             <attribute name="label" >
@@ -1586,7 +1607,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -1691,7 +1712,7 @@ p, li { white-space: pre-wrap; }
               <x>0</x>
               <y>0</y>
               <width>505</width>
-              <height>480</height>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -2070,7 +2091,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>499</width>
-          <height>54</height>
+          <height>78</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26" >
