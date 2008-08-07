@@ -73,6 +73,7 @@ SET(qtemu_MOC_HDRS
 
 SET(qtemu_UIS
     ui/settingstab.ui
+    ui/controlpanel.ui
 )
 
 SET(qtemu_RCS
