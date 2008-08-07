@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>316</width>
-    <height>219</height>
+    <width>288</width>
+    <height>225</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -137,24 +137,29 @@
       <enum>QFrame::Raised</enum>
      </property>
      <property name="currentIndex" >
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_3" >
-      <layout class="QVBoxLayout" name="verticalLayout_3" >
+      <property name="geometry" >
+       <rect>
+        <x>3</x>
+        <y>3</y>
+        <width>226</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6" >
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6" >
+        <layout class="QVBoxLayout" name="verticalLayout_3" >
          <item>
-          <spacer name="horizontalSpacer_3" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
+          <widget class="QPushButton" name="pushButton_8" >
+           <property name="text" >
+            <string>USB Mouse</string>
            </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
+           <property name="checkable" >
+            <bool>true</bool>
            </property>
-          </spacer>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_7" >
@@ -167,14 +172,14 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_4" >
+          <spacer name="verticalSpacer_3" >
            <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Vertical</enum>
            </property>
            <property name="sizeHint" stdset="0" >
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>20</width>
+             <height>40</height>
             </size>
            </property>
           </spacer>
@@ -182,54 +187,14 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_7" >
-         <item>
-          <spacer name="horizontalSpacer_5" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_8" >
-           <property name="text" >
-            <string>USB Mouse</string>
-           </property>
-           <property name="checkable" >
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_6" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_3" >
+        <spacer name="horizontalSpacer_3" >
          <property name="orientation" >
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0" >
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>72</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -241,8 +206,8 @@
        <rect>
         <x>3</x>
         <y>3</y>
-        <width>232</width>
-        <height>205</height>
+        <width>235</width>
+        <height>211</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2" >
@@ -391,63 +356,13 @@
        <rect>
         <x>3</x>
         <y>3</y>
-        <width>254</width>
-        <height>205</height>
+        <width>235</width>
+        <height>211</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4" >
+      <layout class="QHBoxLayout" name="horizontalLayout_8" >
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8" >
-         <item>
-          <spacer name="horizontalSpacer_7" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_10" >
-           <property name="text" >
-            <string>Fullscreen</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_8" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_9" >
-         <item>
-          <spacer name="horizontalSpacer_9" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
+        <layout class="QVBoxLayout" name="verticalLayout_4" >
          <item>
           <widget class="QPushButton" name="pushButton_11" >
            <property name="text" >
@@ -456,34 +371,11 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_10" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
+          <widget class="QPushButton" name="pushButton_10" >
+           <property name="text" >
+            <string>Fullscreen</string>
            </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10" >
-         <item>
-          <spacer name="horizontalSpacer_11" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_12" >
@@ -496,14 +388,14 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_12" >
+          <spacer name="verticalSpacer_4" >
            <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Vertical</enum>
            </property>
            <property name="sizeHint" stdset="0" >
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>20</width>
+             <height>40</height>
             </size>
            </property>
           </spacer>
@@ -511,14 +403,14 @@
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_4" >
+        <spacer name="horizontalSpacer_8" >
          <property name="orientation" >
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0" >
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>40</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>

@@ -34,7 +34,7 @@
 
 #include "harddiskmanager.h"
 
-#include "ui_controlpanel.h"
+#include "controlpanel.h"
 
 #include <QMessageBox>
 #include <QPushButton>
@@ -195,8 +195,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     
     connect(screenshotButton, SIGNAL(clicked()), this, SLOT(takeScreenshot()));
     
-    //TODO: add a fullscreen button here
-    
     QLabel *notesLabel = new QLabel(tr("<strong>Notes</strong>"), this);
 
     notesTextEdit = new QTextEdit(this);
@@ -204,34 +202,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #if QT_VERSION >= 0x040200
     notesTextEdit->setStyleSheet(QString(flatStyle).replace("TYPE", "QTextEdit"));
 #endif
-    QLabel *controlLabel = new QLabel(tr("<strong>Machine Control</strong>"), this);
+    QLabel *controlLabel = new QLabel(tr("<strong>Control Panel</strong>"), this);
 
 
-    QWidget *controlPanel = new QWidget(this);
-    Ui::ControlPanel ui;
-    ui.setupUi(controlPanel);
-
-
-//    QHBoxLayout *controlLayout = new QHBoxLayout;
-
-
-//    floppyReloadButton = new QPushButton(tr("Reload Floppy"));
-    
-//    connect(floppyReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeFloppy()));
-
-//    cdromReloadButton = new QPushButton(tr("Reload CD &ROM"));
-    
-//    connect(cdromReloadButton, SIGNAL(clicked()), machineProcess, SLOT(changeCdrom()));
-
-//    controlLayout->addWidget(floppyReloadButton);
-//    controlLayout->addWidget(cdromReloadButton);
-
-//    QHBoxLayout *inputLayout = new QHBoxLayout;
-//    QLineEdit *imageLocation = new QLineEdit(this);
-//    QPushButton *imageButton = new QPushButton(QIcon(":/images/" + iconTheme + "/cdrom.png"),QString(), this);
-
-//    inputLayout->addWidget(imageLocation);
-//    inputLayout->addWidget(imageButton);
+    ControlPanel *controlPanel = new ControlPanel(this);
 
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout();
@@ -243,8 +217,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     buttonsLayout->addWidget(notesTextEdit);
     buttonsLayout->addWidget(controlLabel);
     buttonsLayout->addWidget(controlPanel);
-    //buttonsLayout->addLayout(controlLayout);
-    //buttonsLayout->addLayout(inputLayout);
     buttonsLayout->addStretch();
 
     //set up the layout for the tab panel
@@ -398,7 +370,6 @@ void MachineTab::finished()
     pauseButton->setEnabled(false);
     resumeButton->setHidden(false);
     suspendButton->setHidden(true);
-//    hddUpgradeButton->setEnabled(true);
     snapshotCheckBox->setText(tr("Snapshot mode"));
     cleanupView();
 }
@@ -412,7 +383,6 @@ void MachineTab::started()
     pauseButton->setEnabled(true);
     suspendButton->setHidden(false);
     resumeButton->setHidden(true);
-//    hddUpgradeButton->setEnabled(false);
 }
 
 void MachineTab::error(const QString & errorMsg)
