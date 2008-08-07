@@ -29,13 +29,18 @@
 ****************************************************************************/
 #include "controlpanel.h"
 
+#include "machineconfigobject.h"
 #include "machinetab.h"
+#include "machineprocess.h"
+#include "settingstab.h"
 
 ControlPanel::ControlPanel(MachineTab *parent)
  : QWidget(parent)
  , parent(parent)
 {
     setupUi(this);
+    config = parent->machineConfigObject;
+    registerObjects();
     makeConnections();
 }
 
@@ -51,7 +56,10 @@ void ControlPanel::makeConnections()
     connect(optionButton, SIGNAL(clicked()), this, SLOT(optionActivate()));
 
     //action connections
-    //connect(cdReloadButton, SIGNAL(clicked()), parent->settingsTab, SLOT(setNewCdImagePath()));
+    connect(cdReloadButton, SIGNAL(clicked()), parent->machineProcess, SLOT(changeCdrom()));
+    connect(floppyReloadButton, SIGNAL(clicked()), parent->machineProcess, SLOT(changeFloppy()));
+    connect(cdImageButton, SIGNAL(clicked()), parent->settingsTab, SLOT(setNewCdImagePath()));
+    connect(floppyImageButton, SIGNAL(clicked()), parent->settingsTab, SLOT(setNewFloppyImagePath()));
 }
 
 void ControlPanel::mediaActivate()
@@ -62,6 +70,15 @@ void ControlPanel::mediaActivate()
 void ControlPanel::optionActivate()
 {
     controlStack->setCurrentIndex(1);
+}
+
+void ControlPanel::registerObjects()
+{
+    config->registerObject(cdCombo, "cdrom");
+    config->registerObject(floppyCombo, "floppy");
+    config->registerObject(mouseButton, "mouse");
+    config->registerObject(scaleButton, "scaleEmbeddedDisplay");
+    
 }
 
 

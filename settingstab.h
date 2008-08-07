@@ -42,6 +42,10 @@ public:
 
     ~SettingsTab();
 
+public slots:
+    void setNewCdImagePath();
+    void setNewFloppyImagePath();
+
 private:
     MachineConfigObject *config;
     MachineTab *parent;
@@ -57,8 +61,6 @@ private slots:
 
     //file select dialogs
     void setNewHddPath();
-    void setNewCdImagePath();
-    void setNewFloppyImagePath();
 
     //warning dialogs
     void confirmUpgrade();

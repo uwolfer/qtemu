@@ -34,6 +34,9 @@
 #include <QWidget>
 
 class MachineTab;
+class MachineConfigObject;
+class MachineProcess;
+class SettingsTab;
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
@@ -48,8 +51,9 @@ public:
 
 private:
     void makeConnections();
+    void registerObjects();
     MachineTab *parent;
-
+    MachineConfigObject *config;
 private slots:
     void mediaActivate();
     void optionActivate();
