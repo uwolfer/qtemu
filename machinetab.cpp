@@ -241,10 +241,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     viewTabs->addTab(settingsTab, tr("Settings"));
 
-
+//console area
     consoleFrame = new QFrame(this);
     viewTabs->addTab(consoleFrame, tr("Console"));
-    
     console = new QTextEdit(this);
     console->setReadOnly(true);
     connect(machineProcess, SIGNAL(cleanConsole(QString)), console, SLOT(append(QString)));
@@ -262,7 +261,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     consoleLayout->addLayout(consoleCommandLayout);
     consoleFrame->setLayout(consoleLayout); 
     setLayout(mainLayout);
-    
+
+//end console area
+
     read();
 
     //read first the name, otherwise the name of the main tab changes

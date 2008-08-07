@@ -44,6 +44,12 @@ public:
 
     ~ControlPanel();
 
+private:
+    void makeConnections();
+
+private slots:
+    void mediaActivate();
+    void optionActivate();
 };
 
 #endif

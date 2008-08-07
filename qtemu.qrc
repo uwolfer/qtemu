@@ -44,6 +44,9 @@
     <file>images/oxygen/alpha.svg</file>
     <file>images/oxygen/camera.png</file>
     <file>images/oxygen/usb.png</file>
-
+    <file>images/oxygen/reload.png</file>
+    <file>images/oxygen/fullscreen.png</file>
+    <file>images/oxygen/scale.png</file>
+    <file>images/oxygen/mouse.png</file>
 </qresource>
 </RCC>

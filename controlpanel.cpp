@@ -33,11 +33,28 @@ ControlPanel::ControlPanel(QWidget *parent)
  : QWidget(parent)
 {
     setupUi(this);
+    makeConnections();
 }
 
 
 ControlPanel::~ControlPanel()
 {
+}
+
+void ControlPanel::makeConnections()
+{
+    connect(mediaButton, SIGNAL(clicked()), this, SLOT(mediaActivate()));
+    connect(optionButton, SIGNAL(clicked()), this, SLOT(optionActivate()));
+}
+
+void ControlPanel::mediaActivate()
+{
+    controlStack->setCurrentIndex(0);
+}
+
+void ControlPanel::optionActivate()
+{
+    controlStack->setCurrentIndex(1);
 }
 
 
