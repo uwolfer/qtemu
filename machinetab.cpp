@@ -34,6 +34,8 @@
 
 #include "harddiskmanager.h"
 
+#include "ui_controlpanel.h"
+
 #include <QMessageBox>
 #include <QPushButton>
 #include <QLineEdit>
@@ -204,6 +206,12 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #endif
     QLabel *controlLabel = new QLabel(tr("<strong>Machine Control</strong>"), this);
 
+
+    QWidget *controlPanel = new QWidget(this);
+    Ui::ControlPanel ui;
+    ui.setupUi(controlPanel);
+
+
 //    QHBoxLayout *controlLayout = new QHBoxLayout;
 
 
@@ -234,6 +242,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     buttonsLayout->addWidget(notesLabel);
     buttonsLayout->addWidget(notesTextEdit);
     buttonsLayout->addWidget(controlLabel);
+    buttonsLayout->addWidget(controlPanel);
     //buttonsLayout->addLayout(controlLayout);
     //buttonsLayout->addLayout(inputLayout);
     buttonsLayout->addStretch();

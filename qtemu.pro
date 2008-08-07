@@ -60,5 +60,7 @@ DEFINES += QTONLY
 
 DISTFILES += TODO CHANGELOG README
 
-FORMS += ui/settingstab.ui
+FORMS += \
+ ui/settingstab.ui \
+ ui/controlpanel.ui
 
