@@ -54,6 +54,7 @@ void ControlPanel::makeConnections()
     //navigation connections
     connect(mediaButton, SIGNAL(clicked()), this, SLOT(mediaActivate()));
     connect(optionButton, SIGNAL(clicked()), this, SLOT(optionActivate()));
+    connect(displayButton, SIGNAL(clicked()), this, SLOT(displayActivate()));
 
     //action connections
     connect(cdReloadButton, SIGNAL(clicked()), parent->machineProcess, SLOT(changeCdrom()));
@@ -70,6 +71,11 @@ void ControlPanel::mediaActivate()
 void ControlPanel::optionActivate()
 {
     controlStack->setCurrentIndex(1);
+}
+
+void ControlPanel::displayActivate()
+{
+    controlStack->setCurrentIndex(2);
 }
 
 void ControlPanel::registerObjects()
