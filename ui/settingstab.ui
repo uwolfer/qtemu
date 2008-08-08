@@ -8,7 +8,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
+    <width>705</width>
     <height>554</height>
    </rect>
   </property>
@@ -214,7 +214,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>505</width>
+          <width>497</width>
           <height>463</height>
          </rect>
         </property>
@@ -225,14 +225,14 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
            <property name="currentIndex" >
-            <number>5</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
+              <width>497</width>
               <height>463</height>
              </rect>
             </property>
@@ -481,7 +481,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
+              <width>497</width>
               <height>463</height>
              </rect>
             </property>
@@ -611,7 +611,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
+              <width>497</width>
               <height>463</height>
              </rect>
             </property>
@@ -823,7 +823,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
+              <width>497</width>
               <height>463</height>
              </rect>
             </property>
@@ -867,7 +867,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
+              <width>497</width>
               <height>463</height>
              </rect>
             </property>
@@ -889,7 +889,7 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>505</width>
+              <width>497</width>
               <height>463</height>
              </rect>
             </property>
@@ -1386,7 +1386,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>499</width>
+          <width>491</width>
           <height>71</height>
          </rect>
         </property>
