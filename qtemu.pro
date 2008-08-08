@@ -16,7 +16,8 @@ HEADERS =   config.h \
    settingstab.h \
    qtemuenvironment.h \
    harddiskmanager.h \
-   controlpanel.h
+   controlpanel.h \
+   networkpage.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -36,7 +37,8 @@ SOURCES =   main.cpp \
    settingstab.cpp \
    qtemuenvironment.cpp \
    harddiskmanager.cpp \
-   controlpanel.cpp
+   controlpanel.cpp \
+   networkpage.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg webkit
@@ -64,5 +66,6 @@ DISTFILES += TODO CHANGELOG README
 
 FORMS += \
  ui/settingstab.ui \
- ui/controlpanel.ui
+ ui/controlpanel.ui \
+ ui/networkpage.ui
 

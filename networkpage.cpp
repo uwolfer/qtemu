@@ -21,54 +21,34 @@
 **
 ****************************************************************************/
 
-#ifndef SETTINGSTAB_H
-#define SETTINGSTAB_H
+/****************************************************************************
+** C++ Implementation: networkpage
+**
+** Description: 
+**
+****************************************************************************/
+#include "networkpage.h"
 
-#include "ui_settingstab.h"
-#include "machineprocess.h"
-#include "machinetab.h"
-#include <QFrame>
-
-class MachineConfigObject;
-class NetworkPage;
-
-/**
-	@author Ben Klopfenstein <benklop@gmail.com>
-*/
-class SettingsTab : public QFrame, public Ui::SettingsTab
+NetworkPage::NetworkPage(QWidget *parent)
+ : QWidget(parent)
 {
-Q_OBJECT
-public:
-    explicit SettingsTab(MachineConfigObject *config, MachineTab *parent = 0);
-
-    ~SettingsTab();
-
-public slots:
-    void setNewCdImagePath();
-    void setNewFloppyImagePath();
-
-private:
-    MachineConfigObject *config;
-    MachineTab *parent;
-    QString myMachinesPath;
-    NetworkPage *netPage;
-    void registerWidgets();
-    void setupHelp();
-    void setupConnections();
-    void getSettings();
-private slots:
-
-    void changeHelpTopic();
+    setupUi(this);
+    makeConnections();
+}
 
 
-    //file select dialogs
-    void setNewHddPath();
+NetworkPage::~NetworkPage()
+{
+}
 
-    //warning dialogs
-    void confirmUpgrade();
+void NetworkPage::changeNetPage(bool state)
+{
+    networkStack->setCurrentIndex((int)state);
+}
 
-signals:
-    void upgradeHdd();
-};
+void NetworkPage::makeConnections()
+{
+    connect(advancedButton, SIGNAL(toggled(bool)), this, SLOT(changeNetPage(bool)));
+}
 
-#endif
+

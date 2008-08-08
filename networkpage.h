@@ -21,54 +21,36 @@
 **
 ****************************************************************************/
 
-#ifndef SETTINGSTAB_H
-#define SETTINGSTAB_H
+/****************************************************************************
+** C++ Interface: networkpage
+**
+** Description: 
+**
+****************************************************************************/
+#ifndef NETWORKPAGE_H
+#define NETWORKPAGE_H
 
-#include "ui_settingstab.h"
-#include "machineprocess.h"
-#include "machinetab.h"
-#include <QFrame>
+#include <QWidget>
 
-class MachineConfigObject;
-class NetworkPage;
+#include "ui_networkpage.h"
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
-class SettingsTab : public QFrame, public Ui::SettingsTab
+class NetworkPage : public QWidget , public Ui::NetworkPage
 {
 Q_OBJECT
 public:
-    explicit SettingsTab(MachineConfigObject *config, MachineTab *parent = 0);
+    NetworkPage(QWidget *parent = 0);
 
-    ~SettingsTab();
-
-public slots:
-    void setNewCdImagePath();
-    void setNewFloppyImagePath();
+    ~NetworkPage();
 
 private:
-    MachineConfigObject *config;
-    MachineTab *parent;
-    QString myMachinesPath;
-    NetworkPage *netPage;
-    void registerWidgets();
-    void setupHelp();
-    void setupConnections();
-    void getSettings();
+    void makeConnections();
+
 private slots:
+    void changeNetPage(bool state);
 
-    void changeHelpTopic();
-
-
-    //file select dialogs
-    void setNewHddPath();
-
-    //warning dialogs
-    void confirmUpgrade();
-
-signals:
-    void upgradeHdd();
 };
 
 #endif

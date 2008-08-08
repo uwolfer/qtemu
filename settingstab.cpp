@@ -25,10 +25,13 @@
 #include "machineconfigobject.h"
 #include "helpwindow.h"
 
+#include "networkpage.h"
+
 #include <QIcon>
 #include <QFileDialog>
 #include <QSettings>
 #include <QMessageBox>
+#include <QVBoxLayout>
 
 
 SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
@@ -39,6 +42,9 @@ SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
     getSettings();
     //add the ui elements
     setupUi(this);
+    netPage = new NetworkPage(this);
+    networkPage->setLayout(new QVBoxLayout());
+    networkPage->layout()->addWidget(netPage);
 
     setupConnections();
 
@@ -67,8 +73,8 @@ void SettingsTab::registerWidgets()
     config->registerObject(floppyBootCheck, "bootFromFloppy", QVariant(false));
     config->registerObject(soundCheck, "sound", QVariant(false));
     config->registerObject(soundCombo, "soundSystem", QVariant("oss"));
-    config->registerObject(networkCheck, "network", QVariant(true));
-    config->registerObject(networkEdit, "networkCustomOptions");
+    config->registerObject(netPage->networkCheck, "network", QVariant(true));
+    config->registerObject(netPage->networkEdit, "networkCustomOptions");
     config->registerObject(timeCheck, "time", QVariant(true));
     config->registerObject(embedCheck, "embeddedDisplay", QVariant(true));
     config->registerObject(scaleCheck, "scaleEmbeddedDisplay", QVariant(true));
@@ -110,7 +116,6 @@ void SettingsTab::setupConnections()
     connect(hdSelectButton, SIGNAL(clicked()), this, SLOT(setNewHddPath()));
     connect(cdSelectButton, SIGNAL(clicked()), this, SLOT(setNewCdImagePath()));
     connect(floppySelectButton, SIGNAL(clicked()), this, SLOT(setNewFloppyImagePath()));
-    connect(advancedButton, SIGNAL(toggled(bool)), this, SLOT(changeNetPage(bool)));
 }
 
 //various file select dialogs
@@ -158,9 +163,4 @@ void SettingsTab::getSettings()
 {
     QSettings settings("QtEmu", "QtEmu");
     myMachinesPath = settings.value("machinesPath", QString(QDir::homePath()+'/'+tr("MyMachines"))).toString();
-}
-
-void SettingsTab::changeNetPage(bool state)
-{
-    networkStack->setCurrentIndex((int)state);
 }
