@@ -242,7 +242,7 @@
                <rect>
                 <x>3</x>
                 <y>3</y>
-                <width>535</width>
+                <width>545</width>
                 <height>329</height>
                </rect>
               </property>
@@ -296,27 +296,12 @@
                  </item>
                  <item>
                   <widget class="QWidget" native="1" name="widget" >
-                   <layout class="QHBoxLayout" name="horizontalLayout_5" >
-                    <property name="spacing" >
-                     <number>0</number>
-                    </property>
-                    <property name="margin" >
-                     <number>0</number>
-                    </property>
-                    <item>
-                     <spacer name="horizontalSpacer" >
-                      <property name="orientation" >
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0" >
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
+                   <property name="minimumSize" >
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -445,7 +430,7 @@
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>521</width>
+                    <width>531</width>
                     <height>153</height>
                    </rect>
                   </property>
