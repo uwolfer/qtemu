@@ -30,7 +30,6 @@ MachineView::MachineView(QWidget *parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
 {
-    setAttribute(Qt::WA_Hover);
     setWidget(splash);
     setAlignment(Qt::AlignCenter);
     setFrameShape(QFrame::NoFrame);
@@ -158,12 +157,12 @@ bool MachineView::event(QEvent * event)
             splash->setPreview(property("preview").toString());
         }
     }
-    else if(event->type() == QEvent::HoverEnter)
+    else if(event->type() == QEvent::Enter&&!splashShown)
     {
         view->setFocus();
         view->grabKeyboard();
     }
-    else if (event->type() == QEvent::HoverLeave)
+    else if (event->type() == QEvent::Leave)
     {
         view->clearFocus();
         view->releaseKeyboard();
