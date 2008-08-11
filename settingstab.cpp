@@ -42,7 +42,7 @@ SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
     getSettings();
     //add the ui elements
     setupUi(this);
-    netPage = new NetworkPage(this);
+    netPage = new NetworkPage(config, this);
     networkPage->setLayout(new QVBoxLayout());
     networkPage->layout()->addWidget(netPage);
 
@@ -73,8 +73,6 @@ void SettingsTab::registerWidgets()
     config->registerObject(floppyBootCheck, "bootFromFloppy", QVariant(false));
     config->registerObject(soundCheck, "sound", QVariant(false));
     config->registerObject(soundCombo, "soundSystem", QVariant("oss"));
-    config->registerObject(netPage->networkCheck, "network", QVariant(true));
-    config->registerObject(netPage->networkEdit, "networkCustomOptions");
     config->registerObject(timeCheck, "time", QVariant(true));
     config->registerObject(embedCheck, "embeddedDisplay", QVariant(true));
     config->registerObject(scaleCheck, "scaleEmbeddedDisplay", QVariant(true));

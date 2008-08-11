@@ -243,12 +243,12 @@
                 <x>3</x>
                 <y>3</y>
                 <width>545</width>
-                <height>329</height>
+                <height>332</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4" >
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_2" >
+                <layout class="QHBoxLayout" name="connectorLayout" >
                  <property name="spacing" >
                   <number>0</number>
                  </property>
@@ -431,7 +431,7 @@
                     <x>3</x>
                     <y>3</y>
                     <width>531</width>
-                    <height>153</height>
+                    <height>149</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_7" >
@@ -488,6 +488,14 @@
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostTapPage" >
+                  <property name="geometry" >
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>100</width>
+                    <height>30</height>
+                   </rect>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_11" >
                    <item>
                     <layout class="QFormLayout" name="formLayout_5" >
@@ -614,6 +622,14 @@
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostUserPage" >
+                  <property name="geometry" >
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>100</width>
+                    <height>30</height>
+                   </rect>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_8" >
                    <item>
                     <layout class="QFormLayout" name="formLayout_3" >
@@ -734,6 +750,14 @@
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostVLanPage" >
+                  <property name="geometry" >
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>100</width>
+                    <height>30</height>
+                   </rect>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_9" >
                    <item>
                     <widget class="QGroupBox" name="groupBox" >
@@ -827,6 +851,14 @@
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostRoutePage" >
+                  <property name="geometry" >
+                   <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>100</width>
+                    <height>30</height>
+                   </rect>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_10" >
                    <item>
                     <layout class="QFormLayout" name="formLayout_4" >

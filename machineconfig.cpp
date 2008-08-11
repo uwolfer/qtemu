@@ -96,32 +96,45 @@ void MachineConfig::setOption(const QString &nodeType, const QString &nodeName, 
 {
     //save the value to the config
     QDomElement child = root.firstChildElement(nodeType);
+    QDomElement subChild;
 
-    if(nodeType!="machine")
+    if(child.isNull())
     {
-        child = child.firstChildElement();
-        while(child.attribute("name",QString())!=nodeName)
+        //make a new node
+        child = domDocument.createElement(nodeType);
+        root.appendChild(child);
+        subChild = child;
+    }
+    else
+    {
+       //existing node
+       subChild = child;
+    }
+
+    //find the sub child (nodeName)
+    if(!nodeName.isEmpty())
+    {
+        subChild = child.firstChildElement(nodeName);
+        if(subChild.isNull())
         {
-            QDomElement child = child.nextSiblingElement();
+        subChild = domDocument.createElement(nodeName);
+        child.appendChild(subChild);
         }
     }
 
-    if (!child.isNull())
+    QDomElement oldElement = subChild.firstChildElement(optionName);
+    if (oldElement.isNull())
     {
-        QDomElement oldElement = child.firstChildElement(optionName);
-        if (oldElement == QDomElement())
-        {
-            oldElement = domDocument.createElement(optionName);
-            child.appendChild(oldElement);
-        }
-
-        QDomElement newElement = domDocument.createElement(optionName);
-        QDomText newText = domDocument.createTextNode(value.toString());
-        newElement.appendChild(newText);
-        child.replaceChild(newElement, oldElement);
+        oldElement = domDocument.createElement(optionName);
+        subChild.appendChild(oldElement);
     }
 
-    //if successful then
+    QDomElement newElement = domDocument.createElement(optionName);
+    QDomText newText = domDocument.createTextNode(value.toString());
+    newElement.appendChild(newText);
+    subChild.replaceChild(newElement, oldElement);
+
+    //save the document
     saveConfig(configFile->fileName());
     emit optionChanged(nodeType, nodeName, optionName, value);
 }
@@ -130,27 +143,18 @@ const QVariant MachineConfig::getOption(const QString &nodeType, const QString &
 {
     //return the value of node named nodeType's child with property name=nodeName's child named optionName
     QDomElement typeElement;
-    QDomElement childElement;
+    QDomElement nameElement;
     QDomElement optionElement;
     QVariant optionValue = defaultValue;
-    //...
-    if(nodeType == "machine")
+
+    typeElement = root.firstChildElement(nodeType);
+    nameElement = typeElement;
+    if(!nodeName.isEmpty())
     {
-        childElement = root.firstChildElement("machine");
+        nameElement = typeElement.firstChildElement(nodeName);
     }
-    else
-    {
-        typeElement = root.firstChildElement(nodeType);
-        childElement = typeElement.firstChildElement();
-        while(!childElement.isNull())
-        {
-            if (optionElement.attribute("name") == nodeName)
-                break;
-            else
-                childElement = childElement.nextSiblingElement();
-        }
-    }
-    optionElement = childElement.firstChildElement(optionName);
+    optionElement = nameElement.firstChildElement(optionName);
+
     if(optionElement.isNull())
     {
         //the option did not exist: set default value!
@@ -166,26 +170,19 @@ const QVariant MachineConfig::getOption(const QString &nodeType, const QString &
 const QStringList MachineConfig::getAllOptionNames(const QString &nodeType, const QString &nodeName)
 {
     QDomElement typeElement;
-    QDomElement childElement;
+    QDomElement nameElement;
     QDomElement optionElement;
     QStringList optionNameList;
-    if(nodeType == "machine")
+    if(nodeName.isEmpty())
     {
-        childElement = root.firstChildElement("machine");
+        nameElement = root.firstChildElement(nodeType);
     }
     else
     {
         typeElement = root.firstChildElement(nodeType);
-        childElement = typeElement.firstChildElement();
-        while(!childElement.isNull())
-        {
-            if (optionElement.attribute("name") == nodeName)
-                break;
-            else
-                childElement = childElement.nextSiblingElement();
-        }
+        nameElement = typeElement.firstChildElement(nodeName);
     }
-    optionElement = childElement.firstChildElement();
+    optionElement = nameElement.firstChildElement();
     while(!optionElement.isNull())
     {
         optionNameList.append(optionElement.nodeName());

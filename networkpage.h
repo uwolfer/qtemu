@@ -34,6 +34,8 @@
 
 #include "ui_networkpage.h"
 
+class MachineConfigObject;
+
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
@@ -41,12 +43,16 @@ class NetworkPage : public QWidget , public Ui::NetworkPage
 {
 Q_OBJECT
 public:
-    NetworkPage(QWidget *parent = 0);
+    NetworkPage(MachineConfigObject *config, QWidget *parent = 0);
 
     ~NetworkPage();
 
 private:
     void makeConnections();
+    void setupPage();
+    void registerObjects();
+    MachineConfigObject *config;
+
 
 private slots:
     void changeNetPage(bool state);

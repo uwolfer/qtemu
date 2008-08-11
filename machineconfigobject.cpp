@@ -231,6 +231,10 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
     {
         //if it's none of those... we don't know what it is yet.
         qDebug("unknown object type" + QByteArray(object->metaObject()->className()));
+        //we set a single property (the option name) to the value.
+        object->removeEventFilter(this);
+        object->setProperty(optionName.toAscii(), value);
+        object->installEventFilter(this);
     }
     //qDebug("set!");
 }

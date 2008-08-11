@@ -28,12 +28,16 @@
 **
 ****************************************************************************/
 #include "networkpage.h"
+#include "machineconfigobject.h"
 
-NetworkPage::NetworkPage(QWidget *parent)
+NetworkPage::NetworkPage(MachineConfigObject *config, QWidget *parent)
  : QWidget(parent)
+ , config(config)
 {
     setupUi(this);
+    setupPage();
     makeConnections();
+    registerObjects();
 }
 
 
@@ -49,6 +53,16 @@ void NetworkPage::changeNetPage(bool state)
 void NetworkPage::makeConnections()
 {
     connect(advancedButton, SIGNAL(toggled(bool)), this, SLOT(changeNetPage(bool)));
+}
+
+void NetworkPage::setupPage()
+{
+}
+
+void NetworkPage::registerObjects()
+{
+    config->registerObject(networkCheck, "network", QVariant(true));
+    config->registerObject(networkEdit, "networkCustomOptions");
 }
 
 

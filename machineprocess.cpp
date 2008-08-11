@@ -66,8 +66,8 @@ void MachineProcess::start()
     // can be used to start the virtual machine, e.g. vdeq kvm or vdeq qemu
     // where vdeq is specified as the command and kvm/qemu as the additional
     // option or parameter.
-    if (property("useAdditionalOptions").toBool() && !property("addiionalOptions").toString().isEmpty())
-        arguments << property("addiionalOptions").toString().split(' ', QString::SkipEmptyParts);
+    if (property("useAdditionalOptions").toBool() && !property("additionalOptions").toString().isEmpty())
+        arguments << property("additionalOptions").toString().split(' ', QString::SkipEmptyParts);
     
     if (property("embeddedDisplay").toBool())
     {
@@ -86,6 +86,7 @@ void MachineProcess::start()
 
     if(!property("acpi").toBool())
         arguments << "-no-acpi";
+
 
     if (property("network").toBool())
     {   /*
