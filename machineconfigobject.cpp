@@ -337,3 +337,11 @@ void MachineConfigObject::configChanged(const QString &nodeType, const QString &
     }
 
 }
+
+/**
+    gets the config object used (config file object)
+*/
+MachineConfig * MachineConfigObject::getConfig()
+{
+    return myConfig;
+}

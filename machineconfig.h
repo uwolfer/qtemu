@@ -53,10 +53,13 @@ public:
 
     const QStringList getAllOptionNames(const QString &nodeType, const QString &nodeName);
 
+    const int getNumOptions(const QString &nodeType, const QString &nodeName);
+
 public slots:
     //if nodeType and nodeName are not specified, they are assumed to be "machine" and ""
     void setOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);
 
+    void clearOption(const QString &nodeType, const QString &nodeName, const QString &optionName);
 signals:
     void optionChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);
 

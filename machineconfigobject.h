@@ -68,6 +68,11 @@ public:
     void setConfig(MachineConfig *config);
 
 /**
+    gets the config object used (config file object)
+*/
+    MachineConfig* getConfig();
+
+/**
     get an option from the config file
 */
     QVariant getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &defaultValue);

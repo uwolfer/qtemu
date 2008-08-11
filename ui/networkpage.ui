@@ -267,30 +267,36 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_3" >
                      <item>
-                      <widget class="QPushButton" name="pushButton_2" >
+                      <widget class="QPushButton" name="addGuest" >
                        <property name="text" >
                         <string>+</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton" >
+                      <widget class="QPushButton" name="delGuest" >
                        <property name="text" >
                         <string>-</string>
                        </property>
                       </widget>
                      </item>
+                     <item>
+                      <spacer name="horizontalSpacer_4" >
+                       <property name="orientation" >
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0" >
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QListView" name="listView" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                    </widget>
+                    <widget class="QTableView" name="guestView" />
                    </item>
                   </layout>
                  </item>
@@ -319,7 +325,7 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_4" >
                      <item>
-                      <widget class="QPushButton" name="pushButton_3" >
+                      <widget class="QPushButton" name="addHost" >
                        <property name="text" >
                         <string>+</string>
                        </property>
@@ -329,23 +335,32 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton_4" >
+                      <widget class="QPushButton" name="delHost" >
                        <property name="text" >
                         <string>-</string>
                        </property>
                       </widget>
                      </item>
+                     <item>
+                      <spacer name="horizontalSpacer" >
+                       <property name="orientation" >
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0" >
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="hostTypeBox" />
+                     </item>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QListView" name="listView_2" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                    </widget>
+                    <widget class="QTreeView" name="hostView" />
                    </item>
                   </layout>
                  </item>
@@ -360,15 +375,15 @@
                   <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="currentIndex" >
-                  <number>1</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="guestPage" >
                   <property name="geometry" >
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>521</width>
-                    <height>180</height>
+                    <width>531</width>
+                    <height>149</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_5" >
@@ -490,10 +505,10 @@
                  <widget class="QWidget" name="hostTapPage" >
                   <property name="geometry" >
                    <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>100</width>
-                    <height>30</height>
+                    <x>3</x>
+                    <y>3</y>
+                    <width>531</width>
+                    <height>149</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_11" >
@@ -624,10 +639,10 @@
                  <widget class="QWidget" name="hostUserPage" >
                   <property name="geometry" >
                    <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>100</width>
-                    <height>30</height>
+                    <x>3</x>
+                    <y>3</y>
+                    <width>531</width>
+                    <height>149</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_8" >
@@ -752,10 +767,10 @@
                  <widget class="QWidget" name="hostVLanPage" >
                   <property name="geometry" >
                    <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>100</width>
-                    <height>30</height>
+                    <x>3</x>
+                    <y>3</y>
+                    <width>531</width>
+                    <height>149</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_9" >
@@ -853,10 +868,10 @@
                  <widget class="QWidget" name="hostRoutePage" >
                   <property name="geometry" >
                    <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>100</width>
-                    <height>30</height>
+                    <x>3</x>
+                    <y>3</y>
+                    <width>531</width>
+                    <height>149</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_10" >

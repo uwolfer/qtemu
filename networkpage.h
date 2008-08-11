@@ -21,16 +21,13 @@
 **
 ****************************************************************************/
 
-/****************************************************************************
-** C++ Interface: networkpage
-**
-** Description: 
-**
-****************************************************************************/
+
 #ifndef NETWORKPAGE_H
 #define NETWORKPAGE_H
 
 #include <QWidget>
+#include <QAbstractTableModel>
+#include <QModelIndex>
 
 #include "ui_networkpage.h"
 
@@ -39,6 +36,35 @@ class MachineConfigObject;
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
+
+/****************************************************************************
+** C++ Interface: GuestInterfaceModel
+**
+** Description: a model for guest interfaces
+**
+****************************************************************************/
+class GuestInterfaceModel : public QAbstractTableModel
+{
+Q_OBJECT
+public:
+    GuestInterfaceModel(MachineConfigObject *config, QString nodeType,  QObject *parent = 0);
+
+     int rowCount(const QModelIndex & parent = QModelIndex() ) const;
+     int columnCount(const QModelIndex & parent = QModelIndex() ) const;
+     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
+     QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
+    
+private:
+    MachineConfigObject *config;
+    QString nodeType;
+};
+
+/****************************************************************************
+** C++ Interface: networkpage
+**
+** Description: 
+**
+****************************************************************************/
 class NetworkPage : public QWidget , public Ui::NetworkPage
 {
 Q_OBJECT
@@ -50,13 +76,20 @@ public:
 private:
     void makeConnections();
     void setupPage();
+    void setupModels();
     void registerObjects();
     MachineConfigObject *config;
 
+    GuestInterfaceModel *guestModel;
+
+//dealing with model/view
 
 private slots:
     void changeNetPage(bool state);
 
 };
+
+
+//class hostInterfaceModel;
 
 #endif

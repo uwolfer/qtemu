@@ -180,7 +180,10 @@ const QStringList MachineConfig::getAllOptionNames(const QString &nodeType, cons
     else
     {
         typeElement = root.firstChildElement(nodeType);
-        nameElement = typeElement.firstChildElement(nodeName);
+        if(nodeName == "*")
+            nameElement = typeElement.firstChildElement();
+        else
+            nameElement = typeElement.firstChildElement(nodeName);
     }
     optionElement = nameElement.firstChildElement();
     while(!optionElement.isNull())
@@ -189,4 +192,49 @@ const QStringList MachineConfig::getAllOptionNames(const QString &nodeType, cons
         optionElement = optionElement.nextSiblingElement();
     }
     return optionNameList;
+}
+
+void MachineConfig::clearOption(const QString & nodeType, const QString & nodeName, const QString & optionName)
+{
+    QDomElement typeElement;
+    QDomElement nameElement;
+    QDomElement optionElement;
+
+    typeElement = root.firstChildElement(nodeType);
+    nameElement = typeElement;
+    if(!nodeName.isEmpty())
+    {
+        nameElement = typeElement.firstChildElement(nodeName);
+    }
+    optionElement = nameElement.firstChildElement(optionName);
+
+    if(optionElement.isNull())
+    {
+        //the option did not exist: no need to clear!
+        return;
+    }
+    else
+        nameElement.removeChild(optionElement);
+
+    saveConfig(configFile->fileName());
+    //TODO: need to emit this change and deal with it.
+}
+
+const int MachineConfig::getNumOptions(const QString & nodeType, const QString & nodeName)
+{
+    QDomElement typeElement;
+    QDomElement nameElement;
+        if(nodeName.isEmpty())
+    {
+        nameElement = root.firstChildElement(nodeType);
+    }
+    else
+    {
+        typeElement = root.firstChildElement(nodeType);
+        if(nodeName == "*")
+            nameElement = typeElement.firstChildElement();
+        else
+            nameElement = typeElement.firstChildElement(nodeName);
+    }
+    return nameElement.childNodes().size();
 }

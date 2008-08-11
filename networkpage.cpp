@@ -21,21 +21,73 @@
 **
 ****************************************************************************/
 
+#include "networkpage.h"
+#include "machineconfigobject.h"
+
+
+/****************************************************************************
+** C++ Implementation: GuestInterfaceModel
+**
+** Description: a model for guest interfaces
+**
+****************************************************************************/
+GuestInterfaceModel::GuestInterfaceModel(MachineConfigObject * config, QString nodeType, QObject * parent)
+  : QAbstractTableModel(parent)
+  , config(config)
+  , nodeType(nodeType)
+{
+
+}
+
+//display the model
+
+int GuestInterfaceModel::rowCount(const QModelIndex & parent) const
+{
+    if(parent.isValid())
+        return 0;
+    int rows = config->getConfig()->getNumOptions(nodeType, "");
+    qDebug("rows %i", rows);
+    return rows;
+}
+
+int GuestInterfaceModel::columnCount(const QModelIndex & parent) const
+{
+    if(parent.isValid())
+        return 0;
+    int cols = config->getConfig()->getNumOptions(nodeType, "*");
+    qDebug("cols %i", cols);
+    return cols;
+}
+
+QVariant GuestInterfaceModel::data(const QModelIndex & index, int role) const
+{
+    //maybe this could be optimized by caching the stringlists...
+    QString guestInterface = config->getConfig()->getAllOptionNames(nodeType, "").at(index.row());
+    QString optionName = config->getConfig()->getAllOptionNames(nodeType, guestInterface).at(index.column());
+    return config->getOption(nodeType, guestInterface, optionName, QVariant());
+}
+
+QVariant GuestInterfaceModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if(orientation == Qt::Horizontal)
+        return config->getConfig()->getAllOptionNames(nodeType, "*").at(section);
+    else
+        return QVariant(section);
+}
+
+
 /****************************************************************************
 ** C++ Implementation: networkpage
 **
 ** Description: 
 **
 ****************************************************************************/
-#include "networkpage.h"
-#include "machineconfigobject.h"
-
 NetworkPage::NetworkPage(MachineConfigObject *config, QWidget *parent)
  : QWidget(parent)
  , config(config)
 {
     setupUi(this);
-    setupPage();
+    setupModels();
     makeConnections();
     registerObjects();
 }
@@ -55,8 +107,11 @@ void NetworkPage::makeConnections()
     connect(advancedButton, SIGNAL(toggled(bool)), this, SLOT(changeNetPage(bool)));
 }
 
-void NetworkPage::setupPage()
+void NetworkPage::setupModels()
 {
+    guestModel = new GuestInterfaceModel(config, QString("net-guest"), this);
+    guestView->setModel(guestModel);
+    //guestView->setRootIndex(guestModel);
 }
 
 void NetworkPage::registerObjects()
@@ -64,5 +119,14 @@ void NetworkPage::registerObjects()
     config->registerObject(networkCheck, "network", QVariant(true));
     config->registerObject(networkEdit, "networkCustomOptions");
 }
+
+
+
+
+
+
+
+
+
 
 
