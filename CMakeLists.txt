@@ -72,7 +72,7 @@ SET(qtemu_MOC_HDRS
     qtemuenvironment.h
     harddiskmanager.h
     controlpanel.h
-    networkpage.hqwidgetfactory.html
+    networkpage.h
 )
 
 SET(qtemu_UIS
