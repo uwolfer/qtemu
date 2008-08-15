@@ -50,6 +50,7 @@ SET(qtemu_SRCS
     harddiskmanager.cpp
     controlpanel.cpp
     networkpage.cpp
+    interfacemodel.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -73,6 +74,7 @@ SET(qtemu_MOC_HDRS
     harddiskmanager.h
     controlpanel.h
     networkpage.h
+    interfacemodel.h
 )
 
 SET(qtemu_UIS

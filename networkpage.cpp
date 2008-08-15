@@ -23,59 +23,7 @@
 
 #include "networkpage.h"
 #include "machineconfigobject.h"
-
-
-/****************************************************************************
-** C++ Implementation: GuestInterfaceModel
-**
-** Description: a model for guest interfaces
-**
-****************************************************************************/
-GuestInterfaceModel::GuestInterfaceModel(MachineConfigObject * config, QString nodeType, QObject * parent)
-  : QAbstractTableModel(parent)
-  , config(config)
-  , nodeType(nodeType)
-{
-
-}
-
-//display the model
-
-int GuestInterfaceModel::rowCount(const QModelIndex & parent) const
-{
-    if(parent.isValid())
-        return 0;
-    int rows = config->getConfig()->getNumOptions(nodeType, "");
-    qDebug("rows %i", rows);
-    return rows;
-}
-
-int GuestInterfaceModel::columnCount(const QModelIndex & parent) const
-{
-    if(parent.isValid())
-        return 0;
-    int cols = config->getConfig()->getNumOptions(nodeType, "*");
-    qDebug("cols %i", cols);
-    return cols;
-}
-
-QVariant GuestInterfaceModel::data(const QModelIndex & index, int role) const
-{
-    //maybe this could be optimized by caching the stringlists...
-    QString guestInterface = config->getConfig()->getAllOptionNames(nodeType, "").at(index.row());
-    QString optionName = config->getConfig()->getAllOptionNames(nodeType, guestInterface).at(index.column());
-    return config->getOption(nodeType, guestInterface, optionName, QVariant());
-}
-
-QVariant GuestInterfaceModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
-    if(orientation == Qt::Horizontal)
-        return config->getConfig()->getAllOptionNames(nodeType, "*").at(section);
-    else
-        return QVariant(section);
-}
-
-
+#include "interfacemodel.h"
 /****************************************************************************
 ** C++ Implementation: networkpage
 **
@@ -105,11 +53,15 @@ void NetworkPage::changeNetPage(bool state)
 void NetworkPage::makeConnections()
 {
     connect(advancedButton, SIGNAL(toggled(bool)), this, SLOT(changeNetPage(bool)));
+
+    connect(addGuest, SIGNAL(clicked()), this, SLOT(addGuestInterface()));
+    connect(delGuest, SIGNAL(clicked()), this, SLOT(delGuestInterface()));
+    
 }
 
 void NetworkPage::setupModels()
 {
-    guestModel = new GuestInterfaceModel(config, QString("net-guest"), this);
+    guestModel = new GuestInterfaceModel(config, this);
     guestView->setModel(guestModel);
     //guestView->setRootIndex(guestModel);
 }
@@ -119,6 +71,19 @@ void NetworkPage::registerObjects()
     config->registerObject(networkCheck, "network", QVariant(true));
     config->registerObject(networkEdit, "networkCustomOptions");
 }
+
+void NetworkPage::addGuestInterface()
+{
+    guestModel->insertRows(guestModel->rowCount(), 1);
+}
+
+void NetworkPage::delGuestInterface()
+{
+    if(guestView->selectionModel()->hasSelection())
+        guestModel->removeRows(guestView->selectionModel()->selectedIndexes().first().row(), guestView->selectionModel()->selectedIndexes().size());
+        //guestModel->removeRows(guestView->selectedIndexes().first().row(), guestView->selectedIndexes().size());
+}
+
 
 
 

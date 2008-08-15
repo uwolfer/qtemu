@@ -255,14 +255,6 @@ void VncView::updateImage(int x, int y, int w, int h)
     m_w = w;
     m_h = h;
 
-    if (m_horizontalFactor != 1.0 || m_verticalFactor != 1.0) {
-        // If the view is scaled, grow the update rectangle to avoid artifacts
-        m_x-=1;
-        m_y-=1;
-        m_w+=2;
-        m_h+=2;
-    }
-
     m_frame = vncThread.image();
 
     if (!m_initDone) {
@@ -287,13 +279,13 @@ void VncView::updateImage(int x, int y, int w, int h)
 #endif
     }
 
-    if ((m_y == 0 && m_x == 0) && (m_frame.size() != size())) {
+    if ((y == 0 && x == 0) && (m_frame.size() != size())) {
         resize(m_frame.width(), m_frame.height());
         emit changeSize(m_frame.width(), m_frame.height());
     }
 
     m_repaint = true;
-    repaint(qRound(m_x * m_horizontalFactor), qRound(m_y * m_verticalFactor), qRound(m_w * m_horizontalFactor), qRound(m_h * m_verticalFactor));
+    repaint(qRound(x * m_horizontalFactor), qRound(y * m_verticalFactor), qRound(w * m_horizontalFactor), qRound(h * m_verticalFactor));
     m_repaint = false;
 }
 

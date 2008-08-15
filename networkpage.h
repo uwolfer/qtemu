@@ -26,38 +26,18 @@
 #define NETWORKPAGE_H
 
 #include <QWidget>
-#include <QAbstractTableModel>
+
 #include <QModelIndex>
 
 #include "ui_networkpage.h"
 
 class MachineConfigObject;
+class GuestInterfaceModel;
+class HostInterfaceModel;
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
-
-/****************************************************************************
-** C++ Interface: GuestInterfaceModel
-**
-** Description: a model for guest interfaces
-**
-****************************************************************************/
-class GuestInterfaceModel : public QAbstractTableModel
-{
-Q_OBJECT
-public:
-    GuestInterfaceModel(MachineConfigObject *config, QString nodeType,  QObject *parent = 0);
-
-     int rowCount(const QModelIndex & parent = QModelIndex() ) const;
-     int columnCount(const QModelIndex & parent = QModelIndex() ) const;
-     QVariant data ( const QModelIndex & index, int role = Qt::DisplayRole ) const;
-     QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
-    
-private:
-    MachineConfigObject *config;
-    QString nodeType;
-};
 
 /****************************************************************************
 ** C++ Interface: networkpage
@@ -81,11 +61,15 @@ private:
     MachineConfigObject *config;
 
     GuestInterfaceModel *guestModel;
+    HostInterfaceModel *hostModel;
 
 //dealing with model/view
 
 private slots:
     void changeNetPage(bool state);
+
+    void delGuestInterface();
+    void addGuestInterface();
 
 };
 

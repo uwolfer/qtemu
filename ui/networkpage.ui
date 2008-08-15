@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
+    <width>723</width>
     <height>506</height>
    </rect>
   </property>
@@ -242,7 +242,7 @@
                <rect>
                 <x>3</x>
                 <y>3</y>
-                <width>545</width>
+                <width>697</width>
                 <height>332</height>
                </rect>
               </property>
@@ -326,6 +326,12 @@
                     <layout class="QHBoxLayout" name="horizontalLayout_4" >
                      <item>
                       <widget class="QPushButton" name="addHost" >
+                       <property name="sizePolicy" >
+                        <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
                        <property name="text" >
                         <string>+</string>
                        </property>
@@ -336,26 +342,26 @@
                      </item>
                      <item>
                       <widget class="QPushButton" name="delHost" >
+                       <property name="sizePolicy" >
+                        <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
                        <property name="text" >
                         <string>-</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <spacer name="horizontalSpacer" >
-                       <property name="orientation" >
-                        <enum>Qt::Horizontal</enum>
+                      <widget class="QComboBox" name="hostTypeBox" >
+                       <property name="sizePolicy" >
+                        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
                        </property>
-                       <property name="sizeHint" stdset="0" >
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <widget class="QComboBox" name="hostTypeBox" />
+                      </widget>
                      </item>
                     </layout>
                    </item>
@@ -382,7 +388,7 @@
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>531</width>
+                    <width>683</width>
                     <height>149</height>
                    </rect>
                   </property>
@@ -906,19 +912,6 @@
               </layout>
              </widget>
             </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_2" >
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </item>

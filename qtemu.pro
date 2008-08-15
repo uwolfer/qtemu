@@ -17,7 +17,8 @@ HEADERS =   config.h \
    qtemuenvironment.h \
    harddiskmanager.h \
    controlpanel.h \
-   networkpage.h
+   networkpage.h \
+   interfacemodel.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -38,7 +39,8 @@ SOURCES =   main.cpp \
    qtemuenvironment.cpp \
    harddiskmanager.cpp \
    controlpanel.cpp \
-   networkpage.cpp
+   networkpage.cpp \
+   interfacemodel.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg webkit
