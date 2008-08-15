@@ -48,5 +48,6 @@
     <file>images/oxygen/fullscreen.png</file>
     <file>images/oxygen/scale.png</file>
     <file>images/oxygen/mouse.png</file>
+    <file>images/oxygen/force.png</file>
 </qresource>
 </RCC>

@@ -80,7 +80,7 @@ public:
 /**
     get an option from the config file using the short syntax
 */
-    QVariant getOption(const QString &optionName, const QVariant &defaultValue);
+    QVariant getOption(const QString &optionName, const QVariant &defaultValue = QVariant());
 
 public slots:
 /**

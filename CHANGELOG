@@ -22,6 +22,7 @@ Features:
 * added option for OSS, ESD, or ALSA sound support
 * restart button now works correctly (powers off the machine gracefully)
 * screenshot button
+* more flexible configuration
 All these new features listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
 * Install desktop file on Linux (e.g. to start QtEmu from startmenus)
 * Respect FHS for installation on Linux
