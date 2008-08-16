@@ -243,7 +243,7 @@
                 <x>3</x>
                 <y>3</y>
                 <width>697</width>
-                <height>332</height>
+                <height>329</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4" >
@@ -310,20 +310,7 @@
                     </layout>
                    </item>
                    <item>
-                    <widget class="QTableView" name="guestView" >
-                     <property name="alternatingRowColors" >
-                      <bool>true</bool>
-                     </property>
-                     <property name="selectionMode" >
-                      <enum>QAbstractItemView::ContiguousSelection</enum>
-                     </property>
-                     <property name="selectionBehavior" >
-                      <enum>QAbstractItemView::SelectRows</enum>
-                     </property>
-                     <property name="showGrid" >
-                      <bool>false</bool>
-                     </property>
-                    </widget>
+                    <widget class="QTreeView" name="guestView" />
                    </item>
                   </layout>
                  </item>
@@ -449,7 +436,7 @@
                     <x>3</x>
                     <y>3</y>
                     <width>683</width>
-                    <height>149</height>
+                    <height>153</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_8" >

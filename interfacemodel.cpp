@@ -46,15 +46,16 @@ int InterfaceModel::rowCount(const QModelIndex & parent) const
     if(parent.isValid())
         return 0;
     int rows = config->getConfig()->getNumOptions(nodeType, "");
-    //qDebug("rows %i", rows);
+    qDebug("rows %i", rows);
     return rows;
 }
 
 int InterfaceModel::columnCount(const QModelIndex & parent) const
 {
     if(parent.isValid())
-        return 0;
+        return 4;
     int cols = config->getConfig()->getNumOptions(nodeType, "*");
+    qDebug("cols %i", cols);
     return cols;
 }
 
@@ -77,7 +78,7 @@ QVariant InterfaceModel::headerData(int section, Qt::Orientation orientation, in
     if(orientation == Qt::Horizontal)
     {
         if (role == Qt::DisplayRole)
-            ;//return config->getConfig()->getAllOptionNames(nodeType, "*").at(section);
+            return config->getConfig()->getAllOptionNames(nodeType, "*").at(section);
     }
     return QAbstractTableModel::headerData(section, orientation, role);
 }
@@ -161,12 +162,11 @@ bool GuestInterfaceModel::removeRows(int row, int count, const QModelIndex & par
 {
     Q_UNUSED(parent);
     
-    beginRemoveRows(parent, row, row + count - 1);
-    for (int i=0; i<count; i++)
-    {
-        QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row + count - 1);
-        config->getConfig()->clearOption(nodeType, "", nodeName);
-    }
+    beginRemoveRows(parent, row, count);
+    QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row);
+
+    config->getConfig()->clearOption(nodeType, "", nodeName);
+
     endRemoveRows();
     return true;
 }
@@ -181,9 +181,9 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
     Q_UNUSED(parent);
     QString nodeName;
     int interfaceNumber = 0;
-    beginInsertRows(parent, row, row + count - 1);
-    for (int i=0; i<count; i++)
-    {
+    beginInsertRows(parent, row, count);
+    //for (int i=0; i<count; i++)
+    //{
         for(;config->getOption(nodeType, "", QString("host" + QString::number(interfaceNumber)), QVariant()).isValid();interfaceNumber++);
         nodeName = "host" + QString::number(interfaceNumber);
         //set all options
@@ -206,7 +206,7 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
         config->setOption(nodeType, nodeName, "port", "9000");
         config->setOption(nodeType, nodeName, "guest", QString());
         
-    }
+    //}
     endInsertRows();
     return true;
 
@@ -215,7 +215,16 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
 bool HostInterfaceModel::removeRows(int row, int count, const QModelIndex & parent)
 {
     Q_UNUSED(parent);
-    
+
+    beginRemoveRows(parent, row, 1);
+
+    QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row);
+
+    config->getConfig()->clearOption(nodeType, "", nodeName);
+
+    endRemoveRows();
+    return true;
+/*
     beginRemoveRows(parent, row, row + count - 1);
     for (int i=0; i<count; i++)
     {
@@ -224,6 +233,7 @@ bool HostInterfaceModel::removeRows(int row, int count, const QModelIndex & pare
     }
     endRemoveRows();
     return true;
+*/
 }
 
 

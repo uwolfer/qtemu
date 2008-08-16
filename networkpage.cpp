@@ -74,6 +74,8 @@ void NetworkPage::setupModels()
 
     hostModel = new HostInterfaceModel(config, this);
     hostView->setModel(hostModel);
+    for(int i=2;i<hostModel->columnCount();i++)
+        hostView->hideColumn(i);
 
 }
 
@@ -146,8 +148,6 @@ void NetworkPage::hostSelectionChanged(const QItemSelection & selected, const QI
     config->unregisterObject(hostTypeBox);
 
     QString rowName = hostModel->rowName(selected.first().indexes().first().row());
-
-    //hostTypeBox->setEditText(config->getOption("net-host", rowName, "type", "User Mode").toString());
 
     config->registerObject(hostTypeBox, "net-host", rowName, "type", "User Mode");
 
