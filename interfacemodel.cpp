@@ -146,4 +146,9 @@ bool GuestInterfaceModel::removeRows(int row, int count, const QModelIndex & par
     return true;
 }
 
+HostInterfaceModel::HostInterfaceModel(MachineConfigObject * config, QObject * parent)
+  : InterfaceModel(config, QString("net-host"), parent)
+{
+}
+
 

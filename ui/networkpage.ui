@@ -43,7 +43,7 @@
         <item>
          <widget class="QCheckBox" name="netAccelCheck" >
           <property name="enabled" >
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="text" >
            <string>Use Accelerated Drivers</string>
@@ -268,15 +268,29 @@
                     <layout class="QHBoxLayout" name="horizontalLayout_3" >
                      <item>
                       <widget class="QPushButton" name="addGuest" >
+                       <property name="baseSize" >
+                        <size>
+                         <width>0</width>
+                         <height>0</height>
+                        </size>
+                       </property>
                        <property name="text" >
-                        <string>+</string>
+                        <string/>
+                       </property>
+                       <property name="icon" >
+                        <iconset resource="../qtemu.qrc" >
+                         <normaloff>:/images/oxygen/add.png</normaloff>:/images/oxygen/add.png</iconset>
                        </property>
                       </widget>
                      </item>
                      <item>
                       <widget class="QPushButton" name="delGuest" >
                        <property name="text" >
-                        <string>-</string>
+                        <string/>
+                       </property>
+                       <property name="icon" >
+                        <iconset resource="../qtemu.qrc" >
+                         <normaloff>:/images/oxygen/remove.png</normaloff>:/images/oxygen/remove.png</iconset>
                        </property>
                       </widget>
                      </item>
@@ -296,7 +310,20 @@
                     </layout>
                    </item>
                    <item>
-                    <widget class="QTableView" name="guestView" />
+                    <widget class="QTableView" name="guestView" >
+                     <property name="alternatingRowColors" >
+                      <bool>true</bool>
+                     </property>
+                     <property name="selectionMode" >
+                      <enum>QAbstractItemView::ContiguousSelection</enum>
+                     </property>
+                     <property name="selectionBehavior" >
+                      <enum>QAbstractItemView::SelectRows</enum>
+                     </property>
+                     <property name="showGrid" >
+                      <bool>false</bool>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -333,7 +360,11 @@
                         </sizepolicy>
                        </property>
                        <property name="text" >
-                        <string>+</string>
+                        <string/>
+                       </property>
+                       <property name="icon" >
+                        <iconset resource="../qtemu.qrc" >
+                         <normaloff>:/images/oxygen/add.png</normaloff>:/images/oxygen/add.png</iconset>
                        </property>
                        <property name="flat" >
                         <bool>false</bool>
@@ -349,7 +380,11 @@
                         </sizepolicy>
                        </property>
                        <property name="text" >
-                        <string>-</string>
+                        <string/>
+                       </property>
+                       <property name="icon" >
+                        <iconset resource="../qtemu.qrc" >
+                         <normaloff>:/images/oxygen/remove.png</normaloff>:/images/oxygen/remove.png</iconset>
                        </property>
                       </widget>
                      </item>
@@ -361,6 +396,31 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <item>
+                        <property name="text" >
+                         <string>User Mode</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>Bridged Interface</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>Routed Interface</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>Shared Virtual Lan</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>Custom TAP</string>
+                        </property>
+                       </item>
                       </widget>
                      </item>
                     </layout>
@@ -381,9 +441,9 @@
                   <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="currentIndex" >
-                  <number>0</number>
+                  <number>5</number>
                  </property>
-                 <widget class="QWidget" name="guestPage" >
+                 <widget class="QWidget" name="hostUserPage" >
                   <property name="geometry" >
                    <rect>
                     <x>3</x>
@@ -392,57 +452,125 @@
                     <height>149</height>
                    </rect>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_5" >
+                  <layout class="QVBoxLayout" name="verticalLayout_8" >
                    <item>
-                    <layout class="QFormLayout" name="formLayout" >
-                     <item row="1" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_2" />
-                     </item>
-                     <item row="1" column="0" >
-                      <widget class="QLabel" name="label_3" >
+                    <layout class="QFormLayout" name="formLayout_3" >
+                     <property name="fieldGrowthPolicy" >
+                      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                     </property>
+                     <item row="0" column="0" >
+                      <widget class="QLabel" name="label_8" >
                        <property name="text" >
-                        <string>Interface MAC Address</string>
+                        <string>Assign Hostname via DHCP</string>
                        </property>
                       </widget>
                      </item>
                      <item row="0" column="1" >
-                      <widget class="QComboBox" name="comboBox_2" />
+                      <widget class="QLineEdit" name="lineEdit_4" />
                      </item>
-                     <item row="0" column="0" >
-                      <widget class="QLabel" name="label_6" >
+                     <item row="1" column="0" >
+                      <widget class="QCheckBox" name="checkBox_4" >
                        <property name="text" >
-                        <string>Emulated Network Card Model</string>
+                        <string>Set up TFTP Server</string>
                        </property>
                       </widget>
                      </item>
+                     <item row="1" column="1" >
+                      <layout class="QHBoxLayout" name="horizontalLayout_6" >
+                       <property name="spacing" >
+                        <number>4</number>
+                       </property>
+                       <item>
+                        <widget class="QLineEdit" name="lineEdit_5" />
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_5" >
+                         <property name="sizePolicy" >
+                          <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="maximumSize" >
+                          <size>
+                           <width>32</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="text" >
+                          <string/>
+                         </property>
+                         <property name="icon" >
+                          <iconset resource="../qtemu.qrc" >
+                           <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
+                         </property>
+                         <property name="iconSize" >
+                          <size>
+                           <width>16</width>
+                           <height>16</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
                      <item row="2" column="0" >
-                      <widget class="QPushButton" name="pushButton_11" >
+                      <widget class="QCheckBox" name="checkBox_5" >
                        <property name="text" >
-                        <string>Generate new MAC</string>
+                        <string>Broadcast BOOTP File</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1" >
+                      <layout class="QHBoxLayout" name="horizontalLayout_7" >
+                       <property name="spacing" >
+                        <number>4</number>
+                       </property>
+                       <item>
+                        <widget class="QLineEdit" name="lineEdit_6" />
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_6" >
+                         <property name="sizePolicy" >
+                          <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="maximumSize" >
+                          <size>
+                           <width>32</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="text" >
+                          <string/>
+                         </property>
+                         <property name="icon" >
+                          <iconset resource="../qtemu.qrc" >
+                           <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
+                         </property>
+                         <property name="iconSize" >
+                          <size>
+                           <width>16</width>
+                           <height>16</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item row="3" column="1" >
+                      <widget class="QPushButton" name="pushButton_7" >
+                       <property name="enabled" >
+                        <bool>false</bool>
+                       </property>
+                       <property name="text" >
+                        <string>Port Redirection...</string>
                        </property>
                       </widget>
                      </item>
                     </layout>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_2" >
-                     <property name="text" >
-                      <string>Set a new, random MAC address upon each boot</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="verticalSpacer" >
-                     <property name="orientation" >
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0" >
-                      <size>
-                       <width>20</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                    </spacer>
                    </item>
                   </layout>
                  </widget>
@@ -451,7 +579,7 @@
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>531</width>
+                    <width>683</width>
                     <height>149</height>
                    </rect>
                   </property>
@@ -508,12 +636,155 @@
                    </item>
                   </layout>
                  </widget>
+                 <widget class="QWidget" name="hostRoutePage" >
+                  <property name="geometry" >
+                   <rect>
+                    <x>3</x>
+                    <y>3</y>
+                    <width>683</width>
+                    <height>149</height>
+                   </rect>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_10" >
+                   <item>
+                    <layout class="QFormLayout" name="formLayout_4" >
+                     <item row="1" column="1" >
+                      <widget class="QComboBox" name="comboBox_5" />
+                     </item>
+                     <item row="1" column="0" >
+                      <widget class="QLabel" name="label_11" >
+                       <property name="text" >
+                        <string>Hardware interface to route to</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0" >
+                      <widget class="QLabel" name="label_12" >
+                       <property name="text" >
+                        <string>Host Interface Name</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1" >
+                      <widget class="QLineEdit" name="lineEdit_8" />
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="hostVLanPage" >
+                  <property name="geometry" >
+                   <rect>
+                    <x>3</x>
+                    <y>3</y>
+                    <width>683</width>
+                    <height>149</height>
+                   </rect>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_9" >
+                   <item>
+                    <widget class="QGroupBox" name="groupBox" >
+                     <property name="title" >
+                      <string>Shared Virtual Lan Transport</string>
+                     </property>
+                     <property name="flat" >
+                      <bool>false</bool>
+                     </property>
+                     <property name="checkable" >
+                      <bool>false</bool>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_10" >
+                      <property name="leftMargin" >
+                       <number>4</number>
+                      </property>
+                      <property name="topMargin" >
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin" >
+                       <number>0</number>
+                      </property>
+                      <item>
+                       <widget class="QRadioButton" name="radioButton" >
+                        <property name="text" >
+                         <string>UDP Multicast (Multiple Guests)</string>
+                        </property>
+                        <property name="value" stdset="0" >
+                         <string>udp</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QRadioButton" name="radioButton_2" >
+                        <property name="text" >
+                         <string>TCP Unicast (Two Guests)</string>
+                        </property>
+                        <property name="value" stdset="0" >
+                         <string>tcp</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout" >
+                     <item row="0" column="1" >
+                      <widget class="QComboBox" name="comboBox_3" >
+                       <property name="editable" >
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0" >
+                      <widget class="QLabel" name="label_9" >
+                       <property name="text" >
+                        <string>Select Bus Address</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0" >
+                      <widget class="QLabel" name="label_10" >
+                       <property name="text" >
+                        <string>Select Bus Port</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1" >
+                      <widget class="QComboBox" name="comboBox_4" >
+                       <property name="sizePolicy" >
+                        <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="editable" >
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <spacer name="verticalSpacer_2" >
+                     <property name="orientation" >
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0" >
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </widget>
                  <widget class="QWidget" name="hostTapPage" >
                   <property name="geometry" >
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>531</width>
+                    <width>683</width>
                     <height>149</height>
                    </rect>
                   </property>
@@ -642,222 +913,97 @@
                    </item>
                   </layout>
                  </widget>
-                 <widget class="QWidget" name="hostUserPage" >
+                 <widget class="QWidget" name="guestPage" >
                   <property name="geometry" >
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>531</width>
+                    <width>683</width>
                     <height>149</height>
                    </rect>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_8" >
+                  <layout class="QVBoxLayout" name="verticalLayout_5" >
                    <item>
-                    <layout class="QFormLayout" name="formLayout_3" >
-                     <property name="fieldGrowthPolicy" >
-                      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-                     </property>
-                     <item row="0" column="0" >
-                      <widget class="QLabel" name="label_8" >
+                    <layout class="QFormLayout" name="formLayout" >
+                     <item row="1" column="1" >
+                      <widget class="QLineEdit" name="lineEdit_2" />
+                     </item>
+                     <item row="1" column="0" >
+                      <widget class="QLabel" name="label_3" >
                        <property name="text" >
-                        <string>Assign Hostname via DHCP</string>
+                        <string>Interface MAC Address</string>
                        </property>
                       </widget>
                      </item>
                      <item row="0" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_4" />
-                     </item>
-                     <item row="1" column="0" >
-                      <widget class="QCheckBox" name="checkBox_4" >
-                       <property name="text" >
-                        <string>Set up TFTP Server</string>
-                       </property>
+                      <widget class="QComboBox" name="comboBox_2" >
+                       <item>
+                        <property name="text" >
+                         <string>i82551</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>i82557b</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>i82559er</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>ne2k_pci</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>ne2k_isa</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>pcnet</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>rtl8139</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text" >
+                         <string>e1000</string>
+                        </property>
+                       </item>
                       </widget>
                      </item>
-                     <item row="1" column="1" >
-                      <layout class="QHBoxLayout" name="horizontalLayout_6" >
-                       <property name="spacing" >
-                        <number>4</number>
+                     <item row="0" column="0" >
+                      <widget class="QLabel" name="label_6" >
+                       <property name="text" >
+                        <string>Emulated Network Card Model</string>
                        </property>
-                       <item>
-                        <widget class="QLineEdit" name="lineEdit_5" />
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="pushButton_5" >
-                         <property name="sizePolicy" >
-                          <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="maximumSize" >
-                          <size>
-                           <width>32</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text" >
-                          <string/>
-                         </property>
-                         <property name="icon" >
-                          <iconset resource="../qtemu.qrc" >
-                           <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
-                         </property>
-                         <property name="iconSize" >
-                          <size>
-                           <width>16</width>
-                           <height>16</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
+                      </widget>
                      </item>
                      <item row="2" column="0" >
-                      <widget class="QCheckBox" name="checkBox_5" >
+                      <widget class="QPushButton" name="pushButton_11" >
                        <property name="text" >
-                        <string>Broadcast BOOTP File</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1" >
-                      <layout class="QHBoxLayout" name="horizontalLayout_7" >
-                       <property name="spacing" >
-                        <number>4</number>
-                       </property>
-                       <item>
-                        <widget class="QLineEdit" name="lineEdit_6" />
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="pushButton_6" >
-                         <property name="sizePolicy" >
-                          <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="maximumSize" >
-                          <size>
-                           <width>32</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text" >
-                          <string/>
-                         </property>
-                         <property name="icon" >
-                          <iconset resource="../qtemu.qrc" >
-                           <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
-                         </property>
-                         <property name="iconSize" >
-                          <size>
-                           <width>16</width>
-                           <height>16</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item row="3" column="1" >
-                      <widget class="QPushButton" name="pushButton_7" >
-                       <property name="text" >
-                        <string>Port Redirection...</string>
+                        <string>Generate new MAC</string>
                        </property>
                       </widget>
                      </item>
                     </layout>
                    </item>
-                  </layout>
-                 </widget>
-                 <widget class="QWidget" name="hostVLanPage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>531</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_9" >
                    <item>
-                    <widget class="QGroupBox" name="groupBox" >
-                     <property name="title" >
-                      <string>Shared Virtual Lan Transport</string>
+                    <widget class="QCheckBox" name="checkBox_2" >
+                     <property name="text" >
+                      <string>Set a new, random MAC address upon each boot</string>
                      </property>
-                     <property name="flat" >
-                      <bool>false</bool>
-                     </property>
-                     <property name="checkable" >
-                      <bool>false</bool>
-                     </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_10" >
-                      <property name="leftMargin" >
-                       <number>4</number>
-                      </property>
-                      <property name="topMargin" >
-                       <number>0</number>
-                      </property>
-                      <property name="bottomMargin" >
-                       <number>0</number>
-                      </property>
-                      <item>
-                       <widget class="QRadioButton" name="radioButton" >
-                        <property name="text" >
-                         <string>UDP Multicast (Multiple Guests)</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QRadioButton" name="radioButton_2" >
-                        <property name="text" >
-                         <string>TCP Unicast (Two Guests)</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout" >
-                     <item row="0" column="1" >
-                      <widget class="QComboBox" name="comboBox_3" >
-                       <property name="editable" >
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="0" >
-                      <widget class="QLabel" name="label_9" >
-                       <property name="text" >
-                        <string>Select Bus Address</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0" >
-                      <widget class="QLabel" name="label_10" >
-                       <property name="text" >
-                        <string>Select Bus Port</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1" >
-                      <widget class="QComboBox" name="comboBox_4" >
-                       <property name="sizePolicy" >
-                        <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="editable" >
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <spacer name="verticalSpacer_2" >
+                    <spacer name="verticalSpacer" >
                      <property name="orientation" >
                       <enum>Qt::Vertical</enum>
                      </property>
@@ -868,42 +1014,6 @@
                       </size>
                      </property>
                     </spacer>
-                   </item>
-                  </layout>
-                 </widget>
-                 <widget class="QWidget" name="hostRoutePage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>531</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_10" >
-                   <item>
-                    <layout class="QFormLayout" name="formLayout_4" >
-                     <item row="1" column="1" >
-                      <widget class="QComboBox" name="comboBox_5" />
-                     </item>
-                     <item row="1" column="0" >
-                      <widget class="QLabel" name="label_11" >
-                       <property name="text" >
-                        <string>Hardware interface to route to</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="0" >
-                      <widget class="QLabel" name="label_12" >
-                       <property name="text" >
-                        <string>Host Interface Name</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_8" />
-                     </item>
-                    </layout>
                    </item>
                   </layout>
                  </widget>
@@ -956,5 +1066,38 @@
  <resources>
   <include location="../qtemu.qrc" />
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>netAccelCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_2</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>433</x>
+     <y>42</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>274</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>hostTypeBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>stackedWidget</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>590</x>
+     <y>151</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>679</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

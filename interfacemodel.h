@@ -68,4 +68,17 @@ public:
 
     bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
 };
+
+class HostInterfaceModel : public InterfaceModel
+{
+Q_OBJECT
+public:
+    HostInterfaceModel(MachineConfigObject *config, QObject *parent = 0);
+
+    
+
+    //bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
+
+    //bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
+};
 #endif

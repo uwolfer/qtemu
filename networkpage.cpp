@@ -63,6 +63,8 @@ void NetworkPage::setupModels()
 {
     guestModel = new GuestInterfaceModel(config, this);
     guestView->setModel(guestModel);
+    guestView->hideColumn(3);
+    guestView->hideColumn(1);
     //guestView->setRootIndex(guestModel);
 }
 
@@ -81,7 +83,6 @@ void NetworkPage::delGuestInterface()
 {
     if(guestView->selectionModel()->hasSelection())
         guestModel->removeRows(guestView->selectionModel()->selectedIndexes().first().row(), guestView->selectionModel()->selectedIndexes().size());
-        //guestModel->removeRows(guestView->selectedIndexes().first().row(), guestView->selectedIndexes().size());
 }
 
 
