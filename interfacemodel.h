@@ -52,10 +52,14 @@ public:
     Qt::ItemFlags flags ( const QModelIndex &index ) const;
     bool setData( const QModelIndex & index, const QVariant& value, int role );
      
-    
+    QString rowName(int row) const;
+    QString colName(QString rowName, int col) const;
 protected:
     MachineConfigObject *config;
     QString nodeType;
+
+protected slots:
+    void optionChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);
 };
 
 class GuestInterfaceModel : public InterfaceModel
@@ -75,10 +79,8 @@ Q_OBJECT
 public:
     HostInterfaceModel(MachineConfigObject *config, QObject *parent = 0);
 
-    
+    bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
 
-    //bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
-
-    //bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
+    bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
 };
 #endif

@@ -433,7 +433,7 @@
                 </layout>
                </item>
                <item>
-                <widget class="QStackedWidget" name="stackedWidget" >
+                <widget class="QStackedWidget" name="propertyStack" >
                  <property name="frameShape" >
                   <enum>QFrame::StyledPanel</enum>
                  </property>
@@ -441,7 +441,7 @@
                   <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="currentIndex" >
-                  <number>5</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="hostUserPage" >
                   <property name="geometry" >
@@ -466,10 +466,10 @@
                       </widget>
                      </item>
                      <item row="0" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_4" />
+                      <widget class="QLineEdit" name="hostnameEdit" />
                      </item>
                      <item row="1" column="0" >
-                      <widget class="QCheckBox" name="checkBox_4" >
+                      <widget class="QCheckBox" name="tftpCheck" >
                        <property name="text" >
                         <string>Set up TFTP Server</string>
                        </property>
@@ -481,7 +481,7 @@
                         <number>4</number>
                        </property>
                        <item>
-                        <widget class="QLineEdit" name="lineEdit_5" />
+                        <widget class="QLineEdit" name="tftpEdit" />
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_5" >
@@ -515,7 +515,7 @@
                       </layout>
                      </item>
                      <item row="2" column="0" >
-                      <widget class="QCheckBox" name="checkBox_5" >
+                      <widget class="QCheckBox" name="bootpCheck" >
                        <property name="text" >
                         <string>Broadcast BOOTP File</string>
                        </property>
@@ -527,7 +527,7 @@
                         <number>4</number>
                        </property>
                        <item>
-                        <widget class="QLineEdit" name="lineEdit_6" />
+                        <widget class="QLineEdit" name="bootpEdit" />
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_6" >
@@ -561,7 +561,7 @@
                       </layout>
                      </item>
                      <item row="3" column="1" >
-                      <widget class="QPushButton" name="pushButton_7" >
+                      <widget class="QPushButton" name="portButton" >
                        <property name="enabled" >
                         <bool>false</bool>
                        </property>
@@ -597,7 +597,7 @@
                       </widget>
                      </item>
                      <item row="0" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_7" />
+                      <widget class="QLineEdit" name="interfaceEdit" />
                      </item>
                      <item row="1" column="0" >
                       <widget class="QLabel" name="label_4" >
@@ -607,10 +607,10 @@
                       </widget>
                      </item>
                      <item row="1" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_3" />
+                      <widget class="QLineEdit" name="bridgeEdit" />
                      </item>
                      <item row="2" column="1" >
-                      <widget class="QComboBox" name="comboBox_6" />
+                      <widget class="QComboBox" name="hardwareEdit" />
                      </item>
                      <item row="2" column="0" >
                       <widget class="QLabel" name="label_5" >
@@ -623,7 +623,7 @@
                       </widget>
                      </item>
                      <item row="3" column="0" >
-                      <widget class="QCheckBox" name="checkBox_3" >
+                      <widget class="QCheckBox" name="spanningCheck" >
                        <property name="enabled" >
                         <bool>true</bool>
                        </property>
@@ -649,7 +649,7 @@
                    <item>
                     <layout class="QFormLayout" name="formLayout_4" >
                      <item row="1" column="1" >
-                      <widget class="QComboBox" name="comboBox_5" />
+                      <widget class="QComboBox" name="hardwareEdit_2" />
                      </item>
                      <item row="1" column="0" >
                       <widget class="QLabel" name="label_11" >
@@ -666,7 +666,7 @@
                       </widget>
                      </item>
                      <item row="0" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_8" />
+                      <widget class="QLineEdit" name="interfaceEdit_2" />
                      </item>
                     </layout>
                    </item>
@@ -704,7 +704,7 @@
                        <number>0</number>
                       </property>
                       <item>
-                       <widget class="QRadioButton" name="radioButton" >
+                       <widget class="QRadioButton" name="udpButton" >
                         <property name="text" >
                          <string>UDP Multicast (Multiple Guests)</string>
                         </property>
@@ -714,7 +714,7 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QRadioButton" name="radioButton_2" >
+                       <widget class="QRadioButton" name="tcpButton" >
                         <property name="text" >
                          <string>TCP Unicast (Two Guests)</string>
                         </property>
@@ -729,7 +729,7 @@
                    <item>
                     <layout class="QGridLayout" name="gridLayout" >
                      <item row="0" column="1" >
-                      <widget class="QComboBox" name="comboBox_3" >
+                      <widget class="QComboBox" name="addressCombo" >
                        <property name="editable" >
                         <bool>true</bool>
                        </property>
@@ -750,17 +750,7 @@
                       </widget>
                      </item>
                      <item row="1" column="1" >
-                      <widget class="QComboBox" name="comboBox_4" >
-                       <property name="sizePolicy" >
-                        <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="editable" >
-                        <bool>true</bool>
-                       </property>
-                      </widget>
+                      <widget class="QSpinBox" name="portSpin" />
                      </item>
                     </layout>
                    </item>
@@ -802,7 +792,7 @@
                       </widget>
                      </item>
                      <item row="0" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_9" />
+                      <widget class="QLineEdit" name="interfaceEdit_3" />
                      </item>
                      <item row="1" column="0" >
                       <widget class="QLabel" name="label_15" >
@@ -824,7 +814,7 @@
                         <number>4</number>
                        </property>
                        <item>
-                        <widget class="QLineEdit" name="lineEdit_13" />
+                        <widget class="QLineEdit" name="upScriptEdit" />
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_9" >
@@ -863,7 +853,7 @@
                         <number>4</number>
                        </property>
                        <item>
-                        <widget class="QLineEdit" name="lineEdit_10" />
+                        <widget class="QLineEdit" name="downScriptEdit" />
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_10" >
@@ -926,7 +916,7 @@
                    <item>
                     <layout class="QFormLayout" name="formLayout" >
                      <item row="1" column="1" >
-                      <widget class="QLineEdit" name="lineEdit_2" />
+                      <widget class="QLineEdit" name="macEdit" />
                      </item>
                      <item row="1" column="0" >
                       <widget class="QLabel" name="label_3" >
@@ -936,7 +926,7 @@
                       </widget>
                      </item>
                      <item row="0" column="1" >
-                      <widget class="QComboBox" name="comboBox_2" >
+                      <widget class="QComboBox" name="nicModelCombo" >
                        <item>
                         <property name="text" >
                          <string>i82551</string>
@@ -977,6 +967,11 @@
                          <string>e1000</string>
                         </property>
                        </item>
+                       <item>
+                        <property name="text" >
+                         <string>virtio</string>
+                        </property>
+                       </item>
                       </widget>
                      </item>
                      <item row="0" column="0" >
@@ -987,7 +982,7 @@
                       </widget>
                      </item>
                      <item row="2" column="0" >
-                      <widget class="QPushButton" name="pushButton_11" >
+                      <widget class="QPushButton" name="macButton" >
                        <property name="text" >
                         <string>Generate new MAC</string>
                        </property>
@@ -996,7 +991,7 @@
                     </layout>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_2" >
+                    <widget class="QCheckBox" name="randomCheck" >
                      <property name="text" >
                       <string>Set a new, random MAC address upon each boot</string>
                      </property>
@@ -1070,7 +1065,7 @@
   <connection>
    <sender>netAccelCheck</sender>
    <signal>toggled(bool)</signal>
-   <receiver>comboBox_2</receiver>
+   <receiver>nicModelCombo</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -1086,7 +1081,7 @@
   <connection>
    <sender>hostTypeBox</sender>
    <signal>currentIndexChanged(int)</signal>
-   <receiver>stackedWidget</receiver>
+   <receiver>propertyStack</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel" >
@@ -1096,6 +1091,38 @@
     <hint type="destinationlabel" >
      <x>679</x>
      <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>randomCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>macEdit</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>76</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>472</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>randomCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>macButton</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>115</x>
+     <y>408</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>117</x>
+     <y>378</y>
     </hint>
    </hints>
   </connection>

@@ -71,6 +71,11 @@ private slots:
     void delGuestInterface();
     void addGuestInterface();
 
+    void delHostInterface();
+    void addHostInterface();
+
+    void guestSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
+    void hostSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
 };
 
 
