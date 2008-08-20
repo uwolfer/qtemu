@@ -227,9 +227,14 @@ void MachineProcess::start()
     {
         QStringList commandList;
         commandList = command.split('\n');
+        QStringList paramList;
         for (int i = 0; i < commandList.size(); ++i)
         {
-            QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            paramList = commandList.at(i).split(' ');//FIXME: this will split parameters even if the space is enclosed in quotes or escaped. this is not quite right. same below
+            if(paramList.size()==1)
+                QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            else
+                QProcess::start(paramList.takeFirst().toLocal8Bit().constData(),paramList);
             while (waitForFinished())
             {
                 QTime sleepTime = QTime::currentTime().addMSecs(5);
@@ -243,9 +248,14 @@ void MachineProcess::start()
     {
         QStringList commandList;
         commandList = command.split('\n');
+        QStringList paramList;
         for (int i = 0; i < commandList.size(); ++i)
         {
-            QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            paramList = commandList.at(i).split(' ');//FIXME
+            if(paramList.size()==1)
+                QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            else
+                QProcess::start(paramList.takeFirst().toLocal8Bit().constData(),paramList);
             while (waitForFinished())
             {
                 QTime sleepTime = QTime::currentTime().addMSecs(5);
@@ -287,9 +297,14 @@ void MachineProcess::afterExitExecute()
     {
         QStringList commandList;
         commandList = command.split('\n');
+        QStringList paramList;
         for (int i = 0; i < commandList.size(); ++i)
         {
-            QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            paramList = commandList.at(i).split(' ');//FIXME
+            if(paramList.size()==1)
+                QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            else
+                QProcess::start(paramList.takeFirst().toLocal8Bit().constData(),paramList);
             while (waitForFinished())
             {
                 QTime sleepTime = QTime::currentTime().addMSecs(5);
@@ -303,9 +318,14 @@ void MachineProcess::afterExitExecute()
     {
         QStringList commandList;
         commandList = command.split('\n');
+        QStringList paramList;
         for (int i = 0; i < commandList.size(); ++i)
         {
-            QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            paramList = commandList.at(i).split(' ');//FIXME
+            if(paramList.size()==1)
+                QProcess::start(commandList.at(i).toLocal8Bit().constData());
+            else
+                QProcess::start(paramList.takeFirst().toLocal8Bit().constData(),paramList);
             while (waitForFinished())
             {
                 QTime sleepTime = QTime::currentTime().addMSecs(5);
