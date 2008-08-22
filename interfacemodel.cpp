@@ -53,10 +53,8 @@ int InterfaceModel::rowCount(const QModelIndex & parent) const
 int InterfaceModel::columnCount(const QModelIndex & parent) const
 {
     if(parent.isValid())
-        return 4;
-    int cols = config->getConfig()->getNumOptions(nodeType, "*");
-    qDebug("cols %i", cols);
-    return cols;
+        return 0;
+    return columns.size();
 }
 
 QVariant InterfaceModel::data(const QModelIndex & index, int role) const
@@ -65,7 +63,7 @@ QVariant InterfaceModel::data(const QModelIndex & index, int role) const
         return QVariant();
     //maybe this could be optimized by caching the stringlists...
     QString nodeName = rowName(index.row());
-    QString optionName = colName(nodeName, index.column());
+    QString optionName = colName(index.column());
 
     if (role == Qt::DisplayRole || role == Qt::EditRole)
         return config->getOption(nodeType, nodeName, optionName, QVariant());
@@ -78,7 +76,7 @@ QVariant InterfaceModel::headerData(int section, Qt::Orientation orientation, in
     if(orientation == Qt::Horizontal)
     {
         if (role == Qt::DisplayRole)
-            return config->getConfig()->getAllOptionNames(nodeType, "*").at(section);
+            return columns.at(section);
     }
     return QAbstractTableModel::headerData(section, orientation, role);
 }
@@ -96,7 +94,7 @@ bool InterfaceModel::setData(const QModelIndex & index, const QVariant & value, 
     if (index.isValid() && (role == Qt::EditRole || role == Qt::DisplayRole)) 
     {
         QString nodeName = rowName(index.row());
-        QString optionName = colName(nodeName, index.column());
+        QString optionName = colName(index.column());
         config->getConfig()->setOption(nodeType, nodeName, optionName, value);
         emit dataChanged(index, index);
         return true;
@@ -114,13 +112,9 @@ QString InterfaceModel::rowName(int row) const
         return QString();
 }
 
-QString InterfaceModel::colName(QString rowName, int col) const
+QString InterfaceModel::colName(int col) const
 {
-    QStringList names = config->getConfig()->getAllOptionNames(nodeType, rowName);
-    if(col <= names.size())
-        return names.at(col);
-    else
-        return QString();
+    return(columns.at(col));
 }
 
 void InterfaceModel::optionChanged(const QString & nodeType, const QString & nodeName, const QString & optionName, const QVariant & value)
@@ -134,6 +128,7 @@ void InterfaceModel::optionChanged(const QString & nodeType, const QString & nod
 GuestInterfaceModel::GuestInterfaceModel(MachineConfigObject * config, QObject * parent)
   : InterfaceModel(config, QString("net-guest"), parent)
 {
+    columns << "name" << "mac";
 }
 
 
@@ -161,11 +156,16 @@ bool GuestInterfaceModel::insertRows(int row, int count, const QModelIndex & par
 bool GuestInterfaceModel::removeRows(int row, int count, const QModelIndex & parent)
 {
     Q_UNUSED(parent);
-    
-    beginRemoveRows(parent, row, count);
-    QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row);
 
-    config->getConfig()->clearOption(nodeType, "", nodeName);
+    qDebug("delete row %i for count %i", row, count);
+    beginRemoveRows(parent, row, row + count);
+    //for (int i=0; i<count; i++)
+    {
+        QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row);
+            qDebug("delete row %i for count %i: record " + nodeName.toAscii(), row, count);
+        config->getConfig()->clearOption(nodeType, "", nodeName);
+        qDebug(nodeName.toAscii());
+    }
 
     endRemoveRows();
     return true;
@@ -174,6 +174,7 @@ bool GuestInterfaceModel::removeRows(int row, int count, const QModelIndex & par
 HostInterfaceModel::HostInterfaceModel(MachineConfigObject * config, QObject * parent)
   : InterfaceModel(config, QString("net-host"), parent)
 {
+    columns << "name" << "type";
 }
 
 bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & parent)
@@ -182,8 +183,8 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
     QString nodeName;
     int interfaceNumber = 0;
     beginInsertRows(parent, row, count);
-    //for (int i=0; i<count; i++)
-    //{
+    for (int i=0; i<count; i++)
+    {
         for(;config->getOption(nodeType, "", QString("host" + QString::number(interfaceNumber)), QVariant()).isValid();interfaceNumber++);
         nodeName = "host" + QString::number(interfaceNumber);
         //set all options
@@ -205,8 +206,7 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
         config->setOption(nodeType, nodeName, "address", "127.0.0.1");
         config->setOption(nodeType, nodeName, "port", "9000");
         config->setOption(nodeType, nodeName, "guest", QString());
-        
-    //}
+    }
     endInsertRows();
     return true;
 

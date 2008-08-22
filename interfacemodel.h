@@ -33,8 +33,10 @@
 #define INTERFACEMODEL_H
 
 #include <QAbstractTableModel>
+#include <QStringList>
 
 class MachineConfigObject;
+
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
@@ -53,10 +55,12 @@ public:
     bool setData( const QModelIndex & index, const QVariant& value, int role );
      
     QString rowName(int row) const;
-    QString colName(QString rowName, int col) const;
+    QString colName(int col) const;
 protected:
     MachineConfigObject *config;
     QString nodeType;
+    //first string in the list is the key
+    QStringList columns;
 
 protected slots:
     void optionChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);

@@ -69,13 +69,13 @@ void NetworkPage::setupModels()
 {
     guestModel = new GuestInterfaceModel(config, this);
     guestView->setModel(guestModel);
-    guestView->hideColumn(3);
-    guestView->hideColumn(1);
+    //guestView->hideColumn(3);
+    //guestView->hideColumn(1);
 
     hostModel = new HostInterfaceModel(config, this);
     hostView->setModel(hostModel);
-    for(int i=2;i<hostModel->columnCount();i++)
-        hostView->hideColumn(i);
+    //for(int i=2;i<hostModel->columnCount();i++)
+    //    hostView->hideColumn(i);
 
 }
 
@@ -92,6 +92,8 @@ void NetworkPage::addGuestInterface()
 
 void NetworkPage::delGuestInterface()
 {
+    qDebug("has selection? ");
+    qDebug( (guestView->selectionModel()->hasSelection()) ? "true":"false");
     if(guestView->selectionModel()->hasSelection())
         guestModel->removeRows(guestView->selectionModel()->selectedIndexes().first().row(), guestView->selectionModel()->selectedIndexes().size());
 }
