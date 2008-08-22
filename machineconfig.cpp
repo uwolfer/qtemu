@@ -50,6 +50,8 @@ bool MachineConfig::loadConfig(const QString &fileName)
     if (!configFile->open(QFile::ReadOnly | QFile::Text))
     {
         qDebug("Cannot read file" + fileName.toAscii() + ", " + configFile->errorString().toAscii());
+        domDocument.appendChild(domDocument.createElement("qtemu"));
+        root = domDocument.documentElement();
         return false;
     }
 
