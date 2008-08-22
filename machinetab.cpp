@@ -215,9 +215,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     buttonsLayout->addLayout(snapshotLayout);
     buttonsLayout->addWidget(notesLabel);
     buttonsLayout->addWidget(notesTextEdit);
+    buttonsLayout->addStretch(10);
     buttonsLayout->addWidget(controlLabel);
     buttonsLayout->addWidget(controlPanel);
-    buttonsLayout->addStretch();
+
 
     //set up the layout for the tab panel
     QGridLayout *mainLayout = new QGridLayout(this);
