@@ -92,8 +92,8 @@ void NetworkPage::addGuestInterface()
 
 void NetworkPage::delGuestInterface()
 {
-    qDebug("has selection? ");
-    qDebug( (guestView->selectionModel()->hasSelection()) ? "true":"false");
+    //qDebug("has selection? ");
+    //qDebug( (guestView->selectionModel()->hasSelection()) ? "true":"false");
     if(guestView->selectionModel()->hasSelection())
         guestModel->removeRows(guestView->selectionModel()->selectedIndexes().first().row(), guestView->selectionModel()->selectedIndexes().size());
 }
