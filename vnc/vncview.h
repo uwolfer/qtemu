@@ -57,6 +57,8 @@ public:
     void setViewOnly(bool viewOnly);
     void showDotCursor(DotCursorState state);
     void enableScaling(bool scale);
+    
+    virtual void updateConfiguration();
 
 public slots:
     void scaleResize(int w, int h);

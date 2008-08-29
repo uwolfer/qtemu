@@ -131,6 +131,9 @@ protected:
     void run();
 
 private:
+    static rfbBool newclient(rfbClient *cl);
+    static void updatefb(rfbClient *cl, int x, int y, int w, int h);
+    static void cuttext(rfbClient *cl, const char *text, int textlen);
     static char* passwdHandler(rfbClient *cl);
     static void outputHandler(const char *format, ...);
 

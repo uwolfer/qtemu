@@ -55,29 +55,31 @@ void MachineView::resizeEvent(QResizeEvent * event)
 void MachineView::resizeView(int widgetWidth, int widgetHeight)
 {
 
-    if(!(property("scaleEmbeddedDisplay").toBool())&&!splashShown)
+    if(splashShown)
     {
-        view->setFixedSize(view->framebufferSize().width(), view->framebufferSize().height());
+        float aspectRatio = (1.0 * splash->sizeHint().width()/ splash->sizeHint().height());
+        int newWidth = widgetHeight*aspectRatio;
+        int newHeight = widgetWidth*(1/aspectRatio);
+
+        if(newWidth <= widgetWidth && newHeight > widgetHeight)
+            widget()->setFixedSize(newWidth, widgetHeight);
+        else
+            widget()->setFixedSize(widgetWidth, newHeight);
         return;
     }
-    float aspectRatio;
-    if(!splashShown)
-        aspectRatio = (1.0 * view->framebufferSize().width()) / view->framebufferSize().height();
+    view->blockSignals(true);
+    if(!property("scaleEmbeddedDisplay").toBool())
+    {
+        qDebug("no scaling");
+        view->enableScaling(false);
+    }
     else
-        aspectRatio = (1.0 * splash->sizeHint().width()/ splash->sizeHint().height());
-
-    int newWidth = widgetHeight*aspectRatio;
-    int newHeight = widgetWidth*(1/aspectRatio);
-
-#ifdef DEVELOPER
-    qDebug("target aspect ratio: %f",aspectRatio);
-#endif
-
-    //if the dimensions for altHeight are better, use them...
-    if(newWidth <= widgetWidth && newHeight > widgetHeight)
-        widget()->setFixedSize(newWidth, widgetHeight);
-    else
-        widget()->setFixedSize(widgetWidth, newHeight);
+    {
+        qDebug("scaling");
+       view->enableScaling(true);
+       view->scaleResize(widgetWidth,widgetHeight);
+    }
+    view->blockSignals(false);
 }
 
 void MachineView::initView()
@@ -107,8 +109,9 @@ void MachineView::showSplash(bool show)
        splash->hide();
        this->takeWidget();
        this->setWidget(view);
-       view->show();
        splashShown = false;
+       view->show();
+
    }
    else
    {
@@ -116,8 +119,9 @@ void MachineView::showSplash(bool show)
        view->hide();
        this->takeWidget();
        this->setWidget(splash);
-       splash->show();
        splashShown = true;
+       splash->show();
+
    }
 }
 

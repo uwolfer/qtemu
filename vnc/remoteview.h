@@ -236,6 +236,12 @@ public:
      * @see statusChanged()
      */
     virtual bool start() = 0;
+    
+    /**
+     * Called when the configuration is changed.
+     * The default implementation does nothing.
+     */
+    virtual void updateConfiguration();
 
     /**
      * Returns the current status of the connection.

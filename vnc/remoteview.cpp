@@ -122,6 +122,10 @@ int RemoteView::port()
     return m_port;
 }
 
+void RemoteView::updateConfiguration()
+{
+}
+
 void RemoteView::keyEvent(QKeyEvent *)
 {
 }
@@ -256,3 +260,7 @@ void RemoteView::focusOutEvent(QFocusEvent *event)
 
     QWidget::focusOutEvent(event);
 }
+
+#ifndef QTONLY
+#include "moc_remoteview.cpp"
+#endif

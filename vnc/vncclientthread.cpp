@@ -28,13 +28,12 @@
 
 static QString outputErrorMessageString;
 
-
-static rfbBool newclient(rfbClient *cl)
+rfbBool VncClientThread::newclient(rfbClient *cl)
 {
     int width = cl->width, height = cl->height, depth = cl->format.bitsPerPixel;
     int size = width * height * (depth / 8);
-    if(cl->frameBuffer)
-        delete [] cl->frameBuffer;
+    if (cl->frameBuffer)
+        delete [] cl->frameBuffer; // do not leak if we get a new framebuffer size
     cl->frameBuffer = new uint8_t[size];
     memset(cl->frameBuffer, '\0', size);
     cl->format.bitsPerPixel = 32;
@@ -74,7 +73,7 @@ static rfbBool newclient(rfbClient *cl)
     return true;
 }
 
-extern void updatefb(rfbClient* cl, int x, int y, int w, int h)
+void VncClientThread::updatefb(rfbClient* cl, int x, int y, int w, int h)
 {
 //     kDebug(5011) << "updated client: x: " << x << ", y: " << y << ", w: " << w << ", h: " << h;
 
@@ -96,7 +95,7 @@ extern void updatefb(rfbClient* cl, int x, int y, int w, int h)
     t->emitUpdated(x, y, w, h);
 }
 
-extern void cuttext(rfbClient* cl, const char *text, int textlen)
+void VncClientThread::cuttext(rfbClient* cl, const char *text, int textlen)
 {
     QString cutText = QString::fromUtf8(text, textlen);
     kDebug(5011) << cutText;
@@ -262,15 +261,11 @@ void VncClientThread::run()
 
         cl->serverHost = strdup(m_host.toUtf8().constData());
 
-        if (m_port != -2) // -2 means unix sockets and should be preserved
-        {
-            if (m_port < 0 || !m_port) // port is invalid or empty...
-                m_port = 5900; // fallback: try an often used VNC port
+        if (m_port < 0 || !m_port) // port is invalid or empty...
+            m_port = 5900; // fallback: try an often used VNC port
 
-            if (m_port >= 0 && m_port < 100) // the user most likely used the short form (e.g. :1)
-                m_port += 5900;
-        }
-
+        if (m_port >= 0 && m_port < 100) // the user most likely used the short form (e.g. :1)
+            m_port += 5900;
         cl->serverPort = m_port;
 
         kDebug(5011) << "--------------------- trying init ---------------------";
@@ -292,15 +287,14 @@ void VncClientThread::run()
         if (i < 0)
             break;
         if (i)
-            if (!m_stopped&&!HandleRFBServerMessage(cl))
+            if (!HandleRFBServerMessage(cl))
                 break;
 
         locker.relock();
 
         while (!m_eventQueue.isEmpty()) {
             ClientEvent* clientEvent = m_eventQueue.dequeue();
-            if(!m_stopped)
-                clientEvent->fire(cl);
+            clientEvent->fire(cl);
             delete clientEvent;
         }
 
@@ -360,3 +354,7 @@ void VncClientThread::clientCut(const QString &text)
 
     m_eventQueue.enqueue(new ClientCutEvent(strdup(text.toUtf8())));
 }
+
+#ifndef QTONLY
+/include "moc_vncclientthread.cpp"
+#endif
