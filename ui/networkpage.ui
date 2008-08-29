@@ -43,7 +43,7 @@
         <item>
          <widget class="QCheckBox" name="netAccelCheck" >
           <property name="enabled" >
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="text" >
            <string>Use Accelerated Drivers</string>
@@ -78,6 +78,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_22" >
            <item>
             <widget class="QPushButton" name="advancedButton" >
+             <property name="enabled" >
+              <bool>false</bool>
+             </property>
              <property name="text" >
               <string>Advanced Settings</string>
              </property>
@@ -112,15 +115,15 @@
               <enum>QFrame::Raised</enum>
              </property>
              <property name="currentIndex" >
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page" >
               <property name="geometry" >
                <rect>
                 <x>3</x>
                 <y>3</y>
-                <width>535</width>
-                <height>329</height>
+                <width>697</width>
+                <height>332</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_31" >
@@ -144,6 +147,9 @@
                 <layout class="QHBoxLayout" name="horizontalLayout_21" >
                  <item>
                   <widget class="QComboBox" name="comboBox" >
+                   <property name="enabled" >
+                    <bool>false</bool>
+                   </property>
                    <property name="sizePolicy" >
                     <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
                      <horstretch>0</horstretch>
@@ -243,7 +249,7 @@
                 <x>3</x>
                 <y>3</y>
                 <width>697</width>
-                <height>329</height>
+                <height>332</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_4" >
@@ -428,7 +434,7 @@
                   <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="currentIndex" >
-                  <number>0</number>
+                  <number>5</number>
                  </property>
                  <widget class="QWidget" name="hostUserPage" >
                   <property name="geometry" >
@@ -436,7 +442,7 @@
                     <x>3</x>
                     <y>3</y>
                     <width>683</width>
-                    <height>153</height>
+                    <height>149</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_8" >
@@ -774,7 +780,7 @@
                      <item row="0" column="0" >
                       <widget class="QLabel" name="label_14" >
                        <property name="text" >
-                        <string>Host Interface Name</string>
+                        <string>TAP Interface Name</string>
                        </property>
                       </widget>
                      </item>

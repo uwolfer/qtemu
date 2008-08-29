@@ -30,11 +30,15 @@ static QString outputErrorMessageString;
 
 rfbBool VncClientThread::newclient(rfbClient *cl)
 {
+    VncClientThread *t = (VncClientThread*)rfbClientGetClientData(cl, 0);
+    Q_ASSERT(t);
+
     int width = cl->width, height = cl->height, depth = cl->format.bitsPerPixel;
     int size = width * height * (depth / 8);
-    if (cl->frameBuffer)
-        delete [] cl->frameBuffer; // do not leak if we get a new framebuffer size
-    cl->frameBuffer = new uint8_t[size];
+    if (t->frameBuffer)
+        delete [] t->frameBuffer; // do not leak if we get a new framebuffer size
+    t->frameBuffer = new uint8_t[size];
+    cl->frameBuffer = t->frameBuffer;
     memset(cl->frameBuffer, '\0', size);
     cl->format.bitsPerPixel = 32;
     cl->format.redShift = 16;
@@ -43,8 +47,6 @@ rfbBool VncClientThread::newclient(rfbClient *cl)
     cl->format.redMax = 0xff;
     cl->format.greenMax = 0xff;
     cl->format.blueMax = 0xff;
-
-    VncClientThread *t = (VncClientThread*)rfbClientGetClientData(cl, 0);
 
     switch (t->quality()) {
     case RemoteView::High:
@@ -84,11 +86,8 @@ void VncClientThread::updatefb(rfbClient* cl, int x, int y, int w, int h)
     if (img.isNull())
         kDebug(5011) << "image not loaded";
 
-
     VncClientThread *t = (VncClientThread*)rfbClientGetClientData(cl, 0);
-
-    if (!t)
-        return;
+    Q_ASSERT(t);
 
     t->setImage(img);
 
@@ -102,9 +101,7 @@ void VncClientThread::cuttext(rfbClient* cl, const char *text, int textlen)
 
     if (!cutText.isEmpty()) {
         VncClientThread *t = (VncClientThread*)rfbClientGetClientData(cl, 0);
-
-        if (!t)
-            return;
+        Q_ASSERT(t);
 
         t->emitGotCut(cutText);
     }
@@ -115,9 +112,7 @@ char *VncClientThread::passwdHandler(rfbClient *cl)
     kDebug(5011) << "password request" << kBacktrace();
 
     VncClientThread *t = (VncClientThread*)rfbClientGetClientData(cl, 0);
-
-    if (!t)
-        return 0;
+    Q_ASSERT(t);
 
     t->passwordRequest();
     t->m_passwordError = true;
@@ -160,6 +155,7 @@ void VncClientThread::outputHandler(const char *format, ...)
 
 VncClientThread::VncClientThread(QObject *parent)
         : QThread(parent)
+        , frameBuffer(0)
 {
     QMutexLocker locker(&mutex);
     m_stopped = false;
@@ -174,6 +170,8 @@ VncClientThread::~VncClientThread()
 {
     stop();
     wait(500);
+    
+    delete [] frameBuffer;
 }
 
 void VncClientThread::checkOutputErrorMessage()
@@ -303,8 +301,6 @@ void VncClientThread::run()
 
     // Cleanup allocated resources
     locker.relock();
-    delete [] cl->frameBuffer;
-    cl->frameBuffer = 0;
     rfbClientCleanup(cl);
     m_stopped = true;
 }
@@ -356,5 +352,5 @@ void VncClientThread::clientCut(const QString &text)
 }
 
 #ifndef QTONLY
-/include "moc_vncclientthread.cpp"
+#include "moc_vncclientthread.cpp"
 #endif

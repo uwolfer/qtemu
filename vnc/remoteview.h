@@ -329,6 +329,11 @@ signals:
     void disconnectedError();
 
     /**
+     * Emitted when the view has a specific error.
+     */
+    void errorMessage(const QString &title, const QString &message);
+ 
+    /**
      * Emitted when the status of the view changed.
      * @param s the new status
         */

@@ -115,6 +115,7 @@ public:
     }
 
     RemoteView::Quality quality() const;
+    uint8_t *frameBuffer;
 
 signals:
     void imageUpdated(int x, int y, int w, int h);
