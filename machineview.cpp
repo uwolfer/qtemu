@@ -67,7 +67,8 @@ void MachineView::resizeView(int widgetWidth, int widgetHeight)
             widget()->setFixedSize(widgetWidth, newHeight);
         return;
     }
-    view->blockSignals(true);
+ 
+   view->blockSignals(true);
     if(!property("scaleEmbeddedDisplay").toBool())
     {
         qDebug("no scaling");
@@ -99,6 +100,7 @@ void MachineView::initView()
     view->start();
     showSplash(false);
     connect(view, SIGNAL(changeSize(int, int)), this, SLOT(newViewSize()));
+
 }
 
 void MachineView::showSplash(bool show)
@@ -127,6 +129,7 @@ void MachineView::showSplash(bool show)
 
 void MachineView::fullscreen(bool enabled)
 {
+    //view->setWindowState(Qt::WindowFullScreen);
     view->switchFullscreen(enabled);
 }
 
