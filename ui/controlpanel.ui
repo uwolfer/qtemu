@@ -137,17 +137,9 @@
       <enum>QFrame::Raised</enum>
      </property>
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page" >
-      <property name="geometry" >
-       <rect>
-        <x>3</x>
-        <y>3</y>
-        <width>251</width>
-        <height>209</height>
-       </rect>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout_2" >
        <item>
         <widget class="QLabel" name="label" >
@@ -298,14 +290,6 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_2" >
-      <property name="geometry" >
-       <rect>
-        <x>3</x>
-        <y>3</y>
-        <width>244</width>
-        <height>209</height>
-       </rect>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout_4" >
        <item>
         <layout class="QGridLayout" name="gridLayout" >
@@ -446,14 +430,6 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_3" >
-      <property name="geometry" >
-       <rect>
-        <x>3</x>
-        <y>3</y>
-        <width>251</width>
-        <height>211</height>
-       </rect>
-      </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6" />
      </widget>
     </widget>
