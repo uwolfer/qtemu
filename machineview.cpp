@@ -138,7 +138,7 @@ void MachineView::fullscreen(bool enabled)
         setWindowFlags(Qt::Window);
         showFullScreen();
         QPalette p;
-        p.setColor(QPalette::Background, QColor(0,0,0));
+        p.setColor(QPalette::Background, QColor(22,22,22));
         setPalette(p);
     }
     else
