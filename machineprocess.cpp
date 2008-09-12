@@ -530,8 +530,8 @@ void MachineProcess::deleteTmp(int successfulCommit)
 
 void MachineProcess::createTmp()
 {
-    if(QFile::exists(property("hdd").toString() + ".tmp"))
-        return;
+    //if(QFile::exists(property("hdd").toString() + ".tmp"))
+        //return;
 
     QProcess createTmpProcess;
     createTmpProcess.start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << property("hdd").toString() << property("hdd").toString() + ".tmp");
