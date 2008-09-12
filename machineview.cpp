@@ -143,6 +143,7 @@ void MachineView::fullscreen(bool enabled)
         setWindowFlags(Qt::Widget);
         showNormal();
         setStyleSheet("");
+        emit fullscreenToggled(enabled);
     }
     this->show();
     view->switchFullscreen(enabled);
@@ -189,13 +190,13 @@ bool MachineView::event(QEvent * event)
         view->clearFocus();
         view->releaseKeyboard();
     }
-    /*else if (event->type() == QEvent::KeyPress) {
+    else if (event->type() == QEvent::KeyPress) {
          QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-         if (ke->key() == Qt::Key_Tab) {
-             // special tab handling here
+         if (ke->key() == Qt::Key_Return && ke->modifiers() == Qt::ControlModifier + Qt::AltModifier) {
+             fullscreen(false);
              return true;
          }
-    }*/
+    }
 
     return QScrollArea::event(event);
 }

@@ -64,6 +64,7 @@ void ControlPanel::makeConnections()
     connect(floppyImageButton, SIGNAL(clicked()), parent->settingsTab, SLOT(setNewFloppyImagePath()));
 
     connect(fullscreenButton, SIGNAL(toggled(bool)), parent->machineView, SLOT(fullscreen(bool)));
+    connect(parent->machineView, SIGNAL(fullscreenToggled(bool)), fullscreenButton, SLOT(setChecked(bool)));
 }
 
 void ControlPanel::mediaActivate()

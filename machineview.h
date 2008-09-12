@@ -57,10 +57,12 @@ public slots:
     void newViewSize();
     void fullscreen(bool enabled);
 
+signals:
+    void fullscreenToggled(bool enabled);
+
 private:
     void resizeEvent(QResizeEvent * event);
     void resizeView(int widgetWidth, int widgetHeight);
-    void colors();
 
     QPalette myPalette;
     VncView *view;
