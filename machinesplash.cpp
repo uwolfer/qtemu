@@ -40,9 +40,9 @@ MachineSplash::MachineSplash(QWidget *parent)
 {
     //set up splash background from splash.svg
     QSettings settings("QtEmu", "QtEmu");
-    splashImage = new QSvgWidget(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/splash.svg");
+    splashImage = new QSvgWidget(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/splash.svg", this);
     getPreviewRect();
-    previewImage = new QLabel();
+    previewImage = new QLabel(splashImage);
     alpha = QPixmap(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/alpha.svg");
     previewImage->setScaledContents(true);
     layout = new QStackedLayout();
