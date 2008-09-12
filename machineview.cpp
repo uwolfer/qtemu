@@ -137,13 +137,15 @@ void MachineView::fullscreen(bool enabled)
         }
         setWindowFlags(Qt::Window);
         showFullScreen();
-        setStyleSheet("MachineView {background-color: black}");
+        QPalette p;
+        p.setColor(QPalette::Background, QColor(0,0,0));
+        setPalette(p);
     }
     else
     {
         setWindowFlags(Qt::Widget);
         showNormal();
-        setStyleSheet("");
+        setPalette(QPalette());
     }
     emit fullscreenToggled(enabled);
     show();
