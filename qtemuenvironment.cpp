@@ -87,6 +87,10 @@ void QtEmuEnvironment::getVersion()
     delete path;
     #endif
     versionChecked = true;
+
+    #ifdef DEVELOPER
+    qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(qemuVersion[0]) + '.' + QString::number(qemuVersion[1]) + '.' + QString::number(qemuVersion[2])).toAscii());
+    #endif
 }
 
 int * QtEmuEnvironment::getQemuVersion()

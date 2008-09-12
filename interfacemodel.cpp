@@ -46,7 +46,7 @@ int InterfaceModel::rowCount(const QModelIndex & parent) const
     if(parent.isValid())
         return 0;
     int rows = config->getConfig()->getNumOptions(nodeType, "");
-    qDebug("rows %i", rows);
+    //qDebug("rows %i", rows);
     return rows;
 }
 

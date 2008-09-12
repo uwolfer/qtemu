@@ -465,9 +465,6 @@ void MachineProcess::getVersion()
  versionMinor = qemuVersion[1];
  versionBugfix = qemuVersion[2];
  kvmVersion = env.getKvmVersion();
- #ifdef DEVELOPER
- qDebug(("kvm: " + QString::number(kvmVersion) + " qemu: " + QString::number(versionMajor) + '.' + QString::number(versionMinor) + '.' + QString::number(versionBugfix)).toAscii());
- #endif
 }
 
 void MachineProcess::changeCdrom()

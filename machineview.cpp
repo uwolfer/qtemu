@@ -53,7 +53,6 @@ void MachineView::resizeEvent(QResizeEvent * event)
 
 void MachineView::resizeView(int widgetWidth, int widgetHeight)
 {
-    qDebug("size changed!");
     if(splashShown)
     {
         float aspectRatio = (1.0 * splash->sizeHint().width()/ splash->sizeHint().height());
