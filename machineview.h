@@ -33,7 +33,7 @@
 #include <QMouseEvent>
 #include <QDynamicPropertyChangeEvent>
 #include <QSvgWidget>
-
+#include <QShortcut>
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
@@ -48,17 +48,16 @@ public:
 
     void showSplash(bool show);
     void initView();
-    void fullscreen(bool enabled);
     void captureAllKeys(bool enabled);
     void sendKey(QKeyEvent *event);
     bool event(QEvent * event);
     
 public slots:
     void newViewSize();
-    
+    void fullscreen(bool enabled);
+
 private:
     void resizeEvent(QResizeEvent * event);
-    
     void resizeView(int widgetWidth, int widgetHeight);
     
     VncView *view;

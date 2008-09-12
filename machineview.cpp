@@ -25,6 +25,7 @@
 #include <QUrl>
 #include <QSize>
 
+
 MachineView::MachineView(QWidget *parent)
  : QScrollArea(parent)
     , view(new VncView(this))
@@ -35,6 +36,7 @@ MachineView::MachineView(QWidget *parent)
     setFrameShape(QFrame::NoFrame);
     setBackgroundRole(QPalette::Window); 
     showSplash(true);
+
 }
 
 
@@ -130,7 +132,19 @@ void MachineView::showSplash(bool show)
 void MachineView::fullscreen(bool enabled)
 {
     //view->setWindowState(Qt::WindowFullScreen);
-    view->switchFullscreen(enabled);
+    if(enabled)
+    {
+        this->setWindowFlags(Qt::Window);
+        this->showFullScreen();
+    }
+    else
+    {
+        this->setWindowFlags(Qt::Widget);
+        this->showNormal();
+    }
+    this->show();
+    
+    //view->switchFullscreen(enabled);
 }
 
 void MachineView::captureAllKeys(bool enabled)
@@ -174,6 +188,13 @@ bool MachineView::event(QEvent * event)
         view->clearFocus();
         view->releaseKeyboard();
     }
+    /*else if (event->type() == QEvent::KeyPress) {
+         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+         if (ke->key() == Qt::Key_Tab) {
+             // special tab handling here
+             return true;
+         }
+    }*/
 
     return QScrollArea::event(event);
 }

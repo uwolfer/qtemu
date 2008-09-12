@@ -66,6 +66,8 @@ public:
     MachineConfigObject *machineConfigObject;
     SettingsTab *settingsTab;
     MachineProcess *machineProcess;
+    MachineView *machineView;
+
 public slots:
     void restart();
 	
@@ -92,8 +94,7 @@ private:
     QPushButton *floppyReloadButton;
 
     QString myMachinesPath;
-    
-    MachineView *machineView;
+
     QFrame *viewFrame;
     QFrame *consoleFrame;
     QGridLayout *viewLayout;

@@ -77,6 +77,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineProcess = new MachineProcess(this);
     machineConfigObject->registerObject(machineProcess);
     machineConfigObject->registerObject(machineProcess->getHdManager());
+
+    machineView = new MachineView(this);
     //FIXME this is a hack... eventually we will be able to support using a unix socket (a file) instead of a network port.
     machineConfigObject->setOption("vncPort", 1000 + parentTabWidget->currentIndex() + 1);
 
@@ -204,7 +206,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #endif
     QLabel *controlLabel = new QLabel(tr("<strong>Control Panel</strong>"), this);
 
-
     ControlPanel *controlPanel = new ControlPanel(this);
 
 
@@ -232,7 +233,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     viewTabs->addTab(viewFrame, tr("Display"));
 
 
-    machineView = new MachineView(this);
+
     machineConfigObject->registerObject(machineView);
     viewLayout = new QGridLayout();
     viewFrame->setLayout(viewLayout); 

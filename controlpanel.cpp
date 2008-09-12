@@ -33,6 +33,7 @@
 #include "machinetab.h"
 #include "machineprocess.h"
 #include "settingstab.h"
+#include "machineview.h"
 
 ControlPanel::ControlPanel(MachineTab *parent)
  : QWidget(parent)
@@ -61,6 +62,8 @@ void ControlPanel::makeConnections()
     connect(floppyReloadButton, SIGNAL(clicked()), parent->machineProcess, SLOT(changeFloppy()));
     connect(cdImageButton, SIGNAL(clicked()), parent->settingsTab, SLOT(setNewCdImagePath()));
     connect(floppyImageButton, SIGNAL(clicked()), parent->settingsTab, SLOT(setNewFloppyImagePath()));
+
+    connect(fullscreenButton, SIGNAL(toggled(bool)), parent->machineView, SLOT(fullscreen(bool)));
 }
 
 void ControlPanel::mediaActivate()
