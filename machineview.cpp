@@ -32,10 +32,8 @@ MachineView::MachineView(QWidget *parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
 {
-    setWidget(splash);
     setAlignment(Qt::AlignCenter);
     setFrameShape(QFrame::NoFrame);
-
     showSplash(true);
 }
 
@@ -55,7 +53,7 @@ void MachineView::resizeEvent(QResizeEvent * event)
 
 void MachineView::resizeView(int widgetWidth, int widgetHeight)
 {
-
+    qDebug("size changed!");
     if(splashShown)
     {
         float aspectRatio = (1.0 * splash->sizeHint().width()/ splash->sizeHint().height());
@@ -110,8 +108,8 @@ void MachineView::showSplash(bool show)
    {
        //initView();
        splash->hide();
-       this->takeWidget();
-       this->setWidget(view);
+       takeWidget();
+       setWidget(view);
        splashShown = false;
        view->show();
 
@@ -121,8 +119,8 @@ void MachineView::showSplash(bool show)
        fullscreen(false);
        splash->setPreview(property("preview").toString());
        view->hide();
-       this->takeWidget();
-       this->setWidget(splash);
+       takeWidget();
+       setWidget(splash);
        splashShown = true;
        splash->show();
    }
@@ -130,7 +128,6 @@ void MachineView::showSplash(bool show)
 
 void MachineView::fullscreen(bool enabled)
 {
-    //view->setWindowState(Qt::WindowFullScreen);
     if(enabled)
     {
         if(splashShown)
@@ -177,22 +174,25 @@ bool MachineView::event(QEvent * event)
         if(propEvent->propertyName() == "scaleEmbeddedDisplay")
         {
             newViewSize();
-            return false;
         }
         else if(propEvent->propertyName() == "preview")
         {
             splash->setPreview(property("preview").toString());
+
         }
+        return false;
     }
     else if(event->type() == QEvent::Enter&&!splashShown)
     {
         view->setFocus();
         view->grabKeyboard();
+        return true;
     }
     else if (event->type() == QEvent::Leave)
     {
         view->clearFocus();
         view->releaseKeyboard();
+        return true;
     }
     else if (event->type() == QEvent::KeyPress) {
          QKeyEvent *ke = static_cast<QKeyEvent *>(event);
@@ -201,6 +201,5 @@ bool MachineView::event(QEvent * event)
              return true;
          }
     }
-
     return QScrollArea::event(event);
 }

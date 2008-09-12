@@ -64,7 +64,6 @@ private:
     void resizeEvent(QResizeEvent * event);
     void resizeView(int widgetWidth, int widgetHeight);
 
-    QPalette myPalette;
     VncView *view;
     MachineSplash *splash;
     bool splashShown;
