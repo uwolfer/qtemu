@@ -118,13 +118,13 @@ void MachineView::showSplash(bool show)
    }
    else
    {
+       fullscreen(false);
        splash->setPreview(property("preview").toString());
        view->hide();
        this->takeWidget();
        this->setWidget(splash);
        splashShown = true;
        splash->show();
-
    }
 }
 
@@ -133,19 +133,23 @@ void MachineView::fullscreen(bool enabled)
     //view->setWindowState(Qt::WindowFullScreen);
     if(enabled)
     {
+        if(splashShown)
+        {
+            fullscreen(false);
+            return;
+        }
         setWindowFlags(Qt::Window);
         showFullScreen();
-        setStyleSheet("MachineView {background: black}");
-
+        setStyleSheet("MachineView {background-color: black}");
     }
     else
     {
         setWindowFlags(Qt::Widget);
         showNormal();
         setStyleSheet("");
-        emit fullscreenToggled(enabled);
     }
-    this->show();
+    emit fullscreenToggled(enabled);
+    show();
     view->switchFullscreen(enabled);
 }
 
