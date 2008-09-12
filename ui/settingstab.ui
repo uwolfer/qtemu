@@ -215,7 +215,7 @@
           <x>0</x>
           <y>0</y>
           <width>497</width>
-          <height>463</height>
+          <height>456</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19" >
@@ -225,17 +225,9 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
            <property name="currentIndex" >
-            <number>0</number>
+            <number>6</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>cpu-memory.html</string>
             </property>
@@ -477,14 +469,6 @@
             </layout>
            </widget>
            <widget class="QWidget" name="hardDiskPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>harddisk.html</string>
             </property>
@@ -607,14 +591,6 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="mediaPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>removablemedia.html</string>
             </property>
@@ -819,14 +795,6 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="usbPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>usb.html</string>
             </property>
@@ -863,14 +831,6 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="virtualDrivePage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>virtualdrives.html</string>
             </property>
@@ -885,27 +845,11 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="networkPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>networking.html</string>
             </property>
            </widget>
            <widget class="QWidget" name="soundPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>505</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>sound.html</string>
             </property>
@@ -931,56 +875,43 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_8" >
-                  <property name="text" >
-                   <string>Choose sound system to use for sound emulation:</string>
-                  </property>
-                  <property name="buddy" >
-                   <cstring>soundCombo</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5" >
-                  <item>
+                 <layout class="QFormLayout" name="formLayout_2" >
+                  <item row="0" column="0" >
                    <widget class="QComboBox" name="soundCombo" >
                     <property name="editable" >
                      <bool>true</bool>
                     </property>
                     <item>
                      <property name="text" >
-                      <string>alsa</string>
+                      <string>ALSA</string>
                      </property>
                     </item>
                     <item>
                      <property name="text" >
-                      <string>oss</string>
+                      <string>OSS</string>
                      </property>
                     </item>
                     <item>
                      <property name="text" >
-                      <string>esd</string>
+                      <string>ESD</string>
                      </property>
                     </item>
                     <item>
                      <property name="text" >
-                      <string>pulse</string>
+                      <string>PulseAudio</string>
                      </property>
                     </item>
                    </widget>
                   </item>
-                  <item>
-                   <spacer name="horizontalSpacer" >
-                    <property name="orientation" >
-                     <enum>Qt::Horizontal</enum>
+                  <item row="0" column="1" >
+                   <widget class="QLabel" name="label_8" >
+                    <property name="text" >
+                     <string>Choose sound system to use for sound emulation</string>
                     </property>
-                    <property name="sizeHint" stdset="0" >
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
+                    <property name="buddy" >
+                     <cstring>soundCombo</cstring>
                     </property>
-                   </spacer>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -1003,14 +934,6 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="displayPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>505</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>display.html</string>
             </property>
@@ -1247,14 +1170,6 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="otherPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>505</width>
-              <height>463</height>
-             </rect>
-            </property>
             <property name="helpFile" stdset="0" >
              <string>otheroptions.html</string>
             </property>
@@ -1387,7 +1302,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>491</width>
-          <height>71</height>
+          <height>78</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26" >

@@ -95,7 +95,7 @@ private:
 
     QString myMachinesPath;
 
-    QFrame *viewFrame;
+
     QFrame *consoleFrame;
     QGridLayout *viewLayout;
     QScrollArea *machineScroll;

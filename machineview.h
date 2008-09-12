@@ -34,6 +34,7 @@
 #include <QDynamicPropertyChangeEvent>
 #include <QSvgWidget>
 #include <QShortcut>
+#include <QPalette>
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
@@ -59,7 +60,9 @@ public slots:
 private:
     void resizeEvent(QResizeEvent * event);
     void resizeView(int widgetWidth, int widgetHeight);
-    
+    void colors();
+
+    QPalette myPalette;
     VncView *view;
     MachineSplash *splash;
     bool splashShown;

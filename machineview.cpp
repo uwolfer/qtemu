@@ -24,6 +24,7 @@
 #include "machineview.h"
 #include <QUrl>
 #include <QSize>
+#include <QColor>
 
 
 MachineView::MachineView(QWidget *parent)
@@ -34,11 +35,9 @@ MachineView::MachineView(QWidget *parent)
     setWidget(splash);
     setAlignment(Qt::AlignCenter);
     setFrameShape(QFrame::NoFrame);
-    setBackgroundRole(QPalette::Window); 
+
     showSplash(true);
-
 }
-
 
 MachineView::~MachineView()
 {
@@ -134,17 +133,19 @@ void MachineView::fullscreen(bool enabled)
     //view->setWindowState(Qt::WindowFullScreen);
     if(enabled)
     {
-        this->setWindowFlags(Qt::Window);
-        this->showFullScreen();
+        setWindowFlags(Qt::Window);
+        showFullScreen();
+        setStyleSheet("MachineView {background: black}");
+
     }
     else
     {
-        this->setWindowFlags(Qt::Widget);
-        this->showNormal();
+        setWindowFlags(Qt::Widget);
+        showNormal();
+        setStyleSheet("");
     }
     this->show();
-    
-    //view->switchFullscreen(enabled);
+    view->switchFullscreen(enabled);
 }
 
 void MachineView::captureAllKeys(bool enabled)

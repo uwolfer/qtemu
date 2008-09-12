@@ -229,17 +229,10 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     mainLayout->addWidget(viewTabs, 0, 1);   
     mainLayout->setColumnStretch(1, 10);
 
-    viewFrame = new QFrame(this);
-    viewTabs->addTab(viewFrame, tr("Display"));
-
+    viewTabs->addTab(machineView, tr("Display"));
 
 
     machineConfigObject->registerObject(machineView);
-    viewLayout = new QGridLayout();
-    viewFrame->setLayout(viewLayout); 
-    viewLayout->setColumnStretch(1, 10);
-    viewLayout->setRowStretch(1, 10);
-    viewLayout->addWidget(machineView, 1, 1);
 
     viewTabs->addTab(settingsTab, tr("Settings"));
 
