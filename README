@@ -14,18 +14,18 @@ done so ;).
 
 Qt 4.2 is at least required.
 
-Compilation with qmake from Qt4 (recommended):
-* unpack the source tarball
-* run 'qmake' in the qtemu folder
-* type 'make'
-* start ./qtemu and have fun!
-
-Compilation with cmake:
+Compilation with cmake (recommended):
 (Use this methode on Linux to install the project systemwide.)
 * run 'cmake -DCMAKE_INSTALL_PREFIX=/usr .' in order to
   install all files into /usr.
 * type 'make install' as root
 * start it now with qtemu
+
+Compilation with qmake from Qt4:
+* unpack the source tarball
+* run 'qmake' in the qtemu folder
+* type 'make'
+* start ./qtemu and have fun!
 
 Network Configuration:
   QtEmu will handle all network configuration for you on Linux. In

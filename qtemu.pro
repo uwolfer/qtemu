@@ -1,3 +1,5 @@
+message("The preferred way of building QtEmu is to use CMake. ('cmake . -DCMAKE_INSTALL_PREFIX=/usr')")
+
 HEADERS =   config.h \
   machineprocess.h \
   machinetab.h \
