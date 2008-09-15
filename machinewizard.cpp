@@ -159,7 +159,7 @@ void MachineWizard::accept()
               << osName.replace(' ', '_')+".vmdk";
     }
 
-    arguments << QString::number(field("size").toDouble()*1000)+'M';
+    arguments << QString::number(field("size").toDouble()*1024)+'M';
 #ifndef Q_OS_WIN32
     imageCreateProcess->start("qemu-img", arguments);
 #elif defined(Q_OS_WIN32)
