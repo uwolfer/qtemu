@@ -73,13 +73,6 @@ void HardDiskManager::updateUpgradeProgress()
     //TODO: update a progress bar
 }
 
-void HardDiskManager::getImageSize()
-{
-    QByteArray output = currentProcess->readAllStandardOutput();
-    //TODO: parse out the file size, inerpret K, G as multipliers...
-    //save to oldSize
-}
-
 void HardDiskManager::testImage()
 {
     if(!currentImage.exists())

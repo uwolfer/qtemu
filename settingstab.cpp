@@ -148,7 +148,7 @@ void SettingsTab::setNewFloppyImagePath()
 void SettingsTab::confirmUpgrade()
 {
     if (QMessageBox::question(this, tr("Upgrade Confirmation"),
-                              tr("This will upgrade your Hard Disk image to the qcow format.<br />This enables more advanced features such as suspend/resume on all operating systems and image compression on Windows.<br />Your old image will remain intact, so if you want to revert afterwards you may do so."),
+                              tr("This will upgrade your Hard Disk image to the qcow format.<br />This enables more advanced features such as suspend/resume on all host operating systems and image compression on Windows hosts.<br />Your old image will remain intact, so if you want to revert afterwards you may do so."),
                               QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
       == QMessageBox::Yes)
     {

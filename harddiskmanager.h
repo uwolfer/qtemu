@@ -69,7 +69,6 @@ private:
 private slots:
     void upgradeComplete(int status);
     void updateUpgradeProgress();
-    void getImageSize();
 
 signals:
     void processingImage(bool processing);

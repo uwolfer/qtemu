@@ -539,6 +539,13 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
+                 <widget class="QCheckBox" name="accelHDD" >
+                  <property name="text" >
+                   <string>Accelerated Hard Disk Drivers</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QFrame" name="upgradeFrame" >
                   <property name="enabled" >
                    <bool>false</bool>
@@ -670,8 +677,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>497</width>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -882,8 +889,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>497</width>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -926,8 +933,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>497</width>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -948,8 +955,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>497</width>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -961,8 +968,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>497</width>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -1053,8 +1060,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>497</width>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
@@ -1129,29 +1136,8 @@ p, li { white-space: pre-wrap; }
                          </property>
                          <layout class="QVBoxLayout" name="verticalLayout_24" >
                           <item>
-                           <layout class="QHBoxLayout" name="horizontalLayout_11" >
-                            <item>
-                             <widget class="QLabel" name="label_11" >
-                              <property name="text" >
-                               <string>Host:</string>
-                              </property>
-                              <property name="buddy" >
-                               <cstring>hostEdit</cstring>
-                              </property>
-                             </widget>
-                            </item>
-                            <item>
-                             <widget class="QLineEdit" name="hostEdit" >
-                              <property name="text" >
-                               <string/>
-                              </property>
-                             </widget>
-                            </item>
-                           </layout>
-                          </item>
-                          <item>
-                           <layout class="QHBoxLayout" name="horizontalLayout_10" >
-                            <item>
+                           <layout class="QFormLayout" name="formLayout_4" >
+                            <item row="1" column="0" >
                              <widget class="QLabel" name="label_10" >
                               <property name="text" >
                                <string>Port:</string>
@@ -1164,7 +1150,7 @@ p, li { white-space: pre-wrap; }
                               </property>
                              </widget>
                             </item>
-                            <item>
+                            <item row="1" column="1" >
                              <widget class="QSpinBox" name="portBox" >
                               <property name="sizePolicy" >
                                <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
@@ -1180,18 +1166,22 @@ p, li { white-space: pre-wrap; }
                               </property>
                              </widget>
                             </item>
-                            <item>
-                             <spacer name="horizontalSpacer_8" >
-                              <property name="orientation" >
-                               <enum>Qt::Horizontal</enum>
+                            <item row="0" column="0" >
+                             <widget class="QLabel" name="label_11" >
+                              <property name="text" >
+                               <string>Host:</string>
                               </property>
-                              <property name="sizeHint" stdset="0" >
-                               <size>
-                                <width>40</width>
-                                <height>20</height>
-                               </size>
+                              <property name="buddy" >
+                               <cstring>hostEdit</cstring>
                               </property>
-                             </spacer>
+                             </widget>
+                            </item>
+                            <item row="0" column="1" >
+                             <widget class="QLineEdit" name="hostEdit" >
+                              <property name="text" >
+                               <string/>
+                              </property>
+                             </widget>
                             </item>
                            </layout>
                           </item>
@@ -1297,8 +1287,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>497</width>
+              <height>456</height>
              </rect>
             </property>
             <property name="helpFile" stdset="0" >
