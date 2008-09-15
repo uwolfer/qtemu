@@ -46,6 +46,8 @@ public:
 public slots:
     void setNewCdImagePath();
     void setNewFloppyImagePath();
+    void setVirtSize(qint64 size);
+    void setPhySize(qint64 size);
 
 private:
     MachineConfigObject *config;

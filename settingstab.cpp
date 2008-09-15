@@ -114,6 +114,7 @@ void SettingsTab::setupConnections()
     connect(hdSelectButton, SIGNAL(clicked()), this, SLOT(setNewHddPath()));
     connect(cdSelectButton, SIGNAL(clicked()), this, SLOT(setNewCdImagePath()));
     connect(floppySelectButton, SIGNAL(clicked()), this, SLOT(setNewFloppyImagePath()));
+    connect(upgradeButton, SIGNAL(clicked()), this, SLOT(confirmUpgrade()));
 }
 
 //various file select dialogs
@@ -161,4 +162,33 @@ void SettingsTab::getSettings()
 {
     QSettings settings("QtEmu", "QtEmu");
     myMachinesPath = settings.value("machinesPath", QString(QDir::homePath()+'/'+tr("MyMachines"))).toString();
+}
+
+void SettingsTab::setVirtSize(qint64 size)
+{
+    QString sizeS;
+    float sizeK = size/1024.0;
+    float sizeM = sizeK/1024.0;
+    float sizeG = sizeM/1024.0;
+    if(sizeM<1)
+        sizeS = QString::number((int)sizeK) + "." + QString::number(((int)size)%1024) + " Kilobyte" + ((sizeK<2)?"":"s");
+    else if(sizeG<1)
+        sizeS = QString::number((int)sizeM) + "." + QString::number(((int)sizeK)%1024) + " Megabyte" + ((sizeM<2)?"":"s");
+    else
+        sizeS = QString::number((int)sizeG) + "." + QString::number(((int)sizeM)%1024) + " Gigabyte" + ((sizeG<2)?"":"s");    virtSizeLabel->setText(sizeS);
+}
+
+void SettingsTab::setPhySize(qint64 size)
+{
+    QString sizeS;
+    float sizeK = size/1024.0;
+    float sizeM = sizeK/1024.0;
+    float sizeG = sizeM/1024.0;
+    if(sizeM<1)
+        sizeS = QString::number((int)sizeK) + "." + QString::number(((int)size)%1024) + " Kilobyte" + ((sizeK<2)?"":"s");
+    else if(sizeG<1)
+        sizeS = QString::number((int)sizeM) + "." + QString::number(((int)sizeK)%1024) + " Megabyte" + ((sizeM<2)?"":"s");
+    else
+        sizeS = QString::number((int)sizeG) + "." + QString::number(((int)sizeM)%1024) + " Gigabyte" + ((sizeG<2)?"":"s");
+    phySizeLabel->setText(sizeS);
 }

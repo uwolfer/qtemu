@@ -37,87 +37,15 @@ HardDiskManager::~HardDiskManager()
 {
 }
 
-
-
-/*//TODO: the functionality in here really should be abstracted into another class, like MachineImage
-void MachineTab::testHDDImage(const QString &path)
-{
-    QFileInfo *currentImage = new QFileInfo(path);
-    
-    if(currentImage->suffix()!="qcow")
-    {
-//        hddUpgradeButton->setHidden(false);
-        suspendButton->setEnabled(false);
-        resumeButton->setEnabled(false);
-    }
-    else
-    {
-//        hddUpgradeButton->setHidden(true);
-        suspendButton->setEnabled(true);
-
-        //test for a valid suspend/resume image
-        QProcess *testImage = new QProcess();
-        QStringList arguments;
-        arguments <<"info" << path;
-        testImage->start("qemu-img", arguments);
-        testImage->waitForFinished();
-        QString output = testImage->readAll();
-        if(output.contains("Default"))
-            resumeButton->setEnabled(true);
-        else
-            resumeButton->setEnabled(false);
-    }
-}
-//TODO: the functionality in here really should be abstracted into another class, like MachineImage
-void MachineTab::upgradeImage()
-{
-    if (QMessageBox::question(this, tr("Upgrade Confirmation"),
-                              tr("This will upgrade your Hard Disk image to the qcow format.<br />This enables more advanced features such as suspend/resume on all operating systems and image compression on Windows.<br />Your old image will remain intact, so if you want to revert afterwards you may do so."),
-                              QMessageBox::Yes | QMessageBox::No, QMessageBox::No)
-      == QMessageBox::Yes)
-    {
-        QFileInfo *currentImage = new QFileInfo(hddPathLineEdit->text());
-        QString finalName = currentImage->path() + '/' + currentImage->completeBaseName() + ".qcow";
-        QStringList arguments;
-        QProcess *upgradeProcess = new QProcess(this);
-        connect(upgradeProcess, SIGNAL(started()), this, SLOT(upgradeImageStarted()));
-        connect(upgradeProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(upgradeImageFinished(int)));
-        
-        arguments << "convert" << currentImage->filePath() << "-O" << "qcow2" << finalName;
-        QString program = "qemu-img";
-        upgradeProcess->start(program, arguments);
-    }
-}
-
-//TODO: the functionality in here really should be abstracted into another class, like DiskImage
-void MachineTab::upgradeImageStarted()
-{
-    startButton->setEnabled(false);
-    resumeButton->setEnabled(false);
-    
-    hddUpgradeButton->setEnabled(false);
-    hddPathLineEdit->setEnabled(false);
-    hddUpgradeButton->setText(tr("Upgrading..."));
-}
-*/
-
-
-
 void HardDiskManager::upgradeImage()
 {
-//assume image 0
     emit processingImage(true);
 
-    QFileInfo currentImage = QFileInfo(property("hdd").toString());
     upgradeImageName = currentImage.path() + '/' + currentImage.completeBaseName() + ".qcow";
     QString program = "qemu-img";
     QStringList arguments;
     currentProcess = new QProcess(this);
-    arguments << "info" << currentImage.filePath();
-    currentProcess->start(program, arguments);
-    connect(currentProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(getImageSize()));
 
-    arguments.clear();
     connect(currentProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(upgradeComplete(int)));
     arguments << "convert" << currentImage.filePath() << "-O" << "qcow2" << upgradeImageName;
     currentProcess->start(program, arguments);
@@ -148,6 +76,48 @@ void HardDiskManager::updateUpgradeProgress()
 void HardDiskManager::getImageSize()
 {
     QByteArray output = currentProcess->readAllStandardOutput();
-    //TODO: parse out the file size, inerpret K, G, T? as multipliers...
+    //TODO: parse out the file size, inerpret K, G as multipliers...
     //save to oldSize
+}
+
+void HardDiskManager::testImage()
+{
+    if(!currentImage.exists())
+        return;
+    QString program = "qemu-img";
+    QStringList arguments;
+    QProcess *testProcess = new QProcess(this);
+    arguments << "info" << currentImage.filePath();
+    testProcess->start(program, arguments);
+    testProcess->waitForFinished();
+    //time to parse the output and get all the info available
+    //splits are on colons.
+    QStringList output = QString(testProcess->readAll()).split('\n');
+    currentFormat =  output.at(1).split(':').at(1).simplified();
+    emit imageFormat(currentFormat);
+    if(currentFormat!="qcow2")
+        emit imageUpgradable(true);
+    else
+        emit imageUpgradable(false);
+    QString virtSize = output.at(2).section('(', 1);
+    virtSize.chop(6);
+    virtualSize = virtSize.toInt();
+    emit imageSize(virtualSize);
+    emit phySize(currentImage.size());
+}
+
+bool HardDiskManager::event(QEvent * event)
+{
+    if(event->type() == QEvent::DynamicPropertyChange)
+    {
+        //any property changes dealt with in here
+        QDynamicPropertyChangeEvent *propEvent = static_cast<QDynamicPropertyChangeEvent *>(event);
+        if(propEvent->propertyName() == "hdd")
+        {
+            currentImage = QFileInfo(property("hdd").toString());
+            testImage();
+        }
+        return false;
+    }
+    return QObject::event(event);
 }

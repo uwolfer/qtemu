@@ -25,6 +25,8 @@
 #define HARDDISKMANAGER_H
 
 #include <QObject>
+#include <QEvent>
+#include <QFileInfo>
 #include "machinetab.h"
 
 class QTimer;
@@ -43,12 +45,14 @@ public:
 
 
     bool imageIs();
+    bool event(QEvent * event);
+
 public slots:
     void upgradeImage();
+    void testImage();
 
 private:
     void addDisk(const QString &path, const int address);
-
 //data
     QStringList diskImages;
 
@@ -57,7 +61,9 @@ private:
     QString upgradeImageName;
     QTimer *updateProgressTimer;
     QProcess *currentProcess;
-
+    QString currentFormat;
+    QFileInfo currentImage;
+    qint64 virtualSize;
     qint64 oldSize;
 
 private slots:
@@ -70,6 +76,10 @@ signals:
     void imageUpgradable(bool elegability);
     void upgradeProgress(qint64 size, qint64 total);
     void error(const QString &errorString);
+    void imageFormat(QString format);
+    void imageSize(qint64 size);
+    void phySize(qint64 size);
+    
 };
 
 #endif

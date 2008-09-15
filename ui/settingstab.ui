@@ -9,7 +9,7 @@
     <x>0</x>
     <y>0</y>
     <width>705</width>
-    <height>554</height>
+    <height>568</height>
    </rect>
   </property>
   <property name="minimumSize" >
@@ -228,6 +228,14 @@
             <number>0</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>497</width>
+              <height>456</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>cpu-memory.html</string>
             </property>
@@ -469,6 +477,14 @@
             </layout>
            </widget>
            <widget class="QWidget" name="hardDiskPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>497</width>
+              <height>456</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>harddisk.html</string>
             </property>
@@ -573,6 +589,65 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="label_7" >
+                  <property name="text" >
+                   <string>Image Information</string>
+                  </property>
+                  <property name="alignment" >
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QFormLayout" name="formLayout_3" >
+                  <property name="fieldGrowthPolicy" >
+                   <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                  </property>
+                  <item row="0" column="0" >
+                   <widget class="QLabel" name="label_19" >
+                    <property name="text" >
+                     <string>Image Format:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1" >
+                   <widget class="QLabel" name="formatLabel" >
+                    <property name="text" >
+                     <string>Img Format</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0" >
+                   <widget class="QLabel" name="label_20" >
+                    <property name="text" >
+                     <string>Virtual Image Size:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1" >
+                   <widget class="QLabel" name="virtSizeLabel" >
+                    <property name="text" >
+                     <string>Virt Size</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0" >
+                   <widget class="QLabel" name="label_21" >
+                    <property name="text" >
+                     <string>On Disk Size:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1" >
+                   <widget class="QLabel" name="phySizeLabel" >
+                    <property name="text" >
+                     <string>Phy Size</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
                  <spacer name="verticalSpacer_2" >
                   <property name="orientation" >
                    <enum>Qt::Vertical</enum>
@@ -591,6 +666,14 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="mediaPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>100</width>
+              <height>30</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>removablemedia.html</string>
             </property>
@@ -795,6 +878,14 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="usbPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>100</width>
+              <height>30</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>usb.html</string>
             </property>
@@ -831,6 +922,14 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="virtualDrivePage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>100</width>
+              <height>30</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>virtualdrives.html</string>
             </property>
@@ -845,11 +944,27 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="networkPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>100</width>
+              <height>30</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>networking.html</string>
             </property>
            </widget>
            <widget class="QWidget" name="soundPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>100</width>
+              <height>30</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>sound.html</string>
             </property>
@@ -934,6 +1049,14 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="displayPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>100</width>
+              <height>30</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>display.html</string>
             </property>
@@ -1170,6 +1293,14 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
            <widget class="QWidget" name="otherPage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>100</width>
+              <height>30</height>
+             </rect>
+            </property>
             <property name="helpFile" stdset="0" >
              <string>otheroptions.html</string>
             </property>
@@ -1286,33 +1417,55 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QScrollArea" name="helpArea" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Maximum" hsizetype="Expanding" >
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="QDockWidget" name="helpArea" >
+       <property name="floating" >
+        <bool>false</bool>
        </property>
-       <property name="widgetResizable" >
-        <bool>true</bool>
+       <property name="features" >
+        <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable</set>
        </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents_2" >
+       <widget class="QWidget" name="dockWidgetContents" >
         <property name="geometry" >
          <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>491</width>
-          <height>78</height>
+          <x>4</x>
+          <y>23</y>
+          <width>489</width>
+          <height>71</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_26" >
+        <layout class="QVBoxLayout" name="verticalLayout_6" >
          <item>
-          <widget class="QWebView" name="helpView" >
-           <property name="url" >
-            <url>
-             <string>about:blank</string>
-            </url>
+          <widget class="QScrollArea" name="helpScrollArea" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Maximum" hsizetype="Expanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
+           <property name="widgetResizable" >
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_2" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>475</width>
+              <height>57</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_26" >
+             <item>
+              <widget class="QWebView" name="helpView" >
+               <property name="url" >
+                <url>
+                 <string>about:blank</string>
+                </url>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </widget>
          </item>
         </layout>
@@ -1340,30 +1493,14 @@ p, li { white-space: pre-wrap; }
  </resources>
  <connections>
   <connection>
-   <sender>helpButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>helpArea</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>105</x>
-     <y>541</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>646</x>
-     <y>524</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>memorySlider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>memorySpinBox</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>373</x>
-     <y>166</y>
+     <x>402</x>
+     <y>163</y>
     </hint>
     <hint type="destinationlabel" >
      <x>446</x>
@@ -1382,8 +1519,8 @@ p, li { white-space: pre-wrap; }
      <y>166</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>373</x>
-     <y>166</y>
+     <x>402</x>
+     <y>163</y>
     </hint>
    </hints>
   </connection>
@@ -1410,12 +1547,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>390</x>
-     <y>62</y>
+     <x>288</x>
+     <y>37</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>390</x>
-     <y>163</y>
+     <x>289</x>
+     <y>42</y>
     </hint>
    </hints>
   </connection>
@@ -1426,12 +1563,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>342</x>
-     <y>136</y>
+     <x>249</x>
+     <y>80</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>342</x>
-     <y>223</y>
+     <x>249</x>
+     <y>70</y>
     </hint>
    </hints>
   </connection>
@@ -1442,12 +1579,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>482</x>
-     <y>68</y>
+     <x>288</x>
+     <y>37</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>481</x>
-     <y>317</y>
+     <x>289</x>
+     <y>34</y>
     </hint>
    </hints>
   </connection>
@@ -1458,12 +1595,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>424</x>
-     <y>92</y>
+     <x>280</x>
+     <y>62</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>424</x>
-     <y>123</y>
+     <x>280</x>
+     <y>66</y>
     </hint>
    </hints>
   </connection>
@@ -1474,12 +1611,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>324</x>
-     <y>231</y>
+     <x>250</x>
+     <y>46</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>324</x>
-     <y>343</y>
+     <x>250</x>
+     <y>35</y>
     </hint>
    </hints>
   </connection>
@@ -1490,12 +1627,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>525</x>
-     <y>231</y>
+     <x>279</x>
+     <y>46</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>525</x>
-     <y>343</y>
+     <x>279</x>
+     <y>52</y>
     </hint>
    </hints>
   </connection>
@@ -1506,12 +1643,12 @@ p, li { white-space: pre-wrap; }
    <slot>clearEditText()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>281</x>
-     <y>116</y>
+     <x>248</x>
+     <y>34</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>287</x>
-     <y>80</y>
+     <x>248</x>
+     <y>36</y>
     </hint>
    </hints>
   </connection>
@@ -1522,12 +1659,44 @@ p, li { white-space: pre-wrap; }
    <slot>clearEditText()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>290</x>
-     <y>226</y>
+     <x>248</x>
+     <y>28</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>301</x>
-     <y>195</y>
+     <x>248</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>helpButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>helpArea</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>143</x>
+     <y>534</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>210</x>
+     <y>476</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>helpArea</sender>
+   <signal>visibilityChanged(bool)</signal>
+   <receiver>helpButton</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>212</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>169</x>
+     <y>543</y>
     </hint>
    </hints>
   </connection>

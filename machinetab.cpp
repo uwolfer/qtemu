@@ -260,6 +260,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 //end console area
 
     read();
+    machineProcess->getHdManager()->testImage();
 
     //read first the name, otherwise the name of the main tab changes
     connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(nameChanged(QString)));
@@ -455,6 +456,8 @@ void MachineTab::makeConnections()
     connect(hdManager, SIGNAL(imageUpgradable(bool)), settingsTab->upgradeFrame, SLOT(setEnabled(bool)));
     connect(hdManager, SIGNAL(processingImage(bool)), this, SLOT(setDisabled(bool)));
     connect(hdManager, SIGNAL(error(const QString&)), this, SLOT(error(const QString&)));
-    
+    connect(hdManager, SIGNAL(imageFormat(QString)), settingsTab->formatLabel, SLOT(setText(QString)));
+    connect(hdManager, SIGNAL(imageSize(qint64)), settingsTab, SLOT(setVirtSize(qint64)));
+    connect(hdManager, SIGNAL(phySize(qint64)), settingsTab, SLOT(setPhySize(qint64)));
 }
 
