@@ -345,6 +345,7 @@ void MachineTab::resumed()
     stopButton->setEnabled(true);
     suspendButton->setHidden(false);
     resumeButton->setHidden(true);
+
     //this is kinda sucky, i think it's a qemu bug.
     QMessageBox::information(this, tr("Resume"),
                              tr("Your machine is being resumed. USB devices will not function properly on Windows. You must reload<br />the USB driver to use your usb devices including the seamless mouse.<br />In addition the advanced VGA adapter will not refresh initially on any OS."));
@@ -373,6 +374,7 @@ void MachineTab::finished()
     suspendButton->setHidden(true);
     snapshotCheckBox->setText(tr("Snapshot mode"));
     cleanupView();
+    machineProcess->getHdManager()->testImage();
 }
 
 void MachineTab::started()
