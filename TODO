@@ -38,8 +38,6 @@ Known Bugs:
 -----------------
 Known bugs must be fixed before the next release.
 
-* when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process and the vnc server.
-
 * trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use. this will not be an issue when the above bug is fixed.
 
 ------------------
