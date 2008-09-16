@@ -38,7 +38,7 @@ Known Bugs:
 -----------------
 Known bugs must be fixed before the next release.
 
-* trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use. this will not be an issue when the above bug is fixed.
+* trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use. this will not be an issue when the below crash/background issue fixed. we should at least provide a warning, and maybe try to connect the vnc server anyway.
 
 ------------------
 Known issues:
