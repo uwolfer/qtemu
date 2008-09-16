@@ -46,10 +46,7 @@ public:
 
     bool imageIs();
     bool event(QEvent * event);
-
-public slots:
-    void upgradeImage();
-    void testImage();
+    bool isSuspendable() const;
 
 private:
     void addDisk(const QString &path, const int address);
@@ -65,6 +62,11 @@ private:
     QFileInfo currentImage;
     qint64 virtualSize;
     qint64 oldSize;
+    bool suspendable;
+    bool resumable;
+public slots:
+    void upgradeImage();
+    void testImage();
 
 private slots:
     void upgradeComplete(int status);
@@ -78,7 +80,8 @@ signals:
     void imageFormat(QString format);
     void imageSize(qint64 size);
     void phySize(qint64 size);
-    
+    void supportsSuspending(bool status);
+    void supportsResuming(bool status);
 };
 
 #endif

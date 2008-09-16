@@ -84,7 +84,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     settingsTab = new SettingsTab(machineConfigObject, this);
 
-    makeConnections();
 
     connect(machineProcess, SIGNAL(finished(int)), this, SLOT(finished()));
     connect(machineProcess, SIGNAL(started()), this, SLOT(started()));
@@ -260,11 +259,13 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 //end console area
 
     read();
-    machineProcess->getHdManager()->testImage();
+
 
     //read first the name, otherwise the name of the main tab changes
     connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(nameChanged(QString)));
-
+    
+    makeConnections();
+    machineProcess->getHdManager()->testImage();
 }
 
 
@@ -312,32 +313,35 @@ void MachineTab::start()
 
 void MachineTab::suspending()
 {
-    startButton->setEnabled(false);
-    stopButton->setEnabled(false);
-    suspendButton->setEnabled(false);
-    pauseButton->setEnabled(false);
-    suspendButton->setText(tr("Suspending..."));
+    //startButton->setEnabled(false);
+    //stopButton->setEnabled(false);
+    //suspendButton->setEnabled(false);
+    //pauseButton->setEnabled(false);
+    setEnabled(false);
+    //TODO: start a progress bar
 }
 
 void MachineTab::suspended()
     {
     machineProcess->forceStop();
-    resumeButton->setHidden(false);
-    
-//    testHDDImage(hddPathLineEdit->text());//will enable the resume button if appropriate
-    //resumeButton->setEnabled(true);
+    //resumeButton->setHidden(false);
+    machineProcess->getHdManager()->testImage();
     suspendButton->setHidden(true);
-    suspendButton->setText(tr("&Suspend"));
+    setEnabled(true);
+    //stop the progress bar
     }
 
 void MachineTab::resuming()
 {
-    startButton->setEnabled(false);
-    stopButton->setEnabled(false);
+    //startButton->setEnabled(false);
+    //stopButton->setEnabled(false);
+    setEnabled(false);
 }
 
 void MachineTab::resumed()
 {
+    setEnabled(true);
+    startButton->setEnabled(false);
     stopButton->setEnabled(true);
     suspendButton->setHidden(false);
     resumeButton->setHidden(true);
@@ -373,13 +377,7 @@ void MachineTab::finished()
 
 void MachineTab::started()
 {
-    if(snapshotCheckBox->isChecked())
-    {
-       snapshotCheckBox->setText(snapshotCheckBox->text() + "\n" + tr("(uncheck to commit changes)"));
-    }
-    pauseButton->setEnabled(true);
-    suspendButton->setHidden(false);
-    resumeButton->setHidden(true);
+
 }
 
 void MachineTab::error(const QString & errorMsg)
@@ -431,6 +429,13 @@ void MachineTab::booting()
 {
     if(machineConfigObject->getOption("embeddedDisplay",QVariant(false)).toBool())
         machineView->initView();
+    if(snapshotCheckBox->isChecked())
+    {
+       snapshotCheckBox->setText(snapshotCheckBox->text() + "\n" + tr("(uncheck to commit changes)"));
+    }
+    pauseButton->setEnabled(true);
+    suspendButton->setHidden(false);
+    resumeButton->setHidden(true);
 }
 
 void MachineTab::cleanupView()
@@ -459,5 +464,8 @@ void MachineTab::makeConnections()
     connect(hdManager, SIGNAL(imageFormat(QString)), settingsTab->formatLabel, SLOT(setText(QString)));
     connect(hdManager, SIGNAL(imageSize(qint64)), settingsTab, SLOT(setVirtSize(qint64)));
     connect(hdManager, SIGNAL(phySize(qint64)), settingsTab, SLOT(setPhySize(qint64)));
+
+    connect(hdManager, SIGNAL(supportsSuspending(bool)), suspendButton, SLOT(setEnabled(bool)));
+    connect(hdManager, SIGNAL(supportsResuming(bool)), resumeButton, SLOT(setEnabled(bool)));
 }
 

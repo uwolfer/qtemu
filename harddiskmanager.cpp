@@ -42,7 +42,11 @@ void HardDiskManager::upgradeImage()
     emit processingImage(true);
 
     upgradeImageName = currentImage.path() + '/' + currentImage.completeBaseName() + ".qcow";
+#ifndef Q_OS_WIN32
     QString program = "qemu-img";
+#elif defined(Q_OS_WIN32)
+    QString program = "qemu/qemu-img.exe";
+#endif
     QStringList arguments;
     currentProcess = new QProcess(this);
 
@@ -77,7 +81,11 @@ void HardDiskManager::testImage()
 {
     if(!currentImage.exists())
         return;
+#ifndef Q_OS_WIN32
     QString program = "qemu-img";
+#elif defined(Q_OS_WIN32)
+    QString program = "qemu/qemu-img.exe";
+#endif
     QStringList arguments;
     QProcess *testProcess = new QProcess(this);
     arguments << "info" << currentImage.filePath();
@@ -89,14 +97,39 @@ void HardDiskManager::testImage()
     currentFormat =  output.at(1).split(':').at(1).simplified();
     emit imageFormat(currentFormat);
     if(currentFormat!="qcow2")
+    {
         emit imageUpgradable(true);
+        suspendable = false;
+    }
     else
+    {
         emit imageUpgradable(false);
+       suspendable = true;
+    }
+    emit supportsSuspending(suspendable);
     QString virtSize = output.at(2).section('(', 1);
     virtSize.chop(6);
     virtualSize = virtSize.toInt();
     emit imageSize(virtualSize);
     emit phySize(currentImage.size());
+
+    resumable = false;
+    if(output.size()>6)
+    {
+        QString currentLine;
+        QStringList list;
+        for(int i = 7; i<output.size() - 1;i++)
+        {
+            currentLine = output.at(i);
+            list = currentLine.split(QRegExp("\\W+"));
+            qDebug("size %i in line %i of %i", list.size(), i, output.size());
+            if(currentLine.split(QRegExp("\\W+")).at(1) == "Default")
+            {
+                resumable = true;
+            }
+        }
+    }
+    emit supportsResuming(resumable);
 }
 
 bool HardDiskManager::event(QEvent * event)
@@ -113,4 +146,10 @@ bool HardDiskManager::event(QEvent * event)
         return false;
     }
     return QObject::event(event);
+}
+
+
+bool HardDiskManager::isSuspendable() const
+{
+    return suspendable;
 }
