@@ -131,9 +131,6 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     startButton->setIconSize(QSize(22, 22));
     connect(startButton, SIGNAL(clicked(bool)), this, SLOT(start()));
 
-
-
-
     QMenu *stopMenu = new QMenu();
     QAction *stopAction = stopMenu->addAction(QIcon(":/images/" + iconTheme + "/stop.png"), tr("&Shutdown"));
     QAction *forceAction = stopMenu->addAction(tr("&Force Poweroff"));
@@ -259,10 +256,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 //end console area
 
     read();
-
-
     //read first the name, otherwise the name of the main tab changes
-    connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(nameChanged(QString)));
     
     makeConnections();
     machineProcess->getHdManager()->testImage();
@@ -462,6 +456,7 @@ void MachineTab::takeScreenshot()
 
 void MachineTab::makeConnections()
 {
+    connect(machineNameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(nameChanged(QString)));
 
     //hard disk manager related connections
     HardDiskManager *hdManager = machineProcess->getHdManager();

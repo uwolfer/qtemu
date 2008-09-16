@@ -47,6 +47,8 @@ Known issues:
 ------------------
 Known issues may be resolved for a later release.
 
+* should have a toolbar in fullscreen mode for exiting fullscreen mode as well as other things.
+
 * the preview screenshot may not be handled correctly when it is a different aspect ratio than the preview window. it should display in the correct aspect ratio, centered in the preview window, rather than stretched.
 
 * when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process and the vnc server.

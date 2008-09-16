@@ -122,7 +122,6 @@ void HardDiskManager::testImage()
         {
             currentLine = output.at(i);
             list = currentLine.split(QRegExp("\\W+"));
-            qDebug("size %i in line %i of %i", list.size(), i, output.size());
             if(currentLine.split(QRegExp("\\W+")).at(1) == "Default")
             {
                 resumable = true;
