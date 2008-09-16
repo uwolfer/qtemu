@@ -2,53 +2,83 @@
 The QtEmu TODO List:
 -----------------------
 
+------------------
+Version 2.0:
+------------------
+
+-----------------------
+Missing or Broken Features:
+-----------------------
+Missing or broken features need to be completed or disabled.
+
+* Display a big fat warning if you try to close the application while suspending or saving a snapshot.
+
+* Need to make sure suspend/resume is safe -- upon resume the snapshot should be merged and deleted unless snapshot is checked.
+
+* Make the Screenshot button do something - have a save as dialog.
+
+* Fix the sound output type selector -- needs to interpret selected values (ALSA, Pulse Audio, etc) as driver names (alsa, pa, etc)
+
+* Finish implementing selection of virtio drivers
+
+* Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
+
+* allow sending special keys (keys intercepted by X, the operating system, or qtemu)
+
+* Add tooltips to many UI components
+
+* Make sure shortcuts don't overlap and everything has an appropriate shortcut
+
+* Finish new help files
+
+* Update old help file
 
 -----------------
 Known Bugs:
 -----------------
 Known bugs must be fixed before the next release.
 
-* crash when using more than one tab, stopping the machine and returning to a previous tab: appears to be related to kde bugzilla http://bugs.kde.org/show_bug.cgi?id=160728 since we use the KRDC vnc code.
+* when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process and the vnc server.
 
-* when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup.
+* trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use. this will not be an issue when the above bug is fixed.
 
-* trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use.
+* sound errors need to be supressed after they are shown once.
+
+------------------
+Known issues:
+------------------
+Known issues may be resolved for a later release.
 
 * the preview screenshot may not be handled correctly when it is a different aspect ratio than the preview window. it should display in the correct aspect ratio, centered in the preview window, rather than stretched.
 
-* sound errors need to be supressed after they are shown once. perhaps a better way of making sound actually work when using other apps?
+* when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process and the vnc server.
 
 ------------------
 Additional features:
 ------------------
 These are planned future features for QtEmu.
-------------------
-Version 2.0:
-------------------
-* Embedded full screen view
-
-* UI changes to make things less cluttered and more clear. also allow the addition of more options without confusion. (in the already existing settings tab)
-
-* working network configuration.
-
-* allow sending special keys
 
 -------------------
 Version 2.1 +:
 -------------------
+
+* working network configuration.
+
+*detect the running sound system (in order of perference: pulse audio, esd, ALSA, OSS) and set the sound interface type automatically.
+
 * information about the virtual machnine in a box below the screen preview (Image size / size on disk, memory, processor usage info for running machines, etc.).
 
 * disconnect from a running machine. this would allow running a machine while qemu is closed. 
 
-* the preview image sohuld show the last connected machine state if a machine is disconnected, or the current state for suspended machines. when a machine is off (not suspended) show the usual preview.
-
 * connect to already running machines. this might mean using a file pipe instead of stdio for communication with the virtual machine.
+
+* the preview image should show the last connected machine state if a machine is disconnected, or the current state for suspended machines. when a machine is off (not suspended) show the usual preview.
 
 * passive notification for noncritical errors (maybe in the currently unused status bar area?)
 
 * when qemu supports it, on the fly switching between GUI modes (perhaps using SDL for a faster fullscreen mode)
 
-* multiple hard drives/ optical disks.
+* multiple hard drives / optical disks.
 
 * removal and insertion of optical disks and hard drives on the fly.
 
@@ -66,3 +96,12 @@ Long Term (3.0?)
 * a permissions structure for this backend so only certain authenticated clients can perform certain tasks. multiple levels of permission per machnine.
 
 * assisted OS installation? a system that allows QtEmu to help you install an OS. maybe automatic installation by filling out a form with desired settings and QtEmu fills in the values during installation for popular operating systems.
+
+-------------------
+Very Long Term (11.25+)
+-------------------
+* Run virtual machines truly virtually - without any hardware at all. Eliminate the Host by manipulating molecules in the surrounding environment to simulate a machine through natural processes.
+
+* increase the speed of virtual machines so they actually run FASTER than the host machine. Then move the host processes to run inside the virtual machine we just created. By doing this operation multiple times, any host can virtualize an unlimited number of machines at an ever increasing speed.
+
+* virtualize the user of the guest as well. By doing this, we can determine what actions the user will make as well as how the guest will respond before either action has occured. In this way we can make the response time of the guests not just near zero, but actually negative.

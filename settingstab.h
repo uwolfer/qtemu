@@ -58,6 +58,8 @@ private:
     void setupHelp();
     void setupConnections();
     void getSettings();
+    void getDrives();
+    
 private slots:
 
     void changeHelpTopic();

@@ -192,3 +192,9 @@ void SettingsTab::setPhySize(qint64 size)
         sizeS = QString::number((int)sizeG) + "." + QString::number(((int)sizeM)%1024) + " Gigabyte" + ((sizeG<2)?"":"s");
     phySizeLabel->setText(sizeS);
 }
+
+void SettingsTab::getDrives()
+{
+    //TODO:set a list of removable drives to be chosen by the dropdown menu for optical media / floppy drives. on linux this must be obtained through dbus, but on windows it can be gotten through Qt itself.
+    //qDebug(QDir::drives());
+}
