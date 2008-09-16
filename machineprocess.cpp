@@ -437,10 +437,6 @@ void MachineProcess::readProcess()
 void MachineProcess::readProcessErrors()
 {
     QString errorText = readAllStandardError();
-    if(!supressedErrors.isEmpty())
-        for(int i=0;i<supressedErrors.size();i++)
-            if(errorText.contains(supressedErrors.at(i)))
-                return;
     emit error(errorText);
 }
 
@@ -484,11 +480,6 @@ void MachineProcess::changeFloppy()
     //if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
     write("eject -f floppy\n");//might need to be fda , not floppy
     write("change floppy " + property("floppy").toByteArray() + '\n');
-}
-
-void MachineProcess::supressError(QString errorText)
-{
-    supressedErrors << errorText;
 }
 
 void MachineProcess::startedBooting(const QString& text)

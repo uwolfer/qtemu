@@ -79,7 +79,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineConfigObject->registerObject(machineProcess->getHdManager());
 
     machineView = new MachineView(this);
-    //FIXME this is a hack... eventually we will be able to support using a unix socket (a file) instead of a network port.
+
     machineConfigObject->setOption("vncPort", 1000 + parentTabWidget->currentIndex() + 1);
 
     settingsTab = new SettingsTab(machineConfigObject, this);
@@ -384,8 +384,20 @@ void MachineTab::started()
 
 void MachineTab::error(const QString & errorMsg)
 {
-    QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occurred in qemu. This may have been caused by QtEmu<br />"
-                                                      "or by attempting to perform an invalid action. The error is:<br />") + errorMsg,QMessageBox::Ok);
+    if (errorMsg.contains("(VMDK)"))
+    {
+        //for some reason qemu throws an error message when using a VMDK image. oh well...
+        return;
+    }
+    else if ((!shownErrors.contains("audio"))&&(errorMsg.contains("alsa")||errorMsg.contains("oss")||errorMsg.contains("esd")||errorMsg.contains("pa")||errorMsg.contains("audio")))
+    {
+        shownErrors << "audio";
+        QMessageBox::critical(this, tr("QtEmu Sound Error"), tr("QtEmu is having trouble accessing your sound system. Make sure you have your host<br />"
+        "sound system selected correctly in the Sound section of the settings tab."),QMessageBox::Ok);
+        return;
+    }
+    QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occurred. This may have been caused by<br />"
+                                                      "an incorrect setting. The error is:<br />") + errorMsg,QMessageBox::Ok);
 }
 
 void MachineTab::snapshot(const int state)
@@ -400,12 +412,6 @@ void MachineTab::unimplemented()
 {
     QMessageBox::warning(window(), tr("QtEmu"),
                                    tr("This function is not yet implemented."));
-}
-
-void MachineTab::supressAudioErrors()
-{
-    machineProcess->supressError("oss");
-    machineProcess->supressError("audio");
 }
 
 void MachineTab::runCommand()

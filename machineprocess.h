@@ -49,7 +49,6 @@ public slots:
     void stop();
     void forceStop();
     void togglePause();
-    void supressError(QString errorText);
     void changeCdrom();
     void changeFloppy();
     void loadCdrom();
@@ -71,7 +70,6 @@ private:
     void commitTmp();
     void createTmp();
     QString snapshotNameString;
-    QStringList supressedErrors;
     QtEmuEnvironment env;
     long versionMajor, versionMinor, versionBugfix, kvmVersion;
     bool paused;

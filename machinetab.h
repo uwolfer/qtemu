@@ -95,6 +95,7 @@ private:
 
     QString myMachinesPath;
 
+    QStringList shownErrors;
 
     QFrame *consoleFrame;
     QGridLayout *viewLayout;
@@ -118,7 +119,6 @@ private slots:
     void closeMachine();
     void snapshot(const int state);
     void unimplemented();
-    void supressAudioErrors();
     void runCommand();
     void clearRestart();
     void takeScreenshot();
