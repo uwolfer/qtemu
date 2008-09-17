@@ -28,6 +28,7 @@
 #include "helpwindow.h"
 #include "configwindow.h"
 #include "config.h"
+#include "machineprocess.h"
 
 #include <QSettings>
 #include <QTabWidget>
@@ -71,8 +72,28 @@ MainWindow::MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    writeSettings();
-    event->accept();
+    bool runningMachines = false;
+    for (int i = 1; i<(tabWidget->count());i++)
+    {
+       MachineTab *tab = static_cast<MachineTab *>(tabWidget->widget(i));
+       if(tab->machineProcess->state() == QProcess::Running)
+       {
+        runningMachines = true;
+       }
+    }
+    if (runningMachines == false || QMessageBox::question(this, tr("Exit confirmation"),
+                              tr("You have virtual machines currently running. Are you sure you want to quit?<br />"
+                                 "quitting in this manner may cause damage to the virtual machine image!"),
+                              QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel)
+      == QMessageBox::Yes)
+    {
+        writeSettings();
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
+    }
 }
 
 void MainWindow::createNew()
@@ -424,3 +445,4 @@ void MainWindow::changeMachineState(int value)
         restartAct->setEnabled(false);
     }
 }
+
