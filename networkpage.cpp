@@ -83,6 +83,7 @@ void NetworkPage::registerObjects()
 {
     config->registerObject(networkCheck, "network", QVariant(true));
     config->registerObject(networkEdit, "networkCustomOptions");
+    config->registerObject(netAccelCheck, "netVirtio", QVariant(false));
 }
 
 void NetworkPage::addGuestInterface()

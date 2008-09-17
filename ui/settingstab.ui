@@ -541,7 +541,7 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="accelHDD" >
+                 <widget class="QCheckBox" name="hddAccelCheck" >
                   <property name="text" >
                    <string>Accelerated Hard Disk Drivers</string>
                   </property>

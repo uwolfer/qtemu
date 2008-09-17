@@ -90,7 +90,8 @@ void SettingsTab::registerWidgets()
     config->registerObject(hiResCheck, "hiRes", QVariant(true));
     config->registerObject(mouseCheck, "mouse", QVariant(true));
     config->registerObject(acpiCheck, "acpi", QVariant(true));
-    //TODO:finish adding widgets
+    config->registerObject(hddAccelCheck, "hddVirtio", QVariant(false));
+
 }
 
 void SettingsTab::changeHelpTopic()

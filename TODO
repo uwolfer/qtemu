@@ -21,6 +21,8 @@ Missing or broken features need to be completed or disabled.
 
 * Finish implementing selection of virtio drivers
 
+* Disable virtio driver selection/usage if not using KVM
+
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
 
 * show a warning and connect to a vnc server anyway upon bind() failure

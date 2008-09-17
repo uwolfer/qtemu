@@ -102,7 +102,14 @@ void MachineProcess::start()
             arguments << property("networkCustomOptions").toString().split(' ', QString::SkipEmptyParts);
         //#ifndef DEVELOPER
         else
-            arguments << "-net" << "nic" << "-net" << "user";
+        {
+            arguments << "-net";
+            if(property("netVirtio").toBool())
+                arguments << "nic,model=virtio";
+            else
+                arguments << "nic";
+            arguments << "-net" << "user";
+        }
         //#endif
     }
     else
@@ -202,16 +209,19 @@ void MachineProcess::start()
         arguments << "-name" << "\"" + property("name").toString() + "\"";
 
     // Add the VM image name
+    arguments << "-drive";
     // And use the temp file if snapshot is enabled
     if (property("snapshot").toBool())
     {
         createTmp();
         //arguments << pathString + ".tmp";
-        arguments << property("hdd").toString() + ".tmp";
+        arguments << "file=" + property("hdd").toString() + ".tmp";
     }
     else 
         //arguments << pathString;
-        arguments << property("hdd").toString();
+        arguments << "file=" + property("hdd").toString();
+    if(property("hddVirtio").toBool())
+        arguments << ",if=virtio";
 
 #ifdef DEVELOPER
     QString debugString;
