@@ -467,6 +467,7 @@ void MachineTab::makeConnections()
     connect(hdManager, SIGNAL(imageFormat(QString)), settingsTab->formatLabel, SLOT(setText(QString)));
     connect(hdManager, SIGNAL(imageSize(qint64)), settingsTab, SLOT(setVirtSize(qint64)));
     connect(hdManager, SIGNAL(phySize(qint64)), settingsTab, SLOT(setPhySize(qint64)));
+    connect(machineProcess, SIGNAL(commandLine(const QString&)), settingsTab->commandLine, SLOT(setText(QString)));
 
     connect(hdManager, SIGNAL(supportsSuspending(bool)), suspendButton, SLOT(setEnabled(bool)));
     connect(hdManager, SIGNAL(supportsResuming(bool)), resumeButton, SLOT(setEnabled(bool)));

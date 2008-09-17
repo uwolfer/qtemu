@@ -291,6 +291,9 @@ void MachineProcess::start()
     setWorkingDirectory(path.path());
     start(qemuCommand, arguments);
 #endif
+
+    emit commandLine(arguments.join(" "));
+
 }
 
 void MachineProcess::afterExitExecute()
