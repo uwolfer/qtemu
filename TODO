@@ -19,8 +19,6 @@ Missing or broken features need to be completed or disabled.
 
 * Fix the sound output type selector -- needs to interpret selected values (ALSA, Pulse Audio, etc) as driver names (alsa, pa, etc)
 
-* Finish implementing selection of virtio drivers
-
 * Disable virtio driver selection/usage if not using KVM
 
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
