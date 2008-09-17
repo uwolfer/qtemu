@@ -13,6 +13,8 @@ Missing or broken features need to be completed or disabled.
 
 * Display a big fat warning if you try to close the application while suspending or saving a snapshot.
 
+* Add a dialog when a machine is running - offer to cancel the close or shut down the machine(s) gracefully.
+
 * Need to make sure suspend/resume is safe -- upon resume the snapshot should be merged and deleted unless snapshot is checked.
 
 * Make the Screenshot button do something - have a save as dialog.
@@ -22,6 +24,8 @@ Missing or broken features need to be completed or disabled.
 * Finish implementing selection of virtio drivers
 
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
+
+* show a warning and connect to a vnc server anyway upon bind() failure
 
 * allow sending special keys (keys intercepted by X, the operating system, or qtemu)
 
@@ -38,7 +42,6 @@ Known Bugs:
 -----------------
 Known bugs must be fixed before the next release.
 
-* trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use. this will not be an issue when the below crash/background issue fixed. we should at least provide a warning, and maybe try to connect the vnc server anyway.
 
 ------------------
 Known issues:
@@ -51,6 +54,7 @@ Known issues may be resolved for a later release.
 
 * when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process and the vnc server.
 
+* trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use. this will not be an issue when the crash/background issue is fixed.
 ------------------
 Additional features:
 ------------------
