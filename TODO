@@ -13,8 +13,6 @@ Missing or broken features need to be completed or disabled.
 
 * Display a big fat warning if you try to close the application while suspending or saving a snapshot.
 
-* Add a dialog when a machine is running - offer to cancel the close or shut down the machine(s) gracefully.
-
 * Need to make sure suspend/resume is safe -- upon resume the snapshot should be merged and deleted unless snapshot is checked.
 
 * Make the Screenshot button do something - have a save as dialog.
