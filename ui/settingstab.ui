@@ -483,7 +483,7 @@
                 <item>
                  <widget class="QLabel" name="label_16" >
                   <property name="text" >
-                   <string>Information</string>
+                   <string>Machine Information</string>
                   </property>
                   <property name="alignment" >
                    <set>Qt::AlignCenter</set>

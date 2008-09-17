@@ -27,6 +27,8 @@ Missing or broken features need to be completed or disabled.
 
 * allow sending special keys (keys intercepted by X, the operating system, or qtemu)
 
+* add a toolbar to fullscreen mode
+
 * Add tooltips to many UI components
 
 * Make sure shortcuts don't overlap and everything has an appropriate shortcut

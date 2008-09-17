@@ -43,7 +43,7 @@
         <item>
          <widget class="QCheckBox" name="netAccelCheck" >
           <property name="enabled" >
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="text" >
            <string>Use Accelerated Drivers</string>

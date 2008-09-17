@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>306</width>
-    <height>223</height>
+    <height>219</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -28,6 +28,32 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout" >
+      <item>
+       <widget class="QPushButton" name="displayButton" >
+        <property name="maximumSize" >
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string/>
+        </property>
+        <property name="icon" >
+         <iconset resource="../qtemu.qrc" >
+          <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QPushButton" name="mediaButton" >
         <property name="sizePolicy" >
@@ -53,7 +79,7 @@
          <bool>true</bool>
         </property>
         <property name="checked" >
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="autoExclusive" >
          <bool>true</bool>
@@ -74,29 +100,6 @@
         <property name="icon" >
          <iconset resource="../qtemu.qrc" >
           <normaloff>:/images/oxygen/other.png</normaloff>:/images/oxygen/other.png</iconset>
-        </property>
-        <property name="checkable" >
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="displayButton" >
-        <property name="maximumSize" >
-         <size>
-          <width>30</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
         </property>
         <property name="checkable" >
          <bool>true</bool>
@@ -137,9 +140,17 @@
       <enum>QFrame::Raised</enum>
      </property>
      <property name="currentIndex" >
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page" >
+      <property name="geometry" >
+       <rect>
+        <x>3</x>
+        <y>3</y>
+        <width>244</width>
+        <height>205</height>
+       </rect>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_2" >
        <item>
         <widget class="QLabel" name="label" >
@@ -289,7 +300,26 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="page_3" >
+      <property name="geometry" >
+       <rect>
+        <x>3</x>
+        <y>3</y>
+        <width>244</width>
+        <height>205</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6" />
+     </widget>
      <widget class="QWidget" name="page_2" >
+      <property name="geometry" >
+       <rect>
+        <x>3</x>
+        <y>3</y>
+        <width>244</width>
+        <height>205</height>
+       </rect>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_4" >
        <item>
         <layout class="QGridLayout" name="gridLayout" >
@@ -428,9 +458,13 @@
         </spacer>
        </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="page_3" >
-      <layout class="QHBoxLayout" name="horizontalLayout_6" />
+      <zorder>toolButton</zorder>
+      <zorder>kled</zorder>
+      <zorder>kled_2</zorder>
+      <zorder>dial</zorder>
+      <zorder>verticalScrollBar</zorder>
+      <zorder>horizontalSlider</zorder>
+      <zorder>radioButton</zorder>
      </widget>
     </widget>
    </item>
