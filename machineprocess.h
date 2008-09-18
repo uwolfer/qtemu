@@ -64,8 +64,6 @@ signals:
     void stdin(const QString & stdoutText);
     void rawConsole(const QString & consoleOutput);
     void cleanConsole(const QString & consoleOutput);
-    void commandLine(const QString & commandLine);
-
 private:
     void getVersion();
     void commitTmp();
