@@ -59,7 +59,8 @@ private:
     void setupConnections();
     void getSettings();
     void getDrives();
-    
+    void disableUnsupportedOptions();
+
 private slots:
 
     void changeHelpTopic();

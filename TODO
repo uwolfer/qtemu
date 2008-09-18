@@ -13,10 +13,6 @@ Missing or broken features need to be completed or disabled.
 
 * Display a big fat warning if you try to close the application while saving a snapshot.
 
-* Need to make sure suspend/resume is safe -- upon resume the snapshot should be merged and deleted.
-
-* Disable virtio driver selection/usage if not using KVM
-
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
 
 * allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
@@ -33,8 +29,6 @@ Missing or broken features need to be completed or disabled.
 * Finish new help files
 
 * Update old help file
-
-* Toggle smooth Mouse correctly
 
 * remove unused pages from the settings tab
 

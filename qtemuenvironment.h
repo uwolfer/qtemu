@@ -34,13 +34,13 @@ public:
     ~QtEmuEnvironment();
 
 ///returned as an array with 3 members: major version, minor version, and bugfix version.
-    int* getQemuVersion();
+    static int* getQemuVersion();
 
 ///just a plain old number
-    int getKvmVersion();
+    static int getKvmVersion();
 
 private:
-void getVersion();
+static void getVersion();
 static int qemuVersion[3];
 static int kvmVersion;
 static bool versionChecked;

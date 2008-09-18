@@ -24,8 +24,8 @@
 #include "settingstab.h"
 #include "machineconfigobject.h"
 #include "helpwindow.h"
-
 #include "networkpage.h"
+#include "qtemuenvironment.h"
 
 #include <QIcon>
 #include <QFileDialog>
@@ -51,6 +51,8 @@ SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
     //register all the widgets with their associated options
     registerWidgets();
     setupHelp();
+
+    disableUnsupportedOptions();
 }
 
 
@@ -198,4 +200,15 @@ void SettingsTab::getDrives()
 {
     //TODO:set a list of removable drives to be chosen by the dropdown menu for optical media / floppy drives. on linux this must be obtained through dbus, but on windows it can be gotten through Qt itself.
     //qDebug(QDir::drives());
+}
+
+void SettingsTab::disableUnsupportedOptions()
+{
+    if(QtEmuEnvironment::getKvmVersion()<1)
+    {
+        hddAccelCheck->setEnabled(false);
+        hddAccelCheck->setChecked(false);
+        netPage->netAccelCheck->setEnabled(false);
+        netPage->netAccelCheck->setChecked(false);
+    }
 }
