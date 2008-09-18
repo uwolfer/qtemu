@@ -167,12 +167,22 @@ void MachineProcess::start()
     
     if (property("sound").toBool())
     {
-    //FIXME: this does not work yet with alsa... no idea why. specifying oss, which is the default anyway, works ok.
-    // other possible values are "wav", "none", "sdl", and maybe "esd" or "pulse"
-    //we can run qemu -audio-help and any line in the format "Name: <value>" will list a driver we can use.
-    //TODO:on windows and mac i assume we have to stick with the default... (directSound / coreAudio)
+    //TODO:on windows and mac i assume we have to stick with the default... (directSound / coreAudio) .. need to ifndef this for those platforms.
+    //TODO: allow selecting hardware
         arguments << "-soundhw" << "es1370";
-        env << "QEMU_AUDIO_DRV=" + property("soundSystem").toString();
+        QString driver = "oss";
+        if(property("soundSystem").toString() == tr("ALSA"))
+            driver = "alsa";
+        else if(property("soundSystem").toString() == tr("OSS"))
+            driver = "oss";
+        else if(property("soundSystem").toString() == tr("PulseAudio"))
+            driver = "pa";
+        else if(property("soundSystem").toString() == tr("ESD"))
+            driver = "esd";
+        else
+            driver = property("soundSystem").toString();
+
+        env << "QEMU_AUDIO_DRV=" + driver;
     }
     
     if (property("memory").toInt() > 0)

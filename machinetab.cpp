@@ -370,6 +370,7 @@ void MachineTab::finished()
     snapshotCheckBox->setText(tr("Snapshot mode"));
     cleanupView();
     machineProcess->getHdManager()->testImage();
+    shownErrors.clear();
 }
 
 void MachineTab::started()
@@ -381,14 +382,17 @@ void MachineTab::error(const QString & errorMsg)
 {
     if (errorMsg.contains("(VMDK)"))
     {
-        //for some reason qemu throws an error message when using a VMDK image. oh well...
+        //for some reason qemu throws an error message when using a VMDK image. oh well... it isn't a REAL error, so ignore it.
         return;
     }
-    else if ((!shownErrors.contains("audio"))&&(errorMsg.contains("alsa")||errorMsg.contains("oss")||errorMsg.contains("esd")||errorMsg.contains("pa")||errorMsg.contains("audio")))
+    else if ((!shownErrors.contains("audio"))&&(errorMsg.contains("audio:")))
     {
         shownErrors << "audio";
-        QMessageBox::critical(this, tr("QtEmu Sound Error"), tr("QtEmu is having trouble accessing your sound system. Make sure you have your host<br />"
-        "sound system selected correctly in the Sound section of the settings tab."),QMessageBox::Ok);
+        QMessageBox::critical(this, tr("QtEmu Sound Error"), tr("QtEmu is having trouble accessing your sound system. Make sure<br />"
+                                                                "you have your host sound system selected correctly in the Sound<br />"
+                                                                "section of the settings tab. Also make sure your version of <br />"
+                                                                "qemu/KVM has support for the sound system you selected.")
+                                                                ,QMessageBox::Ok);
         return;
     }
     QMessageBox::critical(this, tr("QtEmu Error"), tr("An error has occurred. This may have been caused by<br />"
