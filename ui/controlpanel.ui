@@ -36,6 +36,9 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="toolTip" >
+         <string>Screen Controls</string>
+        </property>
         <property name="text" >
          <string/>
         </property>
@@ -68,6 +71,9 @@
           <height>30</height>
          </size>
         </property>
+        <property name="toolTip" >
+         <string>Media Controls</string>
+        </property>
         <property name="text" >
          <string/>
         </property>
@@ -93,6 +99,9 @@
           <width>30</width>
           <height>30</height>
          </size>
+        </property>
+        <property name="toolTip" >
+         <string>Advanced Controls</string>
         </property>
         <property name="text" >
          <string/>
@@ -148,7 +157,7 @@
         <x>3</x>
         <y>3</y>
         <width>244</width>
-        <height>205</height>
+        <height>207</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2" >
@@ -163,9 +172,22 @@
         <layout class="QHBoxLayout" name="horizontalLayout_4" >
          <item>
           <widget class="QComboBox" name="cdCombo" >
+           <property name="toolTip" >
+            <string>Enter a CD image name or /dev/cdrom to use the host cd drive.</string>
+           </property>
            <property name="editable" >
             <bool>true</bool>
            </property>
+           <item>
+            <property name="text" >
+             <string/>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>/dev/cdrom</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item>
@@ -175,6 +197,9 @@
              <width>30</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="toolTip" >
+            <string>secect a new CD image</string>
            </property>
            <property name="text" >
             <string/>
@@ -191,6 +216,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2" >
          <item>
           <widget class="QPushButton" name="cdReloadButton" >
+           <property name="toolTip" >
+            <string>Eject the CD ROM from the guest and re-insert the new one specified above.</string>
+           </property>
            <property name="text" >
             <string>Reload</string>
            </property>
@@ -233,9 +261,22 @@
         <layout class="QHBoxLayout" name="horizontalLayout_5" >
          <item>
           <widget class="QComboBox" name="floppyCombo" >
+           <property name="toolTip" >
+            <string>enter a floppy image or /dev/floppy to use the host floppy drive.</string>
+           </property>
            <property name="editable" >
             <bool>true</bool>
            </property>
+           <item>
+            <property name="text" >
+             <string/>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>/dev/floppy</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item>
@@ -245,6 +286,9 @@
              <width>30</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="toolTip" >
+            <string>secect a new floppy disk image</string>
            </property>
            <property name="text" >
             <string/>
@@ -261,6 +305,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_3" >
          <item>
           <widget class="QPushButton" name="floppyReloadButton" >
+           <property name="toolTip" >
+            <string>Eject the old floppy from the guest and re-insert the new one specified above.</string>
+           </property>
            <property name="text" >
             <string>Reload</string>
            </property>
@@ -306,10 +353,34 @@
         <x>3</x>
         <y>3</y>
         <width>244</width>
-        <height>205</height>
+        <height>207</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_6" />
+      <layout class="QVBoxLayout" name="verticalLayout_3" >
+       <item>
+        <widget class="QPushButton" name="pushButton" >
+         <property name="toolTip" >
+          <string>Send special keys to the guest OS. Useful for key strokes that are intercepted by the host and cannot be sent directly.</string>
+         </property>
+         <property name="text" >
+          <string>Send Special Keys</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="page_2" >
       <property name="geometry" >
@@ -333,6 +404,10 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip" >
+            <string>Toggle full screen mode. 
+Press CTRL+ALT+ENTER to return to windowed mode.</string>
            </property>
            <property name="text" >
             <string>&amp;Fullscreen</string>
@@ -366,6 +441,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip" >
+            <string>Save a screen shot to a file</string>
+           </property>
            <property name="text" >
             <string>Screen Shot</string>
            </property>
@@ -391,6 +469,9 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip" >
+            <string>Toggle scaling the virtual machine view to fit the window</string>
            </property>
            <property name="text" >
             <string>Do Scaling</string>
@@ -420,6 +501,10 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip" >
+            <string>Toggle smooth mouse transitions between
+the host and the guest. requires guest USB support.</string>
            </property>
            <property name="text" >
             <string>Smooth Mouse</string>

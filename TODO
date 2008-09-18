@@ -25,13 +25,15 @@ Missing or broken features need to be completed or disabled.
 
 * add a toolbar to fullscreen mode
 
-* Add tooltips to many UI components
+* Add tooltips to many UI components (controlpanel.ui finished)
 
 * Make sure shortcuts don't overlap and everything has an appropriate shortcut
 
 * Finish new help files
 
 * Update old help file
+
+*Toggle smooth Mouse correctly
 
 -----------------
 Known Bugs:

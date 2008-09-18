@@ -51,6 +51,7 @@ SET(qtemu_SRCS
     controlpanel.cpp
     networkpage.cpp
     interfacemodel.cpp
+    floatingtoolbar.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -75,6 +76,7 @@ SET(qtemu_MOC_HDRS
     controlpanel.h
     networkpage.h
     interfacemodel.h
+    floatingtoolbar.h
 )
 
 SET(qtemu_UIS

@@ -26,6 +26,7 @@
 
 #include "vnc/vncview.h"
 #include "machinesplash.h"
+#include "floatingtoolbar.h"
 
 #include <QScrollArea>
 #include <QEvent>
@@ -66,6 +67,7 @@ private:
 
     VncView *view;
     MachineSplash *splash;
+    FloatingToolBar *toolBar;
     bool splashShown;
     int port;
 };

@@ -25,6 +25,8 @@
 #include <QUrl>
 #include <QSize>
 #include <QColor>
+#include <QLabel>
+#include <QAction>
 
 
 MachineView::MachineView(QWidget *parent)
@@ -139,6 +141,16 @@ void MachineView::fullscreen(bool enabled)
         QPalette p;
         p.setColor(QPalette::Background, QColor(22,22,22));
         setPalette(p);
+
+        //add a toolbar
+        toolBar = new FloatingToolBar(this,this);
+        toolBar->setSide(FloatingToolBar::Top);
+        QLabel *hostLabel = new QLabel("fullscreen", toolBar);
+        toolBar->addWidget(hostLabel);
+        toolBar->addAction(new QAction("disable fullscreen mode", this));
+//        toolBar->setSticky(true);
+        toolBar->showAndAnimate();
+
     }
     else
     {
