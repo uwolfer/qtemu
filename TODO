@@ -15,10 +15,9 @@ Missing or broken features need to be completed or disabled.
 
 * finish toolbar in fullscreen mode
 
-
 --- finishing touches ---
 
-* Add tooltips to many UI components (controlpanel.ui finished)
+* Add tooltips to many UI components (controlpanel.ui finished, settingstab.ui finished.)
 
 * Make sure shortcuts don't overlap and everything has an appropriate shortcut
 
