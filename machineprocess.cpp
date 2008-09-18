@@ -191,8 +191,11 @@ void MachineProcess::start()
     if (property("cpu").toInt() > 1)
       arguments << "-smp" << QString::number(property("cpu").toInt());
 
-    if (property("mouse").toBool())
-        arguments << "-usb" << "-usbdevice" << "tablet";
+    if (property("usbSupport").toBool())
+        arguments << "-usb";
+
+    if (property("usbSupport").toBool() && property("mouse").toBool())
+        arguments << "-usbdevice" << "tablet";
 
     if (property("time").toBool())
         arguments << "-localtime";
@@ -443,6 +446,7 @@ void MachineProcess::readProcess()
     {
         emit cleanConsole(convOutput.trimmed());
         emit stdout(convOutput.simplified());
+        lastOutput.append(convOutput.simplified());
     }
     else 
     {
@@ -451,8 +455,11 @@ void MachineProcess::readProcess()
             QString cleanOutput = splitOutput.last().remove(QRegExp("\[[KD]."));
             emit cleanConsole(cleanOutput.trimmed());
             emit stdout(cleanOutput.simplified());
+            lastOutput.append(convOutput.simplified());
         }
     }
+    outputParts = lastOutput.split("(qemu)");
+    //qDebug(outputParts.last().toAscii());
 }
 
 void MachineProcess::readProcessErrors()
@@ -545,4 +552,26 @@ void MachineProcess::createTmp()
     QProcess createTmpProcess;
     createTmpProcess.start("qemu-img", QStringList() << "create" << "-f" << "qcow2" << "-b" << property("hdd").toString() << property("hdd").toString() + ".tmp");
     createTmpProcess.waitForFinished();
+}
+
+bool MachineProcess::event(QEvent * event)
+{
+    if(event->type() == QEvent::DynamicPropertyChange)
+    {
+        //any property changes dealt with in here
+        QDynamicPropertyChangeEvent *propEvent = static_cast<QDynamicPropertyChangeEvent *>(event);
+        if(propEvent->propertyName() == "mouse")
+        {
+            if(!property("mouse").toBool())
+            {
+                //TODO: we need to actually detect the proper device...
+                write("usb_del 0.1\n");
+            }
+            else
+            {
+                write("usb_add tablet\n");
+            }
+        }
+        return false;
+    }
 }

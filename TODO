@@ -19,8 +19,6 @@ Missing or broken features need to be completed or disabled.
 
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
 
-* show a warning and connect to a vnc server anyway upon bind() failure
-
 * allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
 
 * finish toolbar in fullscreen mode
@@ -36,7 +34,9 @@ Missing or broken features need to be completed or disabled.
 
 * Update old help file
 
-*Toggle smooth Mouse correctly
+* Toggle smooth Mouse correctly
+
+* remove unused pages from the settings tab
 
 -----------------
 Known Bugs:

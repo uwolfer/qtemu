@@ -91,7 +91,7 @@ void SettingsTab::registerWidgets()
     config->registerObject(mouseCheck, "mouse", QVariant(true));
     config->registerObject(acpiCheck, "acpi", QVariant(true));
     config->registerObject(hddAccelCheck, "hddVirtio", QVariant(false));
-
+    config->registerObject(usbCheck, "usbSupport", QVariant(true));
 }
 
 void SettingsTab::changeHelpTopic()

@@ -81,7 +81,7 @@
         <bool>true</bool>
        </property>
        <property name="currentRow" >
-        <number>0</number>
+        <number>-1</number>
        </property>
        <item>
         <property name="text" >
@@ -112,7 +112,7 @@
        </item>
        <item>
         <property name="text" >
-         <string>USB Devices</string>
+         <string>USB Support</string>
         </property>
         <property name="icon" >
          <iconset resource="../qtemu.qrc" >
@@ -225,7 +225,7 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
            <property name="currentIndex" >
-            <number>0</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
@@ -902,9 +902,33 @@ p, li { white-space: pre-wrap; }
              <item>
               <widget class="QGroupBox" name="usbBox" >
                <property name="title" >
-                <string>USB Devices</string>
+                <string>USB Support</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_14" >
+                <item>
+                 <widget class="QCheckBox" name="usbCheck" >
+                  <property name="text" >
+                   <string>Enable USB support</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="Line" name="line_3" >
+                  <property name="orientation" >
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_16" >
+                  <property name="text" >
+                   <string>USB Devices</string>
+                  </property>
+                  <property name="alignment" >
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QCheckBox" name="mouseCheck" >
                   <property name="text" >

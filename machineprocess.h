@@ -39,6 +39,7 @@ public:
     qint64 write(const QByteArray & byteArray);
 
     HardDiskManager* getHdManager();
+    bool event(QEvent *event);
 
 public slots:
     void start();
@@ -75,6 +76,8 @@ private:
     bool doResume;
     //NetworkSystem* networkSystem;
     HardDiskManager *hdManager;
+    QString lastOutput;
+    QStringList outputParts;
 private slots:
     void afterExitExecute();
     void readProcess();
