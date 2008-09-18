@@ -46,7 +46,7 @@ MachineProcess::MachineProcess(QObject *parent)
     connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
     connect(this, SIGNAL(stdin(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
 
-    connect(this, SIGNAL(QProcess::stateChanged(QProcess::ProcessState)), this, SLOT(changeState(MachineProcess::ProcessState)));
+    connect(this, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(changeState(QProcess::ProcessState)));
 }
 
 HardDiskManager * MachineProcess::getHdManager()
@@ -591,6 +591,7 @@ void MachineProcess::changeState(MachineProcess::ProcessState newState)
 
 void MachineProcess::changeState(QProcess::ProcessState newState)
 {
+
     changeState((MachineProcess::ProcessState)newState);
 }
 
