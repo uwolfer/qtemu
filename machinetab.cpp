@@ -403,12 +403,6 @@ void MachineTab::snapshot(const int state)
     }
 }
 
-void MachineTab::unimplemented()
-{
-    QMessageBox::warning(window(), tr("QtEmu"),
-                                   tr("This function is not yet implemented."));
-}
-
 void MachineTab::runCommand()
 {
     machineProcess->write(consoleCommand->text().toAscii() + '\n');

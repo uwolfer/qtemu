@@ -118,11 +118,9 @@ private slots:
     void nameChanged(const QString &name);
     void closeMachine();
     void snapshot(const int state);
-    void unimplemented();
     void runCommand();
     void clearRestart();
     void takeScreenshot();
-
 };
 
 #endif

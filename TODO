@@ -13,9 +13,7 @@ Missing or broken features need to be completed or disabled.
 
 * Display a big fat warning if you try to close the application while saving a snapshot.
 
-* Need to make sure suspend/resume is safe -- upon resume the snapshot should be merged and deleted unless snapshot is checked.
-
-* Make the Screenshot button do something - have a save as dialog.
+* Need to make sure suspend/resume is safe -- upon resume the snapshot should be merged and deleted.
 
 * Fix the sound output type selector -- needs to interpret selected values (ALSA, Pulse Audio, etc) as driver names (alsa, pa, etc)
 

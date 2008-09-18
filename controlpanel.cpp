@@ -35,6 +35,8 @@
 #include "settingstab.h"
 #include "machineview.h"
 
+#include <QFileDialog>
+
 ControlPanel::ControlPanel(MachineTab *parent)
  : QWidget(parent)
  , parent(parent)
@@ -65,6 +67,8 @@ void ControlPanel::makeConnections()
 
     connect(fullscreenButton, SIGNAL(toggled(bool)), parent->machineView, SLOT(fullscreen(bool)));
     connect(parent->machineView, SIGNAL(fullscreenToggled(bool)), fullscreenButton, SLOT(setChecked(bool)));
+
+    connect(screenshotButton, SIGNAL(clicked()), this, SLOT(saveScreenshot()));
 }
 
 void ControlPanel::mediaActivate()
@@ -91,4 +95,13 @@ void ControlPanel::registerObjects()
     
 }
 
+void ControlPanel::saveScreenshot()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save a Screenshot"),
+                                                     QString(),
+                                                     tr("Pictures")+" (*.ppm)");
+    if(!fileName.endsWith(".ppm"))
+        fileName = fileName + ".ppm";
 
+    parent->machineProcess->write(QString("screendump " + fileName).toAscii() + '\n');
+}

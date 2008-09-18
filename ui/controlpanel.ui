@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>306</width>
-    <height>219</height>
+    <height>221</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -317,7 +317,7 @@
         <x>3</x>
         <y>3</y>
         <width>244</width>
-        <height>205</height>
+        <height>207</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4" >
@@ -359,7 +359,7 @@
           </widget>
          </item>
          <item row="0" column="1" >
-          <widget class="QToolButton" name="toolButton_2" >
+          <widget class="QToolButton" name="screenshotButton" >
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
              <horstretch>0</horstretch>
@@ -458,13 +458,6 @@
         </spacer>
        </item>
       </layout>
-      <zorder>toolButton</zorder>
-      <zorder>kled</zorder>
-      <zorder>kled_2</zorder>
-      <zorder>dial</zorder>
-      <zorder>verticalScrollBar</zorder>
-      <zorder>horizontalSlider</zorder>
-      <zorder>radioButton</zorder>
      </widget>
     </widget>
    </item>

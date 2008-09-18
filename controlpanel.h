@@ -58,6 +58,7 @@ private slots:
     void mediaActivate();
     void optionActivate();
     void displayActivate();
+    void saveScreenshot();
 };
 
 #endif
