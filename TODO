@@ -17,7 +17,7 @@ Missing or broken features need to be completed or disabled.
 
 --- finishing touches ---
 
-* Add tooltips to many UI components (controlpanel.ui finished, settingstab.ui finished, networkpage.ui finished.)
+* Add tooltips to many UI components (machinetab.cpp only needs updating)
 
 * Make sure shortcuts don't overlap and everything has an appropriate shortcut
 

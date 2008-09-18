@@ -237,7 +237,7 @@
              <item>
               <widget class="QGroupBox" name="cpuBox" >
                <property name="toolTip" >
-                <string>The CPU/Memory Section allows you to edit the specs for your virtual hardware.</string>
+                <string/>
                </property>
                <property name="title" >
                 <string>Cpu / &amp;Memory</string>
@@ -1066,7 +1066,6 @@ the host and the guest. requires guest USB support.</string>
               </widget>
              </item>
             </layout>
-            <zorder>usbBox</zorder>
            </widget>
            <widget class="QWidget" name="networkPage" >
             <property name="geometry" >
