@@ -385,6 +385,18 @@ void MachineTab::error(const QString & errorMsg)
         //for some reason qemu throws an error message when using a VMDK image. oh well... it isn't a REAL error, so ignore it.
         return;
     }
+    else if (errorMsg.contains("bind()"))
+    {
+        if( QMessageBox::critical(this, tr("QtEmu machine already running!"), tr("There is already a virtual machine running on the specified<br />"
+                                                                             "VNC port or file. This may mean a previous QtEmu session crashed; <br />"
+                                                                             "if this is the case you can try to connect to the virtual machine <br />"
+                                                                             "to rescue your data and shut it down safely.<br /><br />"
+                                                                             "Try to connect to this machine?"),QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
+        {
+            QTimer::singleShot(500, machineView, SLOT(initView()));
+        }
+        return;
+    }
     else if ((!shownErrors.contains("audio"))&&(errorMsg.contains("audio:")))
     {
         shownErrors << "audio";

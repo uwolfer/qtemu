@@ -49,7 +49,6 @@ public:
     ~MachineView();
 
     void showSplash(bool show);
-    void initView();
     void captureAllKeys(bool enabled);
     void sendKey(QKeyEvent *event);
     bool event(QEvent * event);
@@ -57,6 +56,7 @@ public:
 public slots:
     void newViewSize();
     void fullscreen(bool enabled);
+    void initView();
 
 signals:
     void fullscreenToggled(bool enabled);

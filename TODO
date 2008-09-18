@@ -21,9 +21,12 @@ Missing or broken features need to be completed or disabled.
 
 * show a warning and connect to a vnc server anyway upon bind() failure
 
-* allow sending special keys (keys intercepted by X, the operating system, or qtemu)
+* allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
 
-* add a toolbar to fullscreen mode
+* finish toolbar in fullscreen mode
+
+
+--- finishing touches ---
 
 * Add tooltips to many UI components (controlpanel.ui finished)
 
