@@ -121,15 +121,6 @@
        </item>
        <item>
         <property name="text" >
-         <string>Virtual Drives</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text" >
          <string>Networking</string>
         </property>
         <property name="icon" >
@@ -168,6 +159,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="helpButton" >
+       <property name="toolTip" >
+        <string>Display an online help dialog</string>
+       </property>
        <property name="text" >
         <string>&amp;Help</string>
        </property>
@@ -225,7 +219,7 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
            <property name="currentIndex" >
-            <number>3</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
@@ -242,6 +236,9 @@
             <layout class="QVBoxLayout" name="verticalLayout_9" >
              <item>
               <widget class="QGroupBox" name="cpuBox" >
+               <property name="toolTip" >
+                <string>The CPU/Memory Section allows you to edit the specs for your virtual hardware.</string>
+               </property>
                <property name="title" >
                 <string>Cpu / &amp;Memory</string>
                </property>
@@ -257,12 +254,22 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_2" >
-                  <item>
-                   <widget class="QSpinBox" name="cpuSpinBox" />
+                 <layout class="QFormLayout" name="formLayout_5" >
+                  <property name="fieldGrowthPolicy" >
+                   <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                  </property>
+                  <item row="0" column="0" >
+                   <widget class="QSpinBox" name="cpuSpinBox" >
+                    <property name="toolTip" >
+                     <string>Change the number of virtual CPUs your machine has</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item>
+                  <item row="0" column="1" >
                    <widget class="QLabel" name="label" >
+                    <property name="toolTip" >
+                     <string>Change the number of virtual CPUs your machine has</string>
+                    </property>
                     <property name="text" >
                      <string>Virtual CPU(s)</string>
                     </property>
@@ -294,6 +301,14 @@
                  <layout class="QHBoxLayout" name="horizontalLayout_3" >
                   <item>
                    <widget class="QSlider" name="memorySlider" >
+                    <property name="toolTip" >
+                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Change the amount of virtual memory your machine has.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">WARNING: &lt;span style=" font-weight:400;">Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+                    </property>
                     <property name="maximum" >
                      <number>1024</number>
                     </property>
@@ -316,6 +331,14 @@
                   </item>
                   <item>
                    <widget class="QSpinBox" name="memorySpinBox" >
+                    <property name="toolTip" >
+                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Change the amount of virtual memory your machine has.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">WARNING: &lt;span style=" font-weight:400;">Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+                    </property>
                     <property name="minimum" >
                      <number>0</number>
                     </property>
@@ -332,6 +355,14 @@
                   </item>
                   <item>
                    <widget class="QLabel" name="label_17" >
+                    <property name="toolTip" >
+                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Change the amount of virtual memory your machine has.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">WARNING: &lt;span style=" font-weight:400;">Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+                    </property>
                     <property name="text" >
                      <string>Mb</string>
                     </property>
@@ -363,6 +394,9 @@
                  <layout class="QHBoxLayout" name="horizontalLayout_25" >
                   <item>
                    <widget class="QCheckBox" name="virtCheckBox" >
+                    <property name="toolTip" >
+                     <string>Hardware virtualization will allow your machine to run at near-hardware speeds. This uses either KVM or KQEMU if available.</string>
+                    </property>
                     <property name="text" >
                      <string>Enable Hardware &amp;Virtualization</string>
                     </property>
@@ -370,6 +404,9 @@
                   </item>
                   <item>
                    <widget class="QCheckBox" name="acpiCheck" >
+                    <property name="toolTip" >
+                     <string>ACPI support allows QtEmu to tell the machine to shut down gracefully, among other things. It is reccommended.</string>
+                    </property>
                     <property name="text" >
                      <string>Enable ACPI</string>
                     </property>
@@ -386,6 +423,9 @@
                 </item>
                 <item>
                  <widget class="QLabel" name="label_14" >
+                  <property name="toolTip" >
+                   <string/>
+                  </property>
                   <property name="text" >
                    <string>Allow the virtual machine to use the system clock for improved accuracy:</string>
                   </property>
@@ -396,6 +436,9 @@
                 </item>
                 <item>
                  <widget class="QCheckBox" name="timeCheck" >
+                  <property name="toolTip" >
+                   <string>This uses the host Real Time Clock for timing events, and should speed up accelerated drivers performance.</string>
+                  </property>
                   <property name="text" >
                    <string>Use the &amp;System Clock</string>
                   </property>
@@ -417,6 +460,9 @@
                    <widget class="QComboBox" name="osCheck" >
                     <property name="enabled" >
                      <bool>true</bool>
+                    </property>
+                    <property name="toolTip" >
+                     <string>Change the guest operating system QtEmu tries to interoperate with. This option does not yet have any effect.</string>
                     </property>
                     <item>
                      <property name="text" >
@@ -510,7 +556,11 @@
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_4" >
                   <item>
-                   <widget class="QLineEdit" name="hdImage" />
+                   <widget class="QLineEdit" name="hdImage" >
+                    <property name="toolTip" >
+                     <string>The Hard Disk Image QtEmu tries to boot from.</string>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="hdSelectButton" >
@@ -542,6 +592,9 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QCheckBox" name="hddAccelCheck" >
+                  <property name="toolTip" >
+                   <string>Use Accelerated Disk Drivers. These are not supported for Windows guests.</string>
+                  </property>
                   <property name="text" >
                    <string>Accelerated Hard Disk Drivers</string>
                   </property>
@@ -570,6 +623,9 @@ p, li { white-space: pre-wrap; }
                     <layout class="QHBoxLayout" name="horizontalLayout" >
                      <item>
                       <widget class="QPushButton" name="upgradeButton" >
+                       <property name="toolTip" >
+                        <string>You may upgrade your image to the qcow2 format to recieve additional features like suspend/resume.</string>
+                       </property>
                        <property name="text" >
                         <string>Upgrade Image</string>
                        </property>
@@ -710,13 +766,29 @@ p, li { white-space: pre-wrap; }
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="toolTip" >
+                     <string>Enter a CD image name or /dev/cdrom to use the host cd drive.</string>
+                    </property>
                     <property name="editable" >
                      <bool>true</bool>
                     </property>
+                    <item>
+                     <property name="text" >
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>/dev/cdrom</string>
+                     </property>
+                    </item>
                    </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="cdSelectButton" >
+                    <property name="toolTip" >
+                     <string>secect a new CD image</string>
+                    </property>
                     <property name="text" >
                      <string/>
                     </property>
@@ -757,6 +829,9 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <widget class="QCheckBox" name="cdBootCheck" >
+                    <property name="toolTip" >
+                     <string>Try to boot from the CD first</string>
+                    </property>
                     <property name="text" >
                      <string>Boot from CD/DVD</string>
                     </property>
@@ -801,13 +876,29 @@ p, li { white-space: pre-wrap; }
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="toolTip" >
+                     <string>enter a floppy image or /dev/floppy to use the host floppy drive.</string>
+                    </property>
                     <property name="editable" >
                      <bool>true</bool>
                     </property>
+                    <item>
+                     <property name="text" >
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>/dev/floppy</string>
+                     </property>
+                    </item>
                    </widget>
                   </item>
                   <item>
                    <widget class="QPushButton" name="floppySelectButton" >
+                    <property name="toolTip" >
+                     <string>secect a new floppy disk image</string>
+                    </property>
                     <property name="text" >
                      <string/>
                     </property>
@@ -848,6 +939,9 @@ p, li { white-space: pre-wrap; }
                   </item>
                   <item>
                    <widget class="QCheckBox" name="floppyBootCheck" >
+                    <property name="toolTip" >
+                     <string>Try to boot from the floppy first</string>
+                    </property>
                     <property name="text" >
                      <string>Boot from floppy disk</string>
                     </property>
@@ -907,33 +1001,52 @@ p, li { white-space: pre-wrap; }
                <layout class="QVBoxLayout" name="verticalLayout_14" >
                 <item>
                  <widget class="QCheckBox" name="usbCheck" >
+                  <property name="toolTip" >
+                   <string>Enable support for USB devices, either virtual or shared with the Host</string>
+                  </property>
                   <property name="text" >
                    <string>Enable USB support</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_3" >
-                  <property name="orientation" >
-                   <enum>Qt::Horizontal</enum>
+                 <widget class="QFrame" name="frame" >
+                  <property name="frameShape" >
+                   <enum>QFrame::StyledPanel</enum>
                   </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_16" >
-                  <property name="text" >
-                   <string>USB Devices</string>
+                  <property name="frameShadow" >
+                   <enum>QFrame::Raised</enum>
                   </property>
-                  <property name="alignment" >
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="mouseCheck" >
-                  <property name="text" >
-                   <string>Seamless USB Mouse</string>
-                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_8" >
+                   <item>
+                    <widget class="QLabel" name="label_16" >
+                     <property name="text" >
+                      <string>USB Devices</string>
+                     </property>
+                     <property name="alignment" >
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="Line" name="line_3" >
+                     <property name="orientation" >
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="mouseCheck" >
+                     <property name="toolTip" >
+                      <string>Toggle smooth mouse transitions between
+the host and the guest. requires guest USB support.</string>
+                     </property>
+                     <property name="text" >
+                      <string>Seamless USB Mouse</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                 <item>
@@ -953,28 +1066,7 @@ p, li { white-space: pre-wrap; }
               </widget>
              </item>
             </layout>
-           </widget>
-           <widget class="QWidget" name="virtualDrivePage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
-             <string>virtualdrives.html</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_20" >
-             <item>
-              <widget class="QGroupBox" name="virtualDriveBox" >
-               <property name="title" >
-                <string>Virtual Drives</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <zorder>usbBox</zorder>
            </widget>
            <widget class="QWidget" name="networkPage" >
             <property name="geometry" >
@@ -1009,13 +1101,6 @@ p, li { white-space: pre-wrap; }
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_7" >
                 <item>
-                 <widget class="QCheckBox" name="soundCheck" >
-                  <property name="text" >
-                   <string>Enable sound</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <widget class="Line" name="line_5" >
                   <property name="orientation" >
                    <enum>Qt::Horizontal</enum>
@@ -1023,45 +1108,66 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <layout class="QFormLayout" name="formLayout_2" >
-                  <item row="0" column="0" >
-                   <widget class="QComboBox" name="soundCombo" >
-                    <property name="editable" >
-                     <bool>true</bool>
-                    </property>
-                    <item>
-                     <property name="text" >
-                      <string>ALSA</string>
+                 <widget class="QCheckBox" name="soundCheck" >
+                  <property name="toolTip" >
+                   <string>Enable a virtual sound card</string>
+                  </property>
+                  <property name="text" >
+                   <string>Enable sound</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QFrame" name="frame_2" >
+                  <property name="frameShape" >
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow" >
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QFormLayout" name="formLayout_6" >
+                   <item row="0" column="0" >
+                    <widget class="QComboBox" name="soundCombo" >
+                     <property name="toolTip" >
+                      <string>Select your Host Sound System. Not all sound systems may be compiled in to your version of qemu/kvm. You may enter your own sound system here as well.</string>
                      </property>
-                    </item>
-                    <item>
-                     <property name="text" >
-                      <string>OSS</string>
+                     <property name="editable" >
+                      <bool>true</bool>
                      </property>
-                    </item>
-                    <item>
+                     <item>
+                      <property name="text" >
+                       <string>ALSA</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text" >
+                       <string>OSS</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text" >
+                       <string>ESD</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text" >
+                       <string>PulseAudio</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item row="0" column="1" >
+                    <widget class="QLabel" name="label_8" >
                      <property name="text" >
-                      <string>ESD</string>
+                      <string>Choose sound system to use for sound emulation</string>
                      </property>
-                    </item>
-                    <item>
-                     <property name="text" >
-                      <string>PulseAudio</string>
+                     <property name="buddy" >
+                      <cstring>soundCombo</cstring>
                      </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item row="0" column="1" >
-                   <widget class="QLabel" name="label_8" >
-                    <property name="text" >
-                     <string>Choose sound system to use for sound emulation</string>
-                    </property>
-                    <property name="buddy" >
-                     <cstring>soundCombo</cstring>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </item>
                 <item>
                  <spacer name="verticalSpacer_5" >
@@ -1101,23 +1207,25 @@ p, li { white-space: pre-wrap; }
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_15" >
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_14" >
-                  <item>
-                   <widget class="QCheckBox" name="embedCheck" >
-                    <property name="text" >
-                     <string>Embedded Display</string>
-                    </property>
-                    <property name="checked" >
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QCheckBox" name="embedCheck" >
+                  <property name="toolTip" >
+                   <string>Allow the guest virtual machine to show in an embedded window within QtEmu</string>
+                  </property>
+                  <property name="text" >
+                   <string>Embedded Display</string>
+                  </property>
+                  <property name="checked" >
+                   <bool>true</bool>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QGroupBox" name="embedGroup" >
                   <property name="enabled" >
                    <bool>true</bool>
+                  </property>
+                  <property name="toolTip" >
+                   <string>Select the Transport VNC uses</string>
                   </property>
                   <property name="autoFillBackground" >
                    <bool>false</bool>
@@ -1204,6 +1312,9 @@ p, li { white-space: pre-wrap; }
                             </item>
                             <item row="0" column="1" >
                              <widget class="QLineEdit" name="hostEdit" >
+                              <property name="toolTip" >
+                               <string>Do not change this unless you have a good reason</string>
+                              </property>
                               <property name="text" >
                                <string/>
                               </property>
@@ -1238,7 +1349,7 @@ p, li { white-space: pre-wrap; }
                         </sizepolicy>
                        </property>
                        <property name="text" >
-                        <string>Set the method used to connect the virtual machine to the embedded display. A File Socket is the most secure.</string>
+                        <string>Set the method used to connect the virtual machine to the embedded display. TCP is the only option available at the moment.</string>
                        </property>
                        <property name="scaledContents" >
                         <bool>false</bool>
@@ -1268,6 +1379,9 @@ p, li { white-space: pre-wrap; }
                   <property name="enabled" >
                    <bool>true</bool>
                   </property>
+                  <property name="toolTip" >
+                   <string>Toggle scaling the virtual machine view to fit the window</string>
+                  </property>
                   <property name="text" >
                    <string>Scale display to fit window</string>
                   </property>
@@ -1285,6 +1399,9 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QCheckBox" name="hiResCheck" >
+                  <property name="toolTip" >
+                   <string>Allow large and widescreen video modes. this uses a vesa compliant video card, rather than an emulated cirrus logic card.</string>
+                  </property>
                   <property name="text" >
                    <string>High Resolution and Widescreen Video Modes</string>
                   </property>
@@ -1335,6 +1452,9 @@ p, li { white-space: pre-wrap; }
                   <layout class="QVBoxLayout" name="verticalLayout_23" >
                    <item>
                     <widget class="QCheckBox" name="additionalCheck" >
+                     <property name="toolTip" >
+                      <string>Enter your own options</string>
+                     </property>
                      <property name="text" >
                       <string>Use Additional Options:</string>
                      </property>
@@ -1362,6 +1482,9 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QGroupBox" name="groupBox" >
+                  <property name="toolTip" >
+                   <string>You may enter scripts that run before of after the virtual machine on a per-machine basis. these run in addition to the QtEmu-wide scripts.</string>
+                  </property>
                   <property name="title" >
                    <string>Pre / Post Scripts</string>
                   </property>
@@ -1377,6 +1500,9 @@ p, li { white-space: pre-wrap; }
                     <layout class="QHBoxLayout" name="horizontalLayout_13" >
                      <item>
                       <widget class="QCheckBox" name="beforeCheck" >
+                       <property name="toolTip" >
+                        <string>Enable or disable this script</string>
+                       </property>
                        <property name="text" >
                         <string>Execute Before:</string>
                        </property>
@@ -1384,6 +1510,9 @@ p, li { white-space: pre-wrap; }
                      </item>
                      <item>
                       <widget class="QCheckBox" name="afterCheck" >
+                       <property name="toolTip" >
+                        <string>Enable or disable this script</string>
+                       </property>
                        <property name="text" >
                         <string>Execute After:</string>
                        </property>
@@ -1422,6 +1551,28 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="virtualDrivePage" >
+            <property name="geometry" >
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>497</width>
+              <height>456</height>
+             </rect>
+            </property>
+            <property name="helpFile" stdset="0" >
+             <string>virtualdrives.html</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_20" >
+             <item>
+              <widget class="QGroupBox" name="virtualDriveBox" >
+               <property name="title" >
+                <string>Virtual Drives</string>
+               </property>
               </widget>
              </item>
             </layout>
@@ -1500,7 +1651,6 @@ p, li { white-space: pre-wrap; }
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>cpuSpinBox</tabstop>
   <tabstop>memorySlider</tabstop>
   <tabstop>memorySpinBox</tabstop>
  </tabstops>
@@ -1516,11 +1666,11 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel" >
      <x>402</x>
-     <y>163</y>
+     <y>199</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>446</x>
-     <y>166</y>
+     <x>472</x>
+     <y>202</y>
     </hint>
    </hints>
   </connection>
@@ -1531,28 +1681,12 @@ p, li { white-space: pre-wrap; }
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>446</x>
-     <y>166</y>
+     <x>472</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel" >
      <x>402</x>
-     <y>163</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>settingsList</sender>
-   <signal>currentRowChanged(int)</signal>
-   <receiver>settingsStack</receiver>
-   <slot>setCurrentIndex(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>136</x>
-     <y>223</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>451</x>
-     <y>223</y>
+     <y>199</y>
     </hint>
    </hints>
   </connection>
@@ -1563,12 +1697,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>288</x>
-     <y>37</y>
+     <x>502</x>
+     <y>68</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>289</x>
-     <y>42</y>
+     <x>502</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -1579,12 +1713,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>249</x>
-     <y>80</y>
+     <x>395</x>
+     <y>136</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>249</x>
-     <y>70</y>
+     <x>395</x>
+     <y>208</y>
     </hint>
    </hints>
   </connection>
@@ -1595,12 +1729,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>288</x>
-     <y>37</y>
+     <x>502</x>
+     <y>68</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>289</x>
-     <y>34</y>
+     <x>502</x>
+     <y>315</y>
     </hint>
    </hints>
   </connection>
@@ -1611,12 +1745,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>280</x>
-     <y>62</y>
+     <x>502</x>
+     <y>103</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>280</x>
-     <y>66</y>
+     <x>502</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
@@ -1627,12 +1761,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>250</x>
-     <y>46</y>
+     <x>449</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>250</x>
-     <y>35</y>
+     <x>448</x>
+     <y>281</y>
     </hint>
    </hints>
   </connection>
@@ -1643,12 +1777,12 @@ p, li { white-space: pre-wrap; }
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>279</x>
-     <y>46</y>
+     <x>676</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>279</x>
-     <y>52</y>
+     <x>676</x>
+     <y>298</y>
     </hint>
    </hints>
   </connection>
@@ -1659,12 +1793,12 @@ p, li { white-space: pre-wrap; }
    <slot>clearEditText()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>248</x>
-     <y>34</y>
+     <x>313</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>248</x>
-     <y>36</y>
+     <x>416</x>
+     <y>98</y>
     </hint>
    </hints>
   </connection>
@@ -1675,12 +1809,12 @@ p, li { white-space: pre-wrap; }
    <slot>clearEditText()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>248</x>
-     <y>28</y>
+     <x>313</x>
+     <y>232</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>248</x>
-     <y>29</y>
+     <x>416</x>
+     <y>198</y>
     </hint>
    </hints>
   </connection>
@@ -1713,6 +1847,54 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel" >
      <x>169</x>
      <y>543</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>settingsList</sender>
+   <signal>currentRowChanged(int)</signal>
+   <receiver>settingsStack</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>136</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>451</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>usbCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>frame</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>290</x>
+     <y>53</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>288</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>soundCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>frame_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>286</x>
+     <y>64</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>267</x>
+     <y>82</y>
     </hint>
    </hints>
   </connection>
