@@ -26,21 +26,24 @@
 #define MACHINEPROCESS_H
 
 #include <QProcess>
-//#include "networksystem.h"
 #include "qtemuenvironment.h"
 #include "harddiskmanager.h"
+
 
 class MachineProcess : public QProcess
 {
     Q_OBJECT
 
 public:
+    enum ProcessState {NotRunning = 0, Starting = 1, Running = 2, Stopping = 3, Saving = 4};
+
     MachineProcess(QObject *parent = 0);
     qint64 write(const QByteArray & byteArray);
 
     HardDiskManager* getHdManager();
     bool event(QEvent *event);
-
+    MachineProcess::ProcessState state();
+    
 public slots:
     void start();
     void resume(const QString& snapshotName);
@@ -65,6 +68,7 @@ signals:
     void stdin(const QString & stdoutText);
     void rawConsole(const QString & consoleOutput);
     void cleanConsole(const QString & consoleOutput);
+    void stateChanged(MachineProcess::ProcessState newState);
 private:
     void getVersion();
     void commitTmp();
@@ -74,10 +78,11 @@ private:
     long versionMajor, versionMinor, versionBugfix, kvmVersion;
     bool paused;
     bool doResume;
-    //NetworkSystem* networkSystem;
     HardDiskManager *hdManager;
     QString lastOutput;
     QStringList outputParts;
+    MachineProcess::ProcessState myState;
+
 private slots:
     void afterExitExecute();
     void readProcess();
@@ -87,6 +92,8 @@ private slots:
     void suspendFinished(const QString& returnedText);
     void startedBooting(const QString& text);
     void deleteTmp(int successfulCommit);
+    void changeState(MachineProcess::ProcessState newState);
+    void changeState(QProcess::ProcessState newState);
 };
 
 #endif

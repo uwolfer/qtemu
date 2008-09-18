@@ -45,6 +45,8 @@ MachineProcess::MachineProcess(QObject *parent)
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
     connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
     connect(this, SIGNAL(stdin(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
+
+    connect(this, SIGNAL(QProcess::stateChanged(QProcess::ProcessState)), this, SLOT(changeState(MachineProcess::ProcessState)));
 }
 
 HardDiskManager * MachineProcess::getHdManager()
@@ -366,7 +368,7 @@ void MachineProcess::resume() {resume("Default");}
 void MachineProcess::resume(const QString & snapshotName)
 {
     snapshotNameString = snapshotName;
-    if(state()==QProcess::Running)
+    if(state()==MachineProcess::Running)
     {
         write("loadvm " + snapshotName.toAscii() + '\n');
         emit resuming(snapshotName);
@@ -407,6 +409,7 @@ void MachineProcess::suspend(const QString & snapshotName)
     }
     write("stop\n");
     write("savevm " + snapshotName.toAscii() + '\n');
+    changeState(MachineProcess::Saving);
     connect(this, SIGNAL(stdout(const QString&)),this,SLOT(suspendFinished(const QString&)));
 }
 
@@ -416,6 +419,7 @@ void MachineProcess::suspendFinished(const QString& returnedText)
     {
         write("cont\n");
         emit suspended(snapshotNameString);
+        changeState(MachineProcess::NotRunning);
         disconnect(this, SIGNAL(stdout(const QString&)),this,SLOT(suspendFinished(const QString&)));
     }
 }
@@ -533,6 +537,7 @@ void MachineProcess::loadCdrom()
 
 void MachineProcess::commitTmp()
 {
+    changeState(MachineProcess::Saving);
     QProcess commitTmpProcess;
     commitTmpProcess.start("qemu-img", QStringList() << "commit" << property("hdd").toString() + ".tmp");
     connect(&commitTmpProcess, SIGNAL(finished (int, QProcess::ExitStatus)), this, SLOT(deleteTmp(int)));
@@ -540,8 +545,9 @@ void MachineProcess::commitTmp()
 
 void MachineProcess::deleteTmp(int successfulCommit)
 {
- if(successfulCommit == 0)
-    QFile::remove( property("hdd").toString() + ".tmp" );
+    if(successfulCommit == 0)
+        QFile::remove( property("hdd").toString() + ".tmp" );
+    changeState(MachineProcess::NotRunning);
 }
 
 void MachineProcess::createTmp()
@@ -574,4 +580,21 @@ bool MachineProcess::event(QEvent * event)
         }
         return false;
     }
+    return QProcess::event(event);
+}
+
+void MachineProcess::changeState(MachineProcess::ProcessState newState)
+{
+    myState = newState;
+    emit stateChanged(newState);
+}
+
+void MachineProcess::changeState(QProcess::ProcessState newState)
+{
+    changeState((MachineProcess::ProcessState)newState);
+}
+
+MachineProcess::ProcessState MachineProcess::state()
+{
+    return myState;
 }

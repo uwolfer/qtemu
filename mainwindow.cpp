@@ -72,16 +72,30 @@ MainWindow::MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    bool runningMachines = false;
+    int runningMachines = 0;
+    int savingMachines = 0;
     for (int i = 1; i<(tabWidget->count());i++)
     {
        MachineTab *tab = static_cast<MachineTab *>(tabWidget->widget(i));
-       if(tab->machineProcess->state() == QProcess::Running)
+       if(tab->machineProcess->state() == MachineProcess::Running)
        {
-        runningMachines = true;
+           runningMachines++;
+       }
+       else if(tab->machineProcess->state() == MachineProcess::Saving)
+       {
+           savingMachines++;
        }
     }
-    if (runningMachines == false || QMessageBox::question(this, tr("Exit confirmation"),
+    if (savingMachines != 0)
+    {
+        QMessageBox::critical(this, tr("Virtual Machine Saving State!"),
+                              tr("You have virtual machines currently saving thier state.<br />"
+                                 "Quitting now would very likely damage your Virtual Machine!!"),
+                              QMessageBox::Cancel);
+        event->ignore();
+    }
+
+    if (runningMachines == 0 || QMessageBox::question(this, tr("Exit confirmation"),
                               tr("You have virtual machines currently running. Are you sure you want to quit?<br />"
                                  "quitting in this manner may cause damage to the virtual machine image!"),
                               QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel)

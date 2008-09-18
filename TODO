@@ -11,11 +11,7 @@ Missing or Broken Features:
 -----------------------
 Missing or broken features need to be completed or disabled.
 
-* Display a big fat warning if you try to close the application while saving a snapshot.
-
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
-
-* allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
 
 * finish toolbar in fullscreen mode
 
@@ -43,13 +39,12 @@ Known issues:
 ------------------
 Known issues may be resolved for a later release.
 
-* should have a toolbar in fullscreen mode for exiting fullscreen mode as well as other things.
+* allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
 
-* the preview screenshot may not be handled correctly when it is a different aspect ratio than the preview window. it should display in the correct aspect ratio, centered in the preview window, rather than stretched.
+* the preview screenshot may not be handled correctly when it is a different aspect ratio than the preview window. it should display in the correct aspect ratio, centered in the preview window, rather than stretched. (is this a big deal to anyone?)
 
-* when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process and the vnc server.
+* when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process.
 
-* trying to start a machine that is already running from a previous crash results in a bind() failure from qemu when using the embedded viewer. this means the port it is trying to use for vnc is already in use. this will not be an issue when the crash/background issue is fixed.
 ------------------
 Additional features:
 ------------------
