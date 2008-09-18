@@ -215,13 +215,11 @@ void MachineProcess::start()
     {
         createTmp();
         //arguments << pathString + ".tmp";
-        arguments << "file=" + property("hdd").toString() + ".tmp";
+        arguments << "file=" + property("hdd").toString() + ".tmp" + (property("hddVirtio").toBool()?",if=virtio":"");
     }
     else 
         //arguments << pathString;
-        arguments << "file=" + property("hdd").toString();
-    if(property("hddVirtio").toBool())
-        arguments << ",if=virtio";
+        arguments << "file=" + property("hdd").toString() + + (property("hddVirtio").toBool()?",if=virtio":"");
 
 #ifdef DEVELOPER
     QString debugString;
