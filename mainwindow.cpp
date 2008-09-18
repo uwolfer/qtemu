@@ -93,6 +93,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
                                  "Quitting now would very likely damage your Virtual Machine!!"),
                               QMessageBox::Cancel);
         event->ignore();
+        return;
     }
 
     if (runningMachines == 0 || QMessageBox::question(this, tr("Exit confirmation"),
