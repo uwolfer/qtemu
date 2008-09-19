@@ -15,9 +15,29 @@ Missing or broken features need to be completed or disabled.
 
 * finish toolbar in fullscreen mode
 
+* add copy to the console
+
+* menu item for force poweroff
+
+* make guest OS selection save
+
+* solve corruption when display tab is in background
+
+* disable fullscreen button when machine is not running
+
+* disable suspend button if the machine is running with a temp image (suspend mode)
+
+* display tab should only change background drawing mode upon fullscreen, then change back afterward.
+
+* size of ram selection should be added to the wizard.
+
+* disk size display is buggy
+
 --- finishing touches ---
 
 * Add tooltips to many UI components (machinetab.cpp only needs updating)
+  -tooltip noting holding down the stop button for forced poweroff
+  -tooltip noting widescreen/hires checkbox is for -std-vga
 
 * Make sure shortcuts don't overlap and everything has an appropriate shortcut
 
