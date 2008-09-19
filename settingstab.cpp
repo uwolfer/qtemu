@@ -89,7 +89,7 @@ void SettingsTab::registerWidgets()
     config->registerObject(afterCheck, "enableExecAfter", QVariant(false));
     config->registerObject(afterEdit, "execAfter");
     config->registerObject(osCheck, "operatingSystem", QVariant("Other"));
-    config->registerObject(hiResCheck, "hiRes", QVariant(true));
+    config->registerObject(hiResCheck, "hiRes", QVariant(false));
     config->registerObject(mouseCheck, "mouse", QVariant(true));
     config->registerObject(acpiCheck, "acpi", QVariant(true));
     config->registerObject(hddAccelCheck, "hddVirtio", QVariant(false));
