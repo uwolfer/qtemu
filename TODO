@@ -17,15 +17,15 @@ Missing or broken features need to be completed or disabled.
 
 * add copy to the console
 
-* menu item for force poweroff
+//* menu item for force poweroff
 
 * make guest OS selection save
 
 * solve corruption when display tab is in background
 
-* disable fullscreen button when machine is not running
+//* disable fullscreen button when machine is not running
 
-* disable suspend button if the machine is running with a temp image (suspend mode)
+* disable suspend button if the machine is running with a temp image (snapshot mode)
 
 * display tab should only change background drawing mode upon fullscreen, then change back afterward.
 

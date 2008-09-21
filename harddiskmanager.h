@@ -29,8 +29,10 @@
 #include <QFileInfo>
 #include "machinetab.h"
 
+
 class QTimer;
 class QProcess;
+class MachineProcess;
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
@@ -39,7 +41,7 @@ class HardDiskManager : public QObject
 {
 Q_OBJECT
 public:
-    HardDiskManager(QObject *parent = 0);
+    HardDiskManager(MachineProcess *parent = 0);
 
     ~HardDiskManager();
 
@@ -55,6 +57,7 @@ private:
 
 
 //used for some functions
+    MachineProcess *parent;
     QString upgradeImageName;
     QTimer *updateProgressTimer;
     QProcess *currentProcess;

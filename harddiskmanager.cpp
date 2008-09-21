@@ -22,13 +22,15 @@
 ****************************************************************************/
 
 #include "harddiskmanager.h"
+#include "machineprocess.h"
 
 #include <QTimer>
 #include <QFileInfo>
 #include <QProcess>
 
-HardDiskManager::HardDiskManager(QObject *parent)
+HardDiskManager::HardDiskManager(MachineProcess *parent)
  : QObject(parent)
+ , parent(parent)
 {
 }
 
@@ -104,8 +106,12 @@ void HardDiskManager::testImage()
     else
     {
         emit imageUpgradable(false);
-       suspendable = true;
+        suspendable = true;
     }
+
+    if(property("snapshot").toBool())
+        suspendable = false;
+
     emit supportsSuspending(suspendable);
     QString virtSize = output.at(2).section('(', 1);
     virtSize.chop(6);
@@ -128,6 +134,10 @@ void HardDiskManager::testImage()
             }
         }
     }
+
+    if(property("snapshot").toBool())
+        resumable = false;
+
     emit supportsResuming(resumable);
 }
 
@@ -137,7 +147,7 @@ bool HardDiskManager::event(QEvent * event)
     {
         //any property changes dealt with in here
         QDynamicPropertyChangeEvent *propEvent = static_cast<QDynamicPropertyChangeEvent *>(event);
-        if(propEvent->propertyName() == "hdd")
+        if((propEvent->propertyName() == "hdd" || propEvent->propertyName() == "snapshot") && parent->state()==MachineProcess::NotRunning)
         {
             currentImage = QFileInfo(property("hdd").toString());
             testImage();

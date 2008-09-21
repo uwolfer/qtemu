@@ -34,9 +34,9 @@ MachineView::MachineView(QWidget *parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
 {
+    showSplash(true);
     setAlignment(Qt::AlignCenter);
     setFrameShape(QFrame::NoFrame);
-    showSplash(true);
 }
 
 MachineView::~MachineView()

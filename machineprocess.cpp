@@ -38,6 +38,7 @@ MachineProcess::MachineProcess(QObject *parent)
     , doResume(false)
     , hdManager(new HardDiskManager(this))
 {
+    changeState(QProcess::state());
     getVersion();
     //networkSystem = new NetworkSystem(this);
 
