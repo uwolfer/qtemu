@@ -50,6 +50,7 @@ class QGridLayout;
 class QScrollArea;
 class QToolButton;
 class SettingsTab;
+class ControlPanel;
 
 class MachineTab : public QWidget
 {
@@ -100,6 +101,8 @@ private:
     QFrame *consoleFrame;
     QGridLayout *viewLayout;
     QScrollArea *machineScroll;
+    ControlPanel *controlPanel;
+
     void cleanupView();
 
 private slots:

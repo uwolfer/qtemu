@@ -15,15 +15,11 @@ Missing or broken features need to be completed or disabled.
 
 * finish toolbar in fullscreen mode
 
-* add copy to the console
-
 //* menu item for force poweroff
 
 * make guest OS selection save
 
 * solve corruption when display tab is in background
-
-//* disable fullscreen button when machine is not running
 
 * size of ram selection should be added to the wizard.
 

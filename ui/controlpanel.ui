@@ -93,32 +93,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="optionButton" >
-        <property name="maximumSize" >
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="toolTip" >
-         <string>Advanced Controls</string>
-        </property>
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/other.png</normaloff>:/images/oxygen/other.png</iconset>
-        </property>
-        <property name="checkable" >
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="verticalSpacer" >
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -399,6 +373,9 @@
          </property>
          <item row="0" column="0" >
           <widget class="QToolButton" name="fullscreenButton" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
              <horstretch>0</horstretch>
@@ -435,6 +412,9 @@ Press CTRL+ALT+ENTER to return to windowed mode.</string>
          </item>
          <item row="0" column="1" >
           <widget class="QToolButton" name="screenshotButton" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
              <horstretch>0</horstretch>

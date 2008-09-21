@@ -56,7 +56,7 @@ void ControlPanel::makeConnections()
 {
     //navigation connections
     connect(mediaButton, SIGNAL(clicked()), this, SLOT(mediaActivate()));
-    connect(optionButton, SIGNAL(clicked()), this, SLOT(optionActivate()));
+    //connect(optionButton, SIGNAL(clicked()), this, SLOT(optionActivate()));
     connect(displayButton, SIGNAL(clicked()), this, SLOT(displayActivate()));
 
     //action connections
@@ -69,6 +69,11 @@ void ControlPanel::makeConnections()
     connect(parent->machineView, SIGNAL(fullscreenToggled(bool)), fullscreenButton, SLOT(setChecked(bool)));
 
     connect(screenshotButton, SIGNAL(clicked()), this, SLOT(saveScreenshot()));
+
+    //state connections
+    connect(parent->machineProcess, SIGNAL(started()), this, SLOT(running()));
+
+    connect(parent->machineProcess, SIGNAL(finished( int )), this, SLOT(stopped()));
 }
 
 void ControlPanel::mediaActivate()
@@ -104,4 +109,16 @@ void ControlPanel::saveScreenshot()
         fileName = fileName + ".ppm";
 
     parent->machineProcess->write(QString("screendump " + fileName).toAscii() + '\n');
+}
+
+void ControlPanel::running()
+{
+    fullscreenButton->setEnabled(true);
+    screenshotButton->setEnabled(true);
+}
+
+void ControlPanel::stopped()
+{
+    fullscreenButton->setEnabled(false);
+    screenshotButton->setEnabled(false);
 }

@@ -59,6 +59,8 @@ private slots:
     void optionActivate();
     void displayActivate();
     void saveScreenshot();
+    void running();
+    void stopped();
 };
 
 #endif

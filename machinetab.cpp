@@ -202,7 +202,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 #endif
     QLabel *controlLabel = new QLabel(tr("<strong>Control Panel</strong>"), this);
 
-    ControlPanel *controlPanel = new ControlPanel(this);
+    controlPanel = new ControlPanel(this);
 
 
     QVBoxLayout *buttonsLayout = new QVBoxLayout();
