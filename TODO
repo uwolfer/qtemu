@@ -19,8 +19,6 @@ Missing or broken features need to be completed or disabled.
 
 * make guest OS selection save
 
-* solve corruption when display tab is in background
-
 * size of ram selection should be added to the wizard.
 
 * disk size display is buggy
