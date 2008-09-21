@@ -253,6 +253,9 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     consoleFrame->setLayout(consoleLayout); 
     setLayout(mainLayout);
 
+    consoleFrame->setAutoFillBackground (true);
+    settingsTab->setAutoFillBackground (true);
+    
 //end console area
 
     read();
