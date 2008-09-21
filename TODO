@@ -25,10 +25,6 @@ Missing or broken features need to be completed or disabled.
 
 //* disable fullscreen button when machine is not running
 
-* disable suspend button if the machine is running with a temp image (snapshot mode)
-
-* display tab should only change background drawing mode upon fullscreen, then change back afterward.
-
 * size of ram selection should be added to the wizard.
 
 * disk size display is buggy
