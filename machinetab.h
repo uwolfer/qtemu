@@ -121,6 +121,7 @@ private slots:
     void runCommand();
     void clearRestart();
     void takeScreenshot();
+
 };
 
 #endif

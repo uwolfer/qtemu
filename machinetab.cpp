@@ -239,7 +239,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     console->setReadOnly(true);
     connect(machineProcess, SIGNAL(cleanConsole(QString)), console, SLOT(append(QString)));
     consoleCommand = new QLineEdit(this);
-    console->setFocusProxy(consoleCommand);
+    //console->setFocusProxy(consoleCommand);
     QPushButton *consoleCommandButton = new QPushButton(tr("Enter Command"), this);
     connect(consoleCommand, SIGNAL(returnPressed()),
             consoleCommandButton, SLOT(click()));
@@ -482,4 +482,3 @@ void MachineTab::makeConnections()
     connect(hdManager, SIGNAL(supportsSuspending(bool)), suspendButton, SLOT(setEnabled(bool)));
     connect(hdManager, SIGNAL(supportsResuming(bool)), resumeButton, SLOT(setEnabled(bool)));
 }
-
