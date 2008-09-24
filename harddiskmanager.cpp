@@ -81,8 +81,16 @@ void HardDiskManager::updateUpgradeProgress()
 
 void HardDiskManager::testImage()
 {
-    if(!currentImage.exists())
+    if(!currentImage.exists()||!currentImage.isFile())
+    {
+        emit imageFormat("none");
+        emit imageUpgradable(false);
+        emit supportsSuspending(false);
+        emit supportsResuming(false);
+        emit imageSize(0);
+        emit phySize(0);
         return;
+    }
 #ifndef Q_OS_WIN32
     QString program = "qemu-img";
 #elif defined(Q_OS_WIN32)
@@ -115,7 +123,9 @@ void HardDiskManager::testImage()
     emit supportsSuspending(suspendable);
     QString virtSize = output.at(2).section('(', 1);
     virtSize.chop(6);
-    virtualSize = virtSize.toInt();
+
+    virtSize.simplified();
+    virtualSize = virtSize.toLongLong();
     emit imageSize(virtualSize);
     emit phySize(currentImage.size());
 
