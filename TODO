@@ -27,10 +27,7 @@ Missing or broken features need to be completed or disabled.
 
 --- wishes ---
 
-* menu item for force poweroff -- depends on using actions for everything
-
 * size of ram selection should be added to the wizard. --should it really? this means another page in the wizard
-
 
 -----------------
 Known Bugs:
@@ -43,7 +40,13 @@ Known issues:
 ------------------
 Known issues may be resolved for a later release.
 
+* does not switch between icon sets properly
+    - this can be fixed using the resource system to switch between icons, instead of the current method
+
 * should use actions for everything
+    - should make the interface work better
+        * menu item for force poweroff
+        * fullscreen toolbar
 
 * allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
 

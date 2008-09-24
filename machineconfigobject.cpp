@@ -199,9 +199,10 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
             object->setProperty("checked", value);
         connect(object, SIGNAL(toggled(bool)), this, SLOT(getObjectValue()));
     }
-    else if (object->inherits("QAbstractButton"))
+    else if (object->inherits("QAbstractButton")||object->inherits("QAction"))
     {
         object->disconnect(this);
+        object->setProperty("checkable", true);
         if(object->property("checked") != value)
             object->setProperty("checked", value);
         connect(object, SIGNAL(toggled(bool)), this, SLOT(getObjectValue()));
@@ -288,7 +289,7 @@ void MachineConfigObject::getObjectValue()
         else if(object->property("value").isNull())
             value = object->property("checked");
     }
-    else if (object->inherits("QAbstractButton"))
+    else if (object->inherits("QAbstractButton")||object->inherits("QAction"))
     {
         value = object->property("checked");
     }

@@ -78,7 +78,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineConfigObject->registerObject(machineProcess);
     machineConfigObject->registerObject(machineProcess->getHdManager());
 
-    machineView = new MachineView(this);
+    machineView = new MachineView(machineConfigObject, this);
 
     machineConfigObject->setOption("vncPort", 1000 + parentTabWidget->currentIndex() + 1);
 

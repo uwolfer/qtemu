@@ -27,6 +27,7 @@
 #include "vnc/vncview.h"
 #include "machinesplash.h"
 #include "floatingtoolbar.h"
+#include "machineconfigobject.h"
 
 #include <QScrollArea>
 #include <QEvent>
@@ -44,7 +45,7 @@ class MachineView : public QScrollArea
 {
 Q_OBJECT
 public:
-    MachineView(QWidget *parent = 0);
+    MachineView(MachineConfigObject *config, QWidget *parent = 0);
 
     ~MachineView();
 
@@ -71,9 +72,13 @@ private:
     VncView *view;
     MachineSplash *splash;
     FloatingToolBar *toolBar;
+    MachineConfigObject *config;
     bool splashShown;
     bool fullscreenEnabled;
     int port;
+
+    //actions... will later be moved to its own file
+    QAction *scaleAction;
 };
 
 

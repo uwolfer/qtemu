@@ -31,12 +31,13 @@
 #include <QKeySequence>
 
 
-MachineView::MachineView(QWidget *parent)
+MachineView::MachineView(MachineConfigObject *config, QWidget *parent)
  : QScrollArea(parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
+    , config(config)
     , splashShown(true)
-    ,fullscreenEnabled(false)
+    , fullscreenEnabled(false)
 {
     showSplash(true);
     setAlignment(Qt::AlignCenter);
@@ -154,6 +155,7 @@ void MachineView::fullscreen(bool enable)
         setPalette(QPalette());
 
         //get rid of the toolbar
+        config->unregisterObject(scaleAction);
         toolBar->hideAndDestroy();
         toolBar->deleteLater();
     }
@@ -165,27 +167,28 @@ void MachineView::fullscreen(bool enable)
 
 void MachineView::showToolBar()
 {
-        //create actions
-        //TODO: make actions shared between everyplace
-        QAction *fullscreenAction = new QAction(QIcon(":/images/oxygen/fullscreen.png"), tr("Fullscreen"), this);
-        fullscreenAction->setToolTip(tr("Exit Fullscreen Mode"));
-        //FIXME:doesn't actually work
-        //fullscreenAction->setShortcut(QKeySequence("Ctrl+Alt+Enter"));
-        fullscreenAction->setShortcutContext(Qt::ApplicationShortcut);
-        fullscreenAction->setCheckable(true);
-        fullscreenAction->setChecked(true);
+    //create actions
+    //TODO: make actions shared between everyplace
+    QAction *fullscreenAction = new QAction(QIcon(":/images/oxygen/fullscreen.png"), tr("Fullscreen"), this);
+    fullscreenAction->setToolTip(tr("Exit Fullscreen Mode"));
+    fullscreenAction->setCheckable(true);
+    fullscreenAction->setChecked(true);
 
-        connect(fullscreenAction, SIGNAL(toggled( bool )), this, SLOT(fullscreen(bool)));
+    connect(fullscreenAction, SIGNAL(toggled( bool )), this, SLOT(fullscreen(bool)));
 
-        //add a toolbar
-        toolBar = new FloatingToolBar(this, this);
-        toolBar->setSide(FloatingToolBar::Top);
+    scaleAction = new QAction(QIcon(":/images/oxygen/scale.png"), tr("Scale Display"), this);
+    config->registerObject(scaleAction, "scaleEmbeddedDisplay");
 
-        toolBar->addAction(fullscreenAction);
+    //add a toolbar
+    toolBar = new FloatingToolBar(this, this);
+    toolBar->setSide(FloatingToolBar::Top);
 
-        QLabel *guestLabel = new QLabel(property("name").toString(), toolBar);
-        toolBar->addWidget(guestLabel);
-        toolBar->showAndAnimate();
+    toolBar->addAction(fullscreenAction);
+    toolBar->addAction(scaleAction);
+
+    QLabel *guestLabel = new QLabel(property("name").toString(), toolBar);
+    toolBar->addWidget(guestLabel);
+    toolBar->showAndAnimate();
 }
 
 void MachineView::captureAllKeys(bool enabled)
