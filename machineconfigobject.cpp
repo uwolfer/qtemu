@@ -157,7 +157,7 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
             object->setProperty(optionName.toAscii(), value);
         object->installEventFilter(this);
     }
-    //QButtonGroup handling is sticky...
+    //QButtonGroup handling is tricky...
     else if(object->inherits("QButtonGroup"))
     {
         object->disconnect(this);

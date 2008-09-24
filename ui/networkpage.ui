@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
+    <width>608</width>
     <height>506</height>
    </rect>
   </property>
@@ -134,7 +134,7 @@
                <rect>
                 <x>3</x>
                 <y>3</y>
-                <width>534</width>
+                <width>582</width>
                 <height>332</height>
                </rect>
               </property>
@@ -274,7 +274,7 @@ p, li { white-space: pre-wrap; }
                <rect>
                 <x>3</x>
                 <y>3</y>
-                <width>534</width>
+                <width>582</width>
                 <height>332</height>
                </rect>
               </property>
@@ -460,7 +460,7 @@ p, li { white-space: pre-wrap; }
                   <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="currentIndex" >
-                  <number>5</number>
+                  <number>6</number>
                  </property>
                  <widget class="QWidget" name="hostUserPage" >
                   <property name="geometry" >
@@ -793,7 +793,7 @@ p, li { white-space: pre-wrap; }
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>683</width>
+                    <width>568</width>
                     <height>149</height>
                    </rect>
                   </property>
@@ -927,7 +927,7 @@ p, li { white-space: pre-wrap; }
                    <rect>
                     <x>3</x>
                     <y>3</y>
-                    <width>520</width>
+                    <width>568</width>
                     <height>149</height>
                    </rect>
                   </property>
@@ -1031,6 +1031,7 @@ p, li { white-space: pre-wrap; }
                    </item>
                   </layout>
                  </widget>
+                 <widget class="QWidget" name="page_3" />
                 </widget>
                </item>
               </layout>
@@ -1080,7 +1081,6 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
   </layout>
-  <zorder>networkBox</zorder>
  </widget>
  <resources>
   <include location="../qtemu.qrc" />

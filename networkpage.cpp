@@ -93,10 +93,11 @@ void NetworkPage::addGuestInterface()
 
 void NetworkPage::delGuestInterface()
 {
-    //qDebug("has selection? ");
-    //qDebug( (guestView->selectionModel()->hasSelection()) ? "true":"false");
-    if(guestView->selectionModel()->hasSelection())
-        guestModel->removeRows(guestView->selectionModel()->selectedIndexes().first().row(), guestView->selectionModel()->selectedIndexes().size());
+    if(guestView->selectionModel()->selectedIndexes().size() !=0)
+    {
+        guestModel->removeRows(guestView->selectionModel()->selectedIndexes().first().row(), guestView->selectionModel()->selectedRows(0).size());
+        
+    }
 }
 
 void NetworkPage::addHostInterface()
@@ -107,8 +108,8 @@ void NetworkPage::addHostInterface()
 
 void NetworkPage::delHostInterface()
 {
-    if(hostView->selectionModel()->hasSelection())
-        hostModel->removeRows(hostView->selectionModel()->selectedIndexes().first().row(), hostView->selectionModel()->selectedIndexes().size());
+    if(hostView->selectionModel()->selectedIndexes().size() !=0)
+        hostModel->removeRows(hostView->selectionModel()->selectedIndexes().first().row(), hostView->selectionModel()->selectedRows(0).size());
 }
 
 void NetworkPage::guestSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected)
@@ -117,6 +118,12 @@ void NetworkPage::guestSelectionChanged(const QItemSelection & selected, const Q
     config->unregisterObject(nicModelCombo);
     config->unregisterObject(macEdit);
     config->unregisterObject(randomCheck);
+
+    if(guestView->selectionModel()->selectedIndexes().size() == 0)
+    {
+        propertyStack->setCurrentIndex(6);
+        return;
+    }
 
     QString rowName = guestModel->rowName(selected.first().indexes().first().row());
     //show guest properties
@@ -150,6 +157,12 @@ void NetworkPage::hostSelectionChanged(const QItemSelection & selected, const QI
     config->unregisterObject(portSpin);
     config->unregisterObject(hostTypeBox);
 
+    if(hostModel->rowCount(QModelIndex()) == 0 || hostView->selectionModel()->selectedIndexes().size() == 0)
+    {
+        propertyStack->setCurrentIndex(6);
+        return;
+    }
+
     QString rowName = hostModel->rowName(selected.first().indexes().first().row());
 
     config->registerObject(hostTypeBox, "net-host", rowName, "type", "User Mode");
@@ -174,8 +187,6 @@ void NetworkPage::hostSelectionChanged(const QItemSelection & selected, const QI
     config->registerObject(tcpButton, "net-host", rowName, "vlanType");
     config->registerObject(addressCombo, "net-host", rowName, "address");
     config->registerObject(portSpin, "net-host", rowName, "port");
-
-    
 
 }
 

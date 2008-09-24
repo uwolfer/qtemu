@@ -156,15 +156,12 @@ bool GuestInterfaceModel::insertRows(int row, int count, const QModelIndex & par
 bool GuestInterfaceModel::removeRows(int row, int count, const QModelIndex & parent)
 {
     Q_UNUSED(parent);
-
-    qDebug("delete row %i for count %i", row, count);
-    beginRemoveRows(parent, row, row + count);
-    //for (int i=0; i<count; i++)
+    QString nodeName;
+    beginRemoveRows(parent, row, row + count - 1);
+    for (int i = row; i < (row + count); i++)
     {
-        QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row);
-            qDebug("delete row %i for count %i: record " + nodeName.toAscii(), row, count);
+        nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(i);
         config->getConfig()->clearOption(nodeType, "", nodeName);
-        qDebug(nodeName.toAscii());
     }
 
     endRemoveRows();
@@ -215,25 +212,17 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
 bool HostInterfaceModel::removeRows(int row, int count, const QModelIndex & parent)
 {
     Q_UNUSED(parent);
-
-    beginRemoveRows(parent, row, 1);
-
-    QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row);
-
-    config->getConfig()->clearOption(nodeType, "", nodeName);
-
-    endRemoveRows();
-    return true;
-/*
+    QString nodeName;
     beginRemoveRows(parent, row, row + count - 1);
-    for (int i=0; i<count; i++)
+    for (int i = row; i < (row + count); i++)
     {
-        QString nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(row + count - 1);
+        nodeName = config->getConfig()->getAllOptionNames(nodeType, "").at(i);
         config->getConfig()->clearOption(nodeType, "", nodeName);
     }
+
     endRemoveRows();
     return true;
-*/
+
 }
 
 
