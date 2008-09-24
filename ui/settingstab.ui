@@ -219,7 +219,7 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack" >
            <property name="currentIndex" >
-            <number>0</number>
+            <number>6</number>
            </property>
            <widget class="QWidget" name="cpuPage" >
             <property name="geometry" >
@@ -1417,7 +1417,8 @@ the host and the guest. requires guest USB support.</string>
                    <string>Allow large and widescreen video modes. this uses a vesa compliant video card, rather than an emulated cirrus logic card.</string>
                   </property>
                   <property name="text" >
-                   <string>High Resolution and Widescreen Video Modes</string>
+                   <string>High Resolution and Widescreen Video Modes 
+(Standard VGA)</string>
                   </property>
                  </widget>
                 </item>

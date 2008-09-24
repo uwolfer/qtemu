@@ -15,17 +15,12 @@ Missing or broken features need to be completed or disabled.
 
 * finish toolbar in fullscreen mode - pause, start/stop, suspend/resume, change disc - would be easier with actions...
 
-//* menu item for force poweroff -- depends on using actions for everything
-
-* size of ram selection should be added to the wizard.
-
 * disk size display is buggy
 
 --- finishing touches ---
 
-* Add tooltips to many UI components (machinetab.cpp only needs updating)
+* Add tooltips to many UI components (machinetab.cpp is the only file left that needs updating)
   -tooltip noting holding down the stop button for forced poweroff
-  -tooltip noting widescreen/hires checkbox is for -std-vga
 
 * Make sure shortcuts don't overlap and everything has an appropriate shortcut
 
@@ -34,6 +29,13 @@ Missing or broken features need to be completed or disabled.
 * Update old help file
 
 * remove unused pages from the settings tab
+
+--- wishes ---
+
+* menu item for force poweroff -- depends on using actions for everything
+
+* size of ram selection should be added to the wizard. --should it really? this means another page in the wizard
+
 
 -----------------
 Known Bugs:
