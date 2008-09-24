@@ -55,8 +55,11 @@ public:
     
 public slots:
     void newViewSize();
-    void fullscreen(bool enabled);
+    void fullscreen(bool enable);
     void initView();
+
+private slots:
+    void showToolBar();
 
 signals:
     void fullscreenToggled(bool enabled);

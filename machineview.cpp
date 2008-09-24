@@ -27,12 +27,15 @@
 #include <QColor>
 #include <QLabel>
 #include <QAction>
+#include <QTimer>
+#include <QKeySequence>
 
 
 MachineView::MachineView(QWidget *parent)
  : QScrollArea(parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
+    , splashShown(true)
 {
     showSplash(true);
     setAlignment(Qt::AlignCenter);
@@ -107,7 +110,6 @@ void MachineView::showSplash(bool show)
 {
    if(!show)
    {
-       //initView();
        splash->hide();
        takeWidget();
        setWidget(view);
@@ -127,40 +129,61 @@ void MachineView::showSplash(bool show)
    }
 }
 
-void MachineView::fullscreen(bool enabled)
+void MachineView::fullscreen(bool enable)
 {
-    if(enabled)
+    if(splashShown)
+        return;
+
+    if(enable)
     {
-        if(splashShown)
-        {
-            fullscreen(false);
-            return;
-        }
         setWindowFlags(Qt::Window);
         showFullScreen();
         QPalette p;
         p.setColor(QPalette::Background, QColor(22,22,22));
         setPalette(p);
-
-        //add a toolbar
-        toolBar = new FloatingToolBar(this,this);
-        toolBar->setSide(FloatingToolBar::Top);
-        QLabel *hostLabel = new QLabel("fullscreen", toolBar);
-        toolBar->addWidget(hostLabel);
-        toolBar->addAction(new QAction("disable fullscreen mode", this));
-//        toolBar->setSticky(true);
-        toolBar->showAndAnimate();
-
+        //show the toolbar after the view has become fullscreen
+        //FIXME: on slow machines this value might not be enough
+        QTimer::singleShot(500, this, SLOT(showToolBar()));
     }
     else
     {
+        //set the view back to normal
         setWindowFlags(Qt::Widget);
         showNormal();
         setPalette(QPalette());
+
+        //get rid of the toolbar
+        toolBar->hideAndDestroy();
+        toolBar->deleteLater();
     }
-    emit fullscreenToggled(enabled);
+    emit fullscreenToggled(enable);
     show();
-    view->switchFullscreen(enabled);
+    view->switchFullscreen(enable);
+}
+
+void MachineView::showToolBar()
+{
+        //create actions
+        //TODO: make actions shared between everyplace
+        QAction *fullscreenAction = new QAction(QIcon(":/images/oxygen/fullscreen.png"), tr("Fullscreen"), this);
+        fullscreenAction->setToolTip(tr("Exit Fullscreen Mode"));
+        //FIXME:doesn't actually work
+        //fullscreenAction->setShortcut(QKeySequence("Ctrl+Alt+Enter"));
+        fullscreenAction->setShortcutContext(Qt::ApplicationShortcut);
+        fullscreenAction->setCheckable(true);
+        fullscreenAction->setChecked(true);
+
+        connect(fullscreenAction, SIGNAL(toggled( bool )), this, SLOT(fullscreen(bool)));
+
+        //add a toolbar
+        toolBar = new FloatingToolBar(this, this);
+        toolBar->setSide(FloatingToolBar::Top);
+
+        toolBar->addAction(fullscreenAction);
+
+        QLabel *guestLabel = new QLabel(property("name").toString(), toolBar);
+        toolBar->addWidget(guestLabel);
+        toolBar->showAndAnimate();
 }
 
 void MachineView::captureAllKeys(bool enabled)

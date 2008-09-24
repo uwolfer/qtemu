@@ -13,7 +13,7 @@ Missing or broken features need to be completed or disabled.
 
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
 
-* finish toolbar in fullscreen mode
+* finish toolbar in fullscreen mode - pause, start/stop, suspend/resume, change disc
 
 //* menu item for force poweroff
 
