@@ -15,8 +15,6 @@ Missing or broken features need to be completed or disabled.
 
 * finish toolbar in fullscreen mode - pause, start/stop, suspend/resume, change disc - would be easier with actions...
 
-* disk size display is buggy
-
 --- finishing touches ---
 
 * Add tooltips to many UI components (machinetab.cpp is the only file left that needs updating)
