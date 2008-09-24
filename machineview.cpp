@@ -36,6 +36,7 @@ MachineView::MachineView(QWidget *parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
     , splashShown(true)
+    ,fullscreenEnabled(false)
 {
     showSplash(true);
     setAlignment(Qt::AlignCenter);
@@ -145,7 +146,7 @@ void MachineView::fullscreen(bool enable)
         //FIXME: on slow machines this value might not be enough
         QTimer::singleShot(500, this, SLOT(showToolBar()));
     }
-    else
+    else if(fullscreenEnabled)
     {
         //set the view back to normal
         setWindowFlags(Qt::Widget);
@@ -156,6 +157,7 @@ void MachineView::fullscreen(bool enable)
         toolBar->hideAndDestroy();
         toolBar->deleteLater();
     }
+    fullscreenEnabled = enable;
     emit fullscreenToggled(enable);
     show();
     view->switchFullscreen(enable);
