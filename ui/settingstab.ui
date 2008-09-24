@@ -471,12 +471,27 @@ p, li { white-space: pre-wrap; }
                     </item>
                     <item>
                      <property name="text" >
-                      <string>Windows (2000/XP/Vista)</string>
+                      <string>Windows 98</string>
                      </property>
                     </item>
                     <item>
                      <property name="text" >
-                      <string>Windows 95/98/ME</string>
+                      <string>Windows 2000</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>Windows XP</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>Windows Vista</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text" >
+                      <string>ReactOS</string>
                      </property>
                     </item>
                     <item>

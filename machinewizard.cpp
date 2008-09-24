@@ -74,6 +74,7 @@ void MachineWizard::accept()
 {
     QString osName = field("name").toString();
     QString osPath = field("path").toString();
+    QString osType = field("operatingSystem").toString();
 
     QDir *dir = new QDir();
     dir->mkpath(osPath);
@@ -96,6 +97,11 @@ void MachineWizard::accept()
     domElement = domDocument.createElement("name");
     machine.appendChild(domElement);
     domText = domDocument.createTextNode(osName);
+    domElement.appendChild(domText);
+
+    domElement = domDocument.createElement("operatingSystem");
+    machine.appendChild(domElement);
+    domText = domDocument.createTextNode(osType);
     domElement.appendChild(domText);
 
     domElement = domDocument.createElement("hdd");
@@ -180,9 +186,12 @@ ChooseSystemPage::ChooseSystemPage(MachineWizard *wizard)
     comboSystem->addItem(tr("Windows 98"));
     comboSystem->addItem(tr("Windows 2000"));
     comboSystem->addItem(tr("Windows XP"));
+    comboSystem->addItem(tr("Windows Vista"));
     comboSystem->addItem(tr("ReactOS"));
+    comboSystem->addItem(tr("BSD"));
     comboSystem->addItem(tr("Other"));
 
+    registerField("operatingSystem", comboSystem, "currentText");
     connect(comboSystem, SIGNAL(activated(int)), this, SIGNAL(completeChanged()));
 
     QVBoxLayout *layout = new QVBoxLayout;

@@ -13,11 +13,9 @@ Missing or broken features need to be completed or disabled.
 
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
 
-* finish toolbar in fullscreen mode - pause, start/stop, suspend/resume, change disc
+* finish toolbar in fullscreen mode - pause, start/stop, suspend/resume, change disc - would be easier with actions...
 
-//* menu item for force poweroff
-
-* make guest OS selection save
+//* menu item for force poweroff -- depends on using actions for everything
 
 * size of ram selection should be added to the wizard.
 
@@ -47,6 +45,8 @@ Known bugs must be fixed before the next release.
 Known issues:
 ------------------
 Known issues may be resolved for a later release.
+
+* should use actions for everything
 
 * allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
 
