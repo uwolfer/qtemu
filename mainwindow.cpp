@@ -168,7 +168,7 @@ void MainWindow::pause()
 void MainWindow::stop()
 {
     MachineTab *tab = qobject_cast<MachineTab *>(tabWidget->currentWidget());
-    QToolButton *stopButton = qobject_cast<QToolButton *>(tab->stopButton);
+    QPushButton *stopButton = qobject_cast<QPushButton *>(tab->stopButton);
     stopButton->click();
 }
 
@@ -427,7 +427,7 @@ void MainWindow::changeMachineState(int value)
         QPushButton *startButton = qobject_cast<QPushButton *>(tab->startButton);
         if (value != -1)
             startButton->setFocus();
-        QToolButton *stopButton = qobject_cast<QToolButton *>(tab->stopButton);
+        QPushButton *stopButton = qobject_cast<QPushButton *>(tab->stopButton);
         connect(startButton, SIGNAL(clicked()), this, SLOT(changeMachineState()));
         connect(stopButton, SIGNAL(clicked()), this, SLOT(changeMachineState()));
         if (!startButton->isEnabled()&&tab->isEnabled())

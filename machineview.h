@@ -72,6 +72,7 @@ private:
     MachineSplash *splash;
     FloatingToolBar *toolBar;
     bool splashShown;
+    bool fullscreenEnabled;
     int port;
 };
 

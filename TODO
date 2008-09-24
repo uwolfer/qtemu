@@ -20,7 +20,6 @@ Missing or broken features need to be completed or disabled.
 --- finishing touches ---
 
 * Add tooltips to many UI components (machinetab.cpp is the only file left that needs updating)
-  -tooltip noting holding down the stop button for forced poweroff
 
 * Make sure shortcuts don't overlap and everything has an appropriate shortcut
 

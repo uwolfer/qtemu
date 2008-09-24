@@ -133,14 +133,15 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
 
     QMenu *stopMenu = new QMenu();
     QAction *stopAction = stopMenu->addAction(QIcon(":/images/" + iconTheme + "/stop.png"), tr("&Shutdown"));
-    QAction *forceAction = stopMenu->addAction(tr("&Force Poweroff"));
+    QAction *forceAction = stopMenu->addAction(QIcon(":/images/" + iconTheme + "/force.png"), tr("&Force Poweroff"));
     stopAction->setWhatsThis(tr("Tell this virtual machine to shut down"));
     forceAction->setWhatsThis(tr("Force this virtual machine to stop immediately"));
-    stopButton = new QToolButton(this);
+    stopButton = new QPushButton(this);
+    stopButton->setToolTip(tr("Hold down this button for additional options"));
     stopButton->setMenu(stopMenu);
-    stopButton->setDefaultAction(stopAction);
-
-    stopButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+//    stopButton->setDefaultAction(stopAction);
+    stopButton->setIcon(QIcon(":/images/" + iconTheme + "/stop.png"));
+//    stopButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     stopButton->setIconSize(QSize(22, 22));
     stopButton->setSizePolicy(startButton->sizePolicy());
     stopButton->setText(tr("&Stop"));

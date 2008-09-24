@@ -60,7 +60,7 @@ public:
     MachineTab(QTabWidget *parent, const QString &fileName, const QString &myMachinesPathParent);
     QString machineName();
     QPushButton *startButton;
-    QToolButton *stopButton;
+    QPushButton *stopButton;
     QPushButton *suspendButton;
     QPushButton *resumeButton;
     QPushButton *pauseButton;
