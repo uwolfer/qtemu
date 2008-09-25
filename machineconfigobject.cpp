@@ -132,6 +132,21 @@ void MachineConfigObject::registerObject(QObject *object, const QString &optionN
 */
 void MachineConfigObject::unregisterObject(QObject *object)
 {
+    if(object->property("optionName") == QVariant())
+    {
+        QStringList options = myConfig->getAllOptionNames(object->property("nodeType").toString(), object->property("nodeName").toString());
+        for(int i=0;i<options.size();i++)
+        {
+            object->setProperty(options.at(i).toAscii(), QVariant());
+        }
+        object->removeEventFilter(this);
+    }
+    else
+        object->setProperty("optionName", QVariant());
+
+    object->setProperty("nodeType", QVariant());
+    object->setProperty("nodeName", QVariant());
+
     registeredObjects.removeAll(object);
 }
 
