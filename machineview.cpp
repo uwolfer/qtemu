@@ -143,9 +143,8 @@ void MachineView::fullscreen(bool enable)
         QPalette p;
         p.setColor(QPalette::Background, QColor(22,22,22));
         setPalette(p);
-        //show the toolbar after the view has become fullscreen
-        //FIXME: on slow machines this value might not be enough
-        QTimer::singleShot(500, this, SLOT(showToolBar()));
+
+        showToolBar();
     }
     else if(fullscreenEnabled)
     {

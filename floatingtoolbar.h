@@ -48,14 +48,13 @@ public:
     void addAction(QAction *action);
     void setSide(Side side);
 
-    void showAndAnimate();
-    void hideAndDestroy();
-
 Q_SIGNALS:
     void orientationChanged(int side);
 
 public Q_SLOTS:
     void setSticky(bool sticky);
+    void showAndAnimate();
+    void hideAndDestroy();
 
 protected:
     bool eventFilter(QObject *o, QEvent *e);
