@@ -30,6 +30,8 @@ Missing or broken features need to be completed or disabled.
 
 * size of ram selection should be added to the wizard. --should it really? this means another page in the wizard
 
+* a system tray icon
+
 -----------------
 Known Bugs:
 -----------------
@@ -66,7 +68,7 @@ Version 2.1 +:
 
 * working network configuration.
 
-*detect the running sound system (in order of perference: pulse audio, esd, ALSA, OSS) and set the sound interface type automatically.
+* detect the running sound system (in order of perference: pulse audio, esd, ALSA, OSS) and set the sound interface type automatically.
 
 * information about the virtual machnine in a box below the screen preview (Image size / size on disk, memory, processor usage info for running machines, etc.).
 
