@@ -20,7 +20,8 @@ HEADERS =   config.h \
    harddiskmanager.h \
    controlpanel.h \
    networkpage.h \
-   interfacemodel.h
+   interfacemodel.h \
+   floatingtoolbar.h
 
 SOURCES =   main.cpp \
   mainwindow.cpp \
@@ -42,7 +43,8 @@ SOURCES =   main.cpp \
    harddiskmanager.cpp \
    controlpanel.cpp \
    networkpage.cpp \
-   interfacemodel.cpp
+   interfacemodel.cpp \
+   floatingtoolbar.cpp
 
 RESOURCES =   qtemu.qrc
 QT +=   xml svg webkit
