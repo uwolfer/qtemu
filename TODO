@@ -37,6 +37,11 @@ Known Bugs:
 -----------------
 Known bugs must be fixed before the next release.
 
+* on some OSes if only kvm is installed, we should use kvm-img, not qemu-img.
+ 
+* no error given if the image does NOT successfully create.
+
+
 
 ------------------
 Known issues:
