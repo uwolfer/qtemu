@@ -123,10 +123,12 @@ void NetworkPage::guestSelectionChanged(const QItemSelection & selected, const Q
     config->unregisterObject(nicModelCombo);
     config->unregisterObject(macEdit);
     config->unregisterObject(randomCheck);
+    config->unregisterObject(hostInterface);
 
     if(guestView->selectionModel()->selectedIndexes().size() == 0)
     {
         propertyStack->setCurrentIndex(6);
+        changingSelection=false;
         return;
     }
 
@@ -137,6 +139,7 @@ void NetworkPage::guestSelectionChanged(const QItemSelection & selected, const Q
     config->registerObject(nicModelCombo, "net-guest", rowName, "nic");
     config->registerObject(macEdit, "net-guest", rowName, "mac");
     config->registerObject(randomCheck, "net-guest", rowName, "randomize");
+    config->registerObject(hostInterface, "net-guest", rowName, "host");
 
     changingSelection=false;
 }
@@ -174,6 +177,7 @@ void NetworkPage::hostSelectionChanged(const QItemSelection & selected, const QI
     if(hostModel->rowCount(QModelIndex()) == 0 || hostView->selectionModel()->selectedIndexes().size() == 0)
     {
         propertyStack->setCurrentIndex(6);
+        changingSelection=false;
         return;
     }
 

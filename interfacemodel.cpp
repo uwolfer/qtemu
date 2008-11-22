@@ -147,7 +147,7 @@ bool GuestInterfaceModel::insertRows(int row, int count, const QModelIndex & par
         config->setOption(nodeType, nodeName, "nic", "rtl8139");
         config->setOption(nodeType, nodeName, "mac", "random");
         config->setOption(nodeType, nodeName, "randomize", false);
-        config->setOption(nodeType, nodeName, "host", QString());
+        config->setOption(nodeType, nodeName, "host", QString(QString("Interface ") + QString::number(interfaceNumber)));
     }
     endInsertRows();
     return true;
