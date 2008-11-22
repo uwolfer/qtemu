@@ -127,17 +127,9 @@
               <enum>QFrame::Raised</enum>
              </property>
              <property name="currentIndex" >
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="page" >
-              <property name="geometry" >
-               <rect>
-                <x>3</x>
-                <y>3</y>
-                <width>582</width>
-                <height>332</height>
-               </rect>
-              </property>
               <layout class="QVBoxLayout" name="verticalLayout_31" >
                <property name="leftMargin" >
                 <number>9</number>
@@ -270,14 +262,6 @@ p, li { white-space: pre-wrap; }
               </layout>
              </widget>
              <widget class="QWidget" name="page_2" >
-              <property name="geometry" >
-               <rect>
-                <x>3</x>
-                <y>3</y>
-                <width>582</width>
-                <height>332</height>
-               </rect>
-              </property>
               <layout class="QVBoxLayout" name="verticalLayout_4" >
                <item>
                 <layout class="QHBoxLayout" name="connectorLayout" >
@@ -460,17 +444,9 @@ p, li { white-space: pre-wrap; }
                   <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="currentIndex" >
-                  <number>6</number>
+                  <number>5</number>
                  </property>
                  <widget class="QWidget" name="hostUserPage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>683</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_8" >
                    <item>
                     <layout class="QFormLayout" name="formLayout_3" >
@@ -594,14 +570,6 @@ p, li { white-space: pre-wrap; }
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostBridgePage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>683</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_7" >
                    <item>
                     <layout class="QFormLayout" name="formLayout_2" >
@@ -656,14 +624,6 @@ p, li { white-space: pre-wrap; }
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostRoutePage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>683</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_10" >
                    <item>
                     <layout class="QFormLayout" name="formLayout_4" >
@@ -692,14 +652,6 @@ p, li { white-space: pre-wrap; }
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostVLanPage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>683</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_9" >
                    <item>
                     <widget class="QGroupBox" name="groupBox" >
@@ -789,14 +741,6 @@ p, li { white-space: pre-wrap; }
                   </layout>
                  </widget>
                  <widget class="QWidget" name="hostTapPage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>568</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_11" >
                    <item>
                     <layout class="QFormLayout" name="formLayout_5" >
@@ -923,24 +867,16 @@ p, li { white-space: pre-wrap; }
                   </layout>
                  </widget>
                  <widget class="QWidget" name="guestPage" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>3</x>
-                    <y>3</y>
-                    <width>568</width>
-                    <height>149</height>
-                   </rect>
-                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_5" >
                    <item>
                     <layout class="QFormLayout" name="formLayout" >
-                     <item row="1" column="1" >
-                      <widget class="QLineEdit" name="macEdit" />
-                     </item>
-                     <item row="1" column="0" >
-                      <widget class="QLabel" name="label_3" >
+                     <property name="fieldGrowthPolicy" >
+                      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+                     </property>
+                     <item row="0" column="0" >
+                      <widget class="QLabel" name="label_6" >
                        <property name="text" >
-                        <string>Interface MAC Address</string>
+                        <string>Emulated Network Card Model</string>
                        </property>
                       </widget>
                      </item>
@@ -993,14 +929,27 @@ p, li { white-space: pre-wrap; }
                        </item>
                       </widget>
                      </item>
-                     <item row="0" column="0" >
-                      <widget class="QLabel" name="label_6" >
+                     <item row="1" column="0" >
+                      <widget class="QLabel" name="label_18" >
                        <property name="text" >
-                        <string>Emulated Network Card Model</string>
+                        <string>Assign to Host Interface</string>
                        </property>
                       </widget>
                      </item>
+                     <item row="1" column="1" >
+                      <widget class="QComboBox" name="hostInterface" />
+                     </item>
+                     <item row="2" column="1" >
+                      <widget class="QLineEdit" name="macEdit" />
+                     </item>
                      <item row="2" column="0" >
+                      <widget class="QLabel" name="label_3" >
+                       <property name="text" >
+                        <string>Interface MAC Address</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="0" >
                       <widget class="QPushButton" name="macButton" >
                        <property name="text" >
                         <string>Generate new MAC</string>
@@ -1031,16 +980,7 @@ p, li { white-space: pre-wrap; }
                    </item>
                   </layout>
                  </widget>
-                 <widget class="QWidget" name="page_3" >
-                  <property name="geometry" >
-                   <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>100</width>
-                    <height>30</height>
-                   </rect>
-                  </property>
-                 </widget>
+                 <widget class="QWidget" name="page_3" />
                 </widget>
                </item>
               </layout>

@@ -62,6 +62,7 @@ private:
 
     GuestInterfaceModel *guestModel;
     HostInterfaceModel *hostModel;
+    bool changingSelection;
 
 //dealing with model/view
 

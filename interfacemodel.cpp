@@ -147,6 +147,7 @@ bool GuestInterfaceModel::insertRows(int row, int count, const QModelIndex & par
         config->setOption(nodeType, nodeName, "nic", "rtl8139");
         config->setOption(nodeType, nodeName, "mac", "random");
         config->setOption(nodeType, nodeName, "randomize", false);
+        config->setOption(nodeType, nodeName, "host", QString());
     }
     endInsertRows();
     return true;
@@ -186,7 +187,7 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
         nodeName = "host" + QString::number(interfaceNumber);
         //set all options
         config->setOption(nodeType, nodeName, "name", QString(QString("Interface ") + QString::number(interfaceNumber)));
-        config->setOption(nodeType, nodeName, "type", "user");
+        config->setOption(nodeType, nodeName, "type", "User Mode");
         //FIXME: use a better unique interface/bridge name
         config->setOption(nodeType, nodeName, "interface", "qtemu-tap" + QString::number(interfaceNumber));
         config->setOption(nodeType, nodeName, "bridgeInterface", "qtemu-br" + QString::number(interfaceNumber));
@@ -202,7 +203,6 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
         config->setOption(nodeType, nodeName, "vlanType", "udp");
         config->setOption(nodeType, nodeName, "address", "127.0.0.1");
         config->setOption(nodeType, nodeName, "port", "9000");
-        config->setOption(nodeType, nodeName, "guest", QString());
     }
     endInsertRows();
     return true;

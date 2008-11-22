@@ -33,6 +33,7 @@
 NetworkPage::NetworkPage(MachineConfigObject *config, QWidget *parent)
  : QWidget(parent)
  , config(config)
+ , changingSelection(false)
 {
     setupUi(this);
     setupModels();
@@ -69,14 +70,11 @@ void NetworkPage::setupModels()
 {
     guestModel = new GuestInterfaceModel(config, this);
     guestView->setModel(guestModel);
-    //guestView->hideColumn(3);
-    //guestView->hideColumn(1);
 
     hostModel = new HostInterfaceModel(config, this);
     hostView->setModel(hostModel);
-    //for(int i=2;i<hostModel->columnCount();i++)
-    //    hostView->hideColumn(i);
 
+    hostInterface->setModel(hostModel);
 }
 
 void NetworkPage::registerObjects()
@@ -114,6 +112,13 @@ void NetworkPage::delHostInterface()
 
 void NetworkPage::guestSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected)
 {
+    if (changingSelection)
+        return;
+    changingSelection=true;
+
+    //change host selection to none
+    hostView->selectionModel()->clearSelection();
+
     //disconnect other interfaces
     config->unregisterObject(nicModelCombo);
     config->unregisterObject(macEdit);
@@ -132,10 +137,19 @@ void NetworkPage::guestSelectionChanged(const QItemSelection & selected, const Q
     config->registerObject(nicModelCombo, "net-guest", rowName, "nic");
     config->registerObject(macEdit, "net-guest", rowName, "mac");
     config->registerObject(randomCheck, "net-guest", rowName, "randomize");
+
+    changingSelection=false;
 }
 
 void NetworkPage::hostSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected)
 {
+    if(changingSelection)
+        return;
+    changingSelection=true;
+
+    //change guest selection to none
+    guestView->selectionModel()->clearSelection();
+
     //disconnect other interfaces
     config->unregisterObject(interfaceEdit);
     config->unregisterObject(interfaceEdit_2);
@@ -188,6 +202,7 @@ void NetworkPage::hostSelectionChanged(const QItemSelection & selected, const QI
     config->registerObject(addressCombo, "net-host", rowName, "address");
     config->registerObject(portSpin, "net-host", rowName, "port");
 
+    changingSelection=false;
 }
 
 
