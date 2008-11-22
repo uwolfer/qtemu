@@ -127,7 +127,7 @@
               <enum>QFrame::Raised</enum>
              </property>
              <property name="currentIndex" >
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page" >
               <layout class="QVBoxLayout" name="verticalLayout_31" >
@@ -444,7 +444,7 @@ p, li { white-space: pre-wrap; }
                   <enum>QFrame::Sunken</enum>
                  </property>
                  <property name="currentIndex" >
-                  <number>5</number>
+                  <number>6</number>
                  </property>
                  <widget class="QWidget" name="hostUserPage" >
                   <layout class="QVBoxLayout" name="verticalLayout_8" >
