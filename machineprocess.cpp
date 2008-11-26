@@ -553,6 +553,7 @@ void MachineProcess::deleteTmp(int successfulCommit)
 
 void MachineProcess::createTmp()
 {
+	//this mkaes it so if the temp file exists we use it... this could result in all sorts of wierd behavior.
     //if(QFile::exists(property("hdd").toString() + ".tmp"))
         //return;
 

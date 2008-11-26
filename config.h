@@ -24,7 +24,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define DEVELOPER
+//#define DEVELOPER
 #define VERSION "1.8.0 SVN"
 
 #endif

@@ -25,7 +25,9 @@
 **
 ** C++ Implementation: interfacemodel
 **
-** Description: 
+** Description: provides a model for the model/view framework to describe the
+** various options for a qemu network interface, both guest and host models
+** are provided.
 **
 ****************************************************************************/
 #include <QStringList>
