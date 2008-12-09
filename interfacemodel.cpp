@@ -130,7 +130,7 @@ void InterfaceModel::optionChanged(const QString & nodeType, const QString & nod
 GuestInterfaceModel::GuestInterfaceModel(MachineConfigObject * config, QObject * parent)
   : InterfaceModel(config, QString("net-guest"), parent)
 {
-    columns << "name" << "mac";
+    columns << "name" << "mac" << "enabled";
 }
 
 
@@ -150,6 +150,7 @@ bool GuestInterfaceModel::insertRows(int row, int count, const QModelIndex & par
         config->setOption(nodeType, nodeName, "mac", "random");
         config->setOption(nodeType, nodeName, "randomize", false);
         config->setOption(nodeType, nodeName, "host", QString(QString("Interface ") + QString::number(interfaceNumber)));
+        config->setOption(nodeType, nodeName, "enabled", true);
     }
     endInsertRows();
     return true;
@@ -190,9 +191,8 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
         //set all options
         config->setOption(nodeType, nodeName, "name", QString(QString("Interface ") + QString::number(interfaceNumber)));
         config->setOption(nodeType, nodeName, "type", "User Mode");
-        //FIXME: use a better unique interface/bridge name
-        config->setOption(nodeType, nodeName, "interface", "qtemu-tap" + QString::number(interfaceNumber));
-        config->setOption(nodeType, nodeName, "bridgeInterface", "qtemu-br" + QString::number(interfaceNumber));
+        config->setOption(nodeType, nodeName, "interface", "qtemu-" + config->getOption("name").toString().replace(" ", "_") + "-" + config->getOption(nodeType, nodeName, "name", "Interface_" + QString::number(interfaceNumber)).toString().replace(" ", "_"));
+        config->setOption(nodeType, nodeName, "bridgeInterface", "qtemu-" + config->getOption("name").toString().replace(" ", "_") + "-br" + QString::number(interfaceNumber));
         config->setOption(nodeType, nodeName, "hardwareInterface", "eth0");
         config->setOption(nodeType, nodeName, "spanningTree", false);
         config->setOption(nodeType, nodeName, "ifUp", QString());

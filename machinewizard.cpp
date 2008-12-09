@@ -134,7 +134,74 @@ void MachineWizard::accept()
     domText = domDocument.createTextNode("false");
 #endif
     domElement.appendChild(domText);
+    
+    QDomElement netElement = domDocument.createElement("net-guest");
+    QDomElement element = domDocument.createElement("guest0");
+    netElement.appendChild(element);
+    root.appendChild(netElement);
 
+    domElement = domDocument.createElement("name");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("Interface 0");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("nic");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("rtl8139");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("nic");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("rtl8139");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("randomize");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("false");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("host");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("Interface 0");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("enabled");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("true");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("mac");
+    element.appendChild(domElement);
+    QString mac="52:54:00:";
+        for (int i=1;i<=6;i++)
+        {
+            mac.append(QString().setNum(qrand() % 16, 16));
+            if(i%2 == 0 && i != 6)
+                mac.append(":");
+        }
+    domText = domDocument.createTextNode(mac);
+    domElement.appendChild(domText); 
+    
+    netElement = domDocument.createElement("net-host");
+    element = domDocument.createElement("host0");
+    netElement.appendChild(element);
+    root.appendChild(netElement);
+
+    domElement = domDocument.createElement("name");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("Interface 0");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("type");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode("User Mode");
+    domElement.appendChild(domText);
+    
+    domElement = domDocument.createElement("hostname");
+    element.appendChild(domElement);
+    domText = domDocument.createTextNode(osName);
+    domElement.appendChild(domText);
+    
     QFile file(osPath+'/'+osName.replace(' ', '_')+".qte");
     if (!file.open(QFile::WriteOnly | QFile::Truncate))
     {

@@ -81,7 +81,9 @@ void NetworkPage::registerObjects()
 {
     config->registerObject(networkCheck, "network", QVariant(true));
     config->registerObject(networkEdit, "networkCustomOptions");
-    config->registerObject(netAccelCheck, "netVirtio", QVariant(false));
+    config->registerObject(advancedButton, "netAdvanced", QVariant(false));
+    config->registerObject(easyModeBox, "net-host", "host0", "type");
+    config->registerObject(easyMacEdit, "net-guest", "guest0", "mac");
 }
 
 void NetworkPage::addGuestInterface()

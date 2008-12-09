@@ -58,7 +58,6 @@ bool MachineConfig::loadConfig(const QString &fileName)
     QString errorStr;
     int errorLine;
     int errorColumn;
-    //domDocument = new domDocument();
 
     if (!domDocument.setContent(configFile, true, &errorStr, &errorLine, &errorColumn))
     {

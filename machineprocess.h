@@ -29,6 +29,7 @@
 #include "qtemuenvironment.h"
 #include "harddiskmanager.h"
 
+class NetConfig;
 
 class MachineProcess : public QProcess
 {
@@ -37,7 +38,7 @@ class MachineProcess : public QProcess
 public:
     enum ProcessState {NotRunning = 0, Starting = 1, Running = 2, Stopping = 3, Saving = 4};
 
-    MachineProcess(QObject *parent = 0);
+    MachineProcess(MachineTab *parent = 0);
     qint64 write(const QByteArray & byteArray);
 
     HardDiskManager* getHdManager();
@@ -69,6 +70,7 @@ signals:
     void rawConsole(const QString & consoleOutput);
     void cleanConsole(const QString & consoleOutput);
     void stateChanged(MachineProcess::ProcessState newState);
+    
 private:
     void getVersion();
     void commitTmp();
@@ -82,6 +84,7 @@ private:
     QString lastOutput;
     QStringList outputParts;
     MachineProcess::ProcessState myState;
+    NetConfig *netConfig;
 
 private slots:
     void afterExitExecute();

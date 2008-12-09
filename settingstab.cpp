@@ -208,7 +208,7 @@ void SettingsTab::disableUnsupportedOptions()
     {
         hddAccelCheck->setEnabled(false);
         hddAccelCheck->setChecked(false);
-        netPage->netAccelCheck->setEnabled(false);
-        netPage->netAccelCheck->setChecked(false);
+//        netPage->netAccelCheck->setEnabled(false);
+//        netPage->netAccelCheck->setChecked(false);
     }
 }

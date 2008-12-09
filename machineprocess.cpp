@@ -23,7 +23,7 @@
 ****************************************************************************/
 
 #include "machineprocess.h"
-//#include "networksystem.h"
+#include "netconfig.h"
 #include "config.h"
 
 #include <QCoreApplication>
@@ -32,7 +32,7 @@
 #include <QDir>
 #include <QTimer>
 
-MachineProcess::MachineProcess(QObject *parent)
+MachineProcess::MachineProcess(MachineTab *parent)
   : QProcess(parent)
     , paused(false)
     , doResume(false)
@@ -40,7 +40,7 @@ MachineProcess::MachineProcess(QObject *parent)
 {
     changeState(QProcess::state());
     getVersion();
-    //networkSystem = new NetworkSystem(this);
+    netConfig = new NetConfig(this, parent->machineConfigObject);
 
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
@@ -85,35 +85,24 @@ void MachineProcess::start()
     }
 
     if(property("hiRes").toBool())
-        arguments << "-std-vga";
+    {
+    	if(kvmVersion >= 78)
+    		arguments << "-vga" << "std"; //TODO: other options are cirrus and vmware.. maybe we can make use of this.
+    	else
+    		arguments << "-std-vga";
+   	}
 
     if(!property("acpi").toBool())
         arguments << "-no-acpi";
 
-
     if (property("network").toBool())
-    {   /*
-        //use the new network setup if you are developing
-        #ifdef DEVELOPER
-        //load up network setup
-        networkSystem->loadNics();
-        if (networkSystem->numNics() != 0)
-            arguments << networkSystem->getOptionList();
-        #endif
-        */
+    {
         if (!property("networkCustomOptions").toString().isEmpty())
             arguments << property("networkCustomOptions").toString().split(' ', QString::SkipEmptyParts);
-        //#ifndef DEVELOPER
         else
         {
-            arguments << "-net";
-            if(property("netVirtio").toBool())
-                arguments << "nic,model=virtio";
-            else
-                arguments << "nic";
-            arguments << "-net" << "user";
+            arguments << netConfig->getOptionString();
         }
-        //#endif
     }
     else
         arguments << "-net" << "none";
