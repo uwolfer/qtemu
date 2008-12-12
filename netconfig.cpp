@@ -166,13 +166,19 @@ QStringList HostInterface::parseOpts()
     QString type;
     QStringList netOpts;
     QStringList opts;
-    //FIXME: this will not work for a translated gui
+    //FIXME: this will not work for a translated gui??
     if(property("type").toString() == tr("User Mode"))
     {
         //-net user[,vlan=n][,hostname=name]
         type="user";
         //additional options for this type:
-        //[hostname=name]
+        netOpts << "hostname=" + property("hostname").toString();
+        //tftp and bootp
+        if(property("bootp").toBool())
+            opts << "-bootp" << property("bootpPath").toString();
+        if(property("tftp").toBool())
+            opts << "-tftp" << property("tftpPath").toString();
+        //TODO: add SMB support
     }
     else if(property("type").toString() == tr("Bridged Interface"))
     {
@@ -180,7 +186,7 @@ QStringList HostInterface::parseOpts()
         type="tap";
         //additional options for this type:
         //[fd=h]
-        //[ifname=name]
+        netOpts << "ifname=" + property("interface").toString();
         //[script=file]
     }
     else if(property("type").toString() == tr("Routed Interface"))
@@ -189,7 +195,7 @@ QStringList HostInterface::parseOpts()
         type="tap";
         //additional options for this type:
         //[fd=h]
-        //[ifname=name]
+        netOpts << "ifname=" + property("interface").toString();
         //[script=file]
     }
     else if(property("type").toString() == tr("Shared Virtual Lan"))
@@ -210,6 +216,7 @@ QStringList HostInterface::parseOpts()
     {
         //-net tap[,vlan=n][,fd=h][,ifname=name][,script=file]
         type="tap";
+        netOpts << "ifname=" + property("interface").toString();
         netOpts << "script=" + property("ifUp").toString();
     }
     
