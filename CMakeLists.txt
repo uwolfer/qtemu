@@ -45,6 +45,7 @@ SET(qtemu_SRCS
     machinesplash.cpp
     machineconfig.cpp
     machineconfigobject.cpp
+    netconfig.cpp
     settingstab.cpp
     qtemuenvironment.cpp
     harddiskmanager.cpp
@@ -70,6 +71,7 @@ SET(qtemu_MOC_HDRS
     machinesplash.h
     machineconfig.h
     machineconfigobject.h
+    netconfig.h
     settingstab.h
     qtemuenvironment.h
     harddiskmanager.h
