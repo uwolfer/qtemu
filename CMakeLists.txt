@@ -43,6 +43,7 @@ SET(qtemu_SRCS
     vnc/vncview.cpp
     machineview.cpp
     machinesplash.cpp
+    machinescrollarea.cpp
     machineconfig.cpp
     machineconfigobject.cpp
     netconfig.cpp
@@ -69,6 +70,7 @@ SET(qtemu_MOC_HDRS
     vnc/vncclientthread.h
     machineview.h
     machinesplash.h
+    machinescrollarea.h
     machineconfig.h
     machineconfigobject.h
     netconfig.h
