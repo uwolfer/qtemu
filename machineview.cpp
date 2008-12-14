@@ -29,63 +29,31 @@
 #include <QAction>
 #include <QTimer>
 #include <QKeySequence>
+#include <QVBoxLayout>
 
 
 MachineView::MachineView(MachineConfigObject *config, QWidget *parent)
- : QScrollArea(parent)
+ : QWidget(parent)
     , view(new VncView(this))
     , splash(new MachineSplash(this))
     , config(config)
-    , splashShown(true)
     , fullscreenEnabled(false)
 {
+    embeddedScrollArea = new MachineScrollArea(this);
+    
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(embeddedScrollArea);
+    setLayout(layout);
+     
     showSplash(true);
-    setAlignment(Qt::AlignCenter);
-    setFrameShape(QFrame::NoFrame);
+
+    connect(embeddedScrollArea, SIGNAL(resized(int, int)), view, SLOT(scaleResize(int, int)));
+    
+
 }
 
 MachineView::~MachineView()
 {
-}
-
-void MachineView::resizeEvent(QResizeEvent * event)
-{
-#ifdef DEVELOPER
-    qDebug("resized...");
-#endif
-    resizeView(event->size().width(), event->size().height());
-    
-    QScrollArea::resizeEvent(event);
-}
-
-void MachineView::resizeView(int widgetWidth, int widgetHeight)
-{
-    if(splashShown)
-    {
-        float aspectRatio = (1.0 * splash->sizeHint().width()/ splash->sizeHint().height());
-        int newWidth = widgetHeight*aspectRatio;
-        int newHeight = widgetWidth*(1/aspectRatio);
-
-        if(newWidth <= widgetWidth && newHeight > widgetHeight)
-            widget()->setFixedSize(newWidth, widgetHeight);
-        else
-            widget()->setFixedSize(widgetWidth, newHeight);
-        return;
-    }
- 
-   view->blockSignals(true);
-    if(!property("scaleEmbeddedDisplay").toBool())
-    {
-        qDebug("no scaling");
-        view->enableScaling(false);
-    }
-    else
-    {
-        qDebug("scaling");
-       view->enableScaling(true);
-       view->scaleResize(widgetWidth,widgetHeight);
-    }
-    view->blockSignals(false);
 }
 
 void MachineView::initView()
@@ -113,54 +81,81 @@ void MachineView::showSplash(bool show)
    if(!show)
    {
        splash->hide();
-       takeWidget();
-       setWidget(view);
-       splashShown = false;
+       embeddedScrollArea->takeWidget();
+       embeddedScrollArea->setWidget(view);
+       embeddedScrollArea->setSplashShown(false);
        view->show();
 
    }
    else
    {
-       fullscreen(false);
        splash->setPreview(property("preview").toString());
        view->hide();
-       takeWidget();
-       setWidget(splash);
-       splashShown = true;
+       embeddedScrollArea->takeWidget();
+       embeddedScrollArea->setWidget(splash);
+       embeddedScrollArea->setSplashShown(true);
        splash->show();
    }
 }
 
 void MachineView::fullscreen(bool enable)
 {
-    if(splashShown)
-        return;
-
     if(enable)
     {
-        setWindowFlags(Qt::Window);
-        showFullScreen();
-        QPalette p;
-        p.setColor(QPalette::Background, QColor(22,22,22));
-        setPalette(p);
+        //entering fullscreen
+        showSplash(true);
+
+        fullscreenWindow = new QWidget(this, Qt::Window);
+        fullscreenWindow->setWindowTitle(tr("QtEmu Fullscreen") + " (" + property("name").toString() + ")");
+
+        fullscreenScrollArea = new MachineScrollArea(fullscreenWindow);
+        fullscreenScrollArea->setWidget(view);
+        fullscreenScrollArea->setProperty("scaleEmbeddedDisplay", property("scaleEmbeddedDisplay"));
+
+        connect(fullscreenScrollArea, SIGNAL(resized(int, int)), view, SLOT(scaleResize(int, int)));
+
+        QPalette palette = fullscreenScrollArea->palette();
+        palette.setColor(QPalette::Dark, QColor(22,22,22));
+        fullscreenScrollArea->setPalette(palette);
+        fullscreenScrollArea->setBackgroundRole(QPalette::Dark);
+
+        QVBoxLayout *fullscreenLayout = new QVBoxLayout(fullscreenWindow);
+        fullscreenLayout->setMargin(0);
+        fullscreenLayout->addWidget(fullscreenScrollArea);
+
+        MinimizePixel *minimizePixel = new MinimizePixel(fullscreenWindow);
+        minimizePixel->winId(); // force it to be a native widget (prevents problem with QX11EmbedContainer)
+        connect(minimizePixel, SIGNAL(rightClicked()), fullscreenWindow, SLOT(showMinimized()));
+
+
+        fullscreenWindow->setWindowFlags(Qt::Window);
+        fullscreenWindow->showFullScreen();
 
         showToolBar();
     }
     else if(fullscreenEnabled)
     {
-        //set the view back to normal
-        setWindowFlags(Qt::Widget);
-        showNormal();
-        setPalette(QPalette());
+        //exiting fullscreen
+        //show();
+
+        fullscreenWindow->setWindowState(0);
+        fullscreenWindow->hide();
+
+        
 
         //get rid of the toolbar
         config->unregisterObject(scaleAction);
         toolBar->hideAndDestroy();
         toolBar->deleteLater();
+        toolBar = 0;
+
+        fullscreenWindow->deleteLater();
+        fullscreenWindow = 0;
+
+        showSplash(false);
     }
     fullscreenEnabled = enable;
     emit fullscreenToggled(enable);
-    show();
     view->switchFullscreen(enable);
 }
 
@@ -179,7 +174,8 @@ void MachineView::showToolBar()
     config->registerObject(scaleAction, "scaleEmbeddedDisplay");
 
     //add a toolbar
-    toolBar = new FloatingToolBar(this, this);
+    toolBar = new FloatingToolBar(fullscreenWindow, fullscreenWindow);
+    toolBar->winId();
     toolBar->setSide(FloatingToolBar::Top);
 
     toolBar->addAction(fullscreenAction);
@@ -202,7 +198,14 @@ void MachineView::sendKey(QKeyEvent * event)
 
 void MachineView::newViewSize()
 {
-    resizeView(maximumViewportSize().width(), maximumViewportSize().height());
+    MachineScrollArea *currentScrollArea;
+    if(fullscreenEnabled)
+        currentScrollArea = fullscreenScrollArea;
+    else
+        currentScrollArea = embeddedScrollArea;
+    
+    currentScrollArea->setProperty("scaleEmbeddedDisplay", property("scaleEmbeddedDisplay"));
+    currentScrollArea->resizeView(currentScrollArea->maximumViewportSize().width(), currentScrollArea->maximumViewportSize().height());
 }
 
 bool MachineView::event(QEvent * event)
@@ -222,7 +225,7 @@ bool MachineView::event(QEvent * event)
         }
         return false;
     }
-    else if(event->type() == QEvent::Enter&&!splashShown)
+    else if(event->type() == QEvent::Enter&&!embeddedScrollArea->isSplashShown())
     {
         view->setFocus();
         view->grabKeyboard();
@@ -241,5 +244,5 @@ bool MachineView::event(QEvent * event)
              return true;
          }
     }
-    return QScrollArea::event(event);
+    return QWidget::event(event);
 }

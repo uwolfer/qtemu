@@ -14,8 +14,6 @@ Missing or broken features need to be completed or disabled.
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
 
 * finish toolbar in fullscreen mode - pause, start/stop, suspend/resume, change disc - would be easier with actions...
-
-* fullscreen mode is buggy with a host resolution of 1920x1200 - does not center, etc.
 --- finishing touches ---
 
 * Add tooltips to many UI components (machinetab.cpp is the only file left that needs updating)
@@ -42,9 +40,6 @@ Known bugs must be fixed before the next release.
 * no error given if the image does NOT successfully create.
 
 * there are still some bugs where the vnc output might not show up - it thinks its size is negative.
-
-* VNC output does not resize to fullscreen correctly in some cases.
-
 ------------------
 Known issues:
 ------------------

@@ -28,6 +28,7 @@
 #include "machinesplash.h"
 #include "floatingtoolbar.h"
 #include "machineconfigobject.h"
+#include "machinescrollarea.h"
 
 #include <QScrollArea>
 #include <QEvent>
@@ -37,11 +38,14 @@
 #include <QSvgWidget>
 #include <QShortcut>
 #include <QPalette>
+#include <QWidget>
+#include <QApplication>
+#include <QDesktopWidget>
 
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
-class MachineView : public QScrollArea
+class MachineView : public QWidget
 {
 Q_OBJECT
 public:
@@ -66,14 +70,14 @@ signals:
     void fullscreenToggled(bool enabled);
 
 private:
-    void resizeEvent(QResizeEvent * event);
-    void resizeView(int widgetWidth, int widgetHeight);
 
     VncView *view;
     MachineSplash *splash;
     FloatingToolBar *toolBar;
     MachineConfigObject *config;
-    bool splashShown;
+    QWidget *fullscreenWindow;
+    MachineScrollArea *fullscreenScrollArea;
+    MachineScrollArea *embeddedScrollArea;
     bool fullscreenEnabled;
     int port;
 
@@ -81,6 +85,25 @@ private:
     QAction *scaleAction;
 };
 
+class MinimizePixel : public QWidget
+{
+    Q_OBJECT
+public:
+    MinimizePixel(QWidget *parent)
+            : QWidget(parent) {
+        setFixedSize(1, 1);
+        move(QApplication::desktop()->screenGeometry().width() - 1, 0);
+    }
+
+signals:
+    void rightClicked();
+
+protected:
+    void mousePressEvent(QMouseEvent *event) {
+        if (event->button() == Qt::RightButton)
+            emit rightClicked();
+    }
+};
 
 
 #endif

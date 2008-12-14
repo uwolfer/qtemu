@@ -21,7 +21,8 @@ HEADERS = config.h \
  networkpage.h \
  interfacemodel.h \
  floatingtoolbar.h \
- netconfig.h
+ netconfig.h \
+ machinescrollarea.h
 SOURCES = main.cpp \
  mainwindow.cpp \
  helpwindow.cpp \
@@ -44,7 +45,8 @@ SOURCES = main.cpp \
  networkpage.cpp \
  interfacemodel.cpp \
  floatingtoolbar.cpp \
- netconfig.cpp
+ netconfig.cpp \
+ machinescrollarea.cpp
 RESOURCES = qtemu.qrc
 QT += xml svg webkit
 win32 {
