@@ -78,7 +78,7 @@ void GuestTools::ioReceived()
 	*dataStream >> usesModule;
 	*dataStream >> type;
 	*dataStream >> data;
-    for(int i = 0; i++; i < modules.size())
+    for(int i = 0; i < modules.size(); i++)
     {
     	if(modules.at(i)->moduleName() == usesModule)
     	{

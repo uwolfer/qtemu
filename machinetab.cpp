@@ -36,6 +36,8 @@
 
 #include "controlpanel.h"
 
+#include "guesttoolslistener.h"
+
 #include <QMessageBox>
 #include <QPushButton>
 #include <QLineEdit>
@@ -95,6 +97,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     connect(machineProcess, SIGNAL(booting()), this, SLOT(booting()));
 
     machineNameEdit = new QLineEdit(this);
+    
+    guestToolsListener = new GuestToolsListener(machineConfigObject->getOption("hdd",QString()).toString().replace(QRegExp("[.][^.]+$"), ".tools"), this);
 
 #ifndef Q_OS_WIN32
     const QString flatStyle = QString("TYPE { border: 2px solid transparent;"
@@ -462,8 +466,6 @@ void MachineTab::cleanupView()
 
 void MachineTab::takeScreenshot()
 {
-    //TODO: for now just save a screenshot to the preview location.
-    // should provide a save dialog and have a dropdown to save as the preview.
     QString fileName = machineConfigObject->getOption("hdd",QString()).toString().replace(QRegExp("[.][^.]+$"), ".ppm");
     machineProcess->write(QString("screendump " + fileName).toAscii() + '\n');
     machineConfigObject->setOption("preview", fileName);

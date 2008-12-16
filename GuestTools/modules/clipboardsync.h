@@ -1,7 +1,7 @@
 #ifndef CLIPBOARDSYNC_H
 #define CLIPBOARDSYNC_H
 
-#include "modules/guestmodule.h"
+#include "guestmodule.h"
 #include <QIODevice>
 #include <QClipboard>
 #include <QVariant>

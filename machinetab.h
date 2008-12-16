@@ -51,6 +51,7 @@ class QScrollArea;
 class QToolButton;
 class SettingsTab;
 class ControlPanel;
+class GuestToolsListener;
 
 class MachineTab : public QWidget
 {
@@ -104,6 +105,8 @@ private:
     ControlPanel *controlPanel;
 
     void cleanupView();
+    
+    GuestToolsListener *guestToolsListener;
 
 private slots:
     void start();

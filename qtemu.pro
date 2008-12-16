@@ -22,7 +22,10 @@ HEADERS = config.h \
  interfacemodel.h \
  floatingtoolbar.h \
  netconfig.h \
- machinescrollarea.h
+ machinescrollarea.h \
+ guesttoolslistener.h \
+ GuestTools/modules/guestmodule.h \
+ GuestTools/modules/clipboardsync.h
 SOURCES = main.cpp \
  mainwindow.cpp \
  helpwindow.cpp \
@@ -46,9 +49,12 @@ SOURCES = main.cpp \
  interfacemodel.cpp \
  floatingtoolbar.cpp \
  netconfig.cpp \
- machinescrollarea.cpp
+ machinescrollarea.cpp \
+ guesttoolslistener.cpp \
+ GuestTools/modules/clipboardsync.cpp \
+ GuestTools/modules/guestmodule.cpp
 RESOURCES = qtemu.qrc
-QT += xml svg webkit
+QT += xml svg webkit network
 win32 {
  LIBS =  -lshell32
  RC_FILE =  qtemu.rc
