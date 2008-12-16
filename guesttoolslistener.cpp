@@ -11,13 +11,14 @@ GuestToolsListener::GuestToolsListener( QString location, QObject *parent )
 {
     server = new QLocalServer(this);
     server->listen(location);
-    addModules();
+    qDebug() << "listening on" << location;
 }
 
 void GuestToolsListener::setupConnection()
 {
     QLocalSocket *device = server->nextPendingConnection();
     stream = new QDataStream(device);
+    addModules();
     connect(stream->device(), SIGNAL(readyRead()), this, SLOT(receiveData()));
 }
 
