@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/" >
+        <file alias="screenshot.png" >camera.png</file>
+        <file>cdrom.png</file>
+        <file>floppy.png</file>
+        <file>fullscreen.png</file>
+        <file>mouse.png</file>
+        <file>other.png</file>
+        <file alias="guestTray.png" >qtemu.png</file>
+        <file>reload.png</file>
+        <file>scale.png</file>
+        <file>sound.png</file>
+        <file>usb.png</file>
+    </qresource>
+</RCC>
