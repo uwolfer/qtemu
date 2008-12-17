@@ -6,12 +6,13 @@
  */
 
 #include "guestmodule.h"
+#include <QDebug>
 
 GuestModule::GuestModule(QDataStream *stream, QObject *parent)
 : QObject(parent)
 , stream(stream)
 {
-    connect(this, SIGNAL(sendData(QString, QString, QVariant)), parent, SLOT(dataSender(QString, QString, QVariant)));
+    connect(this, SIGNAL(sendData(QString, QString, QVariant&)), parent, SLOT(dataSender(QString, QString, QVariant&)));
 }
 
 GuestModule::~GuestModule() {
@@ -32,7 +33,7 @@ void GuestModule::receiveData(QString type, QVariant data)
 
 }
 
-void GuestModule::send(QString type, QVariant data)
+void GuestModule::send(QString type, QVariant &data)
 {
 	emit sendData(module, type, data);
 }

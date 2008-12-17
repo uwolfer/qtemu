@@ -21,7 +21,7 @@ private:
     void addModules();
     
 public slots:
-    void dataSender(QString module, QString type, QVariant data);
+    void dataSender(QString module, QString type, QVariant &data);
     
 private slots:
     void setupConnection();	

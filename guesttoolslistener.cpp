@@ -12,24 +12,29 @@ GuestToolsListener::GuestToolsListener( QString location, QObject *parent )
     server = new QLocalServer(this);
     server->listen(location);
     qDebug() << "listening on" << location;
+    connect(server, SIGNAL(newConnection()), this, SLOT(setupConnection()));
 }
 
 void GuestToolsListener::setupConnection()
 {
     QLocalSocket *device = server->nextPendingConnection();
     stream = new QDataStream(device);
+    
     addModules();
     connect(stream->device(), SIGNAL(readyRead()), this, SLOT(receiveData()));
 }
 
 void GuestToolsListener::receiveData()
 {
+    qDebug() << "got readyread";
 	QString usesModule;
 	QString type;
 	QVariant data;
 	*stream >> usesModule;
-	*stream >> type;
+    qDebug() << "received data from"<< usesModule;
+   	*stream >> type;
 	*stream >> data;
+    
     for(int i = 0; i < modules.size(); i++)
     {
     	if(modules.at(i)->moduleName() == usesModule)
@@ -44,9 +49,14 @@ void GuestToolsListener::addModules()
     modules.append(new ClipboardSync(stream, this));
 }
 
-void GuestToolsListener::dataSender(QString module, QString type, QVariant data)
+void GuestToolsListener::dataSender(QString module, QString type, QVariant &data)
 {
+    //if(data.isNull()||module.isNull()||type.isNull())
+        //return;
     sender()->blockSignals(true);
+    qDebug() << module;
+    qDebug() << type;
+    qDebug() << data;
 	*stream << module << type << data;
 	sender()->blockSignals(false);
 

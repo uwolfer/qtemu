@@ -28,14 +28,14 @@ public:
 protected:
     QDataStream *stream;
 
-    void send(QString type, QVariant data);
+    void send(QString type, QVariant &data);
     void setModuleName(QString name);
 
 private:
 	QString module;
 
 signals:
-    void sendData(QString module, QString type, QVariant data);
+    void sendData(QString module, QString type, QVariant &data);
 
 };
 
