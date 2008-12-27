@@ -44,7 +44,7 @@ private:
     QList<GuestModule *> modules;
 
 public slots:
-    void dataSender(QString module, QString type, QVariant data);
+    void dataSender(QString module, QString type, QVariant &data);
 
 private slots:
     void clickedIcon(QSystemTrayIcon::ActivationReason reason);

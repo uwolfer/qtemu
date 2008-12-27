@@ -92,7 +92,7 @@ void GuestTools::createModules()
     modules.append(new ClipboardSync(dataStream, this));
 }
 
-void GuestTools::dataSender(QString module, QString type, QVariant data)
+void GuestTools::dataSender(QString module, QString type, QVariant &data)
 {
     sender()->blockSignals(true);
 	*dataStream << module << type << data;
@@ -104,7 +104,7 @@ void GuestTools::initSerialPort()
 {
 	//modify the port settings on your own
 	#ifdef _TTY_POSIX_
-		port = new QextSerialPort("/dev/ttyS0", QextSerialPort::Polling);
+		port = new QextSerialPort("/dev/ttyS0", QextSerialPort::EventDriven);
 	#else
 		port = new QextSerialPort("COM1", QextSerialPort::EventDriven);
 	#endif /*_TTY_POSIX*/
