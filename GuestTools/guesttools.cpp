@@ -76,12 +76,14 @@ void GuestTools::ioReceived()
 	QString type;
 	QVariant data;
 	*dataStream >> usesModule;
-	*dataStream >> type;
-	*dataStream >> data;
+        qDebug() << "received data from"<< usesModule;
+
     for(int i = 0; i < modules.size(); i++)
     {
     	if(modules.at(i)->moduleName() == usesModule)
     	{
+                *dataStream >> type;
+                *dataStream >> data;
     		modules.at(i)->receiveData(type, data);
     	}
     }

@@ -32,13 +32,13 @@ void GuestToolsListener::receiveData()
 	QVariant data;
 	*stream >> usesModule;
     qDebug() << "received data from"<< usesModule;
-   	*stream >> type;
-	*stream >> data;
     
     for(int i = 0; i < modules.size(); i++)
     {
     	if(modules.at(i)->moduleName() == usesModule)
     	{
+   	        *stream >> type;
+	        *stream >> data;
     		modules.at(i)->receiveData(type, data);
     	}
     }
