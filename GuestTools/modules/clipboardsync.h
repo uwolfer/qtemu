@@ -13,7 +13,7 @@ class ClipboardSync : public GuestModule
     Q_OBJECT
 
 public:
-    ClipboardSync(QDataStream *stream, QObject *parent = 0);
+    ClipboardSync(QObject *parent = 0);
     ~ClipboardSync();
 
     virtual void receiveData(QString type, QVariant data);

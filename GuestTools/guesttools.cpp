@@ -1,7 +1,7 @@
 #include "guesttools.h"
 #include "modules/clipboard/clipboardsync.h"
-#include <qextserialport.h>
-#include <QDataStream>
+//#include <qextserialport.h>
+//#include <QDataStream>
 #include <QMenu>
 #include <QIcon>
 #include <QDebug>
@@ -15,13 +15,13 @@ GuestTools::GuestTools(QWidget *parent)
 
     initSerialPort();
 
-	dataStream = new QDataStream(port);
+        dataStream.setDevice(&port);
 
 	createActions();
-	createTrayIcon();
+        createTrayIcon();
 	createModules();
 
-    connect(port, SIGNAL(readyRead()), this, SLOT(ioReceived()));
+    connect(&port, SIGNAL(readyRead()), this, SLOT(ioReceived()));
 
 	trayIcon->show();
 }
@@ -75,15 +75,15 @@ void GuestTools::ioReceived()
 	QString usesModule;
 	QString type;
 	QVariant data;
-	*dataStream >> usesModule;
+        dataStream >> usesModule;
         qDebug() << "received data from"<< usesModule;
 
     for(int i = 0; i < modules.size(); i++)
     {
     	if(modules.at(i)->moduleName() == usesModule)
     	{
-                *dataStream >> type;
-                *dataStream >> data;
+                dataStream >> type;
+                dataStream >> data;
     		modules.at(i)->receiveData(type, data);
     	}
     }
@@ -91,13 +91,13 @@ void GuestTools::ioReceived()
 
 void GuestTools::createModules()
 {
-    modules.append(new ClipboardSync(dataStream, this));
+    modules.append(new ClipboardSync(this));
 }
 
 void GuestTools::dataSender(QString module, QString type, QVariant &data)
 {
     sender()->blockSignals(true);
-	*dataStream << module << type << data;
+        dataStream << module << type << data;
 	sender()->blockSignals(false);
 
 }
@@ -108,16 +108,16 @@ void GuestTools::initSerialPort()
 	#ifdef _TTY_POSIX_
 		port = new QextSerialPort("/dev/ttyS0", QextSerialPort::EventDriven);
 	#else
-		port = new QextSerialPort("COM1", QextSerialPort::EventDriven);
+        port = QextSerialPort("COM1", QextSerialPort::EventDriven);
 	#endif /*_TTY_POSIX*/
-	port->setBaudRate(BAUD19200);
-	port->setFlowControl(FLOW_OFF);
-	port->setParity(PAR_NONE);
-	port->setDataBits(DATA_8);
-	port->setStopBits(STOP_2);
+        port.setBaudRate(BAUD19200);
+        port.setFlowControl(FLOW_OFF);
+        port.setParity(PAR_NONE);
+        port.setDataBits(DATA_8);
+        port.setStopBits(STOP_2);
 	//set timeouts to 500 ms
-	port->setTimeout(500);
+        port.setTimeout(500);
 
 
-	port->open(QIODevice::ReadWrite | QIODevice::Unbuffered);
+        port.open(QIODevice::ReadWrite);
 }

@@ -8,9 +8,8 @@
 #include "guestmodule.h"
 #include <QDebug>
 
-GuestModule::GuestModule(QDataStream *stream, QObject *parent)
+GuestModule::GuestModule(QObject *parent)
 : QObject(parent)
-, stream(stream)
 {
     connect(this, SIGNAL(sendData(QString, QString, QVariant&)), parent, SLOT(dataSender(QString, QString, QVariant&)));
 }

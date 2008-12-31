@@ -5,8 +5,8 @@
 #include <QString>
 #include <QDebug>
 
-ClipboardSync::ClipboardSync(QDataStream *stream, QObject *parent)
-    : GuestModule(stream, parent)
+ClipboardSync::ClipboardSync(QObject *parent)
+    : GuestModule(parent)
 {
     previous = QVariant();
 	setModuleName("clipboard");

@@ -8,10 +8,13 @@
 #include "modules/guestmodule.h"
 #include "ui_guesttools.h"
 
+#include <QDataStream>
+#include <qextserialport.h>
+
  class QAction;
  class QMenu;
- class QextSerialPort;
- class QDataStream;
+ //class QextSerialPort;
+ //class QDataStream;
 
 
 class GuestTools : public QWidget
@@ -38,8 +41,8 @@ private:
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
-    QextSerialPort *port;
-    QDataStream *dataStream;
+    QextSerialPort port;
+    QDataStream dataStream;
 
     QList<GuestModule *> modules;
 
