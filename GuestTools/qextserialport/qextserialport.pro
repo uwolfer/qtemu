@@ -16,12 +16,12 @@ QT                     -= gui
 #MOC_DIR                 = build/moc
 DEPENDDIR               = .
 INCLUDEDIR              = .
-HEADERS                 = qextserialbase.h \
-                          qextserialport.h \
-                          qextserialenumerator.h
-SOURCES                 = qextserialbase.cpp \
-                          qextserialport.cpp \
-                          qextserialenumerator.cpp
+HEADERS                 = ./qextserialbase.h \
+                          ./qextserialport.h \
+                          ./qextserialenumerator.h
+SOURCES                 = ./qextserialbase.cpp \
+                          ./qextserialport.cpp \
+                          ./qextserialenumerator.cpp
 
 unix:HEADERS           += posix_qextserialport.h
 unix:SOURCES           += posix_qextserialport.cpp
