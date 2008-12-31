@@ -1,5 +1,5 @@
 #include "guesttools.h"
-#include "modules/clipboardsync.h"
+#include "modules/clipboard/clipboardsync.h"
 #include <qextserialport.h>
 #include <QDataStream>
 #include <QMenu>

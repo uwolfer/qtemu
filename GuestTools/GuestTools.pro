@@ -8,16 +8,13 @@ QMAKE_LIBDIR += qextserialport/build \
 QT += core \
     gui
 
-HEADERS += modules/guestmodule.h \
-    modules/clipboardsync.h \
-    guesttools.h
-SOURCES += modules/guestmodule.cpp \
-    modules/clipboardsync.cpp \
-    main.cpp \
+HEADERS += guesttools.h
+SOURCES += main.cpp \
     guesttools.cpp
 FORMS += guesttools.ui
 RESOURCES += resources/resources.qrc
 
+include(modules/guest.pri)
 
 CONFIG                 += qt
 CONFIG                 += warn_on

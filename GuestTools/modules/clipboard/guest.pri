@@ -1,2 +1,2 @@
-SOURCES += ../modules/clipboardsync.cpp
-HEADERS += ../modules/clipboardsync.cpp
+SOURCES += modules/clipboard/clipboardsync.cpp
+HEADERS += modules/clipboard/clipboardsync.h

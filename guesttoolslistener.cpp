@@ -1,6 +1,5 @@
 #include "guesttoolslistener.h"
-#include "GuestTools/modules/guestmodule.h"
-#include "GuestTools/modules/clipboardsync.h"
+#include "GuestTools/modules/clipboard/clipboardsync.h"
 #include <QLocalServer>
 #include <QLocalSocket>
 #include <QDataStream>
