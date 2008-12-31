@@ -56,7 +56,7 @@ SET(qtemu_SRCS
     floatingtoolbar.cpp
     guesttoolslistener.cpp
     GuestTools/modules/guestmodule.cpp
-    GuestTools/modules/clipboardsync.cpp
+    GuestTools/modules/clipboard/clipboardsync.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -86,7 +86,7 @@ SET(qtemu_MOC_HDRS
     floatingtoolbar.h
     guesttoolslistener.h
     GuestTools/modules/guestmodule.h
-    GuestTools/modules/clipboardsync.h
+    GuestTools/modules/clipboard/clipboardsync.h
 
 )
 
