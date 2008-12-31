@@ -143,8 +143,8 @@ Posix_QextSerialPort& Posix_QextSerialPort::operator=(const Posix_QextSerialPort
 void Posix_QextSerialPort::init()
 {
 	fd = 0;
-	if (queryMode() == QextSerialBase::EventDriven)
-		qWarning("POSIX doesn't have event driven mechanism implemented yet");
+	readNotifier = 0;
+  writeNotifier = 0;
 }
 
 /*!
@@ -156,6 +156,10 @@ Posix_QextSerialPort::~Posix_QextSerialPort()
     if (isOpen()) {
         close();
     }
+    if(readNotifier)
+      delete readNotifier;
+    if(writeNotifier)
+      delete writeNotifier;
 }
 
 /*!
@@ -869,6 +873,14 @@ bool Posix_QextSerialPort::open(OpenMode mode)
             setFlowControl(Settings.FlowControl);
             setTimeout(Settings.Timeout_Millisec);
             tcsetattr(fd, TCSAFLUSH, &Posix_CommConfig);
+            
+          if (queryMode() == QextSerialBase::EventDriven) {
+            readNotifier = new QSocketNotifier(fd, QSocketNotifier::Read);
+            writeNotifier = new QSocketNotifier(fd, QSocketNotifier::Write);
+            writeNotifier->setEnabled(false);
+            connect(readNotifier, SIGNAL(activated(int)), this, SLOT(onReadNotify(int)));
+            connect(writeNotifier, SIGNAL(activated(int)), this, SLOT(onWriteNotify(int)));
+          }
         } else {
             qDebug("could not open file: %s", strerror(errno));
         }
@@ -1100,6 +1112,7 @@ qint64 Posix_QextSerialPort::readData(char * data, qint64 maxSize)
     LOCK_MUTEX();
     int retVal = 0;
     retVal = ::read(fd, data, maxSize);
+    readNotifier->setEnabled(true);
     if (retVal == -1)
         lastErr = E_READ_FAILED;
     UNLOCK_MUTEX();
@@ -1120,10 +1133,29 @@ qint64 Posix_QextSerialPort::writeData(const char * data, qint64 maxSize)
 {
     LOCK_MUTEX();
     int retVal = 0;
+    writeNotifier->setEnabled(true);
     retVal = ::write(fd, data, maxSize);
     if (retVal == -1)
        lastErr = E_WRITE_FAILED;
+    else
+      _bytesWritten = retVal;
     UNLOCK_MUTEX();
     
     return (qint64)retVal;
 }
+
+void Posix_QextSerialPort::onReadNotify(int fd)
+{
+  readNotifier->setEnabled(false); // disable until the port has been read
+  if(this->fd == fd)
+    emit readyRead();
+}
+
+void Posix_QextSerialPort::onWriteNotify(int fd)
+{
+  writeNotifier->setEnabled(false); // disable until we're about to write to the port
+  if(this->fd == fd)
+    emit bytesWritten(_bytesWritten);
+  _bytesWritten = 0;
+}
+

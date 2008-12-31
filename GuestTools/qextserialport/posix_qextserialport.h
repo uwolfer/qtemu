@@ -9,10 +9,12 @@
 #include <sys/ioctl.h>
 #include <sys/select.h>
 #include "qextserialbase.h"
+#include <QSocketNotifier>
 
 class Posix_QextSerialPort:public QextSerialBase 
 {
-	private:
+	Q_OBJECT
+  private:
 	    /*!
 	     * This method is a part of constructor.
 	     */
@@ -27,6 +29,14 @@ class Posix_QextSerialPort:public QextSerialBase
 	
 	    virtual qint64 readData(char * data, qint64 maxSize);
 	    virtual qint64 writeData(const char * data, qint64 maxSize);
+      
+      QSocketNotifier *readNotifier;
+      QSocketNotifier *writeNotifier;
+      qint64 _bytesWritten;
+      
+  protected slots:
+    void onReadNotify(int fd);
+    void onWriteNotify(int fd);
 
 	public:
 	    Posix_QextSerialPort(QextSerialBase::QueryMode mode);
