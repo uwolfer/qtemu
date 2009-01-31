@@ -105,8 +105,9 @@ private:
     ControlPanel *controlPanel;
 
     void cleanupView();
-    
-    GuestToolsListener *guestToolsListener;
+   
+   /* this feature is not yet complete and may cause issues just yet... */ 
+   // GuestToolsListener *guestToolsListener;
 
 private slots:
     void start();

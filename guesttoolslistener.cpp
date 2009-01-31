@@ -25,11 +25,11 @@ void GuestToolsListener::setupConnection()
 
 void GuestToolsListener::receiveData()
 {
-    qDebug() << "got readyread";
 	QString usesModule;
 	QString type;
 	QVariant data;
 	*stream >> usesModule;
+        
     qDebug() << "received data from"<< usesModule;
     
     for(int i = 0; i < modules.size(); i++)

@@ -54,9 +54,9 @@ SET(qtemu_SRCS
     networkpage.cpp
     interfacemodel.cpp
     floatingtoolbar.cpp
-    guesttoolslistener.cpp
-    GuestTools/modules/guestmodule.cpp
-    GuestTools/modules/clipboard/clipboardsync.cpp
+#    guesttoolslistener.cpp
+#    GuestTools/modules/guestmodule.cpp
+#    GuestTools/modules/clipboard/clipboardsync.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -84,9 +84,9 @@ SET(qtemu_MOC_HDRS
     networkpage.h
     interfacemodel.h
     floatingtoolbar.h
-    guesttoolslistener.h
-    GuestTools/modules/guestmodule.h
-    GuestTools/modules/clipboard/clipboardsync.h
+#    guesttoolslistener.h
+#    GuestTools/modules/guestmodule.h
+#    GuestTools/modules/clipboard/clipboardsync.h
 
 )
 
