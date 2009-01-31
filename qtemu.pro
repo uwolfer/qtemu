@@ -22,8 +22,8 @@ HEADERS = config.h \
  interfacemodel.h \
  floatingtoolbar.h \
  netconfig.h \
- machinescrollarea.h \
- guesttoolslistener.h
+ machinescrollarea.h
+ #guesttoolslistener.h
 SOURCES = main.cpp \
  mainwindow.cpp \
  helpwindow.cpp \
@@ -47,8 +47,8 @@ SOURCES = main.cpp \
  interfacemodel.cpp \
  floatingtoolbar.cpp \
  netconfig.cpp \
- machinescrollarea.cpp \
- guesttoolslistener.cpp
+ machinescrollarea.cpp
+ #guesttoolslistener.cpp
 
 include(GuestTools/modules/host.pri)
 
