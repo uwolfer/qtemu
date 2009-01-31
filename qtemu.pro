@@ -50,7 +50,7 @@ SOURCES = main.cpp \
  machinescrollarea.cpp
  #guesttoolslistener.cpp
 
-include(GuestTools/modules/host.pri)
+#include(GuestTools/modules/host.pri)
 
 RESOURCES = qtemu.qrc
 QT += xml svg webkit network
