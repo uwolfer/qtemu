@@ -231,6 +231,8 @@ bool MachineView::event(QEvent * event)
     {
         view->setFocus();
         view->grabKeyboard();
+        //repainting here fixes an issue where the vncview goes blank on mouseout
+        view->repaint();
         return true;
     }
     else if (event->type() == QEvent::Leave)
