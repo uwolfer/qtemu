@@ -132,6 +132,10 @@ void MachineView::fullscreen(bool enable)
         fullscreenWindow->showFullScreen();
 
         showToolBar();
+
+        captureAllKeys(true);
+        view->grabKeyboard();
+
     }
     else if(fullscreenEnabled)
     {
@@ -148,10 +152,8 @@ void MachineView::fullscreen(bool enable)
         toolBar->hideAndDestroy();
         toolBar->deleteLater();
         toolBar = 0;
-
         fullscreenWindow->deleteLater();
         fullscreenWindow = 0;
-
         showSplash(false);
     }
     fullscreenEnabled = enable;
@@ -235,6 +237,8 @@ bool MachineView::event(QEvent * event)
     {
         view->clearFocus();
         view->releaseKeyboard();
+        //repainting here fixes an issue where the vncview goes blank on mouseout
+        view->repaint();
         return true;
     }
     else if (event->type() == QEvent::KeyPress) {
