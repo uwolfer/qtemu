@@ -33,7 +33,6 @@ MachineScrollArea::MachineScrollArea(QWidget* parent)
 {
     setAlignment(Qt::AlignCenter);
     setFrameShape(QFrame::NoFrame);
-	// TODO
 }
 
 void MachineScrollArea::resizeEvent(QResizeEvent * event)
@@ -64,12 +63,16 @@ void MachineScrollArea::resizeView(int widgetWidth, int widgetHeight)
    widget()->blockSignals(true);
     if(!property("scaleEmbeddedDisplay").toBool())
     {
+#ifdef DEVELOPER
         qDebug("no scaling");
+#endif
         static_cast<VncView *>(widget())->enableScaling(false);
     }
     else
     {
+#ifdef DEVELOPER
         qDebug("scaling");
+#endif
        static_cast<VncView *>(widget())->enableScaling(true);
        static_cast<VncView *>(widget())->scaleResize(widgetWidth,widgetHeight);
     }
