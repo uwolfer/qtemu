@@ -235,10 +235,24 @@ void MachineWizard::accept()
     arguments << QString::number(field("size").toDouble()*1024)+'M';
 #ifndef Q_OS_WIN32
     imageCreateProcess->start("qemu-img", arguments);
+    imageCreateProcess->waitForFinished();
+    if(imageCreateProcess->error() != QProcess::UnknownError)
+    {
+        //we may be on a system that uses "kvm-img" instead
+        imageCreateProcess->start("kvm-img", arguments);
+        imageCreateProcess->waitForFinished();
+    }
 #elif defined(Q_OS_WIN32)
     imageCreateProcess->start("qemu/qemu-img.exe", arguments);
 #endif
-    QMessageBox::information(this, tr("Finished"), tr("Image created"));
+    if(imageCreateProcess->error() == QProcess::UnknownError)
+        QMessageBox::information(this, tr("Finished"), tr("Image created"));
+    else
+#ifndef Q_OS_WIN32
+        QMessageBox::warning(this, tr("Finished"), tr("Image NOT created!<br> You may be missing either qemu-img or kvm-img, or they are not executable!"));
+#elif defined(Q_OS_WIN32)
+        QMessageBox::warning(this, tr("Finished"), tr("Image NOT created!<br> You may be missing qemu/qemu-img.exe!"));
+#endif
 
     QDialog::accept();
 }
