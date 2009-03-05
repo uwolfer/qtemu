@@ -31,44 +31,35 @@
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="frame">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+       <widget class="Line" name="line_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_8">
-         <item>
-          <widget class="QLabel" name="label_16">
-           <property name="text">
-            <string>USB Devices</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_3">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="mouseCheck">
-           <property name="toolTip">
-            <string>Toggle smooth mouse transitions between
-the host and the guest. requires guest USB support.</string>
-           </property>
-           <property name="text">
-            <string>Seamless USB Mouse</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_16">
+        <property name="text">
+         <string>USB Devices</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="mouseCheck">
+        <property name="toolTip">
+         <string>Toggle smooth mouse transitions between
+the host and the guest. requires guest USB support.</string>
+        </property>
+        <property name="text">
+         <string>Seamless USB Mouse</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableView" name="usbView"/>
       </item>
       <item>
        <spacer name="verticalSpacer_9">
@@ -89,5 +80,38 @@ the host and the guest. requires guest USB support.</string>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>usbCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>mouseCheck</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>53</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>52</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>usbCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>usbView</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>85</x>
+     <y>136</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

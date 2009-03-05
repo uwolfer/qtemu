@@ -23,7 +23,9 @@ HEADERS = config.h \
     floatingtoolbar.h \
     netconfig.h \
     machinescrollarea.h \
-    usbpage.h
+    usbpage.h \
+    usbconfig.h \
+    usbmodel.h
 
 # guesttoolslistener.h
 SOURCES = main.cpp \
@@ -50,7 +52,9 @@ SOURCES = main.cpp \
     floatingtoolbar.cpp \
     netconfig.cpp \
     machinescrollarea.cpp \
-    usbpage.cpp
+    usbpage.cpp \
+    usbconfig.cpp \
+    usbmodel.cpp
 
 # guesttoolslistener.cpp
 # include(GuestTools/modules/host.pri)
