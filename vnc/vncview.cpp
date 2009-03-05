@@ -123,8 +123,17 @@ QSize VncView::minimumSizeHint() const
 
 void VncView::scaleResize(int w, int h)
 {
-    kDebug(5011) << w << h;
+    //kDebug(5011) << w << h;
+    //kDebug(5011) << m_frame.width() << m_frame.height();
     if (m_scale) {
+        //sometimes the m_frame has a zero size when we get called, so we need to try again to get a good frame
+        if(m_frame.width() == 0||m_frame.height() == 0)
+        {
+            kDebug(5011) << "regetting image";
+            m_frame = vncThread.image();
+        }
+
+        //}
         m_verticalFactor = (qreal) h / m_frame.height();
         m_horizontalFactor = (qreal) w / m_frame.width();
 
@@ -138,6 +147,7 @@ void VncView::scaleResize(int w, int h)
 
         qreal newW = m_frame.width() * m_horizontalFactor;
         qreal newH = m_frame.height() * m_verticalFactor;
+
         setMaximumSize(newW, newH); //This is a hack to force Qt to center the view in the scroll area
         resize(newW, newH);
     }
