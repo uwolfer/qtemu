@@ -188,6 +188,8 @@ QStringList HostInterface::parseOpts()
         //[fd=h]
         netOpts << "ifname=" + property("interface").toString();
         //[script=file]
+        netOpts << "script=no";
+        netOpts << "downscript=no";
     }
     else if(property("type").toString() == tr("Routed Interface"))
     {
@@ -197,6 +199,8 @@ QStringList HostInterface::parseOpts()
         //[fd=h]
         netOpts << "ifname=" + property("interface").toString();
         //[script=file]
+        netOpts << "script=no";
+        netOpts << "downscript=no";
     }
     else if(property("type").toString() == tr("Shared Virtual Lan"))
     {
@@ -218,6 +222,7 @@ QStringList HostInterface::parseOpts()
         type="tap";
         netOpts << "ifname=" + property("interface").toString();
         netOpts << "script=" + property("ifUp").toString();
+        netOpts << "downscript=" + property("ifDown").toString();
     }
     
     opts << "-net" << type + ",vlan=" + QString().setNum(vlan) + (netOpts.isEmpty()?QString():("," + netOpts.join(",")));
