@@ -25,6 +25,7 @@
 #include "machineconfigobject.h"
 #include "helpwindow.h"
 #include "networkpage.h"
+#include "usbpage.h"
 #include "qtemuenvironment.h"
 
 #include <QIcon>
@@ -45,6 +46,10 @@ SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
     netPage = new NetworkPage(config, this);
     networkPage->setLayout(new QVBoxLayout());
     networkPage->layout()->addWidget(netPage);
+
+    usbPageWidget = new UsbPage(config, this);
+    usbPage->setLayout(new QVBoxLayout());
+    usbPage->layout()->addWidget(usbPageWidget);
 
     setupConnections();
 
@@ -90,10 +95,8 @@ void SettingsTab::registerWidgets()
     config->registerObject(afterEdit, "execAfter");
     config->registerObject(osCheck, "operatingSystem", QVariant("Other"));
     config->registerObject(hiResCheck, "hiRes", QVariant(false));
-    config->registerObject(mouseCheck, "mouse", QVariant(true));
     config->registerObject(acpiCheck, "acpi", QVariant(true));
     config->registerObject(hddAccelCheck, "hddVirtio", QVariant(false));
-    config->registerObject(usbCheck, "usbSupport", QVariant(true));
 }
 
 void SettingsTab::changeHelpTopic()

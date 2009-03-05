@@ -1,279 +1,272 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>SettingsTab</class>
- <widget class="QFrame" name="SettingsTab" >
-  <property name="windowModality" >
+ <widget class="QFrame" name="SettingsTab">
+  <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
-  <property name="geometry" >
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>705</width>
-    <height>568</height>
+    <height>574</height>
    </rect>
   </property>
-  <property name="minimumSize" >
+  <property name="minimumSize">
    <size>
     <width>652</width>
     <height>0</height>
    </size>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Settings</string>
   </property>
-  <property name="frameShape" >
+  <property name="frameShape">
    <enum>QFrame::NoFrame</enum>
   </property>
-  <property name="frameShadow" >
+  <property name="frameShadow">
    <enum>QFrame::Raised</enum>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
-    <layout class="QVBoxLayout" name="verticalLayout_18" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_18">
      <item>
-      <widget class="QListWidget" name="settingsList" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Minimum" hsizetype="Fixed" >
+      <widget class="QListWidget" name="settingsList">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>10</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>192</width>
          <height>0</height>
         </size>
        </property>
-       <property name="contextMenuPolicy" >
+       <property name="contextMenuPolicy">
         <enum>Qt::ActionsContextMenu</enum>
        </property>
-       <property name="editTriggers" >
+       <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
-       <property name="showDropIndicator" stdset="0" >
+       <property name="showDropIndicator" stdset="0">
         <bool>false</bool>
        </property>
-       <property name="alternatingRowColors" >
+       <property name="alternatingRowColors">
         <bool>true</bool>
        </property>
-       <property name="iconSize" >
+       <property name="iconSize">
         <size>
          <width>48</width>
          <height>48</height>
         </size>
        </property>
-       <property name="isWrapping" stdset="0" >
+       <property name="isWrapping" stdset="0">
         <bool>false</bool>
        </property>
-       <property name="resizeMode" >
+       <property name="resizeMode">
         <enum>QListView::Adjust</enum>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>4</number>
        </property>
-       <property name="uniformItemSizes" >
+       <property name="uniformItemSizes">
         <bool>false</bool>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>true</bool>
        </property>
-       <property name="selectionRectVisible" >
+       <property name="selectionRectVisible">
         <bool>true</bool>
        </property>
-       <property name="currentRow" >
+       <property name="currentRow">
         <number>-1</number>
        </property>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Cpu / Memory</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/memory.png</normaloff>:/images/oxygen/memory.png</iconset>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Hard Disk</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/hdd.png</normaloff>:/images/oxygen/hdd.png</iconset>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Removable Media</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/cdrom.png</normaloff>:/images/oxygen/cdrom.png</iconset>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>USB Support</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/usb.png</normaloff>:/images/oxygen/usb.png</iconset>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Networking</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/network.png</normaloff>:/images/oxygen/network.png</iconset>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Sound</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/sound.png</normaloff>:/images/oxygen/sound.png</iconset>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Display</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Other Options</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
+        <property name="icon">
+         <iconset>
           <normaloff>:/images/oxygen/other.png</normaloff>:/images/oxygen/other.png</iconset>
         </property>
        </item>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="helpButton" >
-       <property name="toolTip" >
+      <widget class="QPushButton" name="helpButton">
+       <property name="toolTip">
         <string>Display an online help dialog</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;Help</string>
        </property>
-       <property name="checkable" >
+       <property name="checkable">
         <bool>true</bool>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="0" column="2" >
-    <layout class="QVBoxLayout" name="verticalLayout_17" >
+   <item row="0" column="2">
+    <layout class="QVBoxLayout" name="verticalLayout_17">
      <item>
-      <widget class="QScrollArea" name="scrollArea" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>0</width>
          <height>0</height>
         </size>
        </property>
-       <property name="autoFillBackground" >
+       <property name="autoFillBackground">
         <bool>false</bool>
        </property>
-       <property name="frameShape" >
+       <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
        </property>
-       <property name="lineWidth" >
+       <property name="lineWidth">
         <number>0</number>
        </property>
-       <property name="widgetResizable" >
+       <property name="widgetResizable">
         <bool>true</bool>
        </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents" >
-        <property name="enabled" >
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="enabled">
          <bool>true</bool>
         </property>
-        <property name="geometry" >
+        <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>497</width>
-          <height>456</height>
+          <width>485</width>
+          <height>432</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_19" >
-         <property name="margin" >
+        <layout class="QVBoxLayout" name="verticalLayout_19">
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QStackedWidget" name="settingsStack" >
-           <property name="currentIndex" >
+          <widget class="QStackedWidget" name="settingsStack">
+           <property name="currentIndex">
             <number>0</number>
            </property>
-           <widget class="QWidget" name="cpuPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="cpuPage">
+            <property name="helpFile" stdset="0">
              <string>cpu-memory.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_9" >
+            <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
-              <widget class="QGroupBox" name="cpuBox" >
-               <property name="toolTip" >
+              <widget class="QGroupBox" name="cpuBox">
+               <property name="toolTip">
                 <string/>
                </property>
-               <property name="title" >
+               <property name="title">
                 <string>Cpu / &amp;Memory</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_3" >
+               <layout class="QVBoxLayout" name="verticalLayout_3">
                 <item>
-                 <widget class="QLabel" name="label_3" >
-                  <property name="text" >
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
                    <string>Number of virtual &amp;CPUs:</string>
                   </property>
-                  <property name="buddy" >
+                  <property name="buddy">
                    <cstring>cpuSpinBox</cstring>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QFormLayout" name="formLayout_5" >
-                  <property name="fieldGrowthPolicy" >
+                 <layout class="QFormLayout" name="formLayout_5">
+                  <property name="fieldGrowthPolicy">
                    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                   </property>
-                  <item row="0" column="0" >
-                   <widget class="QSpinBox" name="cpuSpinBox" >
-                    <property name="toolTip" >
+                  <item row="0" column="0">
+                   <widget class="QSpinBox" name="cpuSpinBox">
+                    <property name="toolTip">
                      <string>Change the number of virtual CPUs your machine has</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1" >
-                   <widget class="QLabel" name="label" >
-                    <property name="toolTip" >
+                  <item row="0" column="1">
+                   <widget class="QLabel" name="label">
+                    <property name="toolTip">
                      <string>Change the number of virtual CPUs your machine has</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Virtual CPU(s)</string>
                     </property>
-                    <property name="buddy" >
+                    <property name="buddy">
                      <cstring>cpuSpinBox</cstring>
                     </property>
                    </widget>
@@ -281,99 +274,99 @@
                  </layout>
                 </item>
                 <item>
-                 <widget class="Line" name="line" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_2" >
-                  <property name="text" >
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
                    <string>&amp;Memory for this virtual machine:</string>
                   </property>
-                  <property name="buddy" >
+                  <property name="buddy">
                    <cstring>memorySpinBox</cstring>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_3" >
+                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                   <item>
-                   <widget class="QSlider" name="memorySlider" >
-                    <property name="toolTip" >
-                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+                   <widget class="QSlider" name="memorySlider">
+                    <property name="toolTip">
+                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Change the amount of virtual memory your machine has.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">WARNING: &lt;span style=" font-weight:400;">Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change the amount of virtual memory your machine has.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;WARNING: &lt;span style=&quot; font-weight:400;&quot;&gt;Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
-                    <property name="maximum" >
+                    <property name="maximum">
                      <number>1024</number>
                     </property>
-                    <property name="singleStep" >
+                    <property name="singleStep">
                      <number>1</number>
                     </property>
-                    <property name="pageStep" >
+                    <property name="pageStep">
                      <number>128</number>
                     </property>
-                    <property name="orientation" >
+                    <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
-                    <property name="tickPosition" >
+                    <property name="tickPosition">
                      <enum>QSlider::NoTicks</enum>
                     </property>
-                    <property name="tickInterval" >
+                    <property name="tickInterval">
                      <number>128</number>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="memorySpinBox" >
-                    <property name="toolTip" >
-                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+                   <widget class="QSpinBox" name="memorySpinBox">
+                    <property name="toolTip">
+                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Change the amount of virtual memory your machine has.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">WARNING: &lt;span style=" font-weight:400;">Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change the amount of virtual memory your machine has.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;WARNING: &lt;span style=&quot; font-weight:400;&quot;&gt;Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
-                    <property name="minimum" >
+                    <property name="minimum">
                      <number>0</number>
                     </property>
-                    <property name="maximum" >
+                    <property name="maximum">
                      <number>4096</number>
                     </property>
-                    <property name="singleStep" >
+                    <property name="singleStep">
                      <number>1</number>
                     </property>
-                    <property name="value" >
+                    <property name="value">
                      <number>128</number>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_17" >
-                    <property name="toolTip" >
-                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+                   <widget class="QLabel" name="label_17">
+                    <property name="toolTip">
+                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Change the amount of virtual memory your machine has.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">WARNING: &lt;span style=" font-weight:400;">Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change the amount of virtual memory your machine has.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;WARNING: &lt;span style=&quot; font-weight:400;&quot;&gt;Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Mb</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_2" >
-                    <property name="orientation" >
+                   <spacer name="horizontalSpacer_2">
+                    <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
-                    <property name="sizeHint" stdset="0" >
+                    <property name="sizeHint" stdset="0">
                      <size>
                       <width>40</width>
                       <height>20</height>
@@ -384,30 +377,30 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <widget class="Line" name="line_2" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_2">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_25" >
+                 <layout class="QHBoxLayout" name="horizontalLayout_25">
                   <item>
-                   <widget class="QCheckBox" name="virtCheckBox" >
-                    <property name="toolTip" >
+                   <widget class="QCheckBox" name="virtCheckBox">
+                    <property name="toolTip">
                      <string>Hardware virtualization will allow your machine to run at near-hardware speeds. This uses either KVM or KQEMU if available.</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Enable Hardware &amp;Virtualization</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="acpiCheck" >
-                    <property name="toolTip" >
+                   <widget class="QCheckBox" name="acpiCheck">
+                    <property name="toolTip">
                      <string>ACPI support allows QtEmu to tell the machine to shut down gracefully, among other things. It is reccommended.</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Enable ACPI</string>
                     </property>
                    </widget>
@@ -415,106 +408,106 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <widget class="Line" name="line_8" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_8">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_14" >
-                  <property name="toolTip" >
+                 <widget class="QLabel" name="label_14">
+                  <property name="toolTip">
                    <string/>
                   </property>
-                  <property name="text" >
+                  <property name="text">
                    <string>Allow the virtual machine to use the system clock for improved accuracy:</string>
                   </property>
-                  <property name="wordWrap" >
+                  <property name="wordWrap">
                    <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="timeCheck" >
-                  <property name="toolTip" >
+                 <widget class="QCheckBox" name="timeCheck">
+                  <property name="toolTip">
                    <string>This uses the host Real Time Clock for timing events, and should speed up accelerated drivers performance.</string>
                   </property>
-                  <property name="text" >
+                  <property name="text">
                    <string>Use the &amp;System Clock</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_10" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_10">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QFormLayout" name="formLayout" >
-                  <property name="fieldGrowthPolicy" >
+                 <layout class="QFormLayout" name="formLayout">
+                  <property name="fieldGrowthPolicy">
                    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                   </property>
-                  <item row="0" column="0" >
-                   <widget class="QComboBox" name="osCheck" >
-                    <property name="enabled" >
+                  <item row="0" column="0">
+                   <widget class="QComboBox" name="osCheck">
+                    <property name="enabled">
                      <bool>true</bool>
                     </property>
-                    <property name="toolTip" >
+                    <property name="toolTip">
                      <string>Change the guest operating system QtEmu tries to interoperate with. This option does not yet have any effect.</string>
                     </property>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>Linux</string>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>Windows 98</string>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>Windows 2000</string>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>Windows XP</string>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>Windows Vista</string>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>ReactOS</string>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>BSD</string>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>Other</string>
                      </property>
                     </item>
                    </widget>
                   </item>
-                  <item row="0" column="1" >
-                   <widget class="QLabel" name="label_15" >
-                    <property name="enabled" >
+                  <item row="0" column="1">
+                   <widget class="QLabel" name="label_15">
+                    <property name="enabled">
                      <bool>true</bool>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Installed Operating System</string>
                     </property>
-                    <property name="buddy" >
+                    <property name="buddy">
                      <cstring>osCheck</cstring>
                     </property>
                    </widget>
@@ -522,11 +515,11 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_3" >
-                  <property name="orientation" >
+                 <spacer name="verticalSpacer_3">
+                  <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
-                  <property name="sizeHint" stdset="0" >
+                  <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
                     <height>40</height>
@@ -539,50 +532,42 @@ p, li { white-space: pre-wrap; }
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="hardDiskPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="hardDiskPage">
+            <property name="helpFile" stdset="0">
              <string>harddisk.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_11" >
+            <layout class="QVBoxLayout" name="verticalLayout_11">
              <item>
-              <widget class="QGroupBox" name="hdBox" >
-               <property name="title" >
+              <widget class="QGroupBox" name="hdBox">
+               <property name="title">
                 <string>&amp;Hard Disk</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_4" >
+               <layout class="QVBoxLayout" name="verticalLayout_4">
                 <item>
-                 <widget class="QLabel" name="label_4" >
-                  <property name="text" >
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
                    <string>Select a valid hard disk image for QtEmu. </string>
                   </property>
-                  <property name="buddy" >
+                  <property name="buddy">
                    <cstring>hdImage</cstring>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_4" >
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                   <item>
-                   <widget class="QLineEdit" name="hdImage" >
-                    <property name="toolTip" >
+                   <widget class="QLineEdit" name="hdImage">
+                    <property name="toolTip">
                      <string>The Hard Disk Image QtEmu tries to boot from.</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="hdSelectButton" >
-                    <property name="text" >
+                   <widget class="QPushButton" name="hdSelectButton">
+                    <property name="text">
                      <string/>
                     </property>
-                    <property name="icon" >
+                    <property name="icon">
                      <iconset>
                       <normalon>:/images/oxygen/open.png</normalon>
                      </iconset>
@@ -590,15 +575,15 @@ p, li { white-space: pre-wrap; }
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_9" >
-                    <property name="text" >
-                     <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+                   <widget class="QLabel" name="label_9">
+                    <property name="text">
+                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">do not&lt;/span> change this if you do not know what you are doing! See the help for more details.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;do not&lt;/span&gt; change this if you do not know what you are doing! See the help for more details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
-                    <property name="wordWrap" >
+                    <property name="wordWrap">
                      <bool>true</bool>
                     </property>
                    </widget>
@@ -606,52 +591,52 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="hddAccelCheck" >
-                  <property name="toolTip" >
+                 <widget class="QCheckBox" name="hddAccelCheck">
+                  <property name="toolTip">
                    <string>Use Accelerated Disk Drivers. These are not supported for Windows guests.</string>
                   </property>
-                  <property name="text" >
+                  <property name="text">
                    <string>Accelerated Hard Disk Drivers</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QFrame" name="upgradeFrame" >
-                  <property name="enabled" >
+                 <widget class="QFrame" name="upgradeFrame">
+                  <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="frameShape" >
+                  <property name="frameShape">
                    <enum>QFrame::NoFrame</enum>
                   </property>
-                  <property name="frameShadow" >
+                  <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_25" >
+                  <layout class="QVBoxLayout" name="verticalLayout_25">
                    <item>
-                    <widget class="Line" name="line_7" >
-                     <property name="orientation" >
+                    <widget class="Line" name="line_7">
+                     <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout" >
+                    <layout class="QHBoxLayout" name="horizontalLayout">
                      <item>
-                      <widget class="QPushButton" name="upgradeButton" >
-                       <property name="toolTip" >
+                      <widget class="QPushButton" name="upgradeButton">
+                       <property name="toolTip">
                         <string>You may upgrade your image to the qcow2 format to recieve additional features like suspend/resume.</string>
                        </property>
-                       <property name="text" >
+                       <property name="text">
                         <string>Upgrade Image</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_12" >
-                       <property name="text" >
+                      <widget class="QLabel" name="label_12">
+                       <property name="text">
                         <string>Upgrade your image to enable advanced features</string>
                        </property>
-                       <property name="wordWrap" >
+                       <property name="wordWrap">
                         <bool>true</bool>
                        </property>
                       </widget>
@@ -662,65 +647,65 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_6" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_6">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_7" >
-                  <property name="text" >
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
                    <string>Image Information</string>
                   </property>
-                  <property name="alignment" >
+                  <property name="alignment">
                    <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QFormLayout" name="formLayout_3" >
-                  <property name="fieldGrowthPolicy" >
+                 <layout class="QFormLayout" name="formLayout_3">
+                  <property name="fieldGrowthPolicy">
                    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                   </property>
-                  <item row="0" column="0" >
-                   <widget class="QLabel" name="label_19" >
-                    <property name="text" >
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_19">
+                    <property name="text">
                      <string>Image Format:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1" >
-                   <widget class="QLabel" name="formatLabel" >
-                    <property name="text" >
+                  <item row="0" column="1">
+                   <widget class="QLabel" name="formatLabel">
+                    <property name="text">
                      <string>Img Format</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="0" >
-                   <widget class="QLabel" name="label_20" >
-                    <property name="text" >
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_20">
+                    <property name="text">
                      <string>Virtual Image Size:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1" >
-                   <widget class="QLabel" name="virtSizeLabel" >
-                    <property name="text" >
+                  <item row="1" column="1">
+                   <widget class="QLabel" name="virtSizeLabel">
+                    <property name="text">
                      <string>Virt Size</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="0" >
-                   <widget class="QLabel" name="label_21" >
-                    <property name="text" >
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_21">
+                    <property name="text">
                      <string>On Disk Size:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1" >
-                   <widget class="QLabel" name="phySizeLabel" >
-                    <property name="text" >
+                  <item row="2" column="1">
+                   <widget class="QLabel" name="phySizeLabel">
+                    <property name="text">
                      <string>Phy Size</string>
                     </property>
                    </widget>
@@ -728,11 +713,11 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_2" >
-                  <property name="orientation" >
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
-                  <property name="sizeHint" stdset="0" >
+                  <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
                     <height>40</height>
@@ -745,69 +730,61 @@ p, li { white-space: pre-wrap; }
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="mediaPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="mediaPage">
+            <property name="helpFile" stdset="0">
              <string>removablemedia.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_12" >
+            <layout class="QVBoxLayout" name="verticalLayout_12">
              <item>
-              <widget class="QGroupBox" name="mediaBox" >
-               <property name="title" >
+              <widget class="QGroupBox" name="mediaBox">
+               <property name="title">
                 <string>Removable Media</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_5" >
+               <layout class="QVBoxLayout" name="verticalLayout_5">
                 <item>
-                 <widget class="QLabel" name="label_5" >
-                  <property name="text" >
+                 <widget class="QLabel" name="label_5">
+                  <property name="text">
                    <string>CD/DVD Image or device:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_7" >
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
                   <item>
-                   <widget class="QComboBox" name="cdImage" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <widget class="QComboBox" name="cdImage">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
-                    <property name="toolTip" >
+                    <property name="toolTip">
                      <string>Enter a CD image name or /dev/cdrom to use the host cd drive.</string>
                     </property>
-                    <property name="editable" >
+                    <property name="editable">
                      <bool>true</bool>
                     </property>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string/>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>/dev/cdrom</string>
                      </property>
                     </item>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="cdSelectButton" >
-                    <property name="toolTip" >
+                   <widget class="QPushButton" name="cdSelectButton">
+                    <property name="toolTip">
                      <string>secect a new CD image</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string/>
                     </property>
-                    <property name="icon" >
+                    <property name="icon">
                      <iconset>
                       <normalon>:/images/oxygen/cdrom.png</normalon>
                      </iconset>
@@ -815,11 +792,11 @@ p, li { white-space: pre-wrap; }
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_5" >
-                    <property name="orientation" >
+                   <spacer name="horizontalSpacer_5">
+                    <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
-                    <property name="sizeHint" stdset="0" >
+                    <property name="sizeHint" stdset="0">
                      <size>
                       <width>40</width>
                       <height>20</height>
@@ -830,34 +807,34 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_15" >
+                 <layout class="QHBoxLayout" name="horizontalLayout_15">
                   <item>
-                   <widget class="QPushButton" name="pushButton" >
-                    <property name="text" >
+                   <widget class="QPushButton" name="pushButton">
+                    <property name="text">
                      <string>Clear</string>
                     </property>
-                    <property name="icon" >
-                     <iconset resource="../qtemu.qrc" >
+                    <property name="icon">
+                     <iconset>
                       <normaloff>:/images/oxygen/close.png</normaloff>:/images/oxygen/close.png</iconset>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="cdBootCheck" >
-                    <property name="toolTip" >
+                   <widget class="QCheckBox" name="cdBootCheck">
+                    <property name="toolTip">
                      <string>Try to boot from the CD first</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Boot from CD/DVD</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_4" >
-                    <property name="orientation" >
+                   <spacer name="horizontalSpacer_4">
+                    <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
-                    <property name="sizeHint" stdset="0" >
+                    <property name="sizeHint" stdset="0">
                      <size>
                       <width>40</width>
                       <height>20</height>
@@ -868,56 +845,56 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <widget class="Line" name="line_4" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_4">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_6" >
-                  <property name="text" >
+                 <widget class="QLabel" name="label_6">
+                  <property name="text">
                    <string>Floppy disk Image or device:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_6" >
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
                   <item>
-                   <widget class="QComboBox" name="floppyImage" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <widget class="QComboBox" name="floppyImage">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
-                    <property name="toolTip" >
+                    <property name="toolTip">
                      <string>enter a floppy image or /dev/floppy to use the host floppy drive.</string>
                     </property>
-                    <property name="editable" >
+                    <property name="editable">
                      <bool>true</bool>
                     </property>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string/>
                      </property>
                     </item>
                     <item>
-                     <property name="text" >
+                     <property name="text">
                       <string>/dev/floppy</string>
                      </property>
                     </item>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="floppySelectButton" >
-                    <property name="toolTip" >
+                   <widget class="QPushButton" name="floppySelectButton">
+                    <property name="toolTip">
                      <string>secect a new floppy disk image</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string/>
                     </property>
-                    <property name="icon" >
+                    <property name="icon">
                      <iconset>
                       <normalon>:/images/oxygen/floppy.png</normalon>
                      </iconset>
@@ -925,11 +902,11 @@ p, li { white-space: pre-wrap; }
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_6" >
-                    <property name="orientation" >
+                   <spacer name="horizontalSpacer_6">
+                    <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
-                    <property name="sizeHint" stdset="0" >
+                    <property name="sizeHint" stdset="0">
                      <size>
                       <width>40</width>
                       <height>20</height>
@@ -940,34 +917,34 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_16" >
+                 <layout class="QHBoxLayout" name="horizontalLayout_16">
                   <item>
-                   <widget class="QPushButton" name="pushButton_2" >
-                    <property name="text" >
+                   <widget class="QPushButton" name="pushButton_2">
+                    <property name="text">
                      <string>Clear</string>
                     </property>
-                    <property name="icon" >
-                     <iconset resource="../qtemu.qrc" >
+                    <property name="icon">
+                     <iconset>
                       <normaloff>:/images/oxygen/close.png</normaloff>:/images/oxygen/close.png</iconset>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="floppyBootCheck" >
-                    <property name="toolTip" >
+                   <widget class="QCheckBox" name="floppyBootCheck">
+                    <property name="toolTip">
                      <string>Try to boot from the floppy first</string>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Boot from floppy disk</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_7" >
-                    <property name="orientation" >
+                   <spacer name="horizontalSpacer_7">
+                    <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
-                    <property name="sizeHint" stdset="0" >
+                    <property name="sizeHint" stdset="0">
                      <size>
                       <width>40</width>
                       <height>20</height>
@@ -978,11 +955,11 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer" >
-                  <property name="orientation" >
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
-                  <property name="sizeHint" stdset="0" >
+                  <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
                     <height>40</height>
@@ -995,187 +972,90 @@ p, li { white-space: pre-wrap; }
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="usbPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="usbPage">
+            <property name="helpFile" stdset="0">
              <string>usb.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout" >
-             <item>
-              <widget class="QGroupBox" name="usbBox" >
-               <property name="title" >
-                <string>USB Support</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_14" >
-                <item>
-                 <widget class="QCheckBox" name="usbCheck" >
-                  <property name="toolTip" >
-                   <string>Enable support for USB devices, either virtual or shared with the Host</string>
-                  </property>
-                  <property name="text" >
-                   <string>Enable USB support</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QFrame" name="frame" >
-                  <property name="frameShape" >
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow" >
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_8" >
-                   <item>
-                    <widget class="QLabel" name="label_16" >
-                     <property name="text" >
-                      <string>USB Devices</string>
-                     </property>
-                     <property name="alignment" >
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="Line" name="line_3" >
-                     <property name="orientation" >
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="mouseCheck" >
-                     <property name="toolTip" >
-                      <string>Toggle smooth mouse transitions between
-the host and the guest. requires guest USB support.</string>
-                     </property>
-                     <property name="text" >
-                      <string>Seamless USB Mouse</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer_9" >
-                  <property name="orientation" >
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0" >
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
+            <layout class="QVBoxLayout" name="verticalLayout"/>
            </widget>
-           <widget class="QWidget" name="networkPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="networkPage">
+            <property name="helpFile" stdset="0">
              <string>networking.html</string>
             </property>
            </widget>
-           <widget class="QWidget" name="soundPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="soundPage">
+            <property name="helpFile" stdset="0">
              <string>sound.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_10" >
+            <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
-              <widget class="QGroupBox" name="soundBox" >
-               <property name="title" >
+              <widget class="QGroupBox" name="soundBox">
+               <property name="title">
                 <string>&amp;Sound</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_7" >
+               <layout class="QVBoxLayout" name="verticalLayout_7">
                 <item>
-                 <widget class="Line" name="line_5" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_5">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="soundCheck" >
-                  <property name="toolTip" >
+                 <widget class="QCheckBox" name="soundCheck">
+                  <property name="toolTip">
                    <string>Enable a virtual sound card</string>
                   </property>
-                  <property name="text" >
+                  <property name="text">
                    <string>Enable sound</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QFrame" name="frame_2" >
-                  <property name="frameShape" >
+                 <widget class="QFrame" name="frame_2">
+                  <property name="frameShape">
                    <enum>QFrame::StyledPanel</enum>
                   </property>
-                  <property name="frameShadow" >
+                  <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QFormLayout" name="formLayout_6" >
-                   <item row="0" column="0" >
-                    <widget class="QComboBox" name="soundCombo" >
-                     <property name="toolTip" >
+                  <layout class="QFormLayout" name="formLayout_6">
+                   <item row="0" column="0">
+                    <widget class="QComboBox" name="soundCombo">
+                     <property name="toolTip">
                       <string>Select your Host Sound System. Not all sound systems may be compiled in to your version of qemu/kvm. You may enter your own sound system here as well.</string>
                      </property>
-                     <property name="editable" >
+                     <property name="editable">
                       <bool>true</bool>
                      </property>
                      <item>
-                      <property name="text" >
+                      <property name="text">
                        <string>ALSA</string>
                       </property>
                      </item>
                      <item>
-                      <property name="text" >
+                      <property name="text">
                        <string>OSS</string>
                       </property>
                      </item>
                      <item>
-                      <property name="text" >
+                      <property name="text">
                        <string>ESD</string>
                       </property>
                      </item>
                      <item>
-                      <property name="text" >
+                      <property name="text">
                        <string>PulseAudio</string>
                       </property>
                      </item>
                     </widget>
                    </item>
-                   <item row="0" column="1" >
-                    <widget class="QLabel" name="label_8" >
-                     <property name="text" >
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="label_8">
+                     <property name="text">
                       <string>Choose sound system to use for sound emulation</string>
                      </property>
-                     <property name="buddy" >
+                     <property name="buddy">
                       <cstring>soundCombo</cstring>
                      </property>
                     </widget>
@@ -1184,11 +1064,11 @@ the host and the guest. requires guest USB support.</string>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_5" >
-                  <property name="orientation" >
+                 <spacer name="verticalSpacer_5">
+                  <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
-                  <property name="sizeHint" stdset="0" >
+                  <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
                     <height>40</height>
@@ -1201,135 +1081,127 @@ the host and the guest. requires guest USB support.</string>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="displayPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="displayPage">
+            <property name="helpFile" stdset="0">
              <string>display.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_13" >
+            <layout class="QVBoxLayout" name="verticalLayout_13">
              <item>
-              <widget class="QGroupBox" name="displayBox" >
-               <property name="title" >
+              <widget class="QGroupBox" name="displayBox">
+               <property name="title">
                 <string>&amp;Display</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_15" >
+               <layout class="QVBoxLayout" name="verticalLayout_15">
                 <item>
-                 <widget class="QCheckBox" name="embedCheck" >
-                  <property name="toolTip" >
+                 <widget class="QCheckBox" name="embedCheck">
+                  <property name="toolTip">
                    <string>Allow the guest virtual machine to show in an embedded window within QtEmu</string>
                   </property>
-                  <property name="text" >
+                  <property name="text">
                    <string>Embedded Display</string>
                   </property>
-                  <property name="checked" >
+                  <property name="checked">
                    <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="embedGroup" >
-                  <property name="enabled" >
+                 <widget class="QGroupBox" name="embedGroup">
+                  <property name="enabled">
                    <bool>true</bool>
                   </property>
-                  <property name="toolTip" >
+                  <property name="toolTip">
                    <string>Select the Transport VNC uses</string>
                   </property>
-                  <property name="autoFillBackground" >
+                  <property name="autoFillBackground">
                    <bool>false</bool>
                   </property>
-                  <property name="title" >
+                  <property name="title">
                    <string>VNC Transport</string>
                   </property>
-                  <property name="flat" >
+                  <property name="flat">
                    <bool>false</bool>
                   </property>
-                  <property name="checkable" >
+                  <property name="checkable">
                    <bool>false</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_22" >
+                  <layout class="QVBoxLayout" name="verticalLayout_22">
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_12" >
+                    <layout class="QHBoxLayout" name="horizontalLayout_12">
                      <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_27" >
+                      <layout class="QVBoxLayout" name="verticalLayout_27">
                        <item>
-                        <widget class="QRadioButton" name="tcpRadio" >
-                         <property name="text" >
+                        <widget class="QRadioButton" name="tcpRadio">
+                         <property name="text">
                           <string>TCP</string>
                          </property>
-                         <property name="checked" >
+                         <property name="checked">
                           <bool>true</bool>
                          </property>
-                         <property name="value" stdset="0" >
+                         <property name="value" stdset="0">
                           <string>tcp</string>
                          </property>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QFrame" name="tcpFrame" >
-                         <property name="enabled" >
+                        <widget class="QFrame" name="tcpFrame">
+                         <property name="enabled">
                           <bool>true</bool>
                          </property>
-                         <property name="frameShape" >
+                         <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
                          </property>
-                         <property name="frameShadow" >
+                         <property name="frameShadow">
                           <enum>QFrame::Raised</enum>
                          </property>
-                         <layout class="QVBoxLayout" name="verticalLayout_24" >
+                         <layout class="QVBoxLayout" name="verticalLayout_24">
                           <item>
-                           <layout class="QFormLayout" name="formLayout_4" >
-                            <item row="1" column="0" >
-                             <widget class="QLabel" name="label_10" >
-                              <property name="text" >
+                           <layout class="QFormLayout" name="formLayout_4">
+                            <item row="1" column="0">
+                             <widget class="QLabel" name="label_10">
+                              <property name="text">
                                <string>Port:</string>
                               </property>
-                              <property name="alignment" >
+                              <property name="alignment">
                                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                               </property>
-                              <property name="buddy" >
+                              <property name="buddy">
                                <cstring>portBox</cstring>
                               </property>
                              </widget>
                             </item>
-                            <item row="1" column="1" >
-                             <widget class="QSpinBox" name="portBox" >
-                              <property name="sizePolicy" >
-                               <sizepolicy vsizetype="Fixed" hsizetype="Maximum" >
+                            <item row="1" column="1">
+                             <widget class="QSpinBox" name="portBox">
+                              <property name="sizePolicy">
+                               <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                                 <horstretch>0</horstretch>
                                 <verstretch>0</verstretch>
                                </sizepolicy>
                               </property>
-                              <property name="alignment" >
+                              <property name="alignment">
                                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                               </property>
-                              <property name="maximum" >
+                              <property name="maximum">
                                <number>59635</number>
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="0" >
-                             <widget class="QLabel" name="label_11" >
-                              <property name="text" >
+                            <item row="0" column="0">
+                             <widget class="QLabel" name="label_11">
+                              <property name="text">
                                <string>Host:</string>
                               </property>
-                              <property name="buddy" >
+                              <property name="buddy">
                                <cstring>hostEdit</cstring>
                               </property>
                              </widget>
                             </item>
-                            <item row="0" column="1" >
-                             <widget class="QLineEdit" name="hostEdit" >
-                              <property name="toolTip" >
+                            <item row="0" column="1">
+                             <widget class="QLineEdit" name="hostEdit">
+                              <property name="toolTip">
                                <string>Do not change this unless you have a good reason</string>
                               </property>
-                              <property name="text" >
+                              <property name="text">
                                <string/>
                               </property>
                              </widget>
@@ -1340,14 +1212,14 @@ the host and the guest. requires guest USB support.</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QRadioButton" name="fileRadio" >
-                         <property name="enabled" >
+                        <widget class="QRadioButton" name="fileRadio">
+                         <property name="enabled">
                           <bool>false</bool>
                          </property>
-                         <property name="text" >
+                         <property name="text">
                           <string>File Socket</string>
                          </property>
-                         <property name="value" stdset="0" >
+                         <property name="value" stdset="0">
                           <string>unix</string>
                          </property>
                         </widget>
@@ -1355,20 +1227,20 @@ the host and the guest. requires guest USB support.</string>
                       </layout>
                      </item>
                      <item>
-                      <widget class="QLabel" name="label_13" >
-                       <property name="sizePolicy" >
-                        <sizepolicy vsizetype="Preferred" hsizetype="MinimumExpanding" >
+                      <widget class="QLabel" name="label_13">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
-                       <property name="text" >
+                       <property name="text">
                         <string>Set the method used to connect the virtual machine to the embedded display. TCP is the only option available at the moment.</string>
                        </property>
-                       <property name="scaledContents" >
+                       <property name="scaledContents">
                         <bool>false</bool>
                        </property>
-                       <property name="wordWrap" >
+                       <property name="wordWrap">
                         <bool>true</bool>
                        </property>
                       </widget>
@@ -1376,11 +1248,11 @@ the host and the guest. requires guest USB support.</string>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="remoteConnect" >
-                     <property name="enabled" >
+                    <widget class="QCheckBox" name="remoteConnect">
+                     <property name="enabled">
                       <bool>false</bool>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>Allow remote connection instead of embedding</string>
                      </property>
                     </widget>
@@ -1389,45 +1261,45 @@ the host and the guest. requires guest USB support.</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="scaleCheck" >
-                  <property name="enabled" >
+                 <widget class="QCheckBox" name="scaleCheck">
+                  <property name="enabled">
                    <bool>true</bool>
                   </property>
-                  <property name="toolTip" >
+                  <property name="toolTip">
                    <string>Toggle scaling the virtual machine view to fit the window</string>
                   </property>
-                  <property name="text" >
+                  <property name="text">
                    <string>Scale display to fit window</string>
                   </property>
-                  <property name="checked" >
+                  <property name="checked">
                    <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_11" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_11">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="hiResCheck" >
-                  <property name="toolTip" >
+                 <widget class="QCheckBox" name="hiResCheck">
+                  <property name="toolTip">
                    <string>Allow large and widescreen video modes. this uses a vesa compliant video card, rather than an emulated cirrus logic card.</string>
                   </property>
-                  <property name="text" >
+                  <property name="text">
                    <string>High Resolution and Widescreen Video Modes 
 (Standard VGA)</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="verticalSpacer_6" >
-                  <property name="orientation" >
+                 <spacer name="verticalSpacer_6">
+                  <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
-                  <property name="sizeHint" stdset="0" >
+                  <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
                     <height>40</height>
@@ -1440,47 +1312,39 @@ the host and the guest. requires guest USB support.</string>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="otherPage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="otherPage">
+            <property name="helpFile" stdset="0">
              <string>otheroptions.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2" >
+            <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QGroupBox" name="otherBox" >
-               <property name="title" >
+              <widget class="QGroupBox" name="otherBox">
+               <property name="title">
                 <string>Other Options</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_16" >
+               <layout class="QVBoxLayout" name="verticalLayout_16">
                 <item>
-                 <widget class="QGroupBox" name="groupBox_2" >
-                  <property name="title" >
+                 <widget class="QGroupBox" name="groupBox_2">
+                  <property name="title">
                    <string>Additional QEMU Options</string>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_23" >
+                  <layout class="QVBoxLayout" name="verticalLayout_23">
                    <item>
-                    <widget class="QCheckBox" name="additionalCheck" >
-                     <property name="toolTip" >
+                    <widget class="QCheckBox" name="additionalCheck">
+                     <property name="toolTip">
                       <string>Enter your own options</string>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>Use Additional Options:</string>
                      </property>
-                     <property name="checked" >
+                     <property name="checked">
                       <bool>false</bool>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="additionalEdit" >
-                     <property name="enabled" >
+                    <widget class="QLineEdit" name="additionalEdit">
+                     <property name="enabled">
                       <bool>false</bool>
                      </property>
                     </widget>
@@ -1489,46 +1353,46 @@ the host and the guest. requires guest USB support.</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="Line" name="line_9" >
-                  <property name="orientation" >
+                 <widget class="Line" name="line_9">
+                  <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="groupBox" >
-                  <property name="toolTip" >
+                 <widget class="QGroupBox" name="groupBox">
+                  <property name="toolTip">
                    <string>You may enter scripts that run before of after the virtual machine on a per-machine basis. these run in addition to the QtEmu-wide scripts.</string>
                   </property>
-                  <property name="title" >
+                  <property name="title">
                    <string>Pre / Post Scripts</string>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_21" >
+                  <layout class="QVBoxLayout" name="verticalLayout_21">
                    <item>
-                    <widget class="QLabel" name="label_18" >
-                     <property name="text" >
+                    <widget class="QLabel" name="label_18">
+                     <property name="text">
                       <string>These commands will be executed before or after QEMU</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_13" >
+                    <layout class="QHBoxLayout" name="horizontalLayout_13">
                      <item>
-                      <widget class="QCheckBox" name="beforeCheck" >
-                       <property name="toolTip" >
+                      <widget class="QCheckBox" name="beforeCheck">
+                       <property name="toolTip">
                         <string>Enable or disable this script</string>
                        </property>
-                       <property name="text" >
+                       <property name="text">
                         <string>Execute Before:</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QCheckBox" name="afterCheck" >
-                       <property name="toolTip" >
+                      <widget class="QCheckBox" name="afterCheck">
+                       <property name="toolTip">
                         <string>Enable or disable this script</string>
                        </property>
-                       <property name="text" >
+                       <property name="text">
                         <string>Execute After:</string>
                        </property>
                       </widget>
@@ -1536,26 +1400,26 @@ the host and the guest. requires guest USB support.</string>
                     </layout>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_9" >
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
                      <item>
-                      <widget class="QTextEdit" name="beforeEdit" >
-                       <property name="enabled" >
+                      <widget class="QTextEdit" name="beforeEdit">
+                       <property name="enabled">
                         <bool>false</bool>
                        </property>
-                       <property name="acceptRichText" >
+                       <property name="acceptRichText">
                         <bool>false</bool>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTextEdit" name="afterEdit" >
-                       <property name="enabled" >
+                      <widget class="QTextEdit" name="afterEdit">
+                       <property name="enabled">
                         <bool>false</bool>
                        </property>
-                       <property name="autoFillBackground" >
+                       <property name="autoFillBackground">
                         <bool>false</bool>
                        </property>
-                       <property name="acceptRichText" >
+                       <property name="acceptRichText">
                         <bool>false</bool>
                        </property>
                       </widget>
@@ -1570,22 +1434,14 @@ the host and the guest. requires guest USB support.</string>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="virtualDrivePage" >
-            <property name="geometry" >
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>497</width>
-              <height>456</height>
-             </rect>
-            </property>
-            <property name="helpFile" stdset="0" >
+           <widget class="QWidget" name="virtualDrivePage">
+            <property name="helpFile" stdset="0">
              <string>virtualdrives.html</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_20" >
+            <layout class="QVBoxLayout" name="verticalLayout_20">
              <item>
-              <widget class="QGroupBox" name="virtualDriveBox" >
-               <property name="title" >
+              <widget class="QGroupBox" name="virtualDriveBox">
+               <property name="title">
                 <string>Virtual Drives</string>
                </property>
               </widget>
@@ -1599,47 +1455,39 @@ the host and the guest. requires guest USB support.</string>
       </widget>
      </item>
      <item>
-      <widget class="QDockWidget" name="helpArea" >
-       <property name="floating" >
+      <widget class="QDockWidget" name="helpArea">
+       <property name="floating">
         <bool>false</bool>
        </property>
-       <property name="features" >
+       <property name="features">
         <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetFloatable</set>
        </property>
-       <widget class="QWidget" name="dockWidgetContents" >
-        <property name="geometry" >
-         <rect>
-          <x>4</x>
-          <y>23</y>
-          <width>489</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_6" >
+       <widget class="QWidget" name="dockWidgetContents">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <widget class="QScrollArea" name="helpScrollArea" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Maximum" hsizetype="Expanding" >
+          <widget class="QScrollArea" name="helpScrollArea">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="widgetResizable" >
+           <property name="widgetResizable">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_2" >
-            <property name="geometry" >
+           <widget class="QWidget" name="scrollAreaWidgetContents_2">
+            <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>475</width>
-              <height>57</height>
+              <width>463</width>
+              <height>71</height>
              </rect>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_26" >
+            <layout class="QVBoxLayout" name="verticalLayout_26">
              <item>
-              <widget class="QWebView" name="helpView" >
-               <property name="url" >
+              <widget class="QWebView" name="helpView">
+               <property name="url">
                 <url>
                  <string>about:blank</string>
                 </url>
@@ -1669,9 +1517,7 @@ the host and the guest. requires guest USB support.</string>
   <tabstop>memorySlider</tabstop>
   <tabstop>memorySpinBox</tabstop>
  </tabstops>
- <resources>
-  <include location="../qtemu.qrc" />
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>memorySlider</sender>
@@ -1679,11 +1525,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>memorySpinBox</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>402</x>
      <y>199</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>472</x>
      <y>202</y>
     </hint>
@@ -1695,11 +1541,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>memorySlider</receiver>
    <slot>setValue(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>472</x>
      <y>202</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>402</x>
      <y>199</y>
     </hint>
@@ -1711,11 +1557,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>embedGroup</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>502</x>
      <y>68</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>502</x>
      <y>113</y>
     </hint>
@@ -1727,11 +1573,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>tcpFrame</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>395</x>
      <y>136</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>395</x>
      <y>208</y>
     </hint>
@@ -1743,11 +1589,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>scaleCheck</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>502</x>
      <y>68</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>502</x>
      <y>315</y>
     </hint>
@@ -1759,11 +1605,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>additionalEdit</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>502</x>
      <y>103</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>502</x>
      <y>138</y>
     </hint>
@@ -1775,11 +1621,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>beforeEdit</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>449</x>
      <y>242</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>448</x>
      <y>281</y>
     </hint>
@@ -1791,11 +1637,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>afterEdit</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>676</x>
      <y>242</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>676</x>
      <y>298</y>
     </hint>
@@ -1807,11 +1653,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>cdImage</receiver>
    <slot>clearEditText()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>313</x>
      <y>134</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>416</x>
      <y>98</y>
     </hint>
@@ -1823,11 +1669,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>floppyImage</receiver>
    <slot>clearEditText()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>313</x>
      <y>232</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>416</x>
      <y>198</y>
     </hint>
@@ -1839,11 +1685,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>helpArea</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>143</x>
      <y>534</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>210</x>
      <y>476</y>
     </hint>
@@ -1855,11 +1701,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>helpButton</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>212</x>
      <y>514</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>169</x>
      <y>543</y>
     </hint>
@@ -1871,29 +1717,13 @@ the host and the guest. requires guest USB support.</string>
    <receiver>settingsStack</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>136</x>
      <y>223</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>451</x>
      <y>223</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>usbCheck</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>frame</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>290</x>
-     <y>53</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>288</x>
-     <y>76</y>
     </hint>
    </hints>
   </connection>
@@ -1903,11 +1733,11 @@ the host and the guest. requires guest USB support.</string>
    <receiver>frame_2</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>286</x>
      <y>64</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>267</x>
      <y>82</y>
     </hint>

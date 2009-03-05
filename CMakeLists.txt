@@ -52,6 +52,7 @@ SET(qtemu_SRCS
     harddiskmanager.cpp
     controlpanel.cpp
     networkpage.cpp
+    usbpage.cpp
     interfacemodel.cpp
     floatingtoolbar.cpp
 #    guesttoolslistener.cpp
@@ -82,6 +83,7 @@ SET(qtemu_MOC_HDRS
     harddiskmanager.h
     controlpanel.h
     networkpage.h
+    usbpage.h
     interfacemodel.h
     floatingtoolbar.h
 #    guesttoolslistener.h
@@ -94,6 +96,7 @@ SET(qtemu_UIS
     ui/settingstab.ui
     ui/controlpanel.ui
     ui/networkpage.ui
+    usbpage.ui
 )
 
 SET(qtemu_RCS

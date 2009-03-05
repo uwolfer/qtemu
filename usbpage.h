@@ -21,61 +21,26 @@
 **
 ****************************************************************************/
 
-#ifndef SETTINGSTAB_H
-#define SETTINGSTAB_H
+#ifndef USBPAGE_H
+#define USBPAGE_H
 
-#include "ui_settingstab.h"
-#include "machineprocess.h"
-#include "machinetab.h"
-#include <QFrame>
+#include <QWidget>
+
+#include "ui_usbpage.h"
 
 class MachineConfigObject;
-class NetworkPage;
-class UsbPage;
 
-/**
-	@author Ben Klopfenstein <benklop@gmail.com>
-*/
-class SettingsTab : public QFrame, public Ui::SettingsTab
+class UsbPage : public QWidget , public Ui::UsbPage
 {
 Q_OBJECT
 public:
-    explicit SettingsTab(MachineConfigObject *config, MachineTab *parent = 0);
+    UsbPage(MachineConfigObject *config, QWidget *parent = 0);
 
-    ~SettingsTab();
-
-public slots:
-    void setNewCdImagePath();
-    void setNewFloppyImagePath();
-    void setVirtSize(qint64 size);
-    void setPhySize(qint64 size);
+    ~UsbPage();
 
 private:
     MachineConfigObject *config;
-    MachineTab *parent;
-    QString myMachinesPath;
-    NetworkPage *netPage;
-    UsbPage *usbPageWidget;
     void registerWidgets();
-    void setupHelp();
-    void setupConnections();
-    void getSettings();
-    void getDrives();
-    void disableUnsupportedOptions();
-
-private slots:
-
-    void changeHelpTopic();
-
-
-    //file select dialogs
-    void setNewHddPath();
-
-    //warning dialogs
-    void confirmUpgrade();
-
-signals:
-    void upgradeHdd();
 };
 
-#endif
+#endif // USBPAGE_H
