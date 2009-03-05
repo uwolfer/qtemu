@@ -101,6 +101,19 @@ void HardDiskManager::testImage()
     arguments << "info" << currentImage.filePath();
     testProcess->start(program, arguments);
     testProcess->waitForFinished();
+
+    //make sure we didn't error out
+    if(testProcess->error() != QProcess::UnknownError)
+    {
+        emit imageFormat("unknown");
+        emit imageUpgradable(false);
+        emit supportsSuspending(false);
+        emit supportsResuming(false);
+        emit imageSize(0);
+        emit phySize(0);
+        return;
+    }
+
     //time to parse the output and get all the info available
     //splits are on colons.
     QStringList output = QString(testProcess->readAll()).split('\n');
