@@ -23,6 +23,7 @@
 
 #include "harddiskmanager.h"
 #include "machineprocess.h"
+#include "qtemuenvironment.h"
 
 #include <QTimer>
 #include <QFileInfo>
@@ -101,7 +102,15 @@ void HardDiskManager::testImage()
     arguments << "info" << currentImage.filePath();
     testProcess->start(program, arguments);
     testProcess->waitForFinished();
-
+#ifndef Q_OS_WIN32
+    if(testProcess->error() != QProcess::UnknownError)
+    {
+        //we may be on a system that uses "kvm-img" instead        
+        program = "kvm-img";
+        testProcess->start(program, arguments);
+        testProcess->waitForFinished();
+    }
+#endif
     //make sure we didn't error out
     if(testProcess->error() != QProcess::UnknownError)
     {
@@ -111,6 +120,11 @@ void HardDiskManager::testImage()
         emit supportsResuming(false);
         emit imageSize(0);
         emit phySize(0);
+#ifndef Q_OS_WIN32
+        emit error(tr("QtEmu could not run the kvm-img or qemu-img programs in your path. Disk image statistics will be unavailable."));
+#elif defined(Q_OS_WIN32)
+        emit error(tr("QtEmu could not run the qemu/qemu-img.exe program. Disk image statistics will be unavailable."));
+#endif
         return;
     }
 
