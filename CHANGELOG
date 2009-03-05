@@ -23,10 +23,12 @@ Features:
 * restart button now works correctly (powers off the machine gracefully)
 * screenshot button
 * more flexible configuration
+* Use kvm-img instead of qemu-img if qemu-img cannot be found
 All these new features listed above thanks to Ben Klopfenstein <benklop at gmail dot com>.
 * Install desktop file on Linux (e.g. to start QtEmu from startmenus)
 * Respect FHS for installation on Linux
 * Use QWizard for machine creation wizard for better look and feel
+
 
 Fixes:
 * Fixed english translations of some strings
