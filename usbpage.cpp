@@ -23,6 +23,7 @@
 
 #include "usbpage.h"
 #include "machineconfigobject.h"
+#include "usbmodel.h"
 
 UsbPage::UsbPage(MachineConfigObject *config, QWidget *parent)
  : QWidget(parent)
@@ -30,6 +31,8 @@ UsbPage::UsbPage(MachineConfigObject *config, QWidget *parent)
 {
     setupUi(this);
     registerWidgets();
+
+    UsbModel *model = new UsbModel();
 }
 
 UsbPage::~UsbPage()

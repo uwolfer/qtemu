@@ -62,7 +62,8 @@ RESOURCES = qtemu.qrc
 QT += xml \
     svg \
     webkit \
-    network
+    network \
+    dbus
 win32 { 
     LIBS = -lshell32
     RC_FILE = qtemu.rc
