@@ -83,13 +83,13 @@ private:
 class ClientCutEvent : public ClientEvent
 {
 public:
-    ClientCutEvent(char *text)
+    ClientCutEvent(const QString &text)
             : text(text) {}
 
     void fire(rfbClient*);
 
 private:
-    char *text;
+    QString text;
 };
 
 class VncClientThread: public QThread

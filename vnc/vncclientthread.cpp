@@ -33,8 +33,8 @@ rfbBool VncClientThread::newclient(rfbClient *cl)
     VncClientThread *t = (VncClientThread*)rfbClientGetClientData(cl, 0);
     Q_ASSERT(t);
 
-    int width = cl->width, height = cl->height, depth = cl->format.bitsPerPixel;
-    int size = width * height * (depth / 8);
+    const int width = cl->width, height = cl->height, depth = cl->format.bitsPerPixel;
+    const int size = width * height * (depth / 8);
     if (t->frameBuffer)
         delete [] t->frameBuffer; // do not leak if we get a new framebuffer size
     t->frameBuffer = new uint8_t[size];
@@ -79,9 +79,9 @@ void VncClientThread::updatefb(rfbClient* cl, int x, int y, int w, int h)
 {
 //     kDebug(5011) << "updated client: x: " << x << ", y: " << y << ", w: " << w << ", h: " << h;
 
-    int width = cl->width, height = cl->height;
+    const int width = cl->width, height = cl->height;
 
-    QImage img(cl->frameBuffer, width, height, QImage::Format_RGB32);
+    const QImage img(cl->frameBuffer, width, height, QImage::Format_RGB32);
 
     if (img.isNull())
         kDebug(5011) << "image not loaded";
@@ -96,7 +96,7 @@ void VncClientThread::updatefb(rfbClient* cl, int x, int y, int w, int h)
 
 void VncClientThread::cuttext(rfbClient* cl, const char *text, int textlen)
 {
-    QString cutText = QString::fromUtf8(text, textlen);
+    const QString cutText = QString::fromUtf8(text, textlen);
     kDebug(5011) << cutText;
 
     if (!cutText.isEmpty()) {
@@ -169,7 +169,10 @@ VncClientThread::VncClientThread(QObject *parent)
 VncClientThread::~VncClientThread()
 {
     stop();
-    wait(500);
+
+    const bool quitSuccess = wait(500);
+
+    kDebug(5011) << "Quit VNC thread success:" << quitSuccess;
     
     delete [] frameBuffer;
 }
@@ -281,7 +284,7 @@ void VncClientThread::run()
 
     // Main VNC event loop
     while (!m_stopped) {
-        int i = WaitForMessage(cl, 500);
+        const int i = WaitForMessage(cl, 500);
         if (i < 0)
             break;
         if (i)
@@ -321,7 +324,7 @@ void KeyClientEvent::fire(rfbClient* cl)
 
 void ClientCutEvent::fire(rfbClient* cl)
 {
-    SendClientCutText(cl, text, qstrlen(text));
+    SendClientCutText(cl, text.toUtf8().data(), text.size());
 }
 
 void VncClientThread::mouseEvent(int x, int y, int buttonMask)
@@ -348,5 +351,5 @@ void VncClientThread::clientCut(const QString &text)
     if (m_stopped)
         return;
 
-    m_eventQueue.enqueue(new ClientCutEvent(strdup(text.toUtf8())));
+    m_eventQueue.enqueue(new ClientCutEvent(text));
 }

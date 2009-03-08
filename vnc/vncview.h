@@ -27,7 +27,9 @@
 #include "remoteview.h"
 #include "vncclientthread.h"
 
-#ifndef QTONLY
+#ifdef QTONLY
+    class KConfigGroup{};
+#else
     #include "vnchostpreferences.h"
 #endif
 
@@ -42,7 +44,7 @@ class VncView: public RemoteView
     Q_OBJECT
 
 public:
-    explicit VncView(QWidget *parent = 0, const KUrl &url = KUrl());
+    explicit VncView(QWidget *parent = 0, const KUrl &url = KUrl(), KConfigGroup configGroup = KConfigGroup());
     ~VncView();
 
     QSize framebufferSize();
@@ -53,7 +55,11 @@ public:
     bool start();
     bool supportsScaling() const;
     bool supportsLocalCursor() const;
-    void keyEvent(QKeyEvent *e);
+    
+#ifndef QTONLY
+    HostPreferences* hostPreferences();
+#endif
+
     void setViewOnly(bool viewOnly);
     void showDotCursor(DotCursorState state);
     void enableScaling(bool scale);
@@ -65,15 +71,8 @@ public slots:
 
 protected:
     void paintEvent(QPaintEvent *event);
+    bool event(QEvent *event);
     void resizeEvent(QResizeEvent *event);
-    void focusOutEvent(QFocusEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseDoubleClickEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void wheelEvent(QWheelEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
     bool eventFilter(QObject *obj, QEvent *event);
 
 private:
@@ -81,7 +80,7 @@ private:
     QClipboard *m_clipboard;
     bool m_initDone;
     int m_buttonMask;
-    int m_modifiersMask; // Stores the currently pressed modifier keys
+    QMap<unsigned int, bool> m_mods;
     int m_x, m_y, m_w, m_h;
     bool m_repaint;
     bool m_quitFlag;
@@ -96,12 +95,16 @@ private:
     QImage m_frame;
     bool m_forceLocalCursor;
 
+    void keyEventHandler(QKeyEvent *e);
+    void unpressModifiers();
+    void wheelEventHandler(QWheelEvent *event);
+    void mouseEventHandler(QMouseEvent *event);
+    
 private slots:
     void updateImage(int x, int y, int w, int h);
     void setCut(const QString &text);
     void requestPassword();
     void outputErrorMessage(const QString &message);
-    void mouseEvent(QMouseEvent *event);
     void clipboardSelectionChanged();
     void clipboardDataChanged();
 };

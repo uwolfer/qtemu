@@ -78,7 +78,7 @@ void RemoteView::setStatus(RemoteView::RemoteStatus s)
             }
             // smooth state transition
             RemoteStatus origState = m_status;
-            for (int i = origState; i < s; i++) {
+            for (int i = origState; i < s; ++i) {
                 m_status = (RemoteStatus) i;
                 emit statusChanged((RemoteStatus) i);
             }
@@ -191,25 +191,33 @@ KUrl RemoteView::url()
 }
 
 #ifndef QTONLY
-QString RemoteView::readWalletPassword()
+QString RemoteView::readWalletPassword(bool fromUserNameOnly)
 {
-    QString krdc_folder = "KRDC";
+    const QString KRDCFOLDER = "KRDC";
 
+    window()->setDisabled(true); // WORKAROUND: disable inputs so users cannot close the current tab (see #181230)
     m_wallet = KWallet::Wallet::openWallet(KWallet::Wallet::NetworkWallet(), window()->winId());
+    window()->setDisabled(false);
 
     if (m_wallet) {
-        bool walletOK = m_wallet->hasFolder(krdc_folder);
+        bool walletOK = m_wallet->hasFolder(KRDCFOLDER);
         if (!walletOK) {
-            walletOK = m_wallet->createFolder(krdc_folder);
+            walletOK = m_wallet->createFolder(KRDCFOLDER);
             kDebug(5010) << "Wallet folder created";
         }
         if (walletOK) {
             kDebug(5010) << "Wallet OK";
-            m_wallet->setFolder(krdc_folder);
+            m_wallet->setFolder(KRDCFOLDER);
             QString password;
+            
+            QString key;
+            if (fromUserNameOnly)
+                key = m_url.userName();
+            else
+                key = m_url.prettyUrl(KUrl::RemoveTrailingSlash);
 
-            if (m_wallet->hasEntry(m_url.prettyUrl(KUrl::RemoveTrailingSlash)) &&
-                    !m_wallet->readPassword(m_url.prettyUrl(KUrl::RemoveTrailingSlash), password)) {
+            if (m_wallet->hasEntry(key) &&
+                    !m_wallet->readPassword(key, password)) {
                 kDebug(5010) << "Password read OK";
 
                 return password;
@@ -219,11 +227,17 @@ QString RemoteView::readWalletPassword()
     return QString();
 }
 
-void RemoteView::saveWalletPassword(const QString &password)
+void RemoteView::saveWalletPassword(const QString &password, bool fromUserNameOnly)
 {
-    if (m_wallet && m_wallet->isOpen() && !m_wallet->hasEntry(m_url.prettyUrl(KUrl::RemoveTrailingSlash))) {
+    QString key;
+    if (fromUserNameOnly)
+        key = m_url.userName();
+    else
+        key = m_url.prettyUrl(KUrl::RemoveTrailingSlash);
+
+    if (m_wallet && m_wallet->isOpen() && !m_wallet->hasEntry(key)) {
         kDebug(5010) << "Write wallet password";
-        m_wallet->writePassword(m_url.prettyUrl(KUrl::RemoveTrailingSlash), password);
+        m_wallet->writePassword(key, password);
     }
 }
 #endif

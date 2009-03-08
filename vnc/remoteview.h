@@ -28,12 +28,15 @@
 #ifdef QTONLY
     #include <QUrl>
     #define KUrl QUrl
+    #define KDE_EXPORT
 #else
     #include <KUrl>
     #include <KWallet/Wallet>
 #endif
 
 #include <QWidget>
+
+class HostPreferences;
 
 /**
  * Generic widget that displays a remote framebuffer.
@@ -52,7 +55,7 @@
  *     MotionNotify events will be forwarded.
  *
  */
-class RemoteView : public QWidget
+class KDE_EXPORT RemoteView : public QWidget
 {
     Q_OBJECT
 
@@ -124,8 +127,6 @@ public:
         Authentication
     };
 
-    RemoteView(QWidget *parent = 0);
-
     virtual ~RemoteView();
 
     /**
@@ -189,7 +190,7 @@ public:
      * Returns the resolution of the remote framebuffer.
      * It should return a null @ref QSize when the size
      * is not known.
-     * The backend must also emit a @ref changeSize()
+     * The backend must also emit a @ref framebufferSizeChanged()
      * when the size of the framebuffer becomes available
      * for the first time or the size changed.
      * @return the remote framebuffer size, a null QSize
@@ -242,7 +243,14 @@ public:
      * The default implementation does nothing.
      */
     virtual void updateConfiguration();
-
+    
+#ifndef QTONLY
+    /**
+     * Returns the current host preferences of this view.
+     */
+    virtual HostPreferences* hostPreferences() = 0;
+#endif
+    
     /**
      * Returns the current status of the connection.
      * @return the status of the connection
@@ -311,7 +319,7 @@ signals:
      * @param x the width of the screen
      * @param y the height of the screen
      */
-    void changeSize(int w, int h);
+    void framebufferSizeChanged(int w, int h);
 
     /**
      * Emitted when the view connected successfully.
@@ -355,6 +363,8 @@ signals:
     void mouseStateChanged(int x, int y, int buttonMask);
 
 protected:
+    RemoteView(QWidget *parent = 0);
+
     void focusInEvent(QFocusEvent *event);
     void focusOutEvent(QFocusEvent *event);
 
@@ -388,8 +398,8 @@ protected:
     KUrl m_url;
 
 #ifndef QTONLY
-    QString readWalletPassword();
-    void saveWalletPassword(const QString &password);
+    QString readWalletPassword(bool fromUserNameOnly = false);
+    void saveWalletPassword(const QString &password, bool fromUserNameOnly = false);
     KWallet::Wallet *m_wallet;
 #endif
 
