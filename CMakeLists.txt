@@ -53,6 +53,7 @@ SET(qtemu_SRCS
     controlpanel.cpp
     networkpage.cpp
     usbpage.cpp
+    usbmodel.cpp
     interfacemodel.cpp
     floatingtoolbar.cpp
 #    guesttoolslistener.cpp
@@ -84,6 +85,7 @@ SET(qtemu_MOC_HDRS
     controlpanel.h
     networkpage.h
     usbpage.h
+    usbmodel.h
     interfacemodel.h
     floatingtoolbar.h
 #    guesttoolslistener.h
@@ -203,6 +205,7 @@ TARGET_LINK_LIBRARIES(qtemu
     ${QT_QTGUI_LIBRARY}
     ${QT_QTXML_LIBRARY}
     ${QT_QTSVG_LIBRARY}
+    ${QT_QTDBUS_LIBRARY}
     ${QT_QTWEBKIT_LIBRARY}
     ${LIBVNCCLIENT_LIBRARIES}
 )
