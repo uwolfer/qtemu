@@ -25,7 +25,7 @@
 #include "machineconfigobject.h"
 #include "machineprocess.h"
 
-UsbConfig::UsbConfig(MachineConfigObject * config, MachineProcess * parent)
+UsbConfig::UsbConfig(MachineProcess * parent, MachineConfigObject * config)
         : QObject(parent)
         , config(config)
         , parent(parent)
@@ -33,7 +33,13 @@ UsbConfig::UsbConfig(MachineConfigObject * config, MachineProcess * parent)
     config->registerObject(this);
 }
 
-QStringList getConfigString()
+QStringList UsbConfig::getOptionString()
 {
-
+    QStringList hostDeviceNames = config->getConfig()->getAllOptionNames("usb", "");
+    QStringList optionString;
+    foreach(QString name, hostDeviceNames)
+    {
+        optionString << "-usbdevice" << "host:" + config->getOption("usb", name, "address", QString()).toString();
+    }
+    return optionString;
 }

@@ -24,6 +24,7 @@
 
 #include "machineprocess.h"
 #include "netconfig.h"
+#include "usbconfig.h"
 #include "config.h"
 
 #include <QCoreApplication>
@@ -41,6 +42,7 @@ MachineProcess::MachineProcess(MachineTab *parent)
     changeState(QProcess::state());
     getVersion();
     netConfig = new NetConfig(this, parent->machineConfigObject);
+    usbConfig = new UsbConfig(this, parent->machineConfigObject);
 
     connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcess()));
     connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
@@ -106,6 +108,7 @@ void MachineProcess::start()
     }
     else
         arguments << "-net" << "none";
+
 
     /*using the drive syntax, multiple drives can be added to a VM. drives can be specified as
      disconnected, allowing media to be inserted after bootup. the initialization can take the form
@@ -184,7 +187,10 @@ void MachineProcess::start()
       arguments << "-smp" << QString::number(property("cpu").toInt());
 
     if (property("usbSupport").toBool())
+    {
         arguments << "-usb";
+        arguments << usbConfig->getOptionString();
+    }
 
     if (property("usbSupport").toBool() && property("mouse").toBool())
         arguments << "-usbdevice" << "tablet";

@@ -30,6 +30,7 @@
 #include "harddiskmanager.h"
 
 class NetConfig;
+class UsbConfig;
 
 class MachineProcess : public QProcess
 {
@@ -85,6 +86,7 @@ private:
     QStringList outputParts;
     MachineProcess::ProcessState myState;
     NetConfig *netConfig;
+    UsbConfig *usbConfig;
 
 private slots:
     void afterExitExecute();

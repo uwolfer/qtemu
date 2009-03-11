@@ -32,9 +32,9 @@ class MachineProcess;
 class UsbConfig : public QObject
 {
 public:
-    UsbConfig(MachineConfigObject * config, MachineProcess * parent);
+    UsbConfig(MachineProcess * parent, MachineConfigObject * config);
 
-    QStringList getConfigString();
+    QStringList getOptionString();
 
 private:
     MachineConfigObject * config;

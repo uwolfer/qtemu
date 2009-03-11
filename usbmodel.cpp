@@ -110,6 +110,10 @@ void UsbModel::getChange(QStandardItem * thisItem)
 {
     QStringList names = config->getConfig()->getAllOptionNames("usb", "");
     QString nextFreeName;
+    QString address;
+    QDBusInterface * tempInterface;
+
+    //find the next free name for a usb host device
     for(int i = 0; i < names.size() + 1;i++)
     {
         if(!names.contains("host" + QString::number(i)))
@@ -124,17 +128,29 @@ void UsbModel::getChange(QStandardItem * thisItem)
         {
             if(thisItem->checkState() == Qt::Checked)
             {
+                tempInterface = new QDBusInterface("org.freedesktop.Hal",
+                                "/org/freedesktop/Hal/devices/usb_device_" + item(i,1)->text(),
+                                "org.freedesktop.Hal.Device",
+                                QDBusConnection::systemBus(),
+                                this);
+                address = tempInterface->call("GetProperty", "usb_device.bus_number").arguments().at(0).toString() + "." +
+                          tempInterface->call("GetProperty", "usb_device.linux.device_number").arguments().at(0).toString();
+
                 bool checkExists = false;
                 for(int j = 0; j< names.size(); j++)
                 {
                     if(config->getOption("usb", names.at(j), "id", QString()) == item(i,1)->text())
                     {
+                        config->setOption("usb", names.at(j), "address", address);
                         checkExists = true;
                         break;
                     }
                 }
                 if(!checkExists)
+                {
                     config->setOption("usb", nextFreeName, "id", item(i,1)->text());
+                    config->setOption("usb", nextFreeName, "address", address);
+                }
             }
             else
             {
@@ -143,6 +159,7 @@ void UsbModel::getChange(QStandardItem * thisItem)
                     if(config->getOption("usb", names.at(j), "id", QString()) == item(i,1)->text())
                     {
                         config->getConfig()->clearOption("usb", names.at(j), "id");
+                        config->getConfig()->clearOption("usb", names.at(j), "address");
                         config->getConfig()->clearOption("usb","",names.at(j));
                     }
                 }
