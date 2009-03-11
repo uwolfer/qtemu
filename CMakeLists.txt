@@ -47,6 +47,7 @@ SET(qtemu_SRCS
     machineconfig.cpp
     machineconfigobject.cpp
     netconfig.cpp
+    usbconfig.cpp
     settingstab.cpp
     qtemuenvironment.cpp
     harddiskmanager.cpp
@@ -55,6 +56,7 @@ SET(qtemu_SRCS
     usbpage.cpp
     usbmodel.cpp
     interfacemodel.cpp
+    usbmodel.cpp
     floatingtoolbar.cpp
 #    guesttoolslistener.cpp
 #    GuestTools/modules/guestmodule.cpp
@@ -79,6 +81,7 @@ SET(qtemu_MOC_HDRS
     machineconfig.h
     machineconfigobject.h
     netconfig.h
+    usbconfig.h
     settingstab.h
     qtemuenvironment.h
     harddiskmanager.h
@@ -87,6 +90,7 @@ SET(qtemu_MOC_HDRS
     usbpage.h
     usbmodel.h
     interfacemodel.h
+    usbmodel.h
     floatingtoolbar.h
 #    guesttoolslistener.h
 #    GuestTools/modules/guestmodule.h
@@ -207,6 +211,7 @@ TARGET_LINK_LIBRARIES(qtemu
     ${QT_QTSVG_LIBRARY}
     ${QT_QTDBUS_LIBRARY}
     ${QT_QTWEBKIT_LIBRARY}
+    ${QT_QTDBUS_LIBRARY}
     ${LIBVNCCLIENT_LIBRARIES}
 )
 

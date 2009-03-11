@@ -30,9 +30,8 @@ UsbPage::UsbPage(MachineConfigObject *config, QWidget *parent)
  , config(config)
 {
     setupUi(this);
+    model = new UsbModel(config, this);
     registerWidgets();
-
-    UsbModel *model = new UsbModel();
 }
 
 UsbPage::~UsbPage()
@@ -43,4 +42,6 @@ void UsbPage::registerWidgets()
 {
     config->registerObject(mouseCheck, "mouse", QVariant(true));
     config->registerObject(usbCheck, "usbSupport", QVariant(true));
+    config->registerObject(addCheck, "autoAddDevices", QVariant(false));
+    usbView->setModel(model);
 }

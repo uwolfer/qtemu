@@ -29,6 +29,7 @@
 #include "ui_usbpage.h"
 
 class MachineConfigObject;
+class UsbModel;
 
 class UsbPage : public QWidget , public Ui::UsbPage
 {
@@ -41,6 +42,7 @@ public:
 private:
     MachineConfigObject *config;
     void registerWidgets();
+    UsbModel *model;
 };
 
 #endif // USBPAGE_H

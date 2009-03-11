@@ -59,7 +59,18 @@ the host and the guest. requires guest USB support.</string>
        </widget>
       </item>
       <item>
-       <widget class="QTableView" name="usbView"/>
+       <widget class="QListView" name="usbView">
+        <property name="toolTip">
+         <string>Check USB devices to add them to the virtual machine.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="addCheck">
+        <property name="text">
+         <string>Automatically add new devices</string>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="verticalSpacer_9">
@@ -94,22 +105,6 @@ the host and the guest. requires guest USB support.</string>
     <hint type="destinationlabel">
      <x>52</x>
      <y>107</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>usbCheck</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>usbView</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>140</x>
-     <y>49</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>85</x>
-     <y>136</y>
     </hint>
    </hints>
   </connection>
