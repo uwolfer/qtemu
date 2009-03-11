@@ -63,19 +63,19 @@ void UsbModel::getUsbDevices()
                                                this);
            if(tempInterface->call("GetProperty", "info.subsystem").arguments().at(0).toString() == "usb_device" && tempInterface->call("GetProperty", "usb_device.num_ports").arguments().at(0).toInt() == 0 )
            {
-               //this is all the info we really need...
+#ifdef DEVELOPER
                qDebug(
                        tempInterface->call("GetProperty", "usb_device.bus_number").arguments().at(0).toByteArray() + "." +
                        tempInterface->call("GetProperty", "usb_device.linux.device_number").arguments().at(0).toByteArray() + " - " +
                        tempInterface->call("GetProperty", "info.vendor").arguments().at(0).toByteArray() + " : " +
                        tempInterface->call("GetProperty", "info.product").arguments().at(0).toByteArray()
                        );
+#endif
                QList<QStandardItem*> items;
                items.append(new QStandardItem(tempInterface->call("GetProperty", "info.vendor").arguments().at(0).toString() + " - " + tempInterface->call("GetProperty", "info.product").arguments().at(0).toString()));
                QString id = deviceList.value().at(i);
                items.append(new QStandardItem(id.remove("/org/freedesktop/Hal/devices/usb_device_")));
                items.at(0)->setCheckable(true);
-
                appendRow(items);
 
 
@@ -165,9 +165,21 @@ void UsbModel::deviceAdded(QString name)
                                                this);
     if(tempInterface->call("GetProperty", "info.subsystem").arguments().at(0).toString() == "usb_device" && tempInterface->call("GetProperty", "usb_device.num_ports").arguments().at(0).toInt() == 0 )
     {
+#ifdef DEVELOPER
         qDebug("device added " + name.toAscii());
+#endif
         getUsbDevices();
         loadConfig();
+        if(property("autoAddDevices").toBool())
+        {
+            for(int i=0;i<this->rowCount(QModelIndex());i++)
+            {
+                if((QString("/org/freedesktop/Hal/devices/usb_device_") + QString(item(i,1)->text())) == name)
+                {
+                    item(i,0)->setCheckState(Qt::Checked);
+                }
+            }
+        }
     }
 
 }
@@ -178,7 +190,9 @@ void UsbModel::deviceRemoved(QString name)
     {
         if((QString("/org/freedesktop/Hal/devices/usb_device_") + QString(item(i,1)->text())) == name)
         {
+#ifdef DEVELOPER
             qDebug("device removed " + name.toAscii());
+#endif
             getUsbDevices();
             loadConfig();
             break;
