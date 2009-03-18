@@ -142,6 +142,7 @@ void UsbModel::getChange(QStandardItem * thisItem)
                     if(config->getOption("usb", names.at(j), "id", QString()) == item(i,1)->text())
                     {
                         config->setOption("usb", names.at(j), "address", address);
+                        emit(vmDeviceAdded(address));
                         checkExists = true;
                         break;
                     }
@@ -150,6 +151,7 @@ void UsbModel::getChange(QStandardItem * thisItem)
                 {
                     config->setOption("usb", nextFreeName, "id", item(i,1)->text());
                     config->setOption("usb", nextFreeName, "address", address);
+                    emit(vmDeviceAdded(address));
                 }
             }
             else
@@ -158,6 +160,7 @@ void UsbModel::getChange(QStandardItem * thisItem)
                 {
                     if(config->getOption("usb", names.at(j), "id", QString()) == item(i,1)->text())
                     {
+                        emit(vmDeviceRemoved(config->getOption("usb", names.at(j), "address", "0.0").toString()));
                         config->getConfig()->clearOption("usb", names.at(j), "id");
                         config->getConfig()->clearOption("usb", names.at(j), "address");
                         config->getConfig()->clearOption("usb","",names.at(j));

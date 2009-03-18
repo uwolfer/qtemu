@@ -24,9 +24,11 @@
 #include "usbpage.h"
 #include "machineconfigobject.h"
 #include "usbmodel.h"
+#include "settingstab.h"
 
-UsbPage::UsbPage(MachineConfigObject *config, QWidget *parent)
+UsbPage::UsbPage(MachineConfigObject *config, SettingsTab *parent)
  : QWidget(parent)
+ , parent(parent)
  , config(config)
 {
     setupUi(this);
@@ -46,4 +48,10 @@ void UsbPage::registerWidgets()
     config->registerObject(addCheck, "autoAddDevices", QVariant(false));
     config->registerObject(model, "autoAddDevices", QVariant(false));
     usbView->setModel(model);
+}
+
+void UsbPage::setupConnections()
+{
+//    connect(model, SIGNAL(
+//            parent->parent->machineProcess->getUsbConfig();
 }

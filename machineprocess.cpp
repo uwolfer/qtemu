@@ -57,6 +57,11 @@ HardDiskManager * MachineProcess::getHdManager()
     return hdManager;
 }
 
+UsbConfig* MachineProcess::getUsbConfig()
+{
+    return usbConfig;
+}
+
 void MachineProcess::start()
 {
     qDebug(property("nodeType").toByteArray());

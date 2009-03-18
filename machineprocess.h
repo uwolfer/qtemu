@@ -43,6 +43,7 @@ public:
     qint64 write(const QByteArray & byteArray);
 
     HardDiskManager* getHdManager();
+	UsbConfig* getUsbConfig();
     bool event(QEvent *event);
     MachineProcess::ProcessState state();
     

@@ -30,18 +30,21 @@
 
 class MachineConfigObject;
 class UsbModel;
+class SettingsTab;
 
 class UsbPage : public QWidget , public Ui::UsbPage
 {
 Q_OBJECT
 public:
-    UsbPage(MachineConfigObject *config, QWidget *parent = 0);
+    UsbPage(MachineConfigObject *config, SettingsTab *parent);
 
     ~UsbPage();
 
 private:
     MachineConfigObject *config;
+    SettingsTab *parent;
     void registerWidgets();
+    void setupConnections();
     UsbModel *model;
 };
 
