@@ -26,9 +26,8 @@
 #include "usbmodel.h"
 #include "settingstab.h"
 
-UsbPage::UsbPage(MachineConfigObject *config, SettingsTab *parent)
+UsbPage::UsbPage(MachineConfigObject *config, QWidget *parent)
  : QWidget(parent)
- , parent(parent)
  , config(config)
 {
     setupUi(this);
@@ -50,8 +49,7 @@ void UsbPage::registerWidgets()
     usbView->setModel(model);
 }
 
-void UsbPage::setupConnections()
+UsbModel* UsbPage::getModel()
 {
-//    connect(model, SIGNAL(
-//            parent->parent->machineProcess->getUsbConfig();
+    return model;
 }

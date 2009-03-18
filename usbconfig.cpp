@@ -43,3 +43,13 @@ QStringList UsbConfig::getOptionString()
     }
     return optionString;
 }
+
+void UsbConfig::vmAddDevice(QString id)
+{
+    parent->write(QString("usb_add " + id).toAscii());
+}
+
+void UsbConfig::vmRemoveDevice(QString id)
+{
+    parent->write(QString("usb_del " + id).toAscii()); //this may not be right.
+}

@@ -27,6 +27,8 @@
 #include "networkpage.h"
 #include "usbpage.h"
 #include "qtemuenvironment.h"
+#include "usbmodel.h"
+#include "usbconfig.h"
 
 #include <QIcon>
 #include <QFileDialog>
@@ -121,6 +123,12 @@ void SettingsTab::setupConnections()
     connect(cdSelectButton, SIGNAL(clicked()), this, SLOT(setNewCdImagePath()));
     connect(floppySelectButton, SIGNAL(clicked()), this, SLOT(setNewFloppyImagePath()));
     connect(upgradeButton, SIGNAL(clicked()), this, SLOT(confirmUpgrade()));
+
+    //connections for usb support
+    UsbModel * model = usbPageWidget->getModel();\
+    UsbConfig * conf = parent->machineProcess->getUsbConfig();
+    connect(model, SIGNAL(vmDeviceAdded(QString)), conf, SLOT(vmAddDevice(QString)));
+    connect(model, SIGNAL(vmDeviceRemoved(QString)), conf, SLOT(vmRemoveDevice(QString)));
 }
 
 //various file select dialogs

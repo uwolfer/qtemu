@@ -39,6 +39,11 @@ public:
 private:
     MachineConfigObject * config;
     MachineProcess * parent;
+
+public slots:
+    void vmAddDevice(QString id);
+    void vmRemoveDevice(QString id);
+
 };
 
 #endif // USBCONFIG_H
