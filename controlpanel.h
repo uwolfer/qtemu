@@ -56,11 +56,13 @@ private:
     MachineConfigObject *config;
 private slots:
     void mediaActivate();
-    void optionActivate();
     void displayActivate();
+    void usbActivate();
     void saveScreenshot();
     void running();
     void stopped();
+
+    void optionChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);
 };
 
 #endif

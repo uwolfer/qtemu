@@ -34,8 +34,11 @@
 #include "machineprocess.h"
 #include "settingstab.h"
 #include "machineview.h"
+#include "usbpage.h"
+#include "usbmodel.h"
 
 #include <QFileDialog>
+#include <QStandardItemModel>
 
 ControlPanel::ControlPanel(MachineTab *parent)
  : QWidget(parent)
@@ -45,6 +48,12 @@ ControlPanel::ControlPanel(MachineTab *parent)
     config = parent->machineConfigObject;
     registerObjects();
     makeConnections();
+
+    QPalette listPalette = usbView->palette();
+    QColor transparent = QColor();
+    transparent.setAlpha(0);
+    listPalette.setColor(QPalette::Base, transparent);
+    usbView->setPalette(listPalette);
 }
 
 
@@ -58,6 +67,7 @@ void ControlPanel::makeConnections()
     connect(mediaButton, SIGNAL(clicked()), this, SLOT(mediaActivate()));
     //connect(optionButton, SIGNAL(clicked()), this, SLOT(optionActivate()));
     connect(displayButton, SIGNAL(clicked()), this, SLOT(displayActivate()));
+    connect(usbButton, SIGNAL(clicked()), this, SLOT(usbActivate()));
 
     //action connections
     connect(cdReloadButton, SIGNAL(clicked()), parent->machineProcess, SLOT(changeCdrom()));
@@ -81,14 +91,14 @@ void ControlPanel::mediaActivate()
     controlStack->setCurrentIndex(0);
 }
 
-void ControlPanel::optionActivate()
-{
-    controlStack->setCurrentIndex(1);
-}
-
 void ControlPanel::displayActivate()
 {
     controlStack->setCurrentIndex(2);
+}
+
+void ControlPanel::usbActivate()
+{
+    controlStack->setCurrentIndex(1);
 }
 
 void ControlPanel::registerObjects()
@@ -97,7 +107,11 @@ void ControlPanel::registerObjects()
     config->registerObject(floppyCombo, "floppy");
     config->registerObject(mouseButton, "mouse");
     config->registerObject(scaleButton, "scaleEmbeddedDisplay");
-    
+    config->registerObject(addDevices, "autoAddDevices");
+
+    //connect the usb view to the model.
+    usbView->setModel(parent->settingsTab->getUsbPage()->getModel());
+
 }
 
 void ControlPanel::saveScreenshot()
@@ -121,4 +135,12 @@ void ControlPanel::stopped()
 {
     fullscreenButton->setEnabled(false);
     screenshotButton->setEnabled(false);
+}
+
+void ControlPanel::optionChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value)
+{
+    if(optionName == "autoAddDevices")
+    {
+        usbView->setEnabled(config->getOption("autoAddDevices", true).toBool());
+    }
 }

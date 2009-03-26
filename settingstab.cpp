@@ -223,3 +223,8 @@ void SettingsTab::disableUnsupportedOptions()
 //        netPage->netAccelCheck->setChecked(false);
     }
 }
+
+UsbPage* SettingsTab::getUsbPage()
+{
+    return usbPageWidget;
+}

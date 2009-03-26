@@ -51,7 +51,6 @@ private slots:
 signals:
     void vmDeviceAdded(QString identifier);
     void vmDeviceRemoved(QString identifier);
-
 };
 
 #endif // USBMODEL_H

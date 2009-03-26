@@ -31,6 +31,8 @@ class MachineProcess;
 
 class UsbConfig : public QObject
 {
+    Q_OBJECT
+
 public:
     UsbConfig(MachineProcess * parent, MachineConfigObject * config);
 

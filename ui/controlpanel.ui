@@ -1,103 +1,136 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ControlPanel</class>
- <widget class="QWidget" name="ControlPanel" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ControlPanel">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>306</width>
+    <width>270</width>
     <height>221</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+    <horstretch>50</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout" >
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QFrame" name="frame" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Preferred" hsizetype="Maximum" >
+    <widget class="QFrame" name="frame">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="frameShape" >
+     <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" >
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="displayButton" >
-        <property name="maximumSize" >
-         <size>
-          <width>30</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="toolTip" >
-         <string>Screen Controls</string>
-        </property>
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
-        </property>
-        <property name="checkable" >
-         <bool>true</bool>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="mediaButton" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-          <horstretch>30</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize" >
+       <widget class="QPushButton" name="displayButton">
+        <property name="maximumSize">
          <size>
           <width>30</width>
           <height>30</height>
          </size>
         </property>
-        <property name="toolTip" >
-         <string>Media Controls</string>
+        <property name="toolTip">
+         <string>Screen Controls</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string/>
         </property>
-        <property name="icon" >
-         <iconset resource="../qtemu.qrc" >
-          <normaloff>:/images/oxygen/cdrom.png</normaloff>:/images/oxygen/cdrom.png</iconset>
+        <property name="icon">
+         <iconset resource="../qtemu.qrc">
+          <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
         </property>
-        <property name="checkable" >
+        <property name="checkable">
          <bool>true</bool>
         </property>
-        <property name="checked" >
-         <bool>false</bool>
+        <property name="checked">
+         <bool>true</bool>
         </property>
-        <property name="autoExclusive" >
+        <property name="autoExclusive">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="verticalSpacer" >
-        <property name="orientation" >
+       <widget class="QPushButton" name="mediaButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>30</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Media Controls</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../qtemu.qrc">
+          <normaloff>:/images/oxygen/cdrom.png</normaloff>:/images/oxygen/cdrom.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="usbButton">
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>USB Controls</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../qtemu.qrc">
+          <normaloff>:/images/oxygen/usb.png</normaloff>:/images/oxygen/usb.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
-        <property name="sizeHint" stdset="0" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
           <height>40</height>
@@ -109,77 +142,69 @@
     </widget>
    </item>
    <item>
-    <widget class="QStackedWidget" name="controlStack" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
-       <horstretch>0</horstretch>
+    <widget class="QStackedWidget" name="controlStack">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>50</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="frameShape" >
+     <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <property name="currentIndex" >
-      <number>2</number>
+     <property name="currentIndex">
+      <number>1</number>
      </property>
-     <widget class="QWidget" name="page" >
-      <property name="geometry" >
-       <rect>
-        <x>3</x>
-        <y>3</y>
-        <width>244</width>
-        <height>207</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2" >
+     <widget class="QWidget" name="page">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label" >
-         <property name="text" >
+        <widget class="QLabel" name="label">
+         <property name="text">
           <string>Reload Optical Drive</string>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4" >
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QComboBox" name="cdCombo" >
-           <property name="toolTip" >
+          <widget class="QComboBox" name="cdCombo">
+           <property name="toolTip">
             <string>Enter a CD image name or /dev/cdrom to use the host cd drive.</string>
            </property>
-           <property name="editable" >
+           <property name="editable">
             <bool>true</bool>
            </property>
            <item>
-            <property name="text" >
+            <property name="text">
              <string/>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>/dev/cdrom</string>
             </property>
            </item>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="cdImageButton" >
-           <property name="maximumSize" >
+          <widget class="QPushButton" name="cdImageButton">
+           <property name="maximumSize">
             <size>
              <width>30</width>
              <height>16777215</height>
             </size>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>secect a new CD image</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string/>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/cdrom.png</normaloff>:/images/oxygen/cdrom.png</iconset>
            </property>
           </widget>
@@ -187,27 +212,27 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2" >
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPushButton" name="cdReloadButton" >
-           <property name="toolTip" >
+          <widget class="QPushButton" name="cdReloadButton">
+           <property name="toolTip">
             <string>Eject the CD ROM from the guest and re-insert the new one specified above.</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Reload</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/reload.png</normaloff>:/images/oxygen/reload.png</iconset>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer" >
-           <property name="orientation" >
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -218,57 +243,57 @@
         </layout>
        </item>
        <item>
-        <widget class="Line" name="line" >
-         <property name="orientation" >
+        <widget class="Line" name="line">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
+        <widget class="QLabel" name="label_2">
+         <property name="text">
           <string>Reload Floppy Drive</string>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5" >
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QComboBox" name="floppyCombo" >
-           <property name="toolTip" >
+          <widget class="QComboBox" name="floppyCombo">
+           <property name="toolTip">
             <string>enter a floppy image or /dev/floppy to use the host floppy drive.</string>
            </property>
-           <property name="editable" >
+           <property name="editable">
             <bool>true</bool>
            </property>
            <item>
-            <property name="text" >
+            <property name="text">
              <string/>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>/dev/floppy</string>
             </property>
            </item>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="floppyImageButton" >
-           <property name="maximumSize" >
+          <widget class="QPushButton" name="floppyImageButton">
+           <property name="maximumSize">
             <size>
              <width>30</width>
              <height>16777215</height>
             </size>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>secect a new floppy disk image</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string/>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/floppy.png</normaloff>:/images/oxygen/floppy.png</iconset>
            </property>
           </widget>
@@ -276,27 +301,27 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3" >
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QPushButton" name="floppyReloadButton" >
-           <property name="toolTip" >
+          <widget class="QPushButton" name="floppyReloadButton">
+           <property name="toolTip">
             <string>Eject the old floppy from the guest and re-insert the new one specified above.</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Reload</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/reload.png</normaloff>:/images/oxygen/reload.png</iconset>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_2" >
-           <property name="orientation" >
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -307,11 +332,11 @@
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_2" >
-         <property name="orientation" >
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>40</height>
@@ -321,188 +346,215 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_3" >
-      <property name="geometry" >
-       <rect>
-        <x>3</x>
-        <y>3</y>
-        <width>244</width>
-        <height>207</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3" >
+     <widget class="QWidget" name="page_3">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QPushButton" name="pushButton" >
-         <property name="toolTip" >
-          <string>Send special keys to the guest OS. Useful for key strokes that are intercepted by the host and cannot be sent directly.</string>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>USB Devices</string>
          </property>
-         <property name="text" >
-          <string>Send Special Keys</string>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_3" >
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
+        <widget class="QListView" name="usbView">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+           <horstretch>50</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="maximumSize">
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>200</width>
+           <height>16777215</height>
           </size>
          </property>
-        </spacer>
+         <property name="autoFillBackground">
+          <bool>true</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>false</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::NoSelection</enum>
+         </property>
+         <property name="viewMode">
+          <enum>QListView::ListMode</enum>
+         </property>
+         <property name="uniformItemSizes">
+          <bool>true</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="selectionRectVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="addDevices">
+         <property name="text">
+          <string>Add new devices</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_2" >
-      <property name="geometry" >
-       <rect>
-        <x>3</x>
-        <y>3</y>
-        <width>244</width>
-        <height>207</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4" >
+     <widget class="QWidget" name="page_2">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <layout class="QGridLayout" name="gridLayout" >
-         <property name="sizeConstraint" >
+        <layout class="QGridLayout" name="gridLayout">
+         <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
          </property>
-         <item row="0" column="0" >
-          <widget class="QToolButton" name="fullscreenButton" >
-           <property name="enabled" >
+         <item row="0" column="0">
+          <widget class="QToolButton" name="fullscreenButton">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>Toggle full screen mode. 
 Press CTRL+ALT+ENTER to return to windowed mode.</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>&amp;Fullscreen</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/fullscreen.png</normaloff>:/images/oxygen/fullscreen.png</iconset>
            </property>
-           <property name="iconSize" >
+           <property name="iconSize">
             <size>
              <width>32</width>
              <height>32</height>
             </size>
            </property>
-           <property name="shortcut" >
+           <property name="shortcut">
             <string>Ctrl+Alt+Return</string>
            </property>
-           <property name="checkable" >
+           <property name="checkable">
             <bool>true</bool>
            </property>
-           <property name="toolButtonStyle" >
+           <property name="toolButtonStyle">
             <enum>Qt::ToolButtonTextUnderIcon</enum>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" >
-          <widget class="QToolButton" name="screenshotButton" >
-           <property name="enabled" >
+         <item row="0" column="1">
+          <widget class="QToolButton" name="screenshotButton">
+           <property name="enabled">
             <bool>false</bool>
            </property>
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>Save a screen shot to a file</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Screen Shot</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/camera.png</normaloff>:/images/oxygen/camera.png</iconset>
            </property>
-           <property name="iconSize" >
+           <property name="iconSize">
             <size>
              <width>32</width>
              <height>32</height>
             </size>
            </property>
-           <property name="toolButtonStyle" >
+           <property name="toolButtonStyle">
             <enum>Qt::ToolButtonTextUnderIcon</enum>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" >
-          <widget class="QToolButton" name="scaleButton" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+         <item row="1" column="0">
+          <widget class="QToolButton" name="scaleButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>Toggle scaling the virtual machine view to fit the window</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Do Scaling</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/scale.png</normaloff>:/images/oxygen/scale.png</iconset>
            </property>
-           <property name="iconSize" >
+           <property name="iconSize">
             <size>
              <width>32</width>
              <height>32</height>
             </size>
            </property>
-           <property name="checkable" >
+           <property name="checkable">
             <bool>true</bool>
            </property>
-           <property name="toolButtonStyle" >
+           <property name="toolButtonStyle">
             <enum>Qt::ToolButtonTextUnderIcon</enum>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QToolButton" name="mouseButton" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+         <item row="1" column="1">
+          <widget class="QToolButton" name="mouseButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="toolTip" >
+           <property name="toolTip">
             <string>Toggle smooth mouse transitions between
 the host and the guest. requires guest USB support.</string>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Smooth Mouse</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../qtemu.qrc" >
+           <property name="icon">
+            <iconset resource="../qtemu.qrc">
              <normaloff>:/images/oxygen/mouse.png</normaloff>:/images/oxygen/mouse.png</iconset>
            </property>
-           <property name="iconSize" >
+           <property name="iconSize">
             <size>
              <width>32</width>
              <height>32</height>
             </size>
            </property>
-           <property name="checkable" >
+           <property name="checkable">
             <bool>true</bool>
            </property>
-           <property name="toolButtonStyle" >
+           <property name="toolButtonStyle">
             <enum>Qt::ToolButtonTextUnderIcon</enum>
            </property>
           </widget>
@@ -510,11 +562,11 @@ the host and the guest. requires guest USB support.</string>
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_4" >
-         <property name="orientation" >
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>40</height>
@@ -529,7 +581,7 @@ the host and the guest. requires guest USB support.</string>
   </layout>
  </widget>
  <resources>
-  <include location="../qtemu.qrc" />
+  <include location="../qtemu.qrc"/>
  </resources>
  <connections/>
 </ui>

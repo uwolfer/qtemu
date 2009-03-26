@@ -63,6 +63,9 @@ the host and the guest. requires guest USB support.</string>
         <property name="toolTip">
          <string>Check USB devices to add them to the virtual machine.</string>
         </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>

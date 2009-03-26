@@ -44,6 +44,8 @@ public:
 
     ~SettingsTab();
 
+    UsbPage *getUsbPage();
+
 public slots:
     void setNewCdImagePath();
     void setNewFloppyImagePath();

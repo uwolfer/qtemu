@@ -24,6 +24,7 @@
 #include "usbconfig.h"
 #include "machineconfigobject.h"
 #include "machineprocess.h"
+#include "machinetab.h"
 
 UsbConfig::UsbConfig(MachineProcess * parent, MachineConfigObject * config)
         : QObject(parent)
@@ -31,6 +32,8 @@ UsbConfig::UsbConfig(MachineProcess * parent, MachineConfigObject * config)
         , parent(parent)
 {
     config->registerObject(this);
+
+    qobject_cast<MachineTab *>(parent->parent());
 }
 
 QStringList UsbConfig::getOptionString()
@@ -46,10 +49,19 @@ QStringList UsbConfig::getOptionString()
 
 void UsbConfig::vmAddDevice(QString id)
 {
-    parent->write(QString("usb_add " + id).toAscii());
+    if(parent->state() == 2)
+    {
+        parent->write(QString("usb_add host:" + id).toAscii());
+    }
 }
 
 void UsbConfig::vmRemoveDevice(QString id)
-{
-    parent->write(QString("usb_del " + id).toAscii()); //this may not be right.
+{    if(parent->state() == 2)
+    {
+        parent->write(QString("usb_del host:" + id).toAscii());
+    }
+
+    //this may not be right... or needed sometimes.
+    //if the device is physically removed this is exteranious,
+    //if you just uncheck the device's checkbox, then it is required.
 }

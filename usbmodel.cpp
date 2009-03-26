@@ -166,6 +166,7 @@ void UsbModel::getChange(QStandardItem * thisItem)
                         config->getConfig()->clearOption("usb","",names.at(j));
                     }
                 }
+
             }
             break;
         }
