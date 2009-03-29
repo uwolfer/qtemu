@@ -29,7 +29,7 @@
 
 QtEmuEnvironment::QtEmuEnvironment()
 {
-    getVersion();
+    getVersion(); 
 }
 
 QtEmuEnvironment::~ QtEmuEnvironment()

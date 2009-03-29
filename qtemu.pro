@@ -25,7 +25,8 @@ HEADERS = config.h \
     machinescrollarea.h \
     usbpage.h \
     usbconfig.h \
-    usbmodel.h
+    usbmodel.h \
+    halobject.h
 
 # guesttoolslistener.h
 SOURCES = main.cpp \
@@ -54,7 +55,8 @@ SOURCES = main.cpp \
     machinescrollarea.cpp \
     usbpage.cpp \
     usbconfig.cpp \
-    usbmodel.cpp
+    usbmodel.cpp \
+    halobject.cpp
 
 # guesttoolslistener.cpp
 # include(GuestTools/modules/host.pri)

@@ -211,6 +211,14 @@ void NetworkPage::hostSelectionChanged(const QItemSelection & selected, const QI
     changingSelection=false;
 }
 
+void NetworkPage::loadHostEthIfs()
+{
+    //we will load ethernet interfaces from HAL and insert them.
+
+    hardwareEdit->addItem("eth0");
+    hardwareEdit_2->addItem("eth0");
+}
+
 
 
 

@@ -40,9 +40,9 @@ public:
     static int getKvmVersion();
 
 private:
-static void getVersion();
-static int qemuVersion[3];
-static int kvmVersion;
-static bool versionChecked;
+    static void getVersion();
+    static int qemuVersion[3];
+    static int kvmVersion;
+    static bool versionChecked;
 };
 #endif

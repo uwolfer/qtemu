@@ -243,6 +243,12 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
             object->setProperty("plainText", value);
         connect(object, SIGNAL(textChanged()), this, SLOT(getObjectValue()));
     }
+    else if (object->inherits("QWidget") && object->property("enableDisable").toBool() == true)
+    {
+        //if the "enableDisable" property is set to true, we want to enable or disable the widget.
+        QWidget *thisWidget = static_cast<QWidget *>(object);
+        thisWidget->setEnabled(value.toBool());
+    }
     else
     {
         //if it's none of those... we don't know what it is yet.

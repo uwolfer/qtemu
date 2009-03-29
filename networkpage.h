@@ -77,6 +77,8 @@ private slots:
 
     void guestSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
     void hostSelectionChanged(const QItemSelection & selected, const QItemSelection & deselected);
+
+    void loadHostEthIfs();
 };
 
 

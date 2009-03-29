@@ -89,6 +89,7 @@ private:
 
     QString myMachinesPath;
     QString iconTheme;
+
 };
 
 #endif

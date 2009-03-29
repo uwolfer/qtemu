@@ -89,7 +89,7 @@
          <string>Cpu / Memory</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/memory.png</normaloff>:/images/oxygen/memory.png</iconset>
         </property>
        </item>
@@ -98,7 +98,7 @@
          <string>Hard Disk</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/hdd.png</normaloff>:/images/oxygen/hdd.png</iconset>
         </property>
        </item>
@@ -107,7 +107,7 @@
          <string>Removable Media</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/cdrom.png</normaloff>:/images/oxygen/cdrom.png</iconset>
         </property>
        </item>
@@ -116,7 +116,7 @@
          <string>USB Support</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/usb.png</normaloff>:/images/oxygen/usb.png</iconset>
         </property>
        </item>
@@ -125,7 +125,7 @@
          <string>Networking</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/network.png</normaloff>:/images/oxygen/network.png</iconset>
         </property>
        </item>
@@ -134,7 +134,7 @@
          <string>Sound</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/sound.png</normaloff>:/images/oxygen/sound.png</iconset>
         </property>
        </item>
@@ -143,7 +143,7 @@
          <string>Display</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/new.png</normaloff>:/images/oxygen/new.png</iconset>
         </property>
        </item>
@@ -152,7 +152,7 @@
          <string>Other Options</string>
         </property>
         <property name="icon">
-         <iconset resource="../qtemu.qrc">
+         <iconset>
           <normaloff>:/images/oxygen/other.png</normaloff>:/images/oxygen/other.png</iconset>
         </property>
        </item>
@@ -209,8 +209,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>485</width>
-          <height>408</height>
+          <width>494</width>
+          <height>360</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -814,7 +814,7 @@ p, li { white-space: pre-wrap; }
                      <string>Clear</string>
                     </property>
                     <property name="icon">
-                     <iconset resource="../qtemu.qrc">
+                     <iconset>
                       <normaloff>:/images/oxygen/close.png</normaloff>:/images/oxygen/close.png</iconset>
                     </property>
                    </widget>
@@ -924,7 +924,7 @@ p, li { white-space: pre-wrap; }
                      <string>Clear</string>
                     </property>
                     <property name="icon">
-                     <iconset resource="../qtemu.qrc">
+                     <iconset>
                       <normaloff>:/images/oxygen/close.png</normaloff>:/images/oxygen/close.png</iconset>
                     </property>
                    </widget>
@@ -1479,8 +1479,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>463</width>
-              <height>95</height>
+              <width>474</width>
+              <height>161</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1516,9 +1516,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>memorySlider</tabstop>
   <tabstop>memorySpinBox</tabstop>
  </tabstops>
- <resources>
-  <include location="../qtemu.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>memorySlider</sender>

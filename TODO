@@ -13,7 +13,6 @@ Missing or broken features need to be completed or disabled.
 
 * Add the progress bar for long operations like suspend/resume and saving a snapshot to the image file.
 
-* finish toolbar in fullscreen mode - pause, start/stop, suspend/resume, change disc - would be easier with actions...
 --- finishing touches ---
 
 * Add tooltips to many UI components (machinetab.cpp is the only file left that needs updating)
@@ -23,10 +22,11 @@ Missing or broken features need to be completed or disabled.
 * Finish new help files
 
 * Update old help file
+  -- currently in progress
 
 --- wishes ---
 
-* size of ram selection should be added to the wizard. --should it really? this means another page in the wizard
+* size of ram selection should be added to the wizard.
 
 * a system tray icon
 
@@ -35,11 +35,9 @@ Known Bugs:
 -----------------
 Known bugs must be fixed before the next release.
 
-* on some OSes if only kvm is installed, we should use kvm-img, not qemu-img.
- 
-* no error given if the image does NOT successfully create.
-
 * there are still some bugs where the vnc output might not show up - it thinks its size is negative.
+  This bug is still a showstopper, it seems to be some kind of race condition.
+
 ------------------
 Known issues:
 ------------------
@@ -69,6 +67,17 @@ Version 2.1 +:
 -------------------
 
 * working network configuration.
+   --this will be handled by adding a few shell scripts or possibly apps, then autogenerating a shell script for ifup/ifdown that calls these smaller scripts.
+     > a script to create a tap device
+     > a script to delete a tap device
+     > a script to create a bridge device
+     > a script to delete a bridge device
+     > a script to add a given ethernet interface to a given bridge, saving the ethernet interface's old settings
+     > a script to remove a given ethernet interface from a bridge, restoring the ethernet interface's old settings
+     > a script to suspend NetworkManager
+     > a script to resume NetworkManager
+     IF these are scripts, they need to be set up in the sudoers file, because scripts can't be set up suid.
+
 
 * detect the running sound system (in order of perference: pulse audio, esd, ALSA, OSS) and set the sound interface type automatically.
 
@@ -91,8 +100,6 @@ Version 2.1 +:
 * inclusion of tools to make the guest os integrate with the host better.
   -copy/paste
   -resolution changing
-
-* USB device support
 
 * Allow selecting audio hardware
 

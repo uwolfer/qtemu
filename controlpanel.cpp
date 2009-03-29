@@ -109,9 +109,11 @@ void ControlPanel::registerObjects()
     config->registerObject(scaleButton, "scaleEmbeddedDisplay");
     config->registerObject(addDevices, "autoAddDevices");
 
+    usbFrame->setProperty("enableDisable", true);
+    config->registerObject(usbFrame, "usbSupport");
+
     //connect the usb view to the model.
     usbView->setModel(parent->settingsTab->getUsbPage()->getModel());
-
 }
 
 void ControlPanel::saveScreenshot()

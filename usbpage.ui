@@ -21,14 +21,29 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_14">
       <item>
-       <widget class="QCheckBox" name="usbCheck">
-        <property name="toolTip">
-         <string>Enable support for USB devices, either virtual or shared with the Host</string>
-        </property>
-        <property name="text">
-         <string>Enable USB support</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="usbCheck">
+          <property name="toolTip">
+           <string>Enable support for USB devices, either virtual or shared with the Host</string>
+          </property>
+          <property name="text">
+           <string>Enable USB support</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="mouseCheck">
+          <property name="toolTip">
+           <string>Toggle smooth mouse transitions between
+the host and the guest. requires guest USB support.</string>
+          </property>
+          <property name="text">
+           <string>Seamless USB Mouse</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="Line" name="line_3">
@@ -38,41 +53,42 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_16">
-        <property name="text">
-         <string>USB Devices</string>
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="mouseCheck">
-        <property name="toolTip">
-         <string>Toggle smooth mouse transitions between
-the host and the guest. requires guest USB support.</string>
-        </property>
-        <property name="text">
-         <string>Seamless USB Mouse</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QListView" name="usbView">
-        <property name="toolTip">
-         <string>Check USB devices to add them to the virtual machine.</string>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="addCheck">
-        <property name="text">
-         <string>Automatically add new devices</string>
-        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>USB Devices</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListView" name="usbView">
+           <property name="toolTip">
+            <string>Check USB devices to add them to the virtual machine.</string>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="addCheck">
+           <property name="text">
+            <string>Automatically add new devices</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
@@ -106,8 +122,24 @@ the host and the guest. requires guest USB support.</string>
      <y>53</y>
     </hint>
     <hint type="destinationlabel">
-     <x>52</x>
-     <y>107</y>
+     <x>284</x>
+     <y>59</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>usbCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>frame</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>90</x>
+     <y>75</y>
     </hint>
    </hints>
   </connection>
