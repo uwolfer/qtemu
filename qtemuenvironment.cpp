@@ -32,7 +32,7 @@ QtEmuEnvironment::QtEmuEnvironment()
 {
     getVersion();
 
-    if(hal = 0)
+    if(hal == 0)
         hal = new HalObject();
 }
 
@@ -111,9 +111,9 @@ int QtEmuEnvironment::getKvmVersion()
     return kvmVersion;
 }
 
-HalObject* getHal()
+HalObject* QtEmuEnvironment::getHal()
 {
-    if(hal = 0)
+    if(hal == 0)
         hal = new HalObject();
     return hal;
 }

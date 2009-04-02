@@ -65,6 +65,10 @@ void HalObject::halDeviceAdded(QString name)
     //generic device signal
     emit deviceAdded(name);
 
+#ifdef DEVELOPER
+    qDebug(name.toAscii());
+#endif
+
     //USB device that is not a hub added...
     if(tempInterface->call("GetProperty", "info.subsystem").arguments().at(0).toString() == "usb_device" &&
        tempInterface->call("GetProperty", "usb_device.num_ports").arguments().at(0).toInt() == 0 )
@@ -85,6 +89,10 @@ void HalObject::halDeviceRemoved(QString name)
 {
     //generic device signal
     emit(deviceRemoved(name));
+
+#ifdef DEVELOPER
+    qDebug(name.toAscii());
+#endif
 
     //USB device that is not a hub deleted...
     if(usbDeviceHash.contains(name))

@@ -84,6 +84,7 @@ TRANSLATIONS = translations/template_qtemu.ts \
 CONFIG += debug_and_release
 LIBS += -lvncclient
 DEFINES += QTONLY
+DEFINES += DEVELOPER
 DISTFILES += TODO \
     CHANGELOG \
     README
