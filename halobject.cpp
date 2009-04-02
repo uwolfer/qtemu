@@ -23,6 +23,8 @@
 
 #include "halobject.h"
 
+#include <QDebug>
+
 /***************************************************************************
 **
 ** HalObject is supposed to be used ONCE by qtemu, and each VM talks to it.
@@ -82,7 +84,11 @@ void HalObject::halDeviceAdded(QString name)
         usbDeviceHash.insert(name, device);
         emit usbAdded(name, device);
     }
+    else if(tempInterface->call("GetProperty", "info.capabilities").arguments().contains("volume.disc"))
+    {
+        emit opticalAdded(tempInterface->call("GetProperty", "volume.label").arguments().at(0).toString(), tempInterface->call("GetProperty", "block.device").arguments().at(0).toString());
 
+    }
 }
 
 void HalObject::halDeviceRemoved(QString name)

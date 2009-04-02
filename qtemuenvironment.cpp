@@ -118,6 +118,7 @@ HalObject* QtEmuEnvironment::getHal()
     return hal;
 }
 
+HalObject* QtEmuEnvironment::hal = 0;
 int QtEmuEnvironment::qemuVersion[] = {-1, -1, -1};
 int QtEmuEnvironment::kvmVersion = -1;
 bool QtEmuEnvironment::versionChecked = false;
