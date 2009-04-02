@@ -188,7 +188,8 @@ void UsbModel::deviceRemoved(QString name, UsbDevice device)
 #ifdef DEVELOPER
             qDebug("device removed " + name.toAscii());
 #endif
-            getUsbDevices();
+            this->removeRow(i);
+            //getUsbDevices();
             loadConfig();
             break;
         }
