@@ -21,6 +21,7 @@
 **
 ****************************************************************************/
 
+#include "halobject.h"
 #include "qtemuenvironment.h"
 #include <QSettings>
 #include <QProcess>
@@ -29,7 +30,10 @@
 
 QtEmuEnvironment::QtEmuEnvironment()
 {
-    getVersion(); 
+    getVersion();
+
+    if(hal = 0)
+        hal = new HalObject();
 }
 
 QtEmuEnvironment::~ QtEmuEnvironment()
@@ -105,6 +109,13 @@ int QtEmuEnvironment::getKvmVersion()
     if(!versionChecked)
         getVersion();
     return kvmVersion;
+}
+
+HalObject* getHal()
+{
+    if(hal = 0)
+        hal = new HalObject();
+    return hal;
 }
 
 int QtEmuEnvironment::qemuVersion[] = {-1, -1, -1};

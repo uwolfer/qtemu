@@ -23,9 +23,8 @@
 
 #include "usbmodel.h"
 #include "machineconfigobject.h"
-#include <QDBusInterface>
-#include <QDBusReply>
-#include <QDBusConnection>
+#include "halobject.h"
+#include "qtemuenvironment.h"
 #include <QStringList>
 #include <QStandardItem>
 
@@ -33,55 +32,43 @@ UsbModel::UsbModel(MachineConfigObject * config, QObject * parent)
         :QStandardItemModel(parent)
         ,config(config)
 {
-   hal = new QDBusInterface("org.freedesktop.Hal",
-                                               "/org/freedesktop/Hal/Manager",
-                                               "org.freedesktop.Hal.Manager",
-                                               QDBusConnection::systemBus(),
-                                               this);
-   getUsbDevices();
+    hal = QtEmuEnvironment::getHal();
 
-   loadConfig();
-   connect(this, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(getChange(QStandardItem*)));
-   connect(hal, SIGNAL(DeviceAdded(QString)), this, SLOT(deviceAdded(QString)));
-   connect(hal, SIGNAL(DeviceRemoved(QString)), this, SLOT(deviceRemoved(QString)));
+    getUsbDevices();
+
+    loadConfig();
+    connect(this, SIGNAL(itemChanged(QStandardItem*)), this, SLOT(getChange(QStandardItem*)));
+    connect(hal, SIGNAL(usbAdded(QString,UsbDevice)), this, SLOT(deviceAdded(QString,UsbDevice)));
+    connect(hal, SIGNAL(usbRemoved(QString,UsbDevice)), this, SLOT(deviceRemoved(QString,UsbDevice)));
 }
 
 void UsbModel::getUsbDevices()
 {
-    QDBusReply<QStringList> deviceList = hal->call("GetAllDevices");
-   if (deviceList.isValid())
+
+    QList<UsbDevice> deviceList = hal->usbList();
+
+    if (!deviceList.isEmpty())
     {
-       clear();
-       //search through and get those items that are USB and not hubs.
-       QDBusInterface *tempInterface;
-       for(int i = 0; i < deviceList.value().size(); i++)
-       {
-           tempInterface = new QDBusInterface("org.freedesktop.Hal",
-                                               deviceList.value().at(i),
-                                               "org.freedesktop.Hal.Device",
-                                               QDBusConnection::systemBus(),
-                                               this);
-           if(tempInterface->call("GetProperty", "info.subsystem").arguments().at(0).toString() == "usb_device" && tempInterface->call("GetProperty", "usb_device.num_ports").arguments().at(0).toInt() == 0 )
-           {
+        clear();
+
+        for(int i = 0; i < deviceList.size(); i++)
+        {
+            addItem(deviceList.at(i).vendor + " - " + deviceList.at(i).product, deviceList.at(i).id);
+        }
+    }
+}
+
+void UsbModel::addItem(const QString deviceName, QString id)
+{
 #ifdef DEVELOPER
-               qDebug(
-                       tempInterface->call("GetProperty", "usb_device.bus_number").arguments().at(0).toByteArray() + "." +
-                       tempInterface->call("GetProperty", "usb_device.linux.device_number").arguments().at(0).toByteArray() + " - " +
-                       tempInterface->call("GetProperty", "info.vendor").arguments().at(0).toByteArray() + " : " +
-                       tempInterface->call("GetProperty", "info.product").arguments().at(0).toByteArray()
-                       );
+    qDebug(deviceName + " " + id);
 #endif
-               QList<QStandardItem*> items;
-               items.append(new QStandardItem(tempInterface->call("GetProperty", "info.vendor").arguments().at(0).toString() + " - " + tempInterface->call("GetProperty", "info.product").arguments().at(0).toString()));
-               QString id = deviceList.value().at(i);
-               items.append(new QStandardItem(id.remove("/org/freedesktop/Hal/devices/usb_device_")));
-               items.at(0)->setCheckable(true);
-               appendRow(items);
-
-
-           }
-       }
-   }
+    QList<QStandardItem*> items;
+    items.append(new QStandardItem(deviceName));
+    id.remove("/org/freedesktop/Hal/devices/usb_device_");
+    items.append(new QStandardItem(id));
+    items.at(0)->setCheckable(true);
+    appendRow(items);
 }
 
 void UsbModel::loadConfig()
@@ -111,7 +98,6 @@ void UsbModel::getChange(QStandardItem * thisItem)
     QStringList names = config->getConfig()->getAllOptionNames("usb", "");
     QString nextFreeName;
     QString address;
-    QDBusInterface * tempInterface;
 
     //find the next free name for a usb host device
     for(int i = 0; i < names.size() + 1;i++)
@@ -128,13 +114,7 @@ void UsbModel::getChange(QStandardItem * thisItem)
         {
             if(thisItem->checkState() == Qt::Checked)
             {
-                tempInterface = new QDBusInterface("org.freedesktop.Hal",
-                                "/org/freedesktop/Hal/devices/usb_device_" + item(i,1)->text(),
-                                "org.freedesktop.Hal.Device",
-                                QDBusConnection::systemBus(),
-                                this);
-                address = tempInterface->call("GetProperty", "usb_device.bus_number").arguments().at(0).toString() + "." +
-                          tempInterface->call("GetProperty", "usb_device.linux.device_number").arguments().at(0).toString();
+                address = hal->usbList().at(i).address;
 
                 bool checkExists = false;
                 for(int j = 0; j< names.size(); j++)
@@ -177,35 +157,27 @@ void UsbModel::getChange(QStandardItem * thisItem)
 
 }
 
-void UsbModel::deviceAdded(QString name)
+void UsbModel::deviceAdded(QString name, UsbDevice device)
 {
-    QDBusInterface * tempInterface = new QDBusInterface("org.freedesktop.Hal",
-                                               name,
-                                               "org.freedesktop.Hal.Device",
-                                               QDBusConnection::systemBus(),
-                                               this);
-    if(tempInterface->call("GetProperty", "info.subsystem").arguments().at(0).toString() == "usb_device" && tempInterface->call("GetProperty", "usb_device.num_ports").arguments().at(0).toInt() == 0 )
-    {
 #ifdef DEVELOPER
-        qDebug("device added " + name.toAscii());
+    qDebug("device added " + device.vendor + "-" + device.product + device.id);
 #endif
-        getUsbDevices();
-        loadConfig();
-        if(property("autoAddDevices").toBool())
+    QString id = device.id;
+    addItem(device.vendor + " - " + device.product, id.remove("/org/freedesktop/Hal/devices/usb_device_"));
+    loadConfig();
+    if(property("autoAddDevices").toBool())
+    {
+        for(int i=0;i<this->rowCount(QModelIndex());i++)
         {
-            for(int i=0;i<this->rowCount(QModelIndex());i++)
+            if((QString("/org/freedesktop/Hal/devices/usb_device_") + QString(item(i,1)->text())) == name)
             {
-                if((QString("/org/freedesktop/Hal/devices/usb_device_") + QString(item(i,1)->text())) == name)
-                {
-                    item(i,0)->setCheckState(Qt::Checked);
-                }
+                item(i,0)->setCheckState(Qt::Checked);
             }
         }
     }
-
 }
 
-void UsbModel::deviceRemoved(QString name)
+void UsbModel::deviceRemoved(QString name, UsbDevice device)
 {
     for(int i=0;i<this->rowCount(QModelIndex());i++)
     {

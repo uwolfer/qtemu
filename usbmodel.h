@@ -25,7 +25,7 @@
 #define USBMODEL_H
 
 #include <QStandardItemModel>
-#include <QDBusInterface>
+#include "halobject.h"
 
 class MachineConfigObject;
 
@@ -40,13 +40,15 @@ private:
     void getUsbDevices();
     void loadConfig();
     void checkDevice(QString deviceName);
+    void addItem(QString deviceName, QString id);
 
-    QDBusInterface *hal;
     MachineConfigObject *config;
+    HalObject *hal;
+
 private slots:
     void getChange(QStandardItem * item);
-    void deviceAdded(QString name);
-    void deviceRemoved(QString name);
+    void deviceAdded(QString name, UsbDevice device);
+    void deviceRemoved(QString name, UsbDevice device);
 
 signals:
     void vmDeviceAdded(QString identifier);

@@ -27,6 +27,9 @@
 /**
 	@author Ben Klopfenstein <benklop@gmail.com>
 */
+
+class HalObject;
+
 class QtEmuEnvironment{
 public:
     QtEmuEnvironment();
@@ -39,10 +42,13 @@ public:
 ///just a plain old number
     static int getKvmVersion();
 
+    static HalObject* getHal();
+
 private:
     static void getVersion();
     static int qemuVersion[3];
     static int kvmVersion;
     static bool versionChecked;
+    static HalObject *hal;
 };
 #endif
