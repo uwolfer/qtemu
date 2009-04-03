@@ -51,14 +51,14 @@ void UsbConfig::vmAddDevice(QString id)
 {
     if(parent->state() == 2)
     {
-        parent->write(QString("usb_add host:" + id).toAscii());
+        parent->write(QString("usb_add host:" + id + '\n').toAscii());
     }
 }
 
 void UsbConfig::vmRemoveDevice(QString id)
 {    if(parent->state() == 2)
     {
-        parent->write(QString("usb_del host:" + id).toAscii());
+        parent->write(QString("usb_del host:" + id + '\n').toAscii());
     }
 
     //this may not be right... or needed sometimes.
