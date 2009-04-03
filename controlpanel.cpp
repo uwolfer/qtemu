@@ -162,5 +162,9 @@ void ControlPanel::optAdded(QString devName, QString devPath)
 
 void ControlPanel::optRemoved(QString devName, QString devPath)
 {
+    if(cdCombo->itemData(cdCombo->currentIndex()).toString() == devPath)
+    {
+        parent->machineProcess->changeCdrom();
+    }
     cdCombo->removeItem(cdCombo->findData(devPath));
 }
