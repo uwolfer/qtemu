@@ -63,6 +63,9 @@ private slots:
     void stopped();
 
     void optionChanged(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant &value);
+
+    void optAdded(const QString devName, const QString devPath);
+    void optRemoved(const QString devName, const QString devPath);
 };
 
 #endif

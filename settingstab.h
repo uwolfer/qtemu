@@ -76,6 +76,9 @@ private slots:
     //warning dialogs
     void confirmUpgrade();
 
+    void optAdded(const QString devName, const QString devPath);
+    void optRemoved(const QString devName, const QString devPath);
+
 signals:
     void upgradeHdd();
 };

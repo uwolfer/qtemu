@@ -197,11 +197,17 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
     {
         object->disconnect(this);
         QComboBox *thisBox = static_cast<QComboBox *>(object);
-        int index = thisBox->findText(value.toString());
+        int index;
+        if(thisBox->findData(value) == -1)
+            index = thisBox->findText(value.toString());
+        else
+            index = thisBox->findData(value);
+
         if(index!=-1 && object->property("currentIndex").toInt() != index)
             object->setProperty("currentIndex", index);
-        else if(thisBox->currentText() != value.toString())
+        else if(thisBox->currentText() != value.toString() && thisBox->itemData(thisBox->currentIndex()) != value)
             thisBox->setEditText(value.toString());
+
         connect(object, SIGNAL(currentIndexChanged(int)), this, SLOT(getObjectValue()));
         connect(object, SIGNAL(editTextChanged(QString)), this, SLOT(getObjectValue()));
     }
@@ -301,7 +307,11 @@ void MachineConfigObject::getObjectValue()
     }
     else if(object->inherits("QComboBox"))
     {
-        value = object->property("currentText");
+        QComboBox *thisCombo = static_cast<QComboBox *>(object);
+        if(!thisCombo->itemData(thisCombo->currentIndex()).isNull())
+            value = thisCombo->itemData(thisCombo->currentIndex());
+        else
+            value = object->property("currentText");
     }
     else if (object->inherits("QRadioButton"))
     {

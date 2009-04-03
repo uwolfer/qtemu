@@ -38,6 +38,15 @@
      QString address;
  };
 
+ struct OptDevice
+ {
+     QString device;
+     QString id;
+     QString name;
+     QString volume;
+     QString volumeId;
+ };
+
 class HalObject : public QObject
 {
     Q_OBJECT
@@ -48,7 +57,7 @@ public:
     const QStringList deviceList();
     const QList<UsbDevice> usbList();
     const QStringList ifList();
-    const QStringList opticalList();
+    const QList<OptDevice> opticalList();
 
 
 private:
@@ -57,6 +66,7 @@ private:
     QDBusInterface *hal;
 
     QHash<QString, UsbDevice> usbDeviceHash;
+    QHash<QString, OptDevice> optDeviceHash;
 
 signals:
     //generic catchall device notification

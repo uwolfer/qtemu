@@ -46,6 +46,11 @@ ControlPanel::ControlPanel(MachineTab *parent)
 {
     setupUi(this);
     config = parent->machineConfigObject;
+
+    //load current drives
+    foreach(OptDevice device, QtEmuEnvironment::getHal()->opticalList())
+        cdCombo->addItem(device.name, device.device);
+
     registerObjects();
     makeConnections();
 
@@ -82,8 +87,11 @@ void ControlPanel::makeConnections()
 
     //state connections
     connect(parent->machineProcess, SIGNAL(started()), this, SLOT(running()));
-
     connect(parent->machineProcess, SIGNAL(finished( int )), this, SLOT(stopped()));
+
+    //connections for optical drive detection
+    connect(QtEmuEnvironment::getHal(), SIGNAL(opticalAdded(QString,QString)),this,SLOT(optAdded(QString,QString)));
+    connect(QtEmuEnvironment::getHal(), SIGNAL(opticalRemoved(QString,QString)),this,SLOT(optRemoved(QString,QString)));
 }
 
 void ControlPanel::mediaActivate()
@@ -145,4 +153,14 @@ void ControlPanel::optionChanged(const QString &nodeType, const QString &nodeNam
     {
         usbView->setEnabled(config->getOption("autoAddDevices", true).toBool());
     }
+}
+
+void ControlPanel::optAdded(QString devName, QString devPath)
+{
+    cdCombo->addItem(devName, devPath);
+}
+
+void ControlPanel::optRemoved(QString devName, QString devPath)
+{
+    cdCombo->removeItem(cdCombo->findData(devPath));
 }

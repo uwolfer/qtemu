@@ -55,6 +55,10 @@ SettingsTab::SettingsTab(MachineConfigObject *config, MachineTab *parent)
 
     setupConnections();
 
+    //load current drives
+    foreach(OptDevice device, QtEmuEnvironment::getHal()->opticalList())
+        cdImage->addItem(device.name, device.device);
+
     //register all the widgets with their associated options
     registerWidgets();
     setupHelp();
@@ -129,6 +133,10 @@ void SettingsTab::setupConnections()
     UsbConfig * conf = parent->machineProcess->getUsbConfig();
     connect(model, SIGNAL(vmDeviceAdded(QString)), conf, SLOT(vmAddDevice(QString)));
     connect(model, SIGNAL(vmDeviceRemoved(QString)), conf, SLOT(vmRemoveDevice(QString)));
+
+    //connections for optical drive detection
+    connect(QtEmuEnvironment::getHal(), SIGNAL(opticalAdded(QString,QString)),this,SLOT(optAdded(QString,QString)));
+    connect(QtEmuEnvironment::getHal(), SIGNAL(opticalRemoved(QString,QString)),this,SLOT(optRemoved(QString,QString)));
 }
 
 //various file select dialogs
@@ -227,4 +235,14 @@ void SettingsTab::disableUnsupportedOptions()
 UsbPage* SettingsTab::getUsbPage()
 {
     return usbPageWidget;
+}
+
+void SettingsTab::optAdded(QString devName, QString devPath)
+{
+    cdImage->addItem(devName, devPath);
+}
+
+void SettingsTab::optRemoved(QString devName, QString devPath)
+{
+    cdImage->removeItem(cdImage->findData(devPath));
 }

@@ -69,12 +69,15 @@ void HalObject::halDeviceAdded(QString name)
 
 #ifdef DEVELOPER
     qDebug(name.toAscii());
+    qDebug("capabilities:" + QVariant(tempInterface->call("GetPropertyStringList", "info.capabilities").arguments()).toStringList().join(", ").toAscii());
 #endif
-
     //USB device that is not a hub added...
     if(tempInterface->call("GetProperty", "info.subsystem").arguments().at(0).toString() == "usb_device" &&
        tempInterface->call("GetProperty", "usb_device.num_ports").arguments().at(0).toInt() == 0 )
     {
+#ifdef DEVELOPER
+        qDebug("usb added");
+#endif
         UsbDevice device;
         device.address = tempInterface->call("GetProperty", "usb_device.bus_number").arguments().at(0).toString() + "." +
                          tempInterface->call("GetProperty", "usb_device.linux.device_number").arguments().at(0).toString();
@@ -84,10 +87,36 @@ void HalObject::halDeviceAdded(QString name)
         usbDeviceHash.insert(name, device);
         emit usbAdded(name, device);
     }
-    else if(tempInterface->call("GetProperty", "info.capabilities").arguments().contains("volume.disc"))
-    {
-        emit opticalAdded(tempInterface->call("GetProperty", "volume.label").arguments().at(0).toString(), tempInterface->call("GetProperty", "block.device").arguments().at(0).toString());
 
+    else if(tempInterface->call("QueryCapability", "storage.cdrom").arguments().at(0).toBool())
+    {
+#ifdef DEVELOPER
+        qDebug("optical added");
+        qDebug("at device: " + tempInterface->call("GetProperty", "block.device").arguments().at(0).toByteArray());
+#endif
+
+        OptDevice device;
+        device.device = tempInterface->call("GetProperty", "block.device").arguments().at(0).toString();
+        device.id = name;
+        device.name = tempInterface->call("GetProperty", "storage.model").arguments().at(0).toString();
+
+        optDeviceHash.insert(name, device);
+        emit opticalAdded(device.name, device.device);
+    }
+    else if(tempInterface->call("QueryCapability", "volume.disc").arguments().at(0).toBool())
+    {
+        foreach(OptDevice testDevice, optDeviceHash)
+        {
+            if(testDevice.device == tempInterface->call("GetProperty", "block.device").arguments().at(0).toString())
+            {
+                testDevice.volume = tempInterface->call("GetProperty", "volume.label").arguments().at(0).toString();
+                testDevice.volumeId = name;
+                emit opticalAdded(testDevice.name + " (" + testDevice.volume + ")", testDevice.device);
+                emit opticalRemoved(testDevice.name, testDevice.device);
+                optDeviceHash.insert(testDevice.id, testDevice);
+                break;
+            }
+        }
     }
 }
 
@@ -103,8 +132,31 @@ void HalObject::halDeviceRemoved(QString name)
     //USB device that is not a hub deleted...
     if(usbDeviceHash.contains(name))
     {
+#ifdef DEVELOPER
+        qDebug("usb removed");
+#endif
         emit usbRemoved(name, usbDeviceHash.value(name));
         usbDeviceHash.remove(name);
+    }
+    if(optDeviceHash.contains(name))
+    {
+#ifdef DEVELOPER
+        qDebug("optical removed");
+#endif
+        emit opticalRemoved(optDeviceHash.value(name).name, optDeviceHash.value(name).device);
+        optDeviceHash.remove(name);
+    }
+    foreach(OptDevice testDevice, optDeviceHash)
+    {
+        if(testDevice.volumeId == name)
+        {
+            emit opticalAdded(testDevice.name, testDevice.device);
+            emit opticalRemoved(testDevice.name + " (" + testDevice.volume + ")", testDevice.device);
+            testDevice.volume.clear();
+            testDevice.volumeId.clear();
+            optDeviceHash.insert(testDevice.id, testDevice);
+            break;
+        }
     }
 
 }
@@ -112,4 +164,9 @@ void HalObject::halDeviceRemoved(QString name)
 const QList<UsbDevice> HalObject::usbList()
 {
     return usbDeviceHash.values();
+}
+
+const QList<OptDevice> HalObject::opticalList()
+{
+    return optDeviceHash.values();
 }

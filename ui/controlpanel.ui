@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>270</width>
-    <height>229</height>
+    <height>231</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -162,7 +162,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="drivePage">
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -183,14 +183,12 @@
            <property name="editable">
             <bool>true</bool>
            </property>
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
            <item>
             <property name="text">
              <string/>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>/dev/cdrom</string>
             </property>
            </item>
           </widget>
@@ -272,11 +270,9 @@
            <property name="editable">
             <bool>true</bool>
            </property>
-           <item>
-            <property name="text">
-             <string/>
-            </property>
-           </item>
+           <property name="currentIndex">
+            <number>-1</number>
+           </property>
            <item>
             <property name="text">
              <string>/dev/floppy</string>
