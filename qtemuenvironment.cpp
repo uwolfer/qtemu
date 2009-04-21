@@ -71,7 +71,7 @@ void QtEmuEnvironment::getVersion()
     
     QString infoString = findVersion->readLine();
 
-    if( !infoString.contains("QEMU") );
+    if( !infoString.contains("QEMU") )
     {
         qemuVersion[0] = -1;
         qemuVersion[1] = -1;
