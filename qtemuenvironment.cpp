@@ -60,7 +60,7 @@ void QtEmuEnvironment::getVersion()
     findVersion->start(qemuCommand);
     findVersion->waitForFinished();
 
-    if(findVersion->error() == QProcess::FailedToStart)
+    if( findVersion->error() !=  QProcess::UnknownError )
     {
         qemuVersion[0] = -1;
         qemuVersion[1] = -1;
@@ -70,9 +70,20 @@ void QtEmuEnvironment::getVersion()
     }
     
     QString infoString = findVersion->readLine();
+
+    if( !infoString.contains("QEMU") );
+    {
+        qemuVersion[0] = -1;
+        qemuVersion[1] = -1;
+        qemuVersion[2] = -1;
+        kvmVersion = -1;
+        return;
+    }
+
     QStringList infoStringList = infoString.split(' ');
     
     versionString = infoStringList.at(4);
+
     QStringList versionStringList = versionString.split('.');
     qemuVersion[0] = versionStringList.at(0).toInt();
     qemuVersion[1] = versionStringList.at(1).toInt();
