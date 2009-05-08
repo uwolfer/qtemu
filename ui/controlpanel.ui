@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>270</width>
-    <height>231</height>
+    <width>298</width>
+    <height>260</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -380,7 +380,7 @@
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
               <horstretch>200</horstretch>
-              <verstretch>50</verstretch>
+              <verstretch>10</verstretch>
              </sizepolicy>
             </property>
             <property name="minimumSize">
@@ -392,7 +392,7 @@
             <property name="maximumSize">
              <size>
               <width>200</width>
-              <height>100</height>
+              <height>175</height>
              </size>
             </property>
             <property name="toolTip">
@@ -436,6 +436,13 @@
             </property>
             <property name="selectionRectVisible">
              <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
