@@ -100,8 +100,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
                               tr("You have virtual machines currently running. Are you sure you want to quit?<br />"
                                  "Quitting QtEmu will leave your virtual machines running. QtEmu will<br />"
                                  "automatically reconnect to your virtual machines next time you run it."),
-                              QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel)
-      == QMessageBox::Yes)
+                              QMessageBox::Close | QMessageBox::Cancel, QMessageBox::Cancel)
+      == QMessageBox::Close)
     {
         writeSettings();
         event->accept();
