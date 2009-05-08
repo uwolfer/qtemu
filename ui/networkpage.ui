@@ -169,6 +169,19 @@
                    </property>
                   </widget>
                  </item>
+                 <item row="2" column="0">
+                  <widget class="QCheckBox" name="accelCheck">
+                   <property name="text">
+                    <string>Use accelerated network drivers</string>
+                   </property>
+                   <property name="valueIfTrue" stdset="0">
+                    <string>virtio</string>
+                   </property>
+                   <property name="valueIfFalse" stdset="0">
+                    <string>rtl8139</string>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
                </item>
                <item>
@@ -229,7 +242,7 @@
                         <string/>
                        </property>
                        <property name="icon">
-                        <iconset resource="../qtemu.qrc">
+                        <iconset>
                          <normaloff>:/images/oxygen/add.png</normaloff>:/images/oxygen/add.png</iconset>
                        </property>
                       </widget>
@@ -240,7 +253,7 @@
                         <string/>
                        </property>
                        <property name="icon">
-                        <iconset resource="../qtemu.qrc">
+                        <iconset>
                          <normaloff>:/images/oxygen/remove.png</normaloff>:/images/oxygen/remove.png</iconset>
                        </property>
                       </widget>
@@ -301,7 +314,7 @@
                         <string/>
                        </property>
                        <property name="icon">
-                        <iconset resource="../qtemu.qrc">
+                        <iconset>
                          <normaloff>:/images/oxygen/add.png</normaloff>:/images/oxygen/add.png</iconset>
                        </property>
                        <property name="flat">
@@ -321,7 +334,7 @@
                         <string/>
                        </property>
                        <property name="icon">
-                        <iconset resource="../qtemu.qrc">
+                        <iconset>
                          <normaloff>:/images/oxygen/remove.png</normaloff>:/images/oxygen/remove.png</iconset>
                        </property>
                       </widget>
@@ -431,7 +444,7 @@
                           <string/>
                          </property>
                          <property name="icon">
-                          <iconset resource="../qtemu.qrc">
+                          <iconset>
                            <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
                          </property>
                          <property name="iconSize">
@@ -477,7 +490,7 @@
                           <string/>
                          </property>
                          <property name="icon">
-                          <iconset resource="../qtemu.qrc">
+                          <iconset>
                            <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
                          </property>
                          <property name="iconSize">
@@ -732,7 +745,7 @@
                           <string/>
                          </property>
                          <property name="icon">
-                          <iconset resource="../qtemu.qrc">
+                          <iconset>
                            <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
                          </property>
                          <property name="iconSize">
@@ -771,7 +784,7 @@
                           <string/>
                          </property>
                          <property name="icon">
-                          <iconset resource="../qtemu.qrc">
+                          <iconset>
                            <normaloff>:/images/oxygen/open.png</normaloff>:/images/oxygen/open.png</iconset>
                          </property>
                          <property name="iconSize">
@@ -960,9 +973,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../qtemu.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>hostTypeBox</sender>
@@ -971,12 +982,12 @@
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>108</y>
+     <x>535</x>
+     <y>165</y>
     </hint>
     <hint type="destinationlabel">
-     <x>97</x>
-     <y>119</y>
+     <x>115</x>
+     <y>378</y>
     </hint>
    </hints>
   </connection>
@@ -987,12 +998,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>106</x>
-     <y>131</y>
+     <x>135</x>
+     <y>429</y>
     </hint>
     <hint type="destinationlabel">
-     <x>105</x>
-     <y>130</y>
+     <x>317</x>
+     <y>364</y>
     </hint>
    </hints>
   </connection>
@@ -1003,12 +1014,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>106</x>
-     <y>131</y>
+     <x>135</x>
+     <y>429</y>
     </hint>
     <hint type="destinationlabel">
-     <x>25</x>
-     <y>130</y>
+     <x>55</x>
+     <y>398</y>
     </hint>
    </hints>
   </connection>

@@ -224,8 +224,18 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
     {
         object->disconnect(this);
         object->setProperty("checkable", true);
-        if(object->property("checked") != value)
-            object->setProperty("checked", value);
+        if(object->property("valueIfTrue").isNull())
+        {
+            if(object->property("checked") != value)
+                object->setProperty("checked", value);
+        }
+        else
+        {
+            if(object->property("valueIfTrue") != value)
+                object->setProperty("checked", false);
+            else
+                object->setProperty("checked", true);
+        }
         connect(object, SIGNAL(toggled(bool)), this, SLOT(getObjectValue()));
     }
     else if (object->inherits("QSpinBox")||object->inherits("QAbstractSlider"))
@@ -258,7 +268,7 @@ void MachineConfigObject::setObjectValue(QObject * object, const QString &nodeTy
     else
     {
         //if it's none of those... we don't know what it is yet.
-        qDebug("unknown object type" + QByteArray(object->metaObject()->className()));
+        //qDebug("unknown object type" + QByteArray(object->metaObject()->className()));
         //we set a single property (the option name) to the value.
         object->removeEventFilter(this);
         object->setProperty(optionName.toAscii(), value);
@@ -322,7 +332,12 @@ void MachineConfigObject::getObjectValue()
     }
     else if (object->inherits("QAbstractButton")||object->inherits("QAction"))
     {
-        value = object->property("checked");
+        if(object->property("valueIfTrue").isNull())
+            value = object->property("checked");
+        else if(object->property("checked").toBool())
+            value = object->property("valueIfTrue");
+        else
+            value = object->property("valueIfFalse");
     }
     else if (object->inherits("QSpinBox")||object->inherits("QAbstractSlider"))
     {
