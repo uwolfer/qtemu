@@ -93,7 +93,7 @@ void MachineProcess::start()
 
     if(property("hiRes").toBool())
     {
-    	if(kvmVersion >= 78)
+        if(kvmVersion >= 78 || versionMinor >= 10)
     		arguments << "-vga" << "std"; //TODO: other options are cirrus and vmware.. maybe we can make use of this.
     	else
     		arguments << "-std-vga";
