@@ -87,7 +87,7 @@ void ControlPanel::makeConnections()
 
     //state connections
     connect(parent->machineProcess, SIGNAL(started()), this, SLOT(running()));
-    connect(parent->machineProcess, SIGNAL(finished( int )), this, SLOT(stopped()));
+    connect(parent->machineProcess, SIGNAL(finished()), this, SLOT(stopped()));
 
     //connections for optical drive detection
     connect(QtEmuEnvironment::getHal(), SIGNAL(opticalAdded(QString,QString)),this,SLOT(optAdded(QString,QString)));

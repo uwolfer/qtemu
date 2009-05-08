@@ -25,14 +25,16 @@
 #ifndef MACHINEPROCESS_H
 #define MACHINEPROCESS_H
 
+#include <QObject>
 #include <QProcess>
+#include <QLocalSocket>
 #include "qtemuenvironment.h"
 #include "harddiskmanager.h"
 
 class NetConfig;
 class UsbConfig;
 
-class MachineProcess : public QProcess
+class MachineProcess : public QObject
 {
     Q_OBJECT
 
@@ -43,16 +45,15 @@ public:
     qint64 write(const QByteArray & byteArray);
 
     HardDiskManager* getHdManager();
-	UsbConfig* getUsbConfig();
+    UsbConfig* getUsbConfig();
+    QProcess* getProcess();
     bool event(QEvent *event);
     MachineProcess::ProcessState state();
     
 public slots:
     void start();
-    void resume(const QString& snapshotName);
-    void resume();
-    void suspend(const QString& snapshotName);
-    void suspend();
+    void resume(const QString& snapshotName = QString("Default"));
+    void suspend(const QString& snapshotName = QString("Default"));
     void stop();
     void forceStop();
     void togglePause();
@@ -72,11 +73,16 @@ signals:
     void rawConsole(const QString & consoleOutput);
     void cleanConsole(const QString & consoleOutput);
     void stateChanged(MachineProcess::ProcessState newState);
+    void started();
+    void finished();
     
 private:
     void getVersion();
     void commitTmp();
     void createTmp();
+    QStringList buildParamList();
+    QStringList buildEnvironment();
+
     QString snapshotNameString;
     QtEmuEnvironment env;
     long versionMajor, versionMinor, versionBugfix, kvmVersion;
@@ -89,17 +95,20 @@ private:
     NetConfig *netConfig;
     UsbConfig *usbConfig;
 
+    QLocalSocket *console;
+    QProcess *process;
+
 private slots:
+    void connectToProcess();
+    void beforeRunExecute();
     void afterExitExecute();
     void readProcess();
     void readProcessErrors();
     void writeDebugInfo(const QString& debugText);
     void resumeFinished(const QString& returnedText);
     void suspendFinished(const QString& returnedText);
-    void startedBooting(const QString& text);
     void deleteTmp(int successfulCommit);
-    void changeState(MachineProcess::ProcessState newState);
-    void changeState(QProcess::ProcessState newState);
+    void saveState(MachineProcess::ProcessState newState);
 };
 
 #endif

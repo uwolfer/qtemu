@@ -87,7 +87,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     settingsTab = new SettingsTab(machineConfigObject, this);
 
 
-    connect(machineProcess, SIGNAL(finished(int)), this, SLOT(finished()));
+    connect(machineProcess, SIGNAL(finished()), this, SLOT(finished()));
     connect(machineProcess, SIGNAL(started()), this, SLOT(started()));
     connect(machineProcess, SIGNAL(suspending(QString)), this, SLOT(suspending()));
     connect(machineProcess, SIGNAL(suspended(QString)), this, SLOT(suspended()));
