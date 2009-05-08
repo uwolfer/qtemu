@@ -89,7 +89,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     if (savingMachines != 0)
     {
         QMessageBox::critical(this, tr("Virtual Machine Saving State!"),
-                              tr("You have virtual machines currently saving thier state.<br />"
+                              tr("You have virtual machines currently saving their state.<br />"
                                  "Quitting now would very likely damage your Virtual Machine!!"),
                               QMessageBox::Cancel);
         event->ignore();
@@ -98,7 +98,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
     if (runningMachines == 0 || QMessageBox::question(this, tr("Exit confirmation"),
                               tr("You have virtual machines currently running. Are you sure you want to quit?<br />"
-                                 "quitting in this manner may cause damage to the virtual machine image!"),
+                                 "Quitting QtEmu will leave your virtual machines running. QtEmu will<br />"
+                                 "automatically reconnect to your virtual machines next time you run it."),
                               QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel)
       == QMessageBox::Yes)
     {

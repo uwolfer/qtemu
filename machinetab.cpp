@@ -76,25 +76,13 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     machineConfig = new MachineConfig(this, fileName);
     machineConfigObject = new MachineConfigObject(this, machineConfig);
 
-    machineProcess = new MachineProcess(this);
-    machineConfigObject->registerObject(machineProcess);
-    machineConfigObject->registerObject(machineProcess->getHdManager());
-
     machineView = new MachineView(machineConfigObject, this);
+    machineProcess = new MachineProcess(this);
+
 
     machineConfigObject->setOption("vncPort", 1000 + parentTabWidget->currentIndex() + 1);
 
     settingsTab = new SettingsTab(machineConfigObject, this);
-
-
-    connect(machineProcess, SIGNAL(finished()), this, SLOT(finished()));
-    connect(machineProcess, SIGNAL(started()), this, SLOT(started()));
-    connect(machineProcess, SIGNAL(suspending(QString)), this, SLOT(suspending()));
-    connect(machineProcess, SIGNAL(suspended(QString)), this, SLOT(suspended()));
-    connect(machineProcess, SIGNAL(resuming(QString)), this, SLOT(resuming()));
-    connect(machineProcess, SIGNAL(resumed(QString)), this, SLOT(resumed()));
-    connect(machineProcess, SIGNAL(error(QString)), this, SLOT(error(QString)));
-    connect(machineProcess, SIGNAL(booting()), this, SLOT(booting()));
 
     machineNameEdit = new QLineEdit(this);
    /* this feature is not yet complete and may cause issues just yet... */     
@@ -268,6 +256,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     
     makeConnections();
     machineProcess->getHdManager()->testImage();
+    machineProcess->checkIfRunning();
 }
 
 
@@ -308,8 +297,6 @@ void MachineTab::closeMachine()
 void MachineTab::start()
 {
     console->clear();
-    startButton->setEnabled(false);
-    stopButton->setEnabled(true);
     machineProcess->start();
 
 }
@@ -457,6 +444,8 @@ void MachineTab::booting()
     pauseButton->setEnabled(true);
     suspendButton->setHidden(false);
     resumeButton->setHidden(true);
+    startButton->setEnabled(false);
+    stopButton->setEnabled(true);
 }
 
 void MachineTab::cleanupView()

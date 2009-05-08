@@ -45,19 +45,28 @@ MachineProcess::MachineProcess(MachineTab *parent)
     myState = MachineProcess::NotRunning;
     getVersion();
 
+    parent->machineConfigObject->registerObject(this);
+    parent->machineConfigObject->registerObject(hdManager);
+
     netConfig = new NetConfig(this, parent->machineConfigObject);
     usbConfig = new UsbConfig(this, parent->machineConfigObject);
 
     connect(console, SIGNAL(readyRead()), this, SLOT(readProcess()));
     connect(console, SIGNAL(disconnected()), SLOT(afterExitExecute()));
-
     connect(process, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
+    connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(connectToProcess()));
     connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
     connect(this, SIGNAL(stdin(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
-
     connect(this, SIGNAL(stateChanged(MachineProcess::ProcessState)), this, SLOT(saveState(MachineProcess::ProcessState)));
+    connect(this, SIGNAL(finished()), parent, SLOT(finished()));
+    connect(this, SIGNAL(started()), parent, SLOT(started()));
+    connect(this, SIGNAL(suspending(QString)), parent, SLOT(suspending()));
+    connect(this, SIGNAL(suspended(QString)), parent, SLOT(suspended()));
+    connect(this, SIGNAL(resuming(QString)), parent, SLOT(resuming()));
+    connect(this, SIGNAL(resumed(QString)), parent, SLOT(resumed()));
+    connect(this, SIGNAL(error(QString)), parent, SLOT(error(QString)));
+    connect(this, SIGNAL(booting()), parent, SLOT(booting()));
 
-    connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(connectToProcess()));
 }
 
 HardDiskManager * MachineProcess::getHdManager()
@@ -406,6 +415,10 @@ void MachineProcess::afterExitExecute()
     }
     doResume=false;
 
+    QString pidLocation = property("hdd").toString();
+    pidLocation.replace(QRegExp("[.][^.]+$"), ".pid");
+    QFile::remove( pidLocation );
+
     emit(stateChanged(MachineProcess::NotRunning));
 }
 
@@ -652,4 +665,17 @@ void MachineProcess::saveState(MachineProcess::ProcessState newState)
             emit finished();
         else if(newState == MachineProcess::Running)
             emit started();
+}
+
+void MachineProcess::checkIfRunning()
+{
+    QString pidLocation = property("hdd").toString();
+    pidLocation.replace(QRegExp("[.][^.]+$"), ".pid");
+    QFileInfo pidFile(pidLocation);
+    qDebug("checking for file " + pidFile.absoluteFilePath().toAscii());
+    if(pidFile.exists())
+    {
+        //then the machine should be running...
+        connectToProcess();
+    }
 }

@@ -57,7 +57,7 @@ void QtEmuEnvironment::getVersion()
     setWorkingDirectory(path->path());
 #endif
 
-    findVersion->start(qemuCommand);
+    findVersion->start(qemuCommand, QStringList("--help"));
     findVersion->waitForFinished();
 
     if( findVersion->error() !=  QProcess::UnknownError )

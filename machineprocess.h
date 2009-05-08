@@ -49,6 +49,7 @@ public:
     QProcess* getProcess();
     bool event(QEvent *event);
     MachineProcess::ProcessState state();
+    void checkIfRunning();
     
 public slots:
     void start();
