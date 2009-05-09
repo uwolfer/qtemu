@@ -35,9 +35,6 @@ Known Bugs:
 -----------------
 Known bugs must be fixed before the next release.
 
-* there are still some bugs where the vnc output might not show up - it thinks its size is negative.
-  This bug is still a showstopper, it seems to be some kind of race condition.
-
 ------------------
 Known issues:
 ------------------
@@ -54,8 +51,6 @@ Known issues may be resolved for a later release.
 * allow sending special keys (keys intercepted by X, the operating system, or qtemu) - maybe not yet, can be done through the console if needed.
 
 * the preview screenshot may not be handled correctly when it is a different aspect ratio than the preview window. it should display in the correct aspect ratio, centered in the preview window, rather than stretched. (is this a big deal to anyone?)
-
-* when QtEMU crashes, KVM or QEMU usually keeps running. right now we can't reconnect to these already running processes. we should be able to do that when one is detected, possibly on startup. this requires having a file socket for connecting to the process.
 
 ------------------
 Additional features:
@@ -82,10 +77,6 @@ Version 2.1 +:
 * detect the running sound system (in order of perference: pulse audio, esd, ALSA, OSS) and set the sound interface type automatically.
 
 * information about the virtual machnine in a box below the screen preview (Image size / size on disk, memory, processor usage info for running machines, etc.).
-
-* disconnect from a running machine. this would allow running a machine while qemu is closed. 
-
-* connect to already running machines. this might mean using a file pipe instead of stdio for communication with the virtual machine.
 
 * the preview image should show the last connected machine state if a machine is disconnected, or the current state for suspended machines. when a machine is off (not suspended) show the usual preview.
 
