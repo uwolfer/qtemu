@@ -33,6 +33,8 @@
 #include <QDir>
 #include <QTimer>
 
+#include <signal.h>
+
 MachineProcess::MachineProcess(MachineTab *parent)
   : QObject(parent)
     , paused(false)
@@ -669,13 +671,33 @@ void MachineProcess::saveState(MachineProcess::ProcessState newState)
 
 void MachineProcess::checkIfRunning()
 {
+    //all this talk of PIDs is nonsense on win32
+#ifndef WIN32
     QString pidLocation = property("hdd").toString();
     pidLocation.replace(QRegExp("[.][^.]+$"), ".pid");
-    QFileInfo pidFile(pidLocation);
-    qDebug("checking for file " + pidFile.absoluteFilePath().toAscii());
+    QFile pidFile(pidLocation);
     if(pidFile.exists())
     {
-        //then the machine should be running...
+        pidFile.open(QFile::ReadWrite);
+        //check if that pid is running (posix)
+         QString pid = pidFile.readLine();
+         qDebug("checking if pid is there " + pid.toAscii());
+        if(kill(pid.toInt(), 0) == 0)
+        {
+            qDebug("kill returned zero");
+            //then the machine should be running...
+            connectToProcess();
+            pidFile.close();
+        }
+        else
+        {
+            pidFile.remove();
+        }
+    }
+#else
+    if(pidFile.exists())
+    {
         connectToProcess();
     }
+#endif
 }
