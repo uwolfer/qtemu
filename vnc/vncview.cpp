@@ -189,8 +189,13 @@ bool VncView::isQuitting()
 
 bool VncView::start()
 {
-    vncThread.setHost(m_host);
-    vncThread.setPort(m_port);
+    if(m_host.isEmpty())
+        vncThread.setHost(m_url.path());
+    else
+    {
+        vncThread.setHost(m_host);
+        vncThread.setPort(m_port);
+    }
     RemoteView::Quality quality;
 #ifdef QTONLY
     quality = (RemoteView::Quality)((QCoreApplication::arguments().count() > 2) ?

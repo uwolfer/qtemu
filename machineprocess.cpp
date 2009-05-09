@@ -103,7 +103,7 @@ QStringList MachineProcess::buildParamList()
         else
         {
             QString socketLocation = property("hdd").toString();
-            socketLocation = socketLocation.replace(QRegExp("[.][^.]+$"), ".vnc");
+            socketLocation.replace(QRegExp("[.][^.]+$"), ".vnc");
             arguments << "-vnc" << "unix:" + socketLocation;
         }
     }

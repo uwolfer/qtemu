@@ -63,8 +63,17 @@ void MachineView::initView()
 
     QUrl url;
     url.setScheme("vnc");
-    url.setHost(property("vncHost").toString());
-    url.setPort(property("vncPort").toInt() + 5900);
+    if(property("vncTransport").toString() == "tcp")
+    {
+        url.setHost(property("vncHost").toString());
+        url.setPort(property("vncPort").toInt() + 5900);
+    }
+    else
+    {
+        QString socketLocation = property("hdd").toString();
+        socketLocation.replace(QRegExp("[.][^.]+$"), ".vnc");
+        url.setPath(socketLocation);
+    }
 
 //#ifdef DEVELOPER
     qDebug("connecting to:" + url.toString().toAscii());
