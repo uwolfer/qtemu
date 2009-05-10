@@ -681,10 +681,8 @@ void MachineProcess::checkIfRunning()
         pidFile.open(QFile::ReadWrite);
         //check if that pid is running (posix)
          QString pid = pidFile.readLine();
-         qDebug("checking if pid is there " + pid.toAscii());
         if(kill(pid.toInt(), 0) == 0)
         {
-            qDebug("kill returned zero");
             //then the machine should be running...
             connectToProcess();
             pidFile.close();
