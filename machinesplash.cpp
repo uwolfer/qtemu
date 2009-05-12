@@ -25,11 +25,10 @@
 #include <QImage>
 #include <QSettings>
 #include <QSvgRenderer>
-#include <QStackedLayout>
 #include <QSvgWidget>
 #include <QLabel>
 #include <QRectF>
-#include <QGridLayout>
+#include <QVBoxLayout>
 #include <QFrame>
 #include <QDebug>
 #include <QPixmap>
@@ -42,25 +41,15 @@ MachineSplash::MachineSplash(QWidget *parent)
     QSettings settings("QtEmu", "QtEmu");
     splashImage = new QSvgWidget(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/splash.svg", this);
     getPreviewRect();
-    previewImage = new QLabel(splashImage);
+    previewImage = new QLabel(this);
     alpha = QPixmap(":/images/" + settings.value("iconTheme", "oxygen").toString() + "/alpha.svg");
     previewImage->setScaledContents(true);
-    layout = new QStackedLayout();
-    layout->setStackingMode(QStackedLayout::StackAll);
+    QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(splashImage);
-    layout->addWidget(previewImage);
 
     setLayout(layout);
     doResize();
     
-}
-
-
-MachineSplash::~MachineSplash()
-{
-    delete splashImage;
-    delete previewImage;
-    delete layout;
 }
 
 void MachineSplash::setPreview(const QString previewLocation)

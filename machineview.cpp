@@ -98,12 +98,13 @@ void MachineView::showSplash(bool show)
    }
    else
    {
-       splash->setPreview(property("preview").toString());
+
        view->hide();
        embeddedScrollArea->takeWidget();
        embeddedScrollArea->setWidget(splash);
        embeddedScrollArea->setSplashShown(true);
        splash->show();
+       splash->setPreview();
    }
 }
 

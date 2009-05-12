@@ -26,14 +26,9 @@
 
 #include <QWidget>
 
-class QImage;
 class QLabel;
 class QSvgWidget;
-class QStackedLayout;
 class QRectF;
-class QGridLayout;
-class QFrame;
-class QSettings;
 class QPixmap;
 class QString;
 
@@ -45,8 +40,6 @@ class MachineSplash : public QWidget
 Q_OBJECT
 public:
     MachineSplash(QWidget *parent = 0);
-
-    ~MachineSplash();
     
     void setPreview(const QString previewLocation = QString());
     
@@ -58,7 +51,6 @@ private:
     void showEvent(QShowEvent * event);
     QSvgWidget *splashImage;
     QLabel *previewImage;
-    QStackedLayout *layout;
     QRectF previewBounds;
     QPixmap alpha;
     QString previewLoc;
