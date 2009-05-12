@@ -255,11 +255,11 @@ QStringList MachineProcess::buildParamList()
     {
         createTmp();
         //arguments << pathString + ".tmp";
-        arguments << "file=" + property("hdd").toString() + ".tmp" + (property("hddVirtio").toBool()?",if=virtio":"");
+        arguments << "file=" + property("hdd").toString() + ".tmp" + (property("hddVirtio").toBool()?",if=virtio,index=0,boot=on":"");
     }
     else
         //arguments << pathString;
-        arguments << "file=" + property("hdd").toString() + + (property("hddVirtio").toBool()?",if=virtio":"");
+        arguments << "file=" + property("hdd").toString() + + (property("hddVirtio").toBool()?",if=virtio,index=0,boot=on":"");
 
 
     return arguments;
@@ -664,7 +664,10 @@ void MachineProcess::saveState(MachineProcess::ProcessState newState)
 {
         myState = newState;
         if(newState == MachineProcess::NotRunning)
+        {
+             emit cleanConsole("(virtual machine quit)");
             emit finished();
+        }
         else if(newState == MachineProcess::Running)
             emit started();
 }
