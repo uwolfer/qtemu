@@ -76,7 +76,7 @@ void HardDiskManager::upgradeComplete(int status)
 
 void HardDiskManager::updateUpgradeProgress()
 {
-    qint64 size = QFileInfo(upgradeImageName).size();
+//     qint64 size = QFileInfo(upgradeImageName).size();
     //TODO: update a progress bar
 }
 

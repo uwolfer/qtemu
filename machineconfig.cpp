@@ -42,6 +42,7 @@ MachineConfig::MachineConfig(QObject *parent, const QString &config)
 MachineConfig::~MachineConfig()
 {
     saveConfig(configFile->fileName());
+    configFile->deleteLater();
 }
 
 bool MachineConfig::loadConfig(const QString &fileName)
@@ -79,7 +80,7 @@ bool MachineConfig::loadConfig(const QString &fileName)
     return true;
 }
 
-bool MachineConfig::saveConfig(const QString &fileName)
+bool MachineConfig::saveConfig(const QString &fileName) const
 {
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text))
@@ -140,7 +141,7 @@ void MachineConfig::setOption(const QString &nodeType, const QString &nodeName, 
     emit optionChanged(nodeType, nodeName, optionName, value);
 }
 
-const QVariant MachineConfig::getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant defaultValue)
+QVariant MachineConfig::getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant defaultValue)
 {
     //return the value of node named nodeType's child with property name=nodeName's child named optionName
     QDomElement typeElement;
@@ -168,7 +169,7 @@ const QVariant MachineConfig::getOption(const QString &nodeType, const QString &
     return optionValue;
 }
 
-const QStringList MachineConfig::getAllOptionNames(const QString &nodeType, const QString &nodeName)
+QStringList MachineConfig::getAllOptionNames(const QString &nodeType, const QString &nodeName) const
 {
     QDomElement typeElement;
     QDomElement nameElement;
@@ -221,7 +222,7 @@ void MachineConfig::clearOption(const QString & nodeType, const QString & nodeNa
     //TODO: need to emit this change and deal with it.
 }
 
-const int MachineConfig::getNumOptions(const QString & nodeType, const QString & nodeName)
+int MachineConfig::getNumOptions(const QString & nodeType, const QString & nodeName) const
 {
     QDomElement typeElement;
     QDomElement nameElement;

@@ -45,15 +45,15 @@ public:
     ~MachineConfig();
 
     bool loadConfig(const QString &fileName);
-    bool saveConfig(const QString &fileName);
-    bool convertConfig(const QString &fileName);
+    bool saveConfig(const QString &fileName) const;
+    bool convertConfig(const QString &fileName) const;
 
     //if nodeType and nodeName are not specified, they are assumed to be "machine" and ""
-    const QVariant getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant defaultValue = QVariant());
+    QVariant getOption(const QString &nodeType, const QString &nodeName, const QString &optionName, const QVariant defaultValue = QVariant());
 
-    const QStringList getAllOptionNames(const QString &nodeType, const QString &nodeName);
+    QStringList getAllOptionNames(const QString &nodeType, const QString &nodeName) const;
 
-    const int getNumOptions(const QString &nodeType, const QString &nodeName);
+    int getNumOptions(const QString &nodeType, const QString &nodeName) const;
 
 public slots:
     //if nodeType and nodeName are not specified, they are assumed to be "machine" and ""

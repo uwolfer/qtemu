@@ -56,7 +56,6 @@ SET(qtemu_SRCS
     usbpage.cpp
     usbmodel.cpp
     interfacemodel.cpp
-    usbmodel.cpp
     floatingtoolbar.cpp
     halobject.cpp
 #    guesttoolslistener.cpp
@@ -91,7 +90,6 @@ SET(qtemu_MOC_HDRS
     usbpage.h
     usbmodel.h
     interfacemodel.h
-    usbmodel.h
     floatingtoolbar.h
     halobject.h
 #    guesttoolslistener.h
