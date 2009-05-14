@@ -225,7 +225,7 @@ QStringList HostInterface::parseOpts()
         netOpts << "downscript=" + property("ifDown").toString();
     }
     
-    opts << "-net" << type + ",vlan=" + QString().setNum(vlan) + (netOpts.isEmpty()?QString():(',' + netOpts.join(',')));
+    opts << "-net" << type + ",vlan=" + QString().setNum(vlan) + (netOpts.isEmpty()?QString():(',' + netOpts.join(",")));
     return opts;
 }
 

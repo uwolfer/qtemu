@@ -312,7 +312,7 @@ void MachineProcess::start()
     process->start(qemuCommand, arguments);
 #endif
 
-    emit cleanConsole(settings.value("command", "qemu").toString() + ' ' + arguments.join(' '));
+    emit cleanConsole(settings.value("command", "qemu").toString() + ' ' + arguments.join(" "));
 
 }
 

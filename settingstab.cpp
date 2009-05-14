@@ -193,11 +193,12 @@ void SettingsTab::setVirtSize(qint64 size)
     float sizeM = sizeK/1024.0;
     float sizeG = sizeM/1024.0;
     if(sizeM<1)
-        sizeS = QString::number((int)sizeK) + '.' + QString::number(((int)size)%1024) + " Kilobyte" + ((sizeK<2)?'':'s');
+        sizeS = QString::number((int)sizeK) + "." + QString::number(((int)size)%1024) + " Kilobyte" + ((sizeK<2)?'\0':'s');
     else if(sizeG<1)
-        sizeS = QString::number((int)sizeM) + '.' + QString::number(((int)sizeK)%1024) + " Megabyte" + ((sizeM<2)?'':'s');
+        sizeS = QString::number((int)sizeM) + "." + QString::number(((int)sizeK)%1024) + " Megabyte" + ((sizeM<2)?'\0':'s');
     else
-        sizeS = QString::number((int)sizeG) + '.' + QString::number(((int)sizeM)%1024) + " Gigabyte" + ((sizeG<2)?'':'s');    virtSizeLabel->setText(sizeS);
+        sizeS = QString::number((int)sizeG) + "." + QString::number(((int)sizeM)%1024) + " Gigabyte" + ((sizeG<2)?'\0':'s');
+    virtSizeLabel->setText(sizeS);
 }
 
 void SettingsTab::setPhySize(qint64 size)
@@ -207,11 +208,11 @@ void SettingsTab::setPhySize(qint64 size)
     float sizeM = sizeK/1024.0;
     float sizeG = sizeM/1024.0;
     if(sizeM<1)
-        sizeS = QString::number((int)sizeK) + '.' + QString::number(((int)size)%1024) + " Kilobyte" + ((sizeK<2)?'':'s');
+        sizeS = QString::number((int)sizeK) + "." + QString::number(((int)size)%1024) + " Kilobyte" + ((sizeK<2)?'\0':'s');
     else if(sizeG<1)
-        sizeS = QString::number((int)sizeM) + '.' + QString::number(((int)sizeK)%1024) + " Megabyte" + ((sizeM<2)?'':'s');
+        sizeS = QString::number((int)sizeM) + "." + QString::number(((int)sizeK)%1024) + " Megabyte" + ((sizeM<2)?'\0':'s');
     else
-        sizeS = QString::number((int)sizeG) + '.' + QString::number(((int)sizeM)%1024) + " Gigabyte" + ((sizeG<2)?'':'s');
+        sizeS = QString::number((int)sizeG) + "." + QString::number(((int)sizeM)%1024) + " Gigabyte" + ((sizeG<2)?'\0':'s');
     phySizeLabel->setText(sizeS);
 }
 
