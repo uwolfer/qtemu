@@ -191,8 +191,8 @@ bool HostInterfaceModel::insertRows(int row, int count, const QModelIndex & pare
         //set all options
         config->setOption(nodeType, nodeName, "name", QString(QString("Interface ") + QString::number(interfaceNumber)));
         config->setOption(nodeType, nodeName, "type", "User Mode");
-        config->setOption(nodeType, nodeName, "interface", "qtemu-" + config->getOption("name").toString().replace(" ", "_") + "-" + config->getOption(nodeType, nodeName, "name", "Interface_" + QString::number(interfaceNumber)).toString().replace(" ", "_"));
-        config->setOption(nodeType, nodeName, "bridgeInterface", "qtemu-" + config->getOption("name").toString().replace(" ", "_") + "-br" + QString::number(interfaceNumber));
+        config->setOption(nodeType, nodeName, "interface", "qtemu-" + config->getOption("name").toString().replace(' ', '_') + '-' + config->getOption(nodeType, nodeName, "name", "Interface_" + QString::number(interfaceNumber)).toString().replace(' ', '_'));
+        config->setOption(nodeType, nodeName, "bridgeInterface", "qtemu-" + config->getOption("name").toString().replace(' ', '_') + "-br" + QString::number(interfaceNumber));
         config->setOption(nodeType, nodeName, "hardwareInterface", "eth0");
         config->setOption(nodeType, nodeName, "spanningTree", false);
         config->setOption(nodeType, nodeName, "ifUp", QString());

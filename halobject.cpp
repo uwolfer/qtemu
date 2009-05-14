@@ -79,7 +79,7 @@ void HalObject::halDeviceAdded(QString name)
         qDebug("usb added");
 #endif
         UsbDevice device;
-        device.address = tempInterface->call("GetProperty", "usb_device.bus_number").arguments().at(0).toString() + "." +
+        device.address = tempInterface->call("GetProperty", "usb_device.bus_number").arguments().at(0).toString() + '.' +
                          tempInterface->call("GetProperty", "usb_device.linux.device_number").arguments().at(0).toString();
         device.id = name;
         device.product = tempInterface->call("GetProperty", "info.product").arguments().at(0).toString();
@@ -111,7 +111,7 @@ void HalObject::halDeviceAdded(QString name)
             {
                 testDevice.volume = tempInterface->call("GetProperty", "volume.label").arguments().at(0).toString();
                 testDevice.volumeId = name;
-                emit opticalAdded(testDevice.name + " (" + testDevice.volume + ")", testDevice.device);
+                emit opticalAdded(testDevice.name + " (" + testDevice.volume + ')', testDevice.device);
                 emit opticalRemoved(testDevice.name, testDevice.device);
                 optDeviceHash.insert(testDevice.id, testDevice);
                 break;
@@ -151,7 +151,7 @@ void HalObject::halDeviceRemoved(QString name)
         if(testDevice.volumeId == name)
         {
             emit opticalAdded(testDevice.name, testDevice.device);
-            emit opticalRemoved(testDevice.name + " (" + testDevice.volume + ")", testDevice.device);
+            emit opticalRemoved(testDevice.name + " (" + testDevice.volume + ')', testDevice.device);
             testDevice.volume.clear();
             testDevice.volumeId.clear();
             optDeviceHash.insert(testDevice.id, testDevice);

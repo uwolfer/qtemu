@@ -61,7 +61,7 @@ void UsbModel::getUsbDevices()
 void UsbModel::addItem(const QString deviceName, QString id)
 {
 #ifdef DEVELOPER
-    qDebug(QString(deviceName + " " + id).toAscii());
+    qDebug(QString(deviceName + ' ' + id).toAscii());
 #endif
     QList<QStandardItem*> items;
     items.append(new QStandardItem(deviceName));
@@ -162,7 +162,7 @@ void UsbModel::getChange(QStandardItem * thisItem)
 void UsbModel::deviceAdded(QString name, UsbDevice device)
 {
 #ifdef DEVELOPER
-    qDebug(QString("device added " + device.vendor + "-" + device.product + device.id).toAscii());
+    qDebug(QString("device added " + device.vendor + '-' + device.product + device.id).toAscii());
 #endif
     QString id = device.id;
     addItem(device.vendor + " - " + device.product, id.remove("/org/freedesktop/Hal/devices/usb_device_"));

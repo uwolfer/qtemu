@@ -116,7 +116,7 @@ void MachineView::fullscreen(bool enable)
         showSplash(true);
 
         fullscreenWindow = new QWidget(this, Qt::Window);
-        fullscreenWindow->setWindowTitle(tr("QtEmu Fullscreen") + " (" + property("name").toString() + ")");
+        fullscreenWindow->setWindowTitle(tr("QtEmu Fullscreen") + " (" + property("name").toString() + ')');
 
         fullscreenScrollArea = new MachineScrollArea(fullscreenWindow);
         fullscreenScrollArea->setWidget(view);

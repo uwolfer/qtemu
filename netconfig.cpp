@@ -208,7 +208,7 @@ QStringList HostInterface::parseOpts()
         if(property("vlanType").toString() == "udp")
         {
             //-net socket[,vlan=n][,fd=h][,mcast=maddr:port]
-            netOpts << "mcast=" + property("address").toString() + ":" + property("port").toString();
+            netOpts << "mcast=" + property("address").toString() + ':' + property("port").toString();
         }
         else
         {
@@ -225,7 +225,7 @@ QStringList HostInterface::parseOpts()
         netOpts << "downscript=" + property("ifDown").toString();
     }
     
-    opts << "-net" << type + ",vlan=" + QString().setNum(vlan) + (netOpts.isEmpty()?QString():("," + netOpts.join(",")));
+    opts << "-net" << type + ",vlan=" + QString().setNum(vlan) + (netOpts.isEmpty()?QString():(',' + netOpts.join(',')));
     return opts;
 }
 
