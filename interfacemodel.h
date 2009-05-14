@@ -72,7 +72,7 @@ class GuestInterfaceModel : public InterfaceModel
 {
 Q_OBJECT
 public:
-    GuestInterfaceModel(MachineConfigObject *config, QObject *parent = 0);
+    explicit GuestInterfaceModel(MachineConfigObject *config, QObject *parent = 0);
 
     bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
 
@@ -83,7 +83,7 @@ class HostInterfaceModel : public InterfaceModel
 {
 Q_OBJECT
 public:
-    HostInterfaceModel(MachineConfigObject *config, QObject *parent = 0);
+    explicit HostInterfaceModel(MachineConfigObject *config, QObject *parent = 0);
 
     bool insertRows(int row, int count, const QModelIndex & parent = QModelIndex());
 

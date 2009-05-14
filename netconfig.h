@@ -38,7 +38,7 @@ class NetConfig : public QObject
 {
 Q_OBJECT
 public:
-    NetConfig(QObject *parent = 0, MachineConfigObject *config = 0);
+    explicit NetConfig(QObject *parent = 0, MachineConfigObject *config = 0);
     
     MachineConfigObject *config;
     
@@ -59,7 +59,7 @@ class NetInterface : public QObject
 {
 Q_OBJECT
 public:
-    NetInterface(NetConfig *parent = 0, QString nodeType = QString(), QString nodeName = QString());
+    explicit NetInterface(NetConfig *parent = 0, QString nodeType = QString(), QString nodeName = QString());
     
     int getVlan();
     void setVlan(int number);
@@ -79,7 +79,7 @@ class GuestInterface : public NetInterface
 {
 Q_OBJECT
 public:
-    GuestInterface(NetConfig *parent = 0, QString nodeName = QString());
+    explicit GuestInterface(NetConfig *parent = 0, QString nodeName = QString());
     virtual QStringList parseOpts();
 };
 
@@ -87,7 +87,7 @@ class HostInterface : public NetInterface
 {
 Q_OBJECT
 public:
-    HostInterface(NetConfig *parent = 0, QString nodeName = QString());
+    explicit HostInterface(NetConfig *parent = 0, QString nodeName = QString());
     virtual QStringList parseOpts();
 };
 

@@ -49,7 +49,7 @@ class NetworkPage : public QWidget , public Ui::NetworkPage
 {
 Q_OBJECT
 public:
-    NetworkPage(MachineConfigObject *config, QWidget *parent = 0);
+    explicit NetworkPage(MachineConfigObject *config, QWidget *parent = 0);
 
     ~NetworkPage();
 

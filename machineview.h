@@ -49,7 +49,7 @@ class MachineView : public QWidget
 {
 Q_OBJECT
 public:
-    MachineView(MachineConfigObject *config, QWidget *parent = 0);
+    explicit MachineView(MachineConfigObject *config, QWidget *parent = 0);
 
     ~MachineView();
 
