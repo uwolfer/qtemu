@@ -84,12 +84,13 @@ TRANSLATIONS = translations/template_qtemu.ts \
 CONFIG += debug_and_release
 LIBS += -lvncclient
 DEFINES += QTONLY
-#DEFINES += DEVELOPER
 
+# DEFINES += DEVELOPER
 DISTFILES += TODO \
     CHANGELOG \
     README
 FORMS += ui/settingstab.ui \
     ui/controlpanel.ui \
     ui/networkpage.ui \
-    usbpage.ui
+    usbpage.ui \
+    overview.ui
