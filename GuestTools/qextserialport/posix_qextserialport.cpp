@@ -15,6 +15,8 @@ warnings) in the project.  Note that _TTY_NOWARN_ will also turn off portability
 #include <fcntl.h>
 #include <stdio.h>
 #include "posix_qextserialport.h"
+#include <QMutexLocker>
+#include <QDebug>
 
 /*!
 \fn Posix_QextSerialPort::Posix_QextSerialPort()
@@ -54,7 +56,7 @@ Copy constructor.
 Posix_QextSerialPort::Posix_QextSerialPort(const Posix_QextSerialPort& s)
  : QextSerialBase(s.port)
 {
-	setOpenMode(s.openMode());
+    setOpenMode(s.openMode());
     port = s.port;
     Settings.BaudRate=s.Settings.BaudRate;
     Settings.DataBits=s.Settings.DataBits;
@@ -124,7 +126,7 @@ Override the = operator.
 */
 Posix_QextSerialPort& Posix_QextSerialPort::operator=(const Posix_QextSerialPort& s)
 {
-   	setOpenMode(s.openMode());
+    setOpenMode(s.openMode());
     port = s.port;
     Settings.BaudRate=s.Settings.BaudRate;
     Settings.DataBits=s.Settings.DataBits;
@@ -142,9 +144,10 @@ Posix_QextSerialPort& Posix_QextSerialPort::operator=(const Posix_QextSerialPort
 
 void Posix_QextSerialPort::init()
 {
-	fd = 0;
-	readNotifier = 0;
-  writeNotifier = 0;
+    fd = 0;
+    readNotifier = 0;
+    if (queryMode() == QextSerialBase::EventDriven)
+        qWarning("POSIX doesn't have event driven mechanism for writes implemented yet - reads are OK.");
 }
 
 /*!
@@ -156,10 +159,6 @@ Posix_QextSerialPort::~Posix_QextSerialPort()
     if (isOpen()) {
         close();
     }
-    if(readNotifier)
-      delete readNotifier;
-    if(writeNotifier)
-      delete writeNotifier;
 }
 
 /*!
@@ -203,7 +202,7 @@ BAUD1800.
 */
 void Posix_QextSerialPort::setBaudRate(BaudRateType baudRate)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (Settings.BaudRate!=baudRate) {
         switch (baudRate) {
             case BAUD14400:
@@ -503,7 +502,6 @@ void Posix_QextSerialPort::setBaudRate(BaudRateType baudRate)
         }
         tcsetattr(fd, TCSAFLUSH, &Posix_CommConfig);
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -526,7 +524,7 @@ This function is subject to the following restrictions:
 */
 void Posix_QextSerialPort::setDataBits(DataBitsType dataBits)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (Settings.DataBits!=dataBits) {
         if ((Settings.StopBits==STOP_2 && dataBits==DATA_5) ||
             (Settings.StopBits==STOP_1_5 && dataBits!=DATA_5) ||
@@ -592,7 +590,6 @@ void Posix_QextSerialPort::setDataBits(DataBitsType dataBits)
                 break;
         }
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -617,7 +614,7 @@ POSIX systems support space parity only if tricked into doing so, and only with
 */
 void Posix_QextSerialPort::setParity(ParityType parity)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (Settings.Parity!=parity) {
         if (parity==PAR_MARK || (parity==PAR_SPACE && Settings.DataBits==DATA_8)) {
         }
@@ -685,7 +682,6 @@ void Posix_QextSerialPort::setParity(ParityType parity)
                 break;
         }
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -706,7 +702,7 @@ This function is subject to the following restrictions:
 */
 void Posix_QextSerialPort::setStopBits(StopBitsType stopBits)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (Settings.StopBits!=stopBits) {
         if ((Settings.DataBits==DATA_5 && stopBits==STOP_2) || stopBits==STOP_1_5) {}
         else {
@@ -741,7 +737,6 @@ void Posix_QextSerialPort::setStopBits(StopBitsType stopBits)
                 break;
         }
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -759,7 +754,7 @@ unsupported, FLOW_HARDWARE is the same as FLOW_OFF.
 */
 void Posix_QextSerialPort::setFlowControl(FlowType flow)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (Settings.FlowControl!=flow) {
         Settings.FlowControl=flow;
     }
@@ -787,7 +782,6 @@ void Posix_QextSerialPort::setFlowControl(FlowType flow)
                 break;
         }
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -809,22 +803,21 @@ the purpose of detecting available bytes in the read buffer.
 */
 void Posix_QextSerialPort::setTimeout(long millisec)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     Settings.Timeout_Millisec = millisec;
     Posix_Copy_Timeout.tv_sec = millisec / 1000;
     Posix_Copy_Timeout.tv_usec = millisec % 1000;
     if (isOpen()) {
         if (millisec == -1)
-        	fcntl(fd, F_SETFL, O_NDELAY);
+            fcntl(fd, F_SETFL, O_NDELAY);
         else
-        	//O_SYNC should enable blocking ::write() 
-        	//however this seems not working on Linux 2.6.21 (works on OpenBSD 4.2)
-        	fcntl(fd, F_SETFL, O_SYNC);
+            //O_SYNC should enable blocking ::write()
+            //however this seems not working on Linux 2.6.21 (works on OpenBSD 4.2)
+            fcntl(fd, F_SETFL, O_SYNC);
         tcgetattr(fd, & Posix_CommConfig);
         Posix_CommConfig.c_cc[VTIME] = millisec/100;
         tcsetattr(fd, TCSAFLUSH, & Posix_CommConfig);
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -835,20 +828,19 @@ The port is also configured to the current settings, as stored in the Settings s
 */
 bool Posix_QextSerialPort::open(OpenMode mode)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (mode == QIODevice::NotOpen)
-    	return isOpen();
+        return isOpen();
     if (!isOpen()) {
-        /*open the port*/
-        qDebug("trying to open file");
+        qDebug() << "trying to open file" << port.toAscii();
         //note: linux 2.6.21 seems to ignore O_NDELAY flag
         if ((fd = ::open(port.toAscii() ,O_RDWR | O_NOCTTY | O_NDELAY)) != -1) {
             qDebug("file opened succesfully");
 
-	    setOpenMode(mode);			// Flag the port as opened
-	    tcgetattr(fd, &old_termios);	// Save the old termios
-	    Posix_CommConfig = old_termios;	// Make a working copy
-	    cfmakeraw(&Posix_CommConfig);	// Enable raw access
+            setOpenMode(mode);              // Flag the port as opened
+            tcgetattr(fd, &old_termios);    // Save the old termios
+            Posix_CommConfig = old_termios; // Make a working copy
+            cfmakeraw(&Posix_CommConfig);   // Enable raw access
 
             /*set up other port settings*/
             Posix_CommConfig.c_cflag|=CREAD|CLOCAL;
@@ -856,15 +848,15 @@ bool Posix_QextSerialPort::open(OpenMode mode)
             Posix_CommConfig.c_iflag&=(~(INPCK|IGNPAR|PARMRK|ISTRIP|ICRNL|IXANY));
             Posix_CommConfig.c_oflag&=(~OPOST);
             Posix_CommConfig.c_cc[VMIN]= 0;
-#ifdef _POSIX_VDISABLE	// Is a disable character available on this system?
-	    // Some systems allow for per-device disable-characters, so get the
-	    //  proper value for the configured device
-	    const long vdisable = fpathconf(fd, _PC_VDISABLE);
-	    Posix_CommConfig.c_cc[VINTR] = vdisable;
-	    Posix_CommConfig.c_cc[VQUIT] = vdisable;
-	    Posix_CommConfig.c_cc[VSTART] = vdisable;
-	    Posix_CommConfig.c_cc[VSTOP] = vdisable;
-	    Posix_CommConfig.c_cc[VSUSP] = vdisable;
+#ifdef _POSIX_VDISABLE  // Is a disable character available on this system?
+            // Some systems allow for per-device disable-characters, so get the
+            //  proper value for the configured device
+            const long vdisable = fpathconf(fd, _PC_VDISABLE);
+            Posix_CommConfig.c_cc[VINTR] = vdisable;
+            Posix_CommConfig.c_cc[VQUIT] = vdisable;
+            Posix_CommConfig.c_cc[VSTART] = vdisable;
+            Posix_CommConfig.c_cc[VSTOP] = vdisable;
+            Posix_CommConfig.c_cc[VSUSP] = vdisable;
 #endif //_POSIX_VDISABLE
             setBaudRate(Settings.BaudRate);
             setDataBits(Settings.DataBits);
@@ -873,19 +865,15 @@ bool Posix_QextSerialPort::open(OpenMode mode)
             setFlowControl(Settings.FlowControl);
             setTimeout(Settings.Timeout_Millisec);
             tcsetattr(fd, TCSAFLUSH, &Posix_CommConfig);
-            
-          if (queryMode() == QextSerialBase::EventDriven) {
-            readNotifier = new QSocketNotifier(fd, QSocketNotifier::Read);
-            writeNotifier = new QSocketNotifier(fd, QSocketNotifier::Write);
-            writeNotifier->setEnabled(false);
-            connect(readNotifier, SIGNAL(activated(int)), this, SLOT(onReadNotify(int)));
-            connect(writeNotifier, SIGNAL(activated(int)), this, SLOT(onWriteNotify(int)));
-          }
+
+            if (queryMode() == QextSerialBase::EventDriven) {
+                readNotifier = new QSocketNotifier(fd, QSocketNotifier::Read, this);
+                connect(readNotifier, SIGNAL(activated(int)), this, SIGNAL(readyRead()));
+            }
         } else {
-            qDebug("could not open file: %s", strerror(errno));
+            qDebug() << "could not open file:" << strerror(errno);
         }
     }
-    UNLOCK_MUTEX();
     return isOpen();
 }
 
@@ -896,20 +884,23 @@ is not currently open.
 */
 void Posix_QextSerialPort::close()
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if( isOpen() )
     {
-	// Force a flush and then restore the original termios
-	flush();
-	// Using both TCSAFLUSH and TCSANOW here discards any pending input
-	tcsetattr(fd, TCSAFLUSH | TCSANOW, &old_termios);   // Restore termios
-	// Be a good QIODevice and call QIODevice::close() before POSIX close()
-	//  so the aboutToClose() signal is emitted at the proper time
-	QIODevice::close();	// Flag the device as closed
-	// QIODevice::close() doesn't actually close the port, so do that here
-	::close(fd);
+        // Force a flush and then restore the original termios
+        flush();
+        // Using both TCSAFLUSH and TCSANOW here discards any pending input
+        tcsetattr(fd, TCSAFLUSH | TCSANOW, &old_termios);   // Restore termios
+        // Be a good QIODevice and call QIODevice::close() before POSIX close()
+        //  so the aboutToClose() signal is emitted at the proper time
+        QIODevice::close();	// Flag the device as closed
+        // QIODevice::close() doesn't actually close the port, so do that here
+        ::close(fd);
+        if(readNotifier) {
+            delete readNotifier;
+            readNotifier = 0;
+        }
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -919,10 +910,9 @@ associated with the class is not currently open.
 */
 void Posix_QextSerialPort::flush()
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (isOpen())
-	tcflush(fd, TCIOFLUSH);
-    UNLOCK_MUTEX();
+        tcflush(fd, TCIOFLUSH);
 }
 
 /*!
@@ -948,17 +938,14 @@ the port is not currently open, or -1 on error.
 */
 qint64 Posix_QextSerialPort::bytesAvailable() const
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (isOpen()) {
         int bytesQueued;
         if (ioctl(fd, FIONREAD, &bytesQueued) == -1) {
-            UNLOCK_MUTEX();
             return (qint64)-1;
         }
-        UNLOCK_MUTEX();
         return bytesQueued + QIODevice::bytesAvailable();
     }
-    UNLOCK_MUTEX();
     return 0;
 }
 
@@ -1003,7 +990,7 @@ the port associated with the class is not currently open.
 */
 void Posix_QextSerialPort::setDtr(bool set)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (isOpen()) {
         int status;
         ioctl(fd, TIOCMGET, &status);
@@ -1015,7 +1002,6 @@ void Posix_QextSerialPort::setDtr(bool set)
         }
         ioctl(fd, TIOCMSET, &status);
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -1025,7 +1011,7 @@ the port associated with the class is not currently open.
 */
 void Posix_QextSerialPort::setRts(bool set)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (isOpen()) {
         int status;
         ioctl(fd, TIOCMGET, &status);
@@ -1037,7 +1023,6 @@ void Posix_QextSerialPort::setRts(bool set)
         }
         ioctl(fd, TIOCMSET, &status);
     }
-    UNLOCK_MUTEX();
 }
 
 /*!
@@ -1066,7 +1051,7 @@ This function will return 0 if the port associated with the class is not current
 unsigned long Posix_QextSerialPort::lineStatus()
 {
     unsigned long Status=0, Temp=0;
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     if (isOpen()) {
         ioctl(fd, TIOCMGET, &Temp);
         if (Temp&TIOCM_CTS) {
@@ -1094,7 +1079,6 @@ unsigned long Posix_QextSerialPort::lineStatus()
             Status|=LS_SR;
         }
     }
-    UNLOCK_MUTEX();
     return Status;
 }
 
@@ -1109,13 +1093,11 @@ is currently open (use isOpen() function to check if port is open).
 */
 qint64 Posix_QextSerialPort::readData(char * data, qint64 maxSize)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     int retVal = 0;
     retVal = ::read(fd, data, maxSize);
-    readNotifier->setEnabled(true);
     if (retVal == -1)
         lastErr = E_READ_FAILED;
-    UNLOCK_MUTEX();
 
     return retVal;
 }
@@ -1131,31 +1113,11 @@ is currently open (use isOpen() function to check if port is open).
 */
 qint64 Posix_QextSerialPort::writeData(const char * data, qint64 maxSize)
 {
-    LOCK_MUTEX();
+    QMutexLocker lock(mutex);
     int retVal = 0;
-    writeNotifier->setEnabled(true);
     retVal = ::write(fd, data, maxSize);
     if (retVal == -1)
        lastErr = E_WRITE_FAILED;
-    else
-      _bytesWritten = retVal;
-    UNLOCK_MUTEX();
-    
+
     return (qint64)retVal;
 }
-
-void Posix_QextSerialPort::onReadNotify(int fd)
-{
-  readNotifier->setEnabled(false); // disable until the port has been read
-  if(this->fd == fd)
-    emit readyRead();
-}
-
-void Posix_QextSerialPort::onWriteNotify(int fd)
-{
-  writeNotifier->setEnabled(false); // disable until we're about to write to the port
-  if(this->fd == fd)
-    emit bytesWritten(_bytesWritten);
-  _bytesWritten = 0;
-}
-
