@@ -235,14 +235,20 @@ QStringList MachineProcess::buildParamList()
     consoleLocation.replace(QRegExp("[.][^.]+$"), ".cnsl");
     QString pidLocation = property("hdd").toString();
     pidLocation.replace(QRegExp("[.][^.]+$"), ".pid");
+    QString toolsLocation = property("hdd").toString();
+    toolsLocation.replace(QRegExp("[.][^.]+$"), ".tools");
 
 #ifndef Q_OS_WIN32
     arguments << "-monitor" << "unix:" + consoleLocation + ",server,nowait";
+    arguments << "-serial" << "unix:" + toolsLocation + ",server,nowait";
 #else
     arguments << "-monitor" << "pipe:" + consoleLocation;
+    arguments << "-serial" << "pipe:" + toolsLocation;
 #endif
     arguments << "-daemonize";
     arguments << "-pidfile" << pidLocation;
+
+
 
     //show name in title if available
     if( (versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1) || (kvmVersion>=60) )

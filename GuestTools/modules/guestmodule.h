@@ -2,7 +2,7 @@
  * guestmodule.h
  *
  *  Created on: Dec 14, 2008
- *      Author: Ben
+ *      Author: Ben Klopfenstein
  */
 
 #ifndef GUESTMODULE_H_
@@ -20,20 +20,20 @@ public:
         GuestModule(QObject *parent = 0);
 	virtual ~GuestModule();
 
-	virtual void receiveData(QString type, QVariant data);
+        virtual void receiveData(QVariant data);
 
 	QString moduleName();
 
 protected:
 
-    void send(QString type, QVariant &data);
+    void send(QVariant &data);
     void setModuleName(QString name);
 
 private:
 	QString module;
 
 signals:
-    void sendData(QString module, QString type, QVariant &data);
+    void sendData(QString module, QVariant &data);
 
 };
 

@@ -16,7 +16,7 @@ public:
     ClipboardSync(QObject *parent = 0);
     ~ClipboardSync();
 
-    virtual void receiveData(QString type, QVariant data);
+    virtual void receiveData(QVariant data);
 
 private:
     QClipboard *clipboard;

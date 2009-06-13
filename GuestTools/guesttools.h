@@ -1,14 +1,13 @@
 #ifndef GUESTTOOLS_H
 #define GUESTTOOLS_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QSystemTrayIcon>
 #include <QList>
 #include <QVariant>
 #include "modules/guestmodule.h"
 #include "ui_guesttools.h"
 
-#include <QDataStream>
 #include <qextserialport.h>
 
  class QAction;
@@ -41,13 +40,13 @@ private:
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
-    QextSerialPort port;
-    QDataStream dataStream;
+    QextSerialPort *port;
+    quint16 blockSize;
 
     QList<GuestModule *> modules;
 
 public slots:
-    void dataSender(QString module, QString type, QVariant &data);
+    void dataSender(QString module, QVariant &data);
 
 private slots:
     void clickedIcon(QSystemTrayIcon::ActivationReason reason);

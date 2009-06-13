@@ -220,7 +220,7 @@
          <item>
           <widget class="QStackedWidget" name="settingsStack">
            <property name="currentIndex">
-            <number>6</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="cpuPage">
             <property name="helpFile" stdset="0">

@@ -11,7 +11,7 @@
 GuestModule::GuestModule(QObject *parent)
 : QObject(parent)
 {
-    connect(this, SIGNAL(sendData(QString, QString, QVariant&)), parent, SLOT(dataSender(QString, QString, QVariant&)));
+    connect(this, SIGNAL(sendData(QString, QVariant&)), parent, SLOT(dataSender(QString, QVariant&)));
 }
 
 GuestModule::~GuestModule() {
@@ -27,12 +27,12 @@ void GuestModule::setModuleName(QString name)
     module = name;
 }
 
-void GuestModule::receiveData(QString type, QVariant data)
+void GuestModule::receiveData(QVariant data)
 {
 
 }
 
-void GuestModule::send(QString type, QVariant &data)
+void GuestModule::send(QVariant &data)
 {
-	emit sendData(module, type, data);
+        emit sendData(module, data);
 }

@@ -22,22 +22,26 @@ ClipboardSync::~ClipboardSync()
 
 }
 
-void ClipboardSync::receiveData(QString type, QVariant data)
+void ClipboardSync::receiveData(QVariant data)
 {
-	if(type == "QImage")
+    qDebug() << "received clipboard data";
+    QVariant::Type type = data.type();
+        if(type == QVariant::Image)
 	{
-		QImage image = data.value<QImage>();
+                QImage image = data.value<QImage>();
 		clipboard->setImage(image, QClipboard::Clipboard);
 		clipboard->setImage(image, QClipboard::Selection);
         previous = data;
 	}
-	else if(type == "QString")
+        else if(type == QVariant::String)
 	{
 		QString text = data.value<QString>();
 		clipboard->setText(text, QClipboard::Clipboard);
 		clipboard->setText(text, QClipboard::Selection);
         previous = data;
 	}
+        else
+            qDebug() << "unknown data format!";
 }
 
 void ClipboardSync::dataChanged(QClipboard::Mode mode)
@@ -47,7 +51,7 @@ void ClipboardSync::dataChanged(QClipboard::Mode mode)
 		if(previous == QVariant(clipboard->image(mode)))
 			return;
 		previous = QVariant(clipboard->image(mode));
-		send("QImage", previous);
+                send(previous);
 
 	}
 	else if(!clipboard->text(mode).isNull())
@@ -56,7 +60,7 @@ void ClipboardSync::dataChanged(QClipboard::Mode mode)
 			return;
 		previous = QVariant(clipboard->text(mode));
         qDebug() << previous;
-		send("QString", previous);
+                send(previous);
 	}
 }
 

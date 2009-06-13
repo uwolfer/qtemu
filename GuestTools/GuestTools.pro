@@ -1,39 +1,33 @@
 PROJECT = GuestTools
 TEMPLATE = app
-#DEPENDPATH += .
+
+# DEPENDPATH += .
 INCLUDEPATH += qextserialport/.
-QMAKE_LIBDIR += qextserialport/build \
-    build
+QMAKE_LIBDIR += qextserialport/build
 
 QT += core \
     gui
 
-HEADERS += guesttools.h
+HEADERS += guesttools.h \
+    modules/guestmodule.h
+
 SOURCES += main.cpp \
-    guesttools.cpp
-FORMS += guesttools.ui
+    guesttools.cpp \
+
+FORMS += guesttools.ui \
+
 RESOURCES += resources/resources.qrc
 
-include(modules/guest.pri)
+CONFIG(debug, debug|release):LIBS += -lqextserialport
+else:LIBS += -lqextserialport
 
-CONFIG                 += qt
-CONFIG                 += warn_on
-CONFIG                 += thread
+SOURCES += modules/clipboard/clipboardsync.cpp \
+    modules/guestmodule.cpp
 
-HEADERS                += qextserialport\qextserialbase.h \
-                          qextserialport\qextserialport.h \
-                          qextserialport\qextserialenumerator.h
-SOURCES                += qextserialport\qextserialbase.cpp \
-                          qextserialport\qextserialport.cpp \
-                          qextserialport\qextserialenumerator.cpp
+HEADERS += modules/clipboard/clipboardsync.h
 
-unix:HEADERS           += qextserialport\posix_qextserialport.h
-unix:SOURCES           += qextserialport\posix_qextserialport.cpp
-unix:DEFINES           += _TTY_POSIX_
-
-
-win32:HEADERS          += qextserialport\win_qextserialport.h
-win32:SOURCES          += qextserialport\win_qextserialport.cpp
-win32:DEFINES          += _TTY_WIN_
-
-win32:LIBS             += -lsetupapi
+CONFIG += qt
+CONFIG += warn_on
+CONFIG += thread
+unix:DEFINES += _TTY_POSIX_
+win32:DEFINES += _TTY_WIN_

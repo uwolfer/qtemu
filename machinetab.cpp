@@ -36,7 +36,7 @@
 
 #include "controlpanel.h"
 
-//#include "guesttoolslistener.h"
+#include "guesttoolslistener.h"
 
 #include <QMessageBox>
 #include <QPushButton>
@@ -85,8 +85,8 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     settingsTab = new SettingsTab(machineConfigObject, this);
 
     machineNameEdit = new QLineEdit(this);
-   /* this feature is not yet complete and may cause issues just yet... */     
-    //guestToolsListener = new GuestToolsListener(machineConfigObject->getOption("hdd",QString()).toString().replace(QRegExp("[.][^.]+$"), ".tools"), this);
+
+    guestToolsListener = new GuestToolsListener(machineConfigObject->getOption("hdd",QString()).toString().replace(QRegExp("[.][^.]+$"), ".tools"), this);
 
 #ifndef Q_OS_WIN32
     const QString flatStyle = QString("TYPE { border: 2px solid transparent;"
@@ -446,6 +446,9 @@ void MachineTab::booting()
     resumeButton->setHidden(true);
     startButton->setEnabled(false);
     stopButton->setEnabled(true);
+
+    delete(guestToolsListener);
+    guestToolsListener = new GuestToolsListener(machineConfigObject->getOption("hdd",QString()).toString().replace(QRegExp("[.][^.]+$"), ".tools"), this);
 }
 
 void MachineTab::cleanupView()

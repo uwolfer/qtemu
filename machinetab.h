@@ -106,8 +106,7 @@ private:
 
     void cleanupView();
    
-   /* this feature is not yet complete and may cause issues just yet... */ 
-   // GuestToolsListener *guestToolsListener;
+    GuestToolsListener *guestToolsListener;
 
 private slots:
     void start();

@@ -26,9 +26,8 @@ HEADERS = config.h \
     usbpage.h \
     usbconfig.h \
     usbmodel.h \
-    halobject.h
-
-# guesttoolslistener.h
+    halobject.h\
+ guesttoolslistener.h
 SOURCES = main.cpp \
     mainwindow.cpp \
     helpwindow.cpp \
@@ -56,10 +55,10 @@ SOURCES = main.cpp \
     usbpage.cpp \
     usbconfig.cpp \
     usbmodel.cpp \
-    halobject.cpp
+    halobject.cpp \
+ guesttoolslistener.cpp
 
-# guesttoolslistener.cpp
-# include(GuestTools/modules/host.pri)
+ include(GuestTools/modules/host.pri)
 RESOURCES = qtemu.qrc
 QT += xml \
     svg \
