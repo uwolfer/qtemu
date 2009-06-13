@@ -47,12 +47,12 @@
     <message>
         <location filename="../machinewizard.cpp" line="270"/>
         <source>Windows Vista</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows Vista</translation>
     </message>
     <message>
         <location filename="../machinewizard.cpp" line="272"/>
         <source>BSD</source>
-        <translation type="unfinished"></translation>
+        <translation>BSD</translation>
     </message>
 </context>
 <context>
@@ -157,140 +157,142 @@
     <message>
         <location filename="../ui/controlpanel.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Форма</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="141"/>
         <source>Reload Optical Drive</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезагрузить оптический диск</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="197"/>
         <location filename="../ui/controlpanel.ui" line="286"/>
         <source>Reload</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезагрузить</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="230"/>
         <source>Reload Floppy Drive</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезагрузить гибкий диск</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="428"/>
         <source>Screen Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Снимок экрана</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="457"/>
         <source>Do Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабировать</translation>
     </message>
     <message>
         <location filename="../controlpanel.cpp" line="105"/>
         <source>Save a Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить снимок экрана</translation>
     </message>
     <message>
         <location filename="../controlpanel.cpp" line="107"/>
         <source>Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Изображения</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="40"/>
         <source>Screen Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Управление экраном</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="75"/>
         <source>Media Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Управление носителями</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="150"/>
         <source>Enter a CD image name or /dev/cdrom to use the host cd drive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите путь к образу оптического диска или /dev/cdrom для использования физического привода.</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="162"/>
         <source>/dev/cdrom</source>
-        <translation type="unfinished"></translation>
+        <translation>/dev/cdrom</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="176"/>
         <source>secect a new CD image</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать новый образ оптического диска</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="194"/>
         <source>Eject the CD ROM from the guest and re-insert the new one specified above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Извлечь оптический диск в гостевой системе и вставить указанный выше.</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="239"/>
         <source>enter a floppy image or /dev/floppy to use the host floppy drive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите путь к образу гибкого диска или /dev/floppy для использования физического привода.</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="251"/>
         <source>/dev/floppy</source>
-        <translation type="unfinished"></translation>
+        <translation>/dev/floppy</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="265"/>
         <source>secect a new floppy disk image</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать новый образ гибкого диска</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="283"/>
         <source>Eject the old floppy from the guest and re-insert the new one specified above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Извлечь гибкий диск в гостевой системе и вставить указанный выше.</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="337"/>
         <source>Send special keys to the guest OS. Useful for key strokes that are intercepted by the host and cannot be sent directly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Послать комбинацию клавиш в гостевую систему. Полезно для комбинаций, перехватываемых основной системой.</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="340"/>
         <source>Send Special Keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Послать комбинацию клавиш</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="386"/>
         <source>Toggle full screen mode. 
 Press CTRL+ALT+ENTER to return to windowed mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Полноэкранный режим.
+Нажмите CTRL+ALT+ENTER для возврата.</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="390"/>
         <source>&amp;Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Во весь экран</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="403"/>
         <source>Ctrl+Alt+Return</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Alt+Return</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="425"/>
         <source>Save a screen shot to a file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить снимок экрана в файл</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="454"/>
         <source>Toggle scaling the virtual machine view to fit the window</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабировать экран виртуальной машины по размерам окна</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="486"/>
         <source>Toggle smooth mouse transitions between
 the host and the guest. requires guest USB support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Свободный переход указателя мыши между гостевой и
+основной системой. Требуется поддержка USB в гостевой системе.</translation>
     </message>
     <message>
         <location filename="../ui/controlpanel.ui" line="490"/>
         <source>Smooth Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Интеграция мыши</translation>
     </message>
 </context>
 <context>
@@ -298,7 +300,7 @@ the host and the guest. requires guest USB support.</source>
     <message>
         <location filename="../netconfig.cpp" line="128"/>
         <source>random</source>
-        <translation type="unfinished"></translation>
+        <translation>Случайный</translation>
     </message>
 </context>
 <context>
@@ -306,17 +308,17 @@ the host and the guest. requires guest USB support.</source>
     <message>
         <location filename="../harddiskmanager.cpp" line="73"/>
         <source>Upgrading your hard disk image failed! Do you have enough disk space?&lt;br /&gt;You may want to try upgrading manually using the program qemu-img.</source>
-        <translation type="unfinished">Не удалось выполнить преобразование образа жёсткого диска. Проверьте, достаточно ли места на жёстком диске.&lt;br /&gt;Вы можете попробовать преобразовать образ вручную при помощи программы qemu-img.</translation>
+        <translation>Не удалось выполнить преобразование образа жёсткого диска. Проверьте, достаточно ли места на жёстком диске.&lt;br /&gt;Вы можете попробовать преобразовать образ вручную при помощи программы qemu-img.</translation>
     </message>
     <message>
         <location filename="../harddiskmanager.cpp" line="124"/>
         <source>QtEmu could not run the kvm-img or qemu-img programs in your path. Disk image statistics will be unavailable.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось запустить kvm-img или qemu-img. Статистика образов дисков будет недоступна.</translation>
     </message>
     <message>
         <location filename="../harddiskmanager.cpp" line="126"/>
         <source>QtEmu could not run the qemu/qemu-img.exe program. Disk image statistics will be unavailable.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось запустить программу qemu/qemu-img.exe. Статистика образов дисков будет недоступна.</translation>
     </message>
 </context>
 <context>
@@ -465,22 +467,22 @@ the host and the guest. requires guest USB support.</source>
     <message>
         <location filename="../machineprocess.cpp" line="166"/>
         <source>ALSA</source>
-        <translation type="unfinished"></translation>
+        <translation>ALSA</translation>
     </message>
     <message>
         <location filename="../machineprocess.cpp" line="168"/>
         <source>OSS</source>
-        <translation type="unfinished"></translation>
+        <translation>OSS</translation>
     </message>
     <message>
         <location filename="../machineprocess.cpp" line="170"/>
         <source>PulseAudio</source>
-        <translation type="unfinished"></translation>
+        <translation>PulseAudio</translation>
     </message>
     <message>
         <location filename="../machineprocess.cpp" line="172"/>
         <source>ESD</source>
-        <translation type="unfinished"></translation>
+        <translation>ESD</translation>
     </message>
 </context>
 <context>
@@ -585,7 +587,7 @@ the host and the guest. requires guest USB support.</source>
     <message>
         <location filename="../machinetab.cpp" line="201"/>
         <source>&lt;strong&gt;Notes&lt;/strong&gt;</source>
-        <translation type="unfinished">&lt;strong&gt;Примечания&lt;/strong&gt;</translation>
+        <translation>&lt;strong&gt;Примечания&lt;/strong&gt;</translation>
     </message>
     <message>
         <source>Select a CD ROM Drive</source>
@@ -947,77 +949,77 @@ one of your virtual machines. This does not use bridging.</source>
     <message>
         <location filename="../machinetab.cpp" line="139"/>
         <source>&amp;Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Завершить работу</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="140"/>
         <source>&amp;Force Poweroff</source>
-        <translation type="unfinished"></translation>
+        <translation>Принудительно &amp;отключить</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="141"/>
         <source>Tell this virtual machine to shut down</source>
-        <translation type="unfinished"></translation>
+        <translation>Послать гостевой системе сигнал завершения работы</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="142"/>
         <source>Force this virtual machine to stop immediately</source>
-        <translation type="unfinished"></translation>
+        <translation>Принудительно отключить виртуальную машину</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="194"/>
         <source>Set preview screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить изображение для предварительного просмотра</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="208"/>
         <source>&lt;strong&gt;Control Panel&lt;/strong&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;strong&gt;Панель управления&lt;/strong&gt;</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="233"/>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Дисплей</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="238"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="242"/>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Консоль</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="248"/>
         <source>Enter Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввести команду</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="360"/>
         <source>This will force the current machine to power down. Are you sure?&lt;br /&gt;You should only do this if the machine is unresponsive or does not support ACPI. Doing this may cause damage to the disk image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Это действие принудительно отключит выбранную виртуальную машину. Вы уверены?&lt;br /&gt;Это уместно только при зависании виртуальной машины или при отсутствии поддержки ACPI. Возможно повреждение образа диска.</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="363"/>
         <source>Force Power Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Принудительно отключить</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="144"/>
         <source>Hold down this button for additional options</source>
-        <translation type="unfinished"></translation>
+        <translation>Нажмите эту кнопку для выбора дополнительных вариантов</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="398"/>
         <source>QtEmu machine already running!</source>
-        <translation type="unfinished"></translation>
+        <translation>Виртуальная машина QtEmu уже запущена!</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="398"/>
         <source>There is already a virtual machine running on the specified&lt;br /&gt;VNC port or file. This may mean a previous QtEmu session crashed; &lt;br /&gt;if this is the case you can try to connect to the virtual machine &lt;br /&gt;to rescue your data and shut it down safely.&lt;br /&gt;&lt;br /&gt;Try to connect to this machine?</source>
-        <translation type="unfinished"></translation>
+        <translation>На выбранном порту VNC или сокете уже работает виртуальная машина.&lt;br /&gt;Это может означать, что предыдущий сеанс QtEmu завершился неудачно.&lt;br /&gt;В этом случае вы можете попытаться подключиться к виртуальной машине для&lt;br /&gt;сохранения данных и завершения работы.&lt;br /&gt;Попытаться подключиться к этой виртуальной машине?</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="411"/>
@@ -1027,12 +1029,12 @@ one of your virtual machines. This does not use bridging.</source>
     <message>
         <location filename="../machinetab.cpp" line="411"/>
         <source>QtEmu is having trouble accessing your sound system. Make sure&lt;br /&gt;you have your host sound system selected correctly in the Sound&lt;br /&gt;section of the settings tab. Also make sure your version of &lt;br /&gt;qemu/KVM has support for the sound system you selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>QtEmu не удаётся подключиться к вашей звуковой системе.&lt;br /&gt;Убедитесь, что вы правильно выбрали звуковую систему вашей основной ОС&lt;br /&gt;в разделе Звук на вкладке Настройки. Также убедитесь, что&lt;br /&gt;ваша версия qemu/KVM поддерживает выбранную вами звуковую систему.</translation>
     </message>
     <message>
         <location filename="../machinetab.cpp" line="418"/>
         <source>An error has occurred. This may have been caused by&lt;br /&gt;an incorrect setting. The error is:&lt;br /&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Произошла ошибка. Возможно, это вызвано&lt;br /&gt;неправильными настройками. Сообщение об ошибке:&lt;br /&gt;</translation>
     </message>
 </context>
 <context>
@@ -1040,22 +1042,22 @@ one of your virtual machines. This does not use bridging.</source>
     <message>
         <location filename="../machineview.cpp" line="109"/>
         <source>QtEmu Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Полноэкранный режим QtEmu</translation>
     </message>
     <message>
         <location filename="../machineview.cpp" line="168"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Во весь экран</translation>
     </message>
     <message>
         <location filename="../machineview.cpp" line="169"/>
         <source>Exit Fullscreen Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Выйти из полноэкранного режима</translation>
     </message>
     <message>
         <location filename="../machineview.cpp" line="175"/>
         <source>Scale Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабировать область вывода</translation>
     </message>
 </context>
 <context>
@@ -1063,12 +1065,12 @@ one of your virtual machines. This does not use bridging.</source>
     <message>
         <location filename="../machinewizard.cpp" line="252"/>
         <source>Image NOT created!&lt;br&gt; You may be missing either qemu-img or kvm-img, or they are not executable!</source>
-        <translation type="unfinished"></translation>
+        <translation>Образ НЕ создан!&lt;br /&gt;Возможно, программа qemu-img или kvm-img отсутствует или нет прав на её исполнение.</translation>
     </message>
     <message>
         <location filename="../machinewizard.cpp" line="254"/>
         <source>Image NOT created!&lt;br&gt; You may be missing qemu/qemu-img.exe!</source>
-        <translation type="unfinished"></translation>
+        <translation>Образ НЕ создан!&lt;br /&gt;Возможно, программа qemu/qemu-img.exe отсутствует.</translation>
     </message>
     <message>
         <location filename="../machinewizard.cpp" line="53"/>
@@ -1346,27 +1348,27 @@ prepare for a new operating system</source>
     <message>
         <location filename="../mainwindow.cpp" line="186"/>
         <source>&lt;h2&gt;QtEmu&lt;/h2&gt;Version %1&lt;br&gt;&lt;b&gt;&lt;i&gt;QtEmu&lt;/i&gt;&lt;/b&gt; is a graphical user interface for &lt;a href=http://qemu.org&gt;QEMU&lt;/a&gt;.&lt;br&gt;&lt;br&gt;Copyright &amp;copy; 2006-2008 Urs Wolfer &lt;a href=mailto:uwolfer%2fwo.ch&gt;uwolfer%2fwo.ch&lt;/a&gt;.&lt;br /&gt;Copyright &amp;copy; 2008 Ben Klopfenstein &lt;a href=mailto:benklop%2gmail.com&gt;benklop%2gmail.com&lt;/a&gt;.&lt;br /&gt;All rights reserved.&lt;br&gt;&lt;br&gt;The program is provided AS IS with NO WARRANTY OF ANY KIND.&lt;br&gt;&lt;br&gt;The icons have been taken from the KDE Crystal and Oxygen themes which are LGPL licensed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;QtEmu&lt;/h2&gt;Версия %1&lt;br&gt;&lt;b&gt;&lt;i&gt;QtEmu&lt;/i&gt;&lt;/b&gt; - графический интерфейс для &lt;a href=http://qemu.org&gt;QEMU&lt;/a&gt;.&lt;br&gt;&lt;br&gt;Copyright &amp;copy; 2006-2008 Urs Wolfer &lt;a href=mailto:uwolfer%2fwo.ch&gt;uwolfer%2fwo.ch&lt;/a&gt;&lt;br /&gt;Copyright &amp;copy; 2008 Ben Klopfenstein &lt;a href=mailto:benklop%2gmail.com&gt;benklop%2gmail.com&lt;/a&gt;.. Все права защищены.&lt;br&gt;&lt;br&gt;Программа предоставляется КАК ЕСТЬ БЕЗ ВСЯКИХ ГАРАНТИЙ ЛЮБОГО ТИПА.&lt;br&gt;&lt;br&gt;Значки взяты из тем KDE Crystal and Oxygen и распространяются под лицензией LGPL.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="91"/>
         <source>Virtual Machine Saving State!</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранение состояния виртуальной машины!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="92"/>
         <source>You have virtual machines currently saving thier state.&lt;br /&gt;Quitting now would very likely damage your Virtual Machine!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Одна или несколько виртуальных машин в настоящий момент&lt;br /&gt;сохраняют состояние. При выходе вы, наиболее вероятно,&lt;br /&gt;повредите виртуальную машину!</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="99"/>
         <source>Exit confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтверждение выхода</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="100"/>
         <source>You have virtual machines currently running. Are you sure you want to quit?&lt;br /&gt;quitting in this manner may cause damage to the virtual machine image!</source>
-        <translation type="unfinished"></translation>
+        <translation>Одна или несколько виртуальных машин всё ещё запущены.&lt;br /&gt;Вы уверены, что хотите выйти? Выход без завершения работы&lt;br /&gt;может повредить образ диска виртуальной машины.</translation>
     </message>
 </context>
 <context>
@@ -1374,47 +1376,47 @@ prepare for a new operating system</source>
     <message>
         <location filename="../ui/networkpage.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Форма</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="26"/>
         <source>&amp;Networking</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Сеть</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="35"/>
         <source>Enable networking</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить поддержку сети</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="38"/>
         <source>Enable network</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить поддержку сети</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="75"/>
         <source>Enter the advanced network settings dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть расширенные настройки сети</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="78"/>
         <source>Advanced Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Расширенные настройки</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="151"/>
         <source>Select Network Interface Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите тип сетевого интерфейса:</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="211"/>
         <source>Guest Interfaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Интерфейсы виртуальной системы</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="283"/>
         <source>Host Interfaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Интерфейсы основной системы</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="133"/>
@@ -1437,12 +1439,12 @@ prepare for a new operating system</source>
     <message>
         <location filename="../ui/networkpage.ui" line="158"/>
         <source>Assign MAC address automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически назначать MAC-адрес</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="177"/>
         <source>&lt;span style=&quot;color:#aa0000;&quot;&gt;NOTICE: This interface is not yet complete! Networking modes do not modify your host operating system&apos;s network setup! This means bridging requires additional steps.&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;span style=&quot;color:#aa0000;&quot;&gt;ЗАМЕЧАНИЕ: Данная функция ещё не завершена! Настройки сети вашей основной системы не изменяются, поэтому режим моста требует дополнительных усилий.&lt;/span&gt;</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="354"/>
@@ -1457,33 +1459,33 @@ prepare for a new operating system</source>
     <message>
         <location filename="../ui/networkpage.ui" line="394"/>
         <source>Assign Hostname via DHCP</source>
-        <translation type="unfinished"></translation>
+        <translation>Назначить имя компьютера по DHCP</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="404"/>
         <source>Set up TFTP Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Встроенный сервер TFTP</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="450"/>
         <source>Broadcast BOOTP File</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя файла BOOTP</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="499"/>
         <source>Port Redirection...</source>
-        <translation type="unfinished"></translation>
+        <translation>Перенаправление портов...</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="517"/>
         <location filename="../ui/networkpage.ui" line="578"/>
         <source>Host Interface Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя интерфейса в основной системе</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="527"/>
         <source>Bridge Interface Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя интерфейса-моста</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="540"/>
@@ -1498,142 +1500,142 @@ prepare for a new operating system</source>
     <message>
         <location filename="../ui/networkpage.ui" line="571"/>
         <source>Hardware interface to route to</source>
-        <translation type="unfinished"></translation>
+        <translation>Аппаратный интерфейс назначения</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="594"/>
         <source>Shared Virtual Lan Transport</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки транспорта общей виртуальной сети</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="615"/>
         <source>UDP Multicast (Multiple Guests)</source>
-        <translation type="unfinished"></translation>
+        <translation>UDP Multicast (несколько гостевых систем)</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="618"/>
         <source>udp</source>
-        <translation type="unfinished"></translation>
+        <translation>udp</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="625"/>
         <source>TCP Unicast (Two Guests)</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP Unicast (две гостевых системы)</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="628"/>
         <source>tcp</source>
-        <translation type="unfinished"></translation>
+        <translation>tcp</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="647"/>
         <source>Select Bus Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите адрес шины</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="654"/>
         <source>Select Bus Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите порт шины</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="688"/>
         <source>TAP Interface Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя TAP-интерфейса</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="698"/>
         <source>Interface Up Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрипт включения интерфейса</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="705"/>
         <source>Interface Down Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрипт выключения интерфейса</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="870"/>
         <source>Assign to Host Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Привязать к интерфейсу основной системы</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="883"/>
         <source>Interface MAC Address</source>
-        <translation type="unfinished"></translation>
+        <translation>MAC-адрес интерфейса</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="949"/>
         <source>Custom networking options disable all automatic options</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользовательские настроки сети отключают автоопределение</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="822"/>
         <source>i82551</source>
-        <translation type="unfinished"></translation>
+        <translation>i82551</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="827"/>
         <source>i82557b</source>
-        <translation type="unfinished"></translation>
+        <translation>i82557b</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="832"/>
         <source>i82559er</source>
-        <translation type="unfinished"></translation>
+        <translation>i82559er</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="837"/>
         <source>ne2k_pci</source>
-        <translation type="unfinished"></translation>
+        <translation>ne2k_pci</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="842"/>
         <source>ne2k_isa</source>
-        <translation type="unfinished"></translation>
+        <translation>ne2k_isa</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="847"/>
         <source>pcnet</source>
-        <translation type="unfinished"></translation>
+        <translation>pcnet</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="852"/>
         <source>rtl8139</source>
-        <translation type="unfinished"></translation>
+        <translation>rtl8139</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="857"/>
         <source>e1000</source>
-        <translation type="unfinished"></translation>
+        <translation>e1000</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="862"/>
         <source>virtio</source>
-        <translation type="unfinished"></translation>
+        <translation>virtio</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="814"/>
         <source>Emulated Network Card Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Модель эмулируемой сетевой карты</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="890"/>
         <source>Generate new MAC</source>
-        <translation type="unfinished"></translation>
+        <translation>Сгенерировать новый MAC-адрес</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="899"/>
         <source>Set a new, random MAC address upon each boot</source>
-        <translation type="unfinished"></translation>
+        <translation>Назначать случайный MAC-адрес при каждой перезагрузке</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="930"/>
         <source>Custom networking options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользовательские настройки сети:</translation>
     </message>
     <message>
         <location filename="../ui/networkpage.ui" line="942"/>
         <source>Enter cutom networking options</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите пользовательские настройки сети</translation>
     </message>
 </context>
 <context>
@@ -1641,37 +1643,37 @@ prepare for a new operating system</source>
     <message>
         <location filename="../settingstab.cpp" line="129"/>
         <source>Select a QtEmu hard disk image</source>
-        <translation type="unfinished">Выбор образа жёсткого диска QtEmu</translation>
+        <translation>Выбор образа жёсткого диска QtEmu</translation>
     </message>
     <message>
         <location filename="../settingstab.cpp" line="131"/>
         <source>QtEmu hard disk images</source>
-        <translation type="unfinished">Образы жёсткого диска QtEmu</translation>
+        <translation>Образы жёсткого диска QtEmu</translation>
     </message>
     <message>
         <location filename="../settingstab.cpp" line="137"/>
         <source>Select a CD Image</source>
-        <translation type="unfinished">Выбор образа CD-ROM</translation>
+        <translation>Выбор образа CD-ROM</translation>
     </message>
     <message>
         <location filename="../settingstab.cpp" line="139"/>
         <source>CD ROM images</source>
-        <translation type="unfinished">Образы CD-ROM</translation>
+        <translation>Образы оптических дисков</translation>
     </message>
     <message>
         <location filename="../settingstab.cpp" line="145"/>
         <source>Select a Floppy Disk Image</source>
-        <translation type="unfinished">Выбор образа дискеты</translation>
+        <translation>Выбрать образ гибкого диска</translation>
     </message>
     <message>
         <location filename="../settingstab.cpp" line="147"/>
         <source>Floppy disk images</source>
-        <translation type="unfinished">Образы дискет</translation>
+        <translation>Образы гибких дисков</translation>
     </message>
     <message>
         <location filename="../settingstab.cpp" line="156"/>
         <source>Upgrade Confirmation</source>
-        <translation type="unfinished">Подтвердите преобразование</translation>
+        <translation>Подтвердите преобразование</translation>
     </message>
     <message>
         <source>This will upgrade your Hard Disk image to the qcow format.&lt;br /&gt;This enables more advanced features such as suspend/resume on all operating systems and image compression on Windows.&lt;br /&gt;Your old image will remain intact, so if you want to revert afterwards you may do so.</source>
@@ -1680,59 +1682,59 @@ prepare for a new operating system</source>
     <message>
         <location filename="../settingstab.cpp" line="170"/>
         <source>MyMachines</source>
-        <translation type="unfinished">Мои_машины</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="23"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="89"/>
         <source>Cpu / Memory</source>
-        <translation type="unfinished"></translation>
+        <translation>Процессор / Память</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="98"/>
         <source>Hard Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Жёсткий диск</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="107"/>
         <location filename="../ui/settingstab.ui" line="741"/>
         <source>Removable Media</source>
-        <translation type="unfinished"></translation>
+        <translation>Съёмные носители</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1444"/>
         <source>Virtual Drives</source>
-        <translation type="unfinished"></translation>
+        <translation>Виртуальные диски</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="125"/>
         <source>Networking</source>
-        <translation type="unfinished"></translation>
+        <translation>Сеть</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="134"/>
         <source>Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Звук</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="143"/>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Дисплей</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="152"/>
         <location filename="../ui/settingstab.ui" line="1322"/>
         <source>Other Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Другие настройки</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="167"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">По&amp;мощь</translation>
+        <translation>По&amp;мощь</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="227"/>
@@ -1742,12 +1744,12 @@ prepare for a new operating system</source>
     <message>
         <location filename="../ui/settingstab.ui" line="236"/>
         <source>Cpu / &amp;Memory</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Процессор / Память</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="242"/>
         <source>Number of virtual &amp;CPUs:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Количество виртуальных процессоров:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="267"/>
@@ -1757,7 +1759,7 @@ prepare for a new operating system</source>
     <message>
         <location filename="../ui/settingstab.ui" line="286"/>
         <source>&amp;Memory for this virtual machine:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Объём памяти для виртуальной машины:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="298"/>
@@ -1769,47 +1771,47 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Change the amount of virtual memory your machine has.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;WARNING: &lt;span style=&quot; font-weight:400;&quot;&gt;Do not exceed your physical memory limitations - both your virtual and your physical machines must have enough memory to run!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить объём доступной памяти для виртуальной машины.&lt;br /&gt;&lt;strong&gt;ВНИМАНИЕ:&lt;/strong&gt; Убедитесь, что как гостевой, так и основной системе достаточно памяти для работы</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="360"/>
         <source>Mb</source>
-        <translation type="unfinished"></translation>
+        <translation>МБ</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="394"/>
         <source>Enable Hardware &amp;Virtualization</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить &amp;аппаратную виртуализацию</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="404"/>
         <source>Enable ACPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить ACPI</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="423"/>
         <source>Allow the virtual machine to use the system clock for improved accuracy:</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать системное время для большей точности:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="436"/>
         <source>Use the &amp;System Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Системное время</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="462"/>
         <source>Linux</source>
-        <translation type="unfinished">Linux</translation>
+        <translation>Linux</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="492"/>
         <source>BSD</source>
-        <translation type="unfinished"></translation>
+        <translation>BSD</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="497"/>
         <source>Other</source>
-        <translation type="unfinished">Другая</translation>
+        <translation>Другая</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="537"/>
@@ -1819,22 +1821,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="543"/>
         <source>&amp;Hard Disk</source>
-        <translation type="unfinished">&amp;Жёсткий диск</translation>
+        <translation>&amp;Жёсткий диск</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="549"/>
         <source>Select a valid hard disk image for QtEmu. </source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите образ жёсткого диска для QtEmu.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="630"/>
         <source>Upgrade Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать образ</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="637"/>
         <source>Upgrade your image to enable advanced features</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать образ диска для включения дополнительных возможностей</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="735"/>
@@ -1844,28 +1846,28 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="747"/>
         <source>CD/DVD Image or device:</source>
-        <translation type="unfinished"></translation>
+        <translation>Образ оптического диска или физическое устройство:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="814"/>
         <location filename="../ui/settingstab.ui" line="924"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="828"/>
         <source>Boot from CD/DVD</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка с оптического диска</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="857"/>
         <source>Floppy disk Image or device:</source>
-        <translation type="unfinished"></translation>
+        <translation>Образ гибкого диска или физическое устройство:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="938"/>
         <source>Boot from floppy disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузка с гибкого диска</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="977"/>
@@ -1890,12 +1892,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="993"/>
         <source>&amp;Sound</source>
-        <translation type="unfinished">&amp;Звук</translation>
+        <translation>&amp;Звук</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1009"/>
         <source>Enable sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить звук</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1085"/>
@@ -1905,22 +1907,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="1091"/>
         <source>&amp;Display</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Дисплей</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1100"/>
         <source>Embedded Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Встроенный дисплей</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1119"/>
         <source>VNC Transport</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки VNC</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1135"/>
         <source>TCP</source>
-        <translation type="unfinished"></translation>
+        <translation>Сетевой TCP-сокет</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1141"/>
@@ -1930,32 +1932,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="1191"/>
         <source>Host:</source>
-        <translation type="unfinished"></translation>
+        <translation>Хост:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1162"/>
         <source>Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1219"/>
         <source>File Socket</source>
-        <translation type="unfinished"></translation>
+        <translation>Локальный сокет</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1222"/>
         <source>unix</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1255"/>
         <source>Allow remote connection instead of embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Разрешить внешние подключения вместо встраивания дисплея</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1271"/>
         <source>Scale display to fit window</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабировать вывод по размерам окна</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1316"/>
@@ -1965,32 +1967,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="1328"/>
         <source>Additional QEMU Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительные опции QEMU</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1337"/>
         <source>Use Additional Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать дополнительные опции:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1367"/>
         <source>Pre / Post Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрипты</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1373"/>
         <source>These commands will be executed before or after QEMU</source>
-        <translation type="unfinished"></translation>
+        <translation>Эти команды будут запущены до или после QEMU</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1385"/>
         <source>Execute Before:</source>
-        <translation type="unfinished"></translation>
+        <translation>Выполнить ДО:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1395"/>
         <source>Execute After:</source>
-        <translation type="unfinished"></translation>
+        <translation>Выполнить ПОСЛЕ:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1491"/>
@@ -2000,12 +2002,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../settingstab.cpp" line="157"/>
         <source>This will upgrade your Hard Disk image to the qcow format.&lt;br /&gt;This enables more advanced features such as suspend/resume on all host operating systems and image compression on Windows hosts.&lt;br /&gt;Your old image will remain intact, so if you want to revert afterwards you may do so.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта операция преобразует ваш образ жёсткого диска в формат qcow.&lt;br /&gt;Это активирует дополнительные возможности, такие как&lt;br /&gt;приостановка работы для любых гостевых систем, а также сжатие образа&lt;br /&gt;при использовании Windows в качестве основной системы.&lt;br /&gt;Старый образ не будет изменён, поэтому вы всегда сможете вернуться.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="116"/>
         <source>USB Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Поддержка USB</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="164"/>
@@ -2016,62 +2018,62 @@ p, li { white-space: pre-wrap; }
         <location filename="../ui/settingstab.ui" line="257"/>
         <location filename="../ui/settingstab.ui" line="264"/>
         <source>Change the number of virtual CPUs your machine has</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбор числа виртуальных процессоров</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="391"/>
         <source>Hardware virtualization will allow your machine to run at near-hardware speeds. This uses either KVM or KQEMU if available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Аппаратная виртуализация позволяет виртуальной машине работать почти со скоростью реальной. Требуется KVM или KQEMU.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="401"/>
         <source>ACPI support allows QtEmu to tell the machine to shut down gracefully, among other things. It is reccommended.</source>
-        <translation type="unfinished"></translation>
+        <translation>ACPI позволяет, в числе прочего, посылать сигналы для правильного завершения работы (рекомендуется).</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="433"/>
         <source>This uses the host Real Time Clock for timing events, and should speed up accelerated drivers performance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Включает доступ к часам реального времени основной системы, позволяя улучшить работу оптимизированных драйверов.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="458"/>
         <source>Change the guest operating system QtEmu tries to interoperate with. This option does not yet have any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбор гостевой системы, с которой будет общаться QtEmu. В настоящее время ни на что не влияет.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="467"/>
         <source>Windows 98</source>
-        <translation type="unfinished">Windows 98</translation>
+        <translation>Windows 98</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="472"/>
         <source>Windows 2000</source>
-        <translation type="unfinished">Windows 2000</translation>
+        <translation>Windows 2000</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="477"/>
         <source>Windows XP</source>
-        <translation type="unfinished">Windows XP</translation>
+        <translation>Windows XP</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="482"/>
         <source>Windows Vista</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows Vista</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="487"/>
         <source>ReactOS</source>
-        <translation type="unfinished">ReactOS</translation>
+        <translation>ReactOS</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="508"/>
         <source>Installed Operating System</source>
-        <translation type="unfinished"></translation>
+        <translation>Установленная операционная система</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="561"/>
         <source>The Hard Disk Image QtEmu tries to boot from.</source>
-        <translation type="unfinished"></translation>
+        <translation>Образ жёсткого диска, с которого QtEmu будет загружаться.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="580"/>
@@ -2080,32 +2082,32 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;do not&lt;/span&gt; change this if you do not know what you are doing! See the help for more details.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;strong&gt;НЕ&lt;/strong&gt; изменяйте эту настройку, если вы не знаете, что делаете! См. раздел Помощь</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="596"/>
         <source>Use Accelerated Disk Drivers. These are not supported for Windows guests.</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать оптимизированные драйверы диска. Не поддерживаются для гостевых систем Windows.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="599"/>
         <source>Accelerated Hard Disk Drivers</source>
-        <translation type="unfinished"></translation>
+        <translation>Оптимизированные драйверы диска</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="627"/>
         <source>You may upgrade your image to the qcow2 format to recieve additional features like suspend/resume.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы можете преобразовать образ диска в формат qcow2 для включения дополнительных возможностей, таких как приостановление работы.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="659"/>
         <source>Image Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация об образе</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="674"/>
         <source>Image Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Формат образа:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="681"/>
@@ -2115,7 +2117,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="688"/>
         <source>Virtual Image Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер виртуального диска:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="695"/>
@@ -2125,7 +2127,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="702"/>
         <source>On Disk Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Занимаемый размер:</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="709"/>
@@ -2135,52 +2137,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="762"/>
         <source>Enter a CD image name or /dev/cdrom to use the host cd drive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите путь к образу оптического диска или /dev/cdrom для использования физического привода.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="774"/>
         <source>/dev/cdrom</source>
-        <translation type="unfinished"></translation>
+        <translation>/dev/cdrom</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="782"/>
         <source>secect a new CD image</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать новый образ оптического диска</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="825"/>
         <source>Try to boot from the CD first</source>
-        <translation type="unfinished"></translation>
+        <translation>Сначала пытаться загрузиться с оптического диска</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="872"/>
         <source>enter a floppy image or /dev/floppy to use the host floppy drive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите путь к образу гибкого диска или /dev/floppy для использования физического привода.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="884"/>
         <source>/dev/floppy</source>
-        <translation type="unfinished"></translation>
+        <translation>/dev/floppy</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="892"/>
         <source>secect a new floppy disk image</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать новый образ гибкого диска</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="935"/>
         <source>Try to boot from the floppy first</source>
-        <translation type="unfinished"></translation>
+        <translation>Сначала пытаться загрузиться с гибкого диска</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1006"/>
         <source>Enable a virtual sound card</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить виртуальную звуковую карту</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1025"/>
         <source>Select your Host Sound System. Not all sound systems may be compiled in to your version of qemu/kvm. You may enter your own sound system here as well.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите звуковую систему вашей основной ОС. Не все звуковые системы могут быть доступты в вашей версии qemu/kvm. Вы также можете ввести свой вариант.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1032"/>
@@ -2205,59 +2207,59 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/settingstab.ui" line="1055"/>
         <source>Choose sound system to use for sound emulation</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите звуковую систему для вывода звука</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1097"/>
         <source>Allow the guest virtual machine to show in an embedded window within QtEmu</source>
-        <translation type="unfinished"></translation>
+        <translation>Отображать содержимое дисплея виртуальной машины внутри окна QtEmu</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1113"/>
         <source>Select the Transport VNC uses</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите способ подключения для VNC</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1201"/>
         <source>Do not change this unless you have a good reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Не меняйте без весомых оснований</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1237"/>
         <source>Set the method used to connect the virtual machine to the embedded display. TCP is the only option available at the moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите способ подключения виртуальной машины к встроенному дисплею. В настоящий момент работает только TCP.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1268"/>
         <source>Toggle scaling the virtual machine view to fit the window</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабировать экран виртуальной машины по размерам окна</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1288"/>
         <source>Allow large and widescreen video modes. this uses a vesa compliant video card, rather than an emulated cirrus logic card.</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить широкоформатные и высокие разрешения. Используется стандартный VESA-совместимый видеоадаптер вместо Cirrus Logic.</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1291"/>
         <source>High Resolution and Widescreen Video Modes 
 (Standard VGA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Режимы высокого разрешения и широкоформатные экраны (стандартный VGA)</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1334"/>
         <source>Enter your own options</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите собственные опции</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1364"/>
         <source>You may enter scripts that run before of after the virtual machine on a per-machine basis. these run in addition to the QtEmu-wide scripts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы можете ввести команды для запуска до или после виртуальной машины для каждой в отдельности (вдобавок к глобальным QtEmu).</translation>
     </message>
     <message>
         <location filename="../ui/settingstab.ui" line="1382"/>
         <location filename="../ui/settingstab.ui" line="1392"/>
         <source>Enable or disable this script</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить или выключить скрипт</translation>
     </message>
 </context>
 <context>
@@ -2265,38 +2267,39 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../usbpage.ui" line="14"/>
         <source>UsbPage</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../usbpage.ui" line="20"/>
         <source>USB Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Поддержка USB</translation>
     </message>
     <message>
         <location filename="../usbpage.ui" line="26"/>
         <source>Enable support for USB devices, either virtual or shared with the Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить поддержку USB-устройств (как виртуальных, так и физических)</translation>
     </message>
     <message>
         <location filename="../usbpage.ui" line="29"/>
         <source>Enable USB support</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить поддержку USB</translation>
     </message>
     <message>
         <location filename="../usbpage.ui" line="43"/>
         <source>USB Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Устройства USB</translation>
     </message>
     <message>
         <location filename="../usbpage.ui" line="53"/>
         <source>Toggle smooth mouse transitions between
 the host and the guest. requires guest USB support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Свободный переход указателя мыши между гостевой и
+основной системой. Требуется поддержка USB в гостевой системе.</translation>
     </message>
     <message>
         <location filename="../usbpage.ui" line="57"/>
         <source>Seamless USB Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Интеграция мыши USB</translation>
     </message>
 </context>
 <context>
@@ -2304,12 +2307,12 @@ the host and the guest. requires guest USB support.</source>
     <message>
         <location filename="../vnc/vncview.cpp" line="261"/>
         <source>Password required</source>
-        <translation type="unfinished"></translation>
+        <translation>Требуется пароль</translation>
     </message>
     <message>
         <location filename="../vnc/vncview.cpp" line="262"/>
         <source>Please enter the password for the remote desktop:</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите пароль для удалённого рабочего стола:</translation>
     </message>
 </context>
 <context>

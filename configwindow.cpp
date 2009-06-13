@@ -86,7 +86,7 @@ ConfigWindow::ConfigWindow(const QString &myMachinesPathParent, int tabPosition,
     languagePosition->addItem("English");
     languagePosition->addItem("Deutsch");
     languagePosition->addItem(QString::fromUtf8("Türkçe"));
-    languagePosition->addItem(QString::fromUtf8("русский язык"));
+    languagePosition->addItem(QString::fromUtf8("Русский"));
     languagePosition->addItem(QString::fromUtf8("Česky"));
     languagePosition->addItem(QString::fromUtf8("Español"));
     languagePosition->addItem(QString::fromUtf8("Français"));
