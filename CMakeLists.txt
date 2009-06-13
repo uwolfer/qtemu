@@ -58,9 +58,9 @@ SET(qtemu_SRCS
     interfacemodel.cpp
     floatingtoolbar.cpp
     halobject.cpp
-#    guesttoolslistener.cpp
-#    GuestTools/modules/guestmodule.cpp
-#    GuestTools/modules/clipboard/clipboardsync.cpp
+    guesttoolslistener.cpp
+    GuestTools/modules/guestmodule.cpp
+    GuestTools/modules/clipboard/clipboardsync.cpp
 )
 
 SET(qtemu_MOC_HDRS
@@ -92,9 +92,9 @@ SET(qtemu_MOC_HDRS
     interfacemodel.h
     floatingtoolbar.h
     halobject.h
-#    guesttoolslistener.h
-#    GuestTools/modules/guestmodule.h
-#    GuestTools/modules/clipboard/clipboardsync.h
+    guesttoolslistener.h
+    GuestTools/modules/guestmodule.h
+    GuestTools/modules/clipboard/clipboardsync.h
 
 )
 
