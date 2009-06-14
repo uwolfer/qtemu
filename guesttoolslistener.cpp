@@ -50,7 +50,7 @@ void GuestToolsListener::receiveData()
 {
     //connect the stream
     QDataStream stream(toolSocket);
-    stream.setVersion(QDataStream::Qt_4_5);
+    stream.setVersion(QDataStream::Qt_4_0);
     //get the size of the data chunk
     if (blockSize == 0) {
         if (toolSocket->bytesAvailable() < (int)sizeof(quint16))
