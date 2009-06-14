@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>298</width>
+    <width>270</width>
     <height>260</height>
    </rect>
   </property>
@@ -162,7 +162,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="drivePage">
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -202,7 +202,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>secect a new CD image</string>
+            <string>select a new CD image</string>
            </property>
            <property name="text">
             <string/>
@@ -289,7 +289,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>secect a new floppy disk image</string>
+            <string>select a new floppy disk image</string>
            </property>
            <property name="text">
             <string/>
