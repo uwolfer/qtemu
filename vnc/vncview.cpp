@@ -360,6 +360,8 @@ void VncView::updateImage(int x, int y, int w, int h)
         kDebug(5011) << "Updating framebuffer size";
         if (m_scale) {
             setMaximumSize(QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
+            if (parentWidget())
+                scaleResize(parentWidget()->width(), parentWidget()->height());
         } else {
             kDebug(5011) << "Resizing: " << m_frame.width() << m_frame.height();
             resize(m_frame.width(), m_frame.height());
@@ -425,11 +427,11 @@ void VncView::paintEvent(QPaintEvent *event)
 //     kDebug(5011) << "paint event: x: " << m_x << ", y: " << m_y << ", w: " << m_w << ", h: " << m_h;
     if (m_frame.isNull() || m_frame.format() == QImage::Format_Invalid) {
         kDebug(5011) << "no valid image to paint";
-        RemoteView::paintEvent(event);
+        //RemoteView::paintEvent(event);
         return;
     }
 
-    event->accept();
+    //event->accept();
 
     QPainter painter(this);
 
@@ -460,7 +462,7 @@ void VncView::paintEvent(QPaintEvent *event)
         }
     }
 
-    RemoteView::paintEvent(event);
+    //RemoteView::paintEvent(event);
 }
 
 void VncView::resizeEvent(QResizeEvent *event)
