@@ -95,7 +95,7 @@ void GuestToolsListener::dataSender(QString module, QVariant &data)
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_4_5);
+    out.setVersion(QDataStream::Qt_4_0);
 
     out << (quint16)0;
     out << module;

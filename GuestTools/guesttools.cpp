@@ -71,7 +71,7 @@ void GuestTools::ioReceived()
 {
     //connect the stream
     QDataStream stream(port);
-    stream.setVersion(QDataStream::Qt_4_5);
+    stream.setVersion(QDataStream::Qt_4_0);
     //get the size of the data chunk
     if (blockSize == 0) {
         if (port->bytesAvailable() < (int)sizeof(quint16))
