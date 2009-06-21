@@ -14,6 +14,10 @@ done so ;).
 
 Qt 4.2 is at least required.
 
+LibVNCServer 0.9.7 is at least required. For the VNC socket feature, a
+recent SVN build is required.
+http://sourceforge.net/project/showfiles.php?group_id=32584&package_id=24717
+
 Compilation with cmake (recommended):
 (Use this methode on Linux to install the project systemwide.)
 * run 'cmake -DCMAKE_INSTALL_PREFIX=/usr .' in order to
@@ -63,7 +67,7 @@ Have Fun!
 
 Copyright / License
 -------------------
-QtEmu is released under GPL. Copyright © 2006-2008 Urs Wolfer and
+QtEmu is released under GPL. Copyright © 2006-2009 Urs Wolfer and
 Ben Klopfenstein. All rights reserved. The icons have been taken
 from the KDE Crystal theme which is LGPL licensed.
 
