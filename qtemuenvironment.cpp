@@ -89,13 +89,29 @@ void QtEmuEnvironment::getVersion()
     qemuVersion[1] = versionStringList.at(1).toInt();
     qemuVersion[2] = versionStringList.at(2).toInt();
     versionString = infoStringList.at(5);
-    versionString.remove(QRegExp("[(),]"));
+
     if(versionString.contains(QRegExp("kvm")))
     {
-        kvmVersion = versionString.remove(QRegExp("kvm-")).toInt();
+        kvmVersion = versionString.remove(QRegExp("\\D")).toInt();
+        if(kvmVersion == 0)
+            kvmVersion = -1; //indicates we think we've got kvm, but can't figure out what version
     }
     else
-        kvmVersion = 0;
+        kvmVersion = 0; //must be QEMU
+
+    //grab the rest of the help text and search for kvm and kqemu options...
+
+    QString helpString = findVersion->readAll();
+
+    if(helpString.contains("kqemu"))
+        supportsKqemu = true;
+    else
+        supportsKqemu = false;
+
+    if(helpString.contains("kvm"))
+        supportsKvm = true;
+    else
+        supportsKvm = false;
 
     delete findVersion;
     #ifdef Q_OS_WIN32
@@ -129,7 +145,23 @@ HalObject* QtEmuEnvironment::getHal()
     return hal;
 }
 
+bool QtEmuEnvironment::kvmSupport()
+{
+    if(!versionChecked)
+        getVersion();
+    return supportsKvm;
+}
+
+bool QtEmuEnvironment::kqemuSupport()
+{
+    if(!versionChecked)
+        getVersion();
+    return supportsKqemu;
+}
+
 HalObject* QtEmuEnvironment::hal = 0;
 int QtEmuEnvironment::qemuVersion[] = {-1, -1, -1};
 int QtEmuEnvironment::kvmVersion = -1;
 bool QtEmuEnvironment::versionChecked = false;
+bool QtEmuEnvironment::supportsKvm = false;
+bool QtEmuEnvironment::supportsKqemu = false;

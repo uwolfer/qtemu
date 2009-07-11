@@ -44,11 +44,16 @@ public:
 
     static HalObject* getHal();
 
+    static bool kvmSupport();
+    static bool kqemuSupport();
+
 private:
     static void getVersion();
     static int qemuVersion[3];
     static int kvmVersion;
     static bool versionChecked;
+    static bool supportsKvm;
+    static bool supportsKqemu;
     static HalObject *hal;
 };
 #endif

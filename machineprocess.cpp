@@ -215,12 +215,35 @@ QStringList MachineProcess::buildParamList()
 
     //Acceleration support
         //FIXME we should detect if the CPU/Kernel supports kvm, them use it. otherwise use kqemu instead. "-enable-kvm" is the option to enable kvm in qemu
-    if (!(property("virtualization").toBool()) && kvmVersion > 0)
-        arguments << "-no-kvm";
-    else if (!(property("virtualization").toBool()))
-        arguments << "-no-kqemu";
-    else if (property("virtualization").toBool() && kvmVersion <= 0)
-        arguments << "-kernel-kqemu";
+
+    if(kvmVersion > 0) //using KVM binary
+    {
+        if (property("virtualization").toBool() == false) //dont want to use hardware.
+            arguments << "-no-kvm";
+        //else if
+            //kvm uses acceleration by default
+    }
+    else if(kvmVersion == 0)//using QEMU
+    {
+        if (property("virtualization").toBool() == false)//dont want to use hardware
+        {
+            if(env.kvmSupport())
+                arguments << "-disable-kvm";//this may not exist or be right...
+            if(env.kqemuSupport())
+                arguments << "-no-kqemu";
+        }
+        else
+        {
+            if(env.kvmSupport())
+                arguments << "-enable-kvm";
+            else if(env.kqemuSupport())
+                arguments << "-kernel-kqemu";
+        }
+    }
+    else //@!#%&$! changed the version string format probably. throw an error.
+    {
+        emit error(tr("Could not find KVM version for this KVM binary, got version acceleration has been left in its default state. Got version ") + QString().number(kvmVersion));
+    }
 
     //Image resume support
     if (doResume)
