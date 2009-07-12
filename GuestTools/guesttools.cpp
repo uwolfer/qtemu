@@ -138,7 +138,7 @@ void GuestTools::initSerialPort()
 #else
     port = new QextSerialPort("ttyS0", QextSerialPort::EventDriven);
 #endif
-    port->setBaudRate(BAUD19200);
+    port->setBaudRate(BAUD115200);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);
