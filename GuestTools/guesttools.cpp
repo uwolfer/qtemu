@@ -133,7 +133,11 @@ void GuestTools::dataSender(QString module, QVariant &data)
 
 void GuestTools::initSerialPort()
 {
+#ifdef Q_WS_WIN
     port = new QextSerialPort("COM1", QextSerialPort::EventDriven);
+#else
+    port = new QextSerialPort("ttyS0", QextSerialPort::EventDriven);
+#endif
     port->setBaudRate(BAUD19200);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
