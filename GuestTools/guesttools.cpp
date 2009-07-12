@@ -74,13 +74,13 @@ void GuestTools::ioReceived()
     stream.setVersion(QDataStream::Qt_4_0);
     //get the size of the data chunk
     if (blockSize == 0) {
-        if (port->bytesAvailable() < (int)sizeof(quint16))
+        if (port->bytesAvailable() < (int)sizeof(quint64))
             return;
         stream >> blockSize;
     }
 
     //don't continue until we have all the data
-    if (port->bytesAvailable() < blockSize)
+    if ((quint64)(port->bytesAvailable()) < blockSize)
         return;
 
     QString usesModule;
@@ -118,11 +118,11 @@ void GuestTools::dataSender(QString module, QVariant &data)
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_0);
 
-    out << (quint16)0;
+    out << (quint64)0;
     out << module;
     out << data;
     out.device()->seek(0);
-    out << (quint16)(block.size() - sizeof(quint16));
+    out << (quint64)(block.size() - sizeof(quint64));
 
     port->write(block);
 

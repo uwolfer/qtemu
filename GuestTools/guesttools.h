@@ -41,7 +41,7 @@ private:
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
     QextSerialPort *port;
-    quint16 blockSize;
+    quint64 blockSize;
 
     QList<GuestModule *> modules;
 

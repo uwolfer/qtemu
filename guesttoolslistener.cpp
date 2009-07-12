@@ -53,13 +53,13 @@ void GuestToolsListener::receiveData()
     stream.setVersion(QDataStream::Qt_4_0);
     //get the size of the data chunk
     if (blockSize == 0) {
-        if (toolSocket->bytesAvailable() < (int)sizeof(quint16))
+        if (toolSocket->bytesAvailable() < (int)sizeof(quint64))
             return;
         stream >> blockSize;
     }
 
     //don't continue until we have all the data
-    if (toolSocket->bytesAvailable() < blockSize)
+    if ((quint64)(toolSocket->bytesAvailable()) < blockSize)
         return;
 
     QString usesModule;
@@ -97,11 +97,11 @@ void GuestToolsListener::dataSender(QString module, QVariant &data)
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_0);
 
-    out << (quint16)0;
+    out << (quint64)0;
     out << module;
     out << data;
     out.device()->seek(0);
-    out << (quint16)(block.size() - sizeof(quint16));
+    out << (quint64)(block.size() - sizeof(quint64));
 
     toolSocket->write(block);
 

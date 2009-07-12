@@ -39,7 +39,7 @@ public:
 private:
     QLocalSocket *toolSocket;
     QList<GuestModule *> modules;
-    quint16 blockSize;
+    quint64 blockSize;
 
     void addModules();
     
