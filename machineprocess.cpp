@@ -56,7 +56,7 @@ MachineProcess::MachineProcess(MachineTab *parent)
     connect(console, SIGNAL(readyRead()), this, SLOT(readProcess()));
     connect(console, SIGNAL(disconnected()), SLOT(afterExitExecute()));
     connect(process, SIGNAL(readyReadStandardError()), this, SLOT(readProcessErrors()));
-    connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(connectToProcess()));
+    connect(process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(connectIfRunning()));
     connect(this, SIGNAL(stdout(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
     connect(this, SIGNAL(stdin(const QString&)), this, SLOT(writeDebugInfo(const QString&)));
     connect(this, SIGNAL(stateChanged(MachineProcess::ProcessState)), this, SLOT(saveState(MachineProcess::ProcessState)));
@@ -114,7 +114,9 @@ QStringList MachineProcess::buildParamList()
     if(property("hiRes").toBool())
     {
         if(kvmVersion >= 78 || versionMinor >= 10)
-    		arguments << "-vga" << "std"; //TODO: other options are cirrus and vmware.. maybe we can make use of this.
+                //arguments << "-vga" << "std"; //TODO: other options are cirrus and vmware.. maybe we can make use of this.
+                                              //cirrus is default.
+                arguments << "-vga" << "vmware";
     	else
     		arguments << "-std-vga";
     }
@@ -242,7 +244,7 @@ QStringList MachineProcess::buildParamList()
     }
     else //@!#%&$! changed the version string format probably. throw an error.
     {
-        emit error(tr("Could not find KVM version for this KVM binary, got version acceleration has been left in its default state. Got version ") + QString().number(kvmVersion));
+        emit error(tr("Could not find KVM version for this KVM binary, KVM Probably changed their version string. Got version ") + QString().number(kvmVersion));
     }
 
     //Image resume support
@@ -577,6 +579,13 @@ void MachineProcess::readProcessErrors()
 {
     QString errorText = process->readAllStandardError();
     emit error(errorText);
+
+    //we also need to check if the error was fatal:
+    if(!checkIfRunning())
+    {
+        emit(stateChanged(MachineProcess::Stopping));
+        emit(stateChanged(MachineProcess::NotRunning));
+    }
 }
 
 qint64 MachineProcess::write ( const QByteArray & byteArray )
@@ -691,17 +700,21 @@ MachineProcess::ProcessState MachineProcess::state()
 
 void MachineProcess::saveState(MachineProcess::ProcessState newState)
 {
-        myState = newState;
-        if(newState == MachineProcess::NotRunning)
-        {
-             emit cleanConsole("(virtual machine quit)");
-            emit finished();
-        }
-        else if(newState == MachineProcess::Running)
-            emit started();
+    //first check if this is an actual change
+    if(myState == newState)
+        return;
+
+    myState = newState;
+    if(newState == MachineProcess::NotRunning)
+    {
+        emit cleanConsole("(virtual machine quit)");
+        emit finished();
+    }
+    else if(newState == MachineProcess::Running)
+        emit started();
 }
 
-void MachineProcess::checkIfRunning()
+bool MachineProcess::checkIfRunning()
 {
     //all this talk of PIDs is nonsense on win32
 #ifndef WIN32
@@ -713,11 +726,11 @@ void MachineProcess::checkIfRunning()
         pidFile.open(QFile::ReadWrite);
         //check if that pid is running (posix)
          QString pid = pidFile.readLine();
+         pidFile.close();
         if(kill(pid.toInt(), 0) == 0)
-        {
+         {
             //then the machine should be running...
-            connectToProcess();
-            pidFile.close();
+            return true;
         }
         else
         {
@@ -727,7 +740,18 @@ void MachineProcess::checkIfRunning()
 #else
     if(pidFile.exists())
     {
-        connectToProcess();
+        return true;
     }
 #endif
+    return false;
+}
+
+void MachineProcess::connectIfRunning()
+{
+    if(checkIfRunning())
+        connectToProcess();
+    else
+    {
+        emit(stateChanged(MachineProcess::NotRunning));
+    }
 }

@@ -49,7 +49,6 @@ public:
     QProcess* getProcess();
     bool event(QEvent *event);
     MachineProcess::ProcessState state();
-    void checkIfRunning();
     
 public slots:
     void start();
@@ -61,6 +60,7 @@ public slots:
     void changeCdrom();
     void changeFloppy();
     void loadCdrom();
+    void connectIfRunning();
 
 signals:
     void suspending(const QString & snapshotName);
@@ -81,6 +81,8 @@ private:
     void getVersion();
     void commitTmp();
     void createTmp();
+    bool checkIfRunning();
+    void connectToProcess();
     QStringList buildParamList();
     QStringList buildEnvironment();
 
@@ -100,7 +102,6 @@ private:
     QProcess *process;
 
 private slots:
-    void connectToProcess();
     void beforeRunExecute();
     void afterExitExecute();
     void readProcess();

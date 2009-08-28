@@ -256,7 +256,7 @@ MachineTab::MachineTab(QTabWidget *parent, const QString &fileName, const QStrin
     
     makeConnections();
     machineProcess->getHdManager()->testImage();
-    machineProcess->checkIfRunning();
+    machineProcess->connectIfRunning();
 }
 
 
