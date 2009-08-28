@@ -62,5 +62,7 @@ void ClipboardSync::dataChanged(QClipboard::Mode mode)
         qDebug() << previous;
                 send(previous);
 	}
+        else
+            qDebug() << "got clipboard data, but can't find an image or text!";
 }
 
