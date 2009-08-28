@@ -631,8 +631,8 @@ void MachineProcess::changeFloppy()
 {
     //handle differing version syntax...
     //if ((versionMajor >= 0 && versionMinor >= 9 && versionBugfix >= 1)|(kvmVersion>=60))
-    write("eject -f floppy\n");//might need to be fda , not floppy
-    write("change floppy " + property("floppy").toByteArray() + '\n');
+    write("eject -f floppy0\n");//might need to be fda , not floppy
+    write("change floppy " + property("floppy0").toByteArray() + '\n');
 }
 
 void MachineProcess::loadCdrom()
