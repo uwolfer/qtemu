@@ -31,6 +31,14 @@
 #include "qtemuenvironment.h"
 #include "harddiskmanager.h"
 
+#ifdef __linux
+    // linux
+    #include <unistd.h>
+#elif __unix // all unices not caught above
+    // Unix
+    #include <unistd.h>
+#endif
+
 class NetConfig;
 class UsbConfig;
 
@@ -49,7 +57,7 @@ public:
     QProcess* getProcess();
     bool event(QEvent *event);
     MachineProcess::ProcessState state();
-    
+
 public slots:
     void start();
     void resume(const QString& snapshotName = QString("Default"));
@@ -76,7 +84,7 @@ signals:
     void stateChanged(MachineProcess::ProcessState newState);
     void started();
     void finished();
-    
+
 private:
     void getVersion();
     void commitTmp();
