@@ -27,7 +27,7 @@
     #include <QMessageBox>
     #include <QInputDialog>
     #define KMessageBox QMessageBox
-    #define error(parent, message, caption) \
+//    #define error(parent, message, caption) \
         critical(parent, caption, message)
 #else
     #include "settings.h"
@@ -75,7 +75,7 @@ VncView::VncView(QWidget *parent, const KUrl &url, KConfigGroup configGroup)
     m_clipboard = QApplication::clipboard();
     connect(m_clipboard, SIGNAL(selectionChanged()), this, SLOT(clipboardSelectionChanged()));
     connect(m_clipboard, SIGNAL(dataChanged()), this, SLOT(clipboardDataChanged()));
-    
+
 #ifndef QTONLY
     m_hostPreferences = new VncHostPreferences(configGroup, this);
 #else
@@ -130,7 +130,7 @@ QSize VncView::minimumSizeHint() const
 void VncView::scaleResize(int w, int h)
 {
     RemoteView::scaleResize(w, h);
-    
+
     kDebug(5011) << w << h;
     if (m_scale) {
         m_verticalFactor = (qreal) h / m_frame.height();
@@ -148,7 +148,7 @@ void VncView::scaleResize(int w, int h)
         const qreal newH = m_frame.height() * m_verticalFactor;
         setMaximumSize(newW, newH); //This is a hack to force Qt to center the view in the scroll area
         resize(newW, newH);
-    } 
+    }
 }
 
 void VncView::updateConfiguration()
@@ -298,7 +298,8 @@ void VncView::outputErrorMessage(const QString &message)
     startQuitting();
 
 #ifndef QTONLY
-    KMessageBox::error(this, message, i18n("VNC failure"));
+    //KMessageBox::error(this, message, i18n("VNC failure"));
+    KMessageBox::critical(this, message, i18n("VNC failure"));
 #endif
     emit errorMessage(i18n("VNC failure"), message);
 }
@@ -341,12 +342,12 @@ void VncView::updateImage(int x, int y, int w, int h)
         setStatus(Connected);
 //         emit framebufferSizeChanged(m_frame.width(), m_frame.height());
         emit connected();
-        
+
         if (m_scale) {
             if (parentWidget())
                 scaleResize(parentWidget()->width(), parentWidget()->height());
-        } 
-        
+        }
+
         m_initDone = true;
 
 #ifndef QTONLY
@@ -438,8 +439,8 @@ void VncView::paintEvent(QPaintEvent *event)
     if (m_repaint) {
 //         kDebug(5011) << "normal repaint";
         painter.drawImage(QRect(qRound(m_x*m_horizontalFactor), qRound(m_y*m_verticalFactor),
-                                qRound(m_w*m_horizontalFactor), qRound(m_h*m_verticalFactor)), 
-                          m_frame.copy(m_x, m_y, m_w, m_h).scaled(qRound(m_w*m_horizontalFactor), 
+                                qRound(m_w*m_horizontalFactor), qRound(m_h*m_verticalFactor)),
+                          m_frame.copy(m_x, m_y, m_w, m_h).scaled(qRound(m_w*m_horizontalFactor),
                                                                   qRound(m_h*m_verticalFactor),
                                                                   Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     } else {
@@ -451,12 +452,12 @@ void VncView::paintEvent(QPaintEvent *event)
             const int sy = rect.y()/m_verticalFactor;
             const int sw = rect.width()/m_horizontalFactor;
             const int sh = rect.height()/m_verticalFactor;
-            painter.drawImage(rect, 
+            painter.drawImage(rect,
                               m_frame.copy(sx, sy, sw, sh).scaled(rect.width(), rect.height(),
                                                                   Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         } else {
 //             kDebug(5011) << "Full repaint" << width() << height() << m_frame.width() << m_frame.height();
-            painter.drawImage(QRect(0, 0, width(), height()), 
+            painter.drawImage(QRect(0, 0, width(), height()),
                               m_frame.scaled(m_frame.width() * m_horizontalFactor, m_frame.height() * m_verticalFactor,
                                              Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
         }
